@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria Instagram · @cb_renovacao</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Fira+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #080D16;
+      --card: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --text: #F0EDE6;
+      --muted: rgba(240,237,230,0.5);
+      /* Paleta: âmbar/ouro + teal/verde — renovação, esperança, comunidade */
+      --church-grad: linear-gradient(135deg, #D97706, #F59E0B, #34D399);
+      --gold: #F5C842;
+      --teal: #34D399;
+      --amber: #F59E0B;
+      --red: #F87171;
+      --silver: #A8B2C0;
+      --bronze: #CD7C42;
+      --green: #34D399;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Fira Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    .grad-text {
+      background: var(--church-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 0%, rgba(217,119,6,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 100%, rgba(52,211,153,0.10) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cover-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217,119,6,0.08) 0%, transparent 65%);
+      animation: pulse 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.7; }
+    }
+
+    .ig-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ig-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--church-grad);
+      flex-shrink: 0;
+    }
+
+    .cover h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-handle {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-handle span { font-weight: 600; color: var(--text); }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      max-width: 680px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 16px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: 'Fira Code', monospace;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .metric-sub {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── NAV ── */
+    .toc {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,13,22,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toc-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .toc-inner::-webkit-scrollbar { display: none; }
+
+    .toc a {
+      display: block;
+      padding: 14px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .toc a:hover { color: var(--text); border-bottom-color: rgba(217,119,6,0.6); }
+
+    /* ── MAIN ── */
+    main { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── SECTIONS ── */
+    .section { padding-top: 72px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-num {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: var(--church-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 0 32px;
+    }
+
+    /* ── DIAGNOSIS GRID ── */
+    .diagnosis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .diag-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+
+    .diag-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .diag-icon.good { background: rgba(52,211,153,0.15); color: var(--teal); }
+    .diag-icon.bad  { background: rgba(248,113,113,0.15); color: var(--red); }
+    .diag-icon.warn { background: rgba(245,158,11,0.15); color: var(--amber); }
+
+    .diag-label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .diag-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    /* ── BIO BLOCK ── */
+    .bio-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .bio-quote {
+      font-size: 14px;
+      color: var(--muted);
+      border-left: 3px solid rgba(245,158,11,0.5);
+      padding-left: 16px;
+      margin: 12px 0 18px;
+      line-height: 1.7;
+    }
+
+    .bio-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .bio-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .bio-tag.ok   { background: rgba(52,211,153,0.12); color: var(--teal); border: 1px solid rgba(52,211,153,0.25); }
+    .bio-tag.bad  { background: rgba(248,113,113,0.12); color: var(--red); border: 1px solid rgba(248,113,113,0.25); }
+    .bio-tag.warn { background: rgba(245,158,11,0.12); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+
+    .bio-improve {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(245,158,11,0.07);
+      border: 1px solid rgba(245,158,11,0.2);
+      border-radius: 10px;
+      padding: 12px 16px;
+      line-height: 1.55;
+    }
+
+    .bio-improve strong { color: var(--text); }
+
+    /* ── HIGHLIGHTS TABLE ── */
+    .hl-table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .hl-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .hl-table thead tr {
+      background: linear-gradient(135deg, rgba(217,119,6,0.25), rgba(52,211,153,0.15));
+    }
+
+    .hl-table thead th {
+      padding: 13px 16px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.6);
+      white-space: nowrap;
+    }
+
+    .hl-table tbody tr {
+      border-top: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .hl-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+
+    .hl-table td { padding: 12px 16px; vertical-align: top; }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-old  { background: rgba(248,113,113,0.15); color: var(--red); }
+    .status-part { background: rgba(245,158,11,0.15); color: var(--amber); }
+    .status-ok   { background: rgba(52,211,153,0.15); color: var(--teal); }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead tr {
+      background: linear-gradient(135deg, rgba(217,119,6,0.3), rgba(52,211,153,0.2));
+    }
+
+    thead th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.7);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-top: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody tr.top-row { background: rgba(217,119,6,0.05); }
+    tbody tr.low-row { background: rgba(248,113,113,0.04); }
+
+    td { padding: 12px 16px; vertical-align: middle; }
+
+    .rank-badge {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .rank-1 { background: rgba(245,200,66,0.2); color: var(--gold); border: 1px solid rgba(245,200,66,0.4); }
+    .rank-2 { background: rgba(168,178,192,0.2); color: var(--silver); border: 1px solid rgba(168,178,192,0.4); }
+    .rank-3 { background: rgba(205,124,66,0.2); color: var(--bronze); border: 1px solid rgba(205,124,66,0.4); }
+    .rank-other { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
+
+    .format-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .fmt-carrossel { background: rgba(217,119,6,0.2); color: #FBBF24; }
+    .fmt-reel      { background: rgba(52,211,153,0.15); color: #34D399; }
+    .fmt-collab    { background: rgba(99,102,241,0.2); color: #A5B4FC; }
+
+    .score-cell {
+      font-family: 'Fira Code', monospace;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .score-high { color: var(--gold); }
+    .score-mid  { color: var(--teal); }
+    .score-low  { color: var(--muted); }
+
+    /* ── ANALYSIS CARDS ── */
+    .analysis-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .post-card.good { border-color: rgba(52,211,153,0.2); }
+    .post-card.bad  { border-color: rgba(248,113,113,0.2); }
+
+    .post-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .post-pos {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .post-score {
+      font-family: 'Fira Code', monospace;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .post-score.good-score { color: var(--teal); }
+    .post-score.bad-score  { color: var(--red); }
+
+    .post-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .post-meta-item {
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .post-insight {
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      line-height: 1.55;
+    }
+
+    .post-insight strong { color: var(--text); }
+
+    /* ── COMMENTS / AUDIÊNCIA ── */
+    .comment-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+
+    .comment-quote {
+      font-size: 14px;
+      font-style: italic;
+      color: var(--text);
+      margin-bottom: 8px;
+      border-left: 3px solid rgba(245,158,11,0.5);
+      padding-left: 14px;
+      line-height: 1.6;
+    }
+
+    .comment-note {
+      font-size: 12px;
+      color: var(--muted);
+      padding-left: 17px;
+    }
+
+    .audience-insight {
+      margin-top: 20px;
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 14px;
+      padding: 18px 20px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .audience-insight strong { color: var(--text); }
+
+    /* ── INSIGHTS ── */
+    .insights-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .insight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      transition: border-color 0.2s;
+    }
+
+    .insight-item:hover { border-color: rgba(217,119,6,0.3); }
+
+    .insight-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--church-grad);
+    }
+
+    .insight-text {
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    .insight-text strong { color: var(--text); }
+
+    /* ── RECS ── */
+    .recs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .rec-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .rec-card:hover { border-color: rgba(217,119,6,0.4); transform: translateY(-2px); }
+
+    .rec-num {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--church-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 14px;
+    }
+
+    .rec-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .rec-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* ── ACTION PLAN ── */
+    .actions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .action-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      transition: border-color 0.2s;
+      align-items: start;
+    }
+
+    .action-item:hover { border-color: rgba(52,211,153,0.35); }
+
+    .action-num {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: rgba(52,211,153,0.12);
+      border: 1px solid rgba(52,211,153,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Fira Code', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--teal);
+    }
+
+    .action-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+      margin-bottom: 6px;
+    }
+
+    .action-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .action-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 12px;
+    }
+
+    .action-example {
+      font-size: 13px;
+      font-style: italic;
+      color: rgba(245,158,11,0.8);
+      background: rgba(245,158,11,0.07);
+      border: 1px solid rgba(245,158,11,0.18);
+      border-radius: 8px;
+      padding: 10px 14px;
+      line-height: 1.5;
+    }
+
+    /* ── ALERT BANNER ── */
+    .alert-banner {
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .alert-banner svg { flex-shrink: 0; color: var(--amber); }
+    .alert-banner strong { color: var(--amber); }
+
+    /* ── ICON HELPERS ── */
+    .icon-sm { width: 16px; height: 16px; }
+    .icon-md { width: 20px; height: 20px; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      .toc { display: none; }
+      .cover { min-height: auto; padding: 40px 24px; }
+      .cover::before, .cover-glow { display: none; }
+      .section { padding-top: 48px; }
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-glow" aria-hidden="true"></div>
+
+  <div class="ig-badge">
+    <div class="ig-dot" aria-hidden="true"></div>
+    Auditoria de Conteúdo · Instagram · 12/05/2026
+  </div>
+
+  <h1>
+    <span class="grad-text">Igreja CB</span><br />
+    Renovação
+  </h1>
+
+  <p class="cover-handle">Análise do perfil <span>@cb_renovacao</span> · Osasco/SP</p>
+
+  <div class="metrics-grid" role="list">
+    <div class="metric-card" role="listitem">
+      <div class="metric-label">Seguidores</div>
+      <div class="metric-value grad-text">1.153</div>
+      <div class="metric-sub">base atual</div>
+    </div>
+    <div class="metric-card" role="listitem">
+      <div class="metric-label">Posts Analisados</div>
+      <div class="metric-value grad-text">7</div>
+      <div class="metric-sub">mais recentes</div>
+    </div>
+    <div class="metric-card" role="listitem">
+      <div class="metric-label">Top Score</div>
+      <div class="metric-value grad-text">233</div>
+      <div class="metric-sub">melhor post</div>
+    </div>
+    <div class="metric-card" role="listitem">
+      <div class="metric-label">Score Médio</div>
+      <div class="metric-value grad-text">88</div>
+      <div class="metric-sub">excluindo topo</div>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="toc" aria-label="Seções do relatório">
+  <div class="toc-inner">
+    <a href="#perfil">Perfil</a>
+    <a href="#grid">Grid &amp; Stories</a>
+    <a href="#dados">Dados</a>
+    <a href="#funcionou">O que funcionou</a>
+    <a href="#audiencia">Audiência</a>
+    <a href="#falhou">O que falhou</a>
+    <a href="#insights">Insights</a>
+    <a href="#recomendacoes">Recomendações</a>
+    <a href="#plano">Plano de Ação</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- AVISO DE AMOSTRA -->
+  <div class="alert-banner" style="margin-top: 48px;" role="note">
+    <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+    <span><strong>Amostra reduzida</strong> — análise baseada nos 7 posts mais recentes. Use como primeira impressão, não como diagnóstico definitivo.</span>
+  </div>
+
+  <!-- SEÇÃO 1: PERFIL -->
+  <section class="section" id="perfil" aria-labelledby="tit-perfil">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">01</div>
+      <div>
+        <h2 class="section-title" id="tit-perfil">Perfil &amp; Bio</h2>
+        <p class="section-desc">Primeira impressão, bio, link e otimização de descoberta</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <!-- BIO -->
+    <div class="bio-block">
+      <div class="diag-label" style="margin-bottom: 6px;">Bio atual</div>
+      <div class="bio-quote">
+        Igreja<br />
+        🔔 Minha família a serviço do Reino<br />
+        🙏 Pastores: @diogenesdonizete &amp; @angelamuvim<br />
+        🔥 @change.movementt<br />
+        🏕️ @encontro_peniel25<br />
+        😍😎 @_unity00
+      </div>
+
+      <div class="diag-label" style="margin-bottom: 10px;">Diagnóstico rápido</div>
+      <div class="bio-row">
+        <span class="bio-tag bad">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          Sem localização
+        </span>
+        <span class="bio-tag bad">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          Sem CTA
+        </span>
+        <span class="bio-tag warn">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+          Palavra-chave parcial
+        </span>
+        <span class="bio-tag ok">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Link presente
+        </span>
+        <span class="bio-tag warn">
+          <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+          Linktree sem inscrição Peniel
+        </span>
+      </div>
+
+      <div class="bio-improve">
+        <strong>O que melhorar:</strong> A bio apresenta os pastores e projetos parceiros, mas não responde as perguntas básicas de um visitante novo: "o que é essa igreja?", "onde fica?", "quando posso aparecer?". Reescrever com localização, propósito e um CTA direto. Exemplo: <em>"Igreja evangélica em Osasco/SP 📍 Família a serviço do Reino · Cultos domingos às 09h45 → Junte-se a nós"</em>
+      </div>
+    </div>
+
+    <div class="diagnosis-grid">
+      <div class="diag-item">
+        <div class="diag-icon good" aria-label="Positivo">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Linktree ativo</div>
+          <div class="diag-text">linktr.ee/cbrenovacao funciona e leva ao site, Instagram e Facebook</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Sem link para evento Peniel</div>
+          <div class="diag-text">Evento aparece no grid mas não há inscrição no Linktree</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Palavras-chave ausentes</div>
+          <div class="diag-text">"Osasco", "culto", "família", "evangelização" não aparecem na bio</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Sem resposta a comentários</div>
+          <div class="diag-text">Nenhum dos 7 posts analisados teve resposta da conta @cb_renovacao</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2: GRID & STORIES -->
+  <section class="section" id="grid" aria-labelledby="tit-grid">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">02</div>
+      <div>
+        <h2 class="section-title" id="tit-grid">Grid Visual &amp; Destaques</h2>
+        <p class="section-desc">Identidade visual, coesão do feed e saúde dos highlights</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="diagnosis-grid" style="margin-bottom: 28px;">
+      <div class="diag-item">
+        <div class="diag-icon warn" aria-label="Atenção">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Identidade irregular</div>
+          <div class="diag-text">Paleta teal/verde existe, mas carrosséis de foto variam muito (P&amp;B, colorido, escuro)</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon warn" aria-label="Atenção">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Grid fragmentado</div>
+          <div class="diag-text">Alternância aleatória entre artes gráficas profissionais e fotos documentais cruas</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon good" aria-label="Positivo">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Calor humano genuíno</div>
+          <div class="diag-text">O grid comunica afeto e comunidade — algo raro e valioso para igrejas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESTAQUES -->
+    <div class="diag-label" style="margin-bottom: 14px;">Destaques de Stories</div>
+    <div class="hl-table-wrap">
+      <table class="hl-table" aria-label="Status dos destaques de stories">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tema</th>
+            <th>CTA</th>
+            <th>Visual</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">Plano de Leitura</td>
+            <td style="color:var(--muted); font-size:13px;">Plano bíblico semanal</td>
+            <td><span class="status-badge status-old">Não</span></td>
+            <td style="color:var(--teal); font-size:13px;">Consistente</td>
+            <td><span class="status-badge status-old">69 sem. atrás</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Programação CBR</td>
+            <td style="color:var(--muted); font-size:13px;">Grade semanal de atividades</td>
+            <td><span class="status-badge status-old">Não</span></td>
+            <td style="color:var(--teal); font-size:13px;">Consistente</td>
+            <td><span class="status-badge status-old">44 sem. atrás ⚠</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Localização</td>
+            <td style="color:var(--muted); font-size:13px;">Endereço físico da igreja</td>
+            <td><span class="status-badge status-ok">Maps</span></td>
+            <td style="color:var(--teal); font-size:13px;">Consistente</td>
+            <td><span class="status-badge status-old">70 sem. atrás</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bio-improve" style="margin-top: 16px;">
+      <strong>Problema urgente:</strong> Os 3 destaques têm entre 44 e 70 semanas de idade. Um visitante que clica em <em>"Programação CBR"</em> pode estar vendo informação de quase 1 ano atrás — isso gera desconfiança direta e pode custar uma presença física no culto.
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: DADOS -->
+  <section class="section" id="dados" aria-labelledby="tit-dados">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">03</div>
+      <div>
+        <h2 class="section-title" id="tit-dados">Ranking de Engajamento</h2>
+        <p class="section-desc">7 posts ordenados por desempenho · Score = Curtidas + (Comentários × 3)</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="table-wrap">
+      <table aria-label="Ranking de engajamento dos posts">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Formato</th>
+            <th>Score</th>
+            <th>Curtidas</th>
+            <th>Comentários</th>
+            <th>Tema</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="top-row">
+            <td><span class="rank-badge rank-1" aria-label="1º lugar">1</span></td>
+            <td><span class="format-badge fmt-reel">Reel</span></td>
+            <td class="score-cell score-high">233</td>
+            <td>71</td>
+            <td>54</td>
+            <td style="font-size:13px; color:var(--muted);">Bastidores cômicos do pastor no culto</td>
+          </tr>
+          <tr class="top-row">
+            <td><span class="rank-badge rank-2" aria-label="2º lugar">2</span></td>
+            <td><span class="format-badge fmt-collab">Reel collab</span></td>
+            <td class="score-cell score-high">179</td>
+            <td>68</td>
+            <td>37</td>
+            <td style="font-size:13px; color:var(--muted);">Testemunho retiro Peniel / convite evento</td>
+          </tr>
+          <tr class="top-row">
+            <td><span class="rank-badge rank-3" aria-label="3º lugar">3</span></td>
+            <td><span class="format-badge fmt-carrossel">Carrossel</span></td>
+            <td class="score-cell score-mid">88</td>
+            <td>67</td>
+            <td>7</td>
+            <td style="font-size:13px; color:var(--muted);">Culto da Família com crianças / oração pela Liz</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">4</span></td>
+            <td><span class="format-badge fmt-carrossel">Carrossel</span></td>
+            <td class="score-cell score-mid">69</td>
+            <td>51</td>
+            <td>6</td>
+            <td style="font-size:13px; color:var(--muted);">Registro do Culto da Família (4 mai)</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">5</span></td>
+            <td><span class="format-badge fmt-carrossel">Carrossel</span></td>
+            <td class="score-cell score-low">43</td>
+            <td>31</td>
+            <td>4</td>
+            <td style="font-size:13px; color:var(--muted);">Convite para o Culto da Família</td>
+          </tr>
+          <tr class="low-row">
+            <td><span class="rank-badge rank-other">6</span></td>
+            <td><span class="format-badge fmt-reel">Reel</span></td>
+            <td class="score-cell score-low">43</td>
+            <td>40</td>
+            <td>1</td>
+            <td style="font-size:13px; color:var(--muted);">Dia das Mães — mensagem das crianças</td>
+          </tr>
+          <tr class="low-row">
+            <td><span class="rank-badge rank-other">7</span></td>
+            <td><span class="format-badge fmt-reel">Reel</span></td>
+            <td class="score-cell score-low">42</td>
+            <td>33</td>
+            <td>3</td>
+            <td style="font-size:13px; color:var(--muted);">Convite para Culto de Santa Ceia</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4: O QUE FUNCIONOU -->
+  <section class="section" id="funcionou" aria-labelledby="tit-funcionou">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">04</div>
+      <div>
+        <h2 class="section-title" id="tit-funcionou">O Que Funcionou</h2>
+        <p class="section-desc">Top 2 posts com maior engajamento e por que performaram</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="analysis-grid">
+      <article class="post-card good">
+        <div class="post-card-top">
+          <div>
+            <div class="post-pos">1º lugar · Reel</div>
+            <div style="margin-top:4px;"><span class="format-badge fmt-reel">Score 233</span></div>
+          </div>
+          <div class="post-score good-score">233</div>
+        </div>
+        <div class="post-title">Bastidores cômicos do pastor no culto</div>
+        <div class="post-meta">
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            71 curtidas
+          </span>
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            54 comentários
+          </span>
+        </div>
+        <div class="post-insight">
+          <strong>Por que funcionou:</strong> Combinou humor genuíno, identificação com uma situação real do culto e menção direta a um membro da comunidade (@thiagoaraujobr). O tom não foi institucional — foi humano. Sem hashtags, sem CTA formal, mas com uma pergunta implícita que a audiência respondeu de forma espontânea. O texto na tela pausou o scroll.
+        </div>
+      </article>
+
+      <article class="post-card good">
+        <div class="post-card-top">
+          <div>
+            <div class="post-pos">2º lugar · Reel Collab</div>
+            <div style="margin-top:4px;"><span class="format-badge fmt-collab">Score 179</span></div>
+          </div>
+          <div class="post-score good-score">179</div>
+        </div>
+        <div class="post-title">Testemunho retiro Peniel / convite evento</div>
+        <div class="post-meta">
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            68 curtidas
+          </span>
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            37 comentários
+          </span>
+        </div>
+        <div class="post-insight">
+          <strong>Por que funcionou:</strong> Formato colaborativo com @encontro_peniel25 ampliou o alcance para a base do perfil parceiro. O conteúdo foi um testemunho real de casal com nome e rosto — não um post genérico. Urgência ("restam pouquíssimas vagas") + data concreta geraram CTA forte. Os comentários criaram efeito de prova social em cadeia.
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 5: O QUE A AUDIÊNCIA ESTÁ DIZENDO -->
+  <section class="section" id="audiencia" aria-labelledby="tit-audiencia">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">05</div>
+      <div>
+        <h2 class="section-title" id="tit-audiencia">O Que a Audiência Está Dizendo</h2>
+        <p class="section-desc">Análise dos comentários do melhor post (Score 233)</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="comment-block">
+      <div class="comment-quote">"A mídia da minha igreja é a melhor! 😂😂"</div>
+      <div class="comment-note">→ Orgulho de pertencimento: a audiência se identifica com a marca e quer compartilhar isso</div>
+    </div>
+
+    <div class="comment-block">
+      <div class="comment-quote">"Jurandi não quer nada com Jesus", "Vontade de tomar sorvete"</div>
+      <div class="comment-note">→ Referências internas: o reel captou algo que a própria congregação reconhece. Conteúdo de dentro para dentro.</div>
+    </div>
+
+    <div class="comment-block">
+      <div class="comment-quote">"HAAHAHHAHAHAHA CIRÚRGICO VOCÊS" — @thiagoaraujobr</div>
+      <div class="comment-note">→ O pastor mencionado comentou ativamente, alimentando ainda mais a conversa e adicionando autenticidade</div>
+    </div>
+
+    <div class="audience-insight">
+      <strong>Insight central:</strong> A audiência quer se reconhecer no conteúdo e rir junto. Quando o perfil mostra o lado humano e imperfeito da comunidade, a congregação aparece nos comentários com orgulho e pertencimento — algo que não acontece nos posts devocionais ou de convite.<br /><br />
+      <strong>Alerta:</strong> O @cb_renovacao não respondeu nenhum comentário diretamente nos 7 posts analisados. Numa comunidade de fé, onde pertencimento é central, responder um comentário pode significar mais do que um post novo.
+    </div>
+  </section>
+
+  <!-- SEÇÃO 6: O QUE NÃO FUNCIONOU -->
+  <section class="section" id="falhou" aria-labelledby="tit-falhou">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">06</div>
+      <div>
+        <h2 class="section-title" id="tit-falhou">O Que Não Funcionou</h2>
+        <p class="section-desc">Bottom 2 posts e os motivos do baixo desempenho</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="analysis-grid">
+      <article class="post-card bad">
+        <div class="post-card-top">
+          <div>
+            <div class="post-pos">6º lugar · Reel</div>
+            <div style="margin-top:4px;"><span class="format-badge fmt-reel">Score 43</span></div>
+          </div>
+          <div class="post-score bad-score">43</div>
+        </div>
+        <div class="post-title">Dia das Mães — mensagem das crianças</div>
+        <div class="post-meta">
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            40 curtidas
+          </span>
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            1 comentário
+          </span>
+        </div>
+        <div class="post-insight">
+          <strong>Por que falhou:</strong> Apenas 1 comentário em uma data comemorativa. O post é bonito mas genérico — qualquer outra igreja do Brasil poderia ter publicado a mesma coisa. Sem nome, sem rosto específico, sem história real. A data era oportunidade; o tratamento foi institucional. Se mostrasse crianças específicas com nome e reação, o resultado seria diferente.
+        </div>
+      </article>
+
+      <article class="post-card bad">
+        <div class="post-card-top">
+          <div>
+            <div class="post-pos">7º lugar · Reel</div>
+            <div style="margin-top:4px;"><span class="format-badge fmt-reel">Score 42</span></div>
+          </div>
+          <div class="post-score bad-score">42</div>
+        </div>
+        <div class="post-title">Convite para Culto de Santa Ceia</div>
+        <div class="post-meta">
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            33 curtidas
+          </span>
+          <span class="post-meta-item">
+            <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            3 comentários
+          </span>
+        </div>
+        <div class="post-insight">
+          <strong>Por que falhou:</strong> Post 100% funcional e nada mais — arte gráfica bem produzida com data, horário e local, mas zero elemento humano. "Domingo teremos mais um culto de Santa Ceia" não é um gancho; é um comunicado. Posts de convite funcionam quando há uma razão emocional de ir. Este não apresentou nenhuma.
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 7: INSIGHTS -->
+  <section class="section" id="insights" aria-labelledby="tit-insights">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">07</div>
+      <div>
+        <h2 class="section-title" id="tit-insights">Principais Insights</h2>
+        <p class="section-desc">3 conclusões fundamentais desta análise</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="insights-list">
+      <div class="insight-item">
+        <div class="insight-icon" aria-hidden="true">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>O humor e o bastidor humano são o maior ativo não explorado do perfil.</strong> O post de maior score não foi devocional nem institucional — foi uma brincadeira com o cotidiano do culto. Isso apareceu em apenas 1 dos 7 posts, mas o resultado foi tão discrepante que sinaliza claramente onde está o potencial inexplorado.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon" aria-hidden="true">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>Posts de convite/anúncio performam muito abaixo da média sem âncora emocional.</strong> Os dois mais fracos são comunicados puros: data, local, horário. A audiência não engaja com anúncios, engaja com histórias. Os carrosséis de registro performaram melhor porque tinham uma história emocional específica — família reunida, oração pela Liz internada.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon" aria-hidden="true">
+          <svg class="icon-md" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>O perfil não responde comentários — e está perdendo a chance de cultivar comunidade.</strong> Numa igreja, onde pertencimento é central, responder um comentário pode impactar presença física, não só digital. Esse padrão foi consistente em todos os 7 posts analisados.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 8: RECOMENDAÇÕES -->
+  <section class="section" id="recomendacoes" aria-labelledby="tit-recomendacoes">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">08</div>
+      <div>
+        <h2 class="section-title" id="tit-recomendacoes">Recomendações Práticas</h2>
+        <p class="section-desc">4 ações estratégicas para os próximos 30 dias</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="recs-grid">
+      <div class="rec-card">
+        <div class="rec-num" aria-label="Recomendação 1">1</div>
+        <div class="rec-title">Série recorrente de bastidores reais</div>
+        <div class="rec-desc">Criar uma série com nome fixo ("Bastidores da CBR", "O que rola antes do culto") publicada pelo menos 2x por mês. Não requer produção extra — basta ativar o celular no momento certo. Cria expectativa recorrente e diferencia o perfil de qualquer outra conta de igreja.</div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num" aria-label="Recomendação 2">2</div>
+        <div class="rec-title">Convites com história, não com comunicados</div>
+        <div class="rec-desc">Todo post de convite deve responder "por que ir?", não apenas "quando ir?". Ao invés de "Domingo teremos culto de Santa Ceia, 09h45", usar uma abertura com tensão ou micro-história que justifique emocionalmente a presença.</div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num" aria-label="Recomendação 3">3</div>
+        <div class="rec-title">Atualizar os Destaques — urgente</div>
+        <div class="rec-desc">Os 3 destaques têm entre 44 e 70 semanas de idade. A "Programação CBR" é prioridade imediata: um visitante que clica e vê informação de 1 ano atrás perde a confiança na hora de decidir se vai aparecer no domingo.</div>
+      </div>
+
+      <div class="rec-card">
+        <div class="rec-num" aria-label="Recomendação 4">4</div>
+        <div class="rec-title">Responder os 3 primeiros comentários em 2h</div>
+        <div class="rec-desc">O algoritmo favorece engajamento rápido pós-publicação. Mais do que isso, numa comunidade de fé o membro que recebe resposta da conta da igreja sente reconhecimento — e isso impacta presença física, não só digital.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 9: PLANO DE AÇÃO -->
+  <section class="section" id="plano" aria-labelledby="tit-plano">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">09</div>
+      <div>
+        <h2 class="section-title" id="tit-plano">Plano de Ação</h2>
+        <p class="section-desc">2 quick wins para implementar nos próximos 5 dias</p>
+      </div>
+    </div>
+    <div class="divider" aria-hidden="true"></div>
+
+    <div class="actions-list">
+      <div class="action-item">
+        <div class="action-num" aria-label="Ação 1">1</div>
+        <div>
+          <div class="action-tag">Quick Win · Conteúdo</div>
+          <div class="action-title">Gravar e publicar um Reel de bastidor real esta semana</div>
+          <div class="action-desc">Pode ser o som falhando, o projetor travando, o pastor ensaiando sozinho, as crianças esperando na coxia. Não precisa ser editado sofisticadamente: câmera na mão, texto de legenda na tela, tom de humor leve. O post #4 prova que isso funciona melhor do que qualquer arte gráfica.</div>
+          <div class="action-example">Publicar antes do próximo culto, com texto na tela que crie curiosidade nos primeiros 2 segundos.</div>
+        </div>
+      </div>
+
+      <div class="action-item">
+        <div class="action-num" aria-label="Ação 2">2</div>
+        <div>
+          <div class="action-tag">Quick Win · Perfil · Urgente</div>
+          <div class="action-title">Atualizar o Highlight "Programação CBR" com a grade atual</div>
+          <div class="action-desc">Criar um novo story com a programação da semana usando o template já existente (que é ótimo visualmente) e substituir o destaque atual. Essa ação leva 20 minutos e resolve um problema que qualquer visitante novo esbarra imediatamente.</div>
+          <div class="action-example">"Programação da semana" → criar um story novo com as atividades de domingo, quarta e qualquer outro culto fixo da CBR.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo grad-text">@cb_renovacao</div>
+  <p>Auditoria gerada em 12/05/2026 · 7 posts analisados · Igreja CB Renovação · Osasco/SP</p>
+  <p style="margin-top:6px; font-size:12px; opacity:0.5;">Conclusões devem ser tratadas como hipóteses de trabalho — validação requer acompanhamento de pelo menos 30 dias de conteúdo.</p>
+</footer>
+
+</body>
+</html>

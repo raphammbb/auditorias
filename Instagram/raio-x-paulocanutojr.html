@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raio-X · @paulocanutojr</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @page {
+      size: 5.5in 8.5in;
+      margin: 0.45in 0.4in;
+    }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-dim: rgba(201,168,76,0.12);
+      --gold-line: rgba(201,168,76,0.22);
+      --bg: #0A0A0A;
+      --surface: #111111;
+      --surface2: #161616;
+      --text: #E8E4DC;
+      --muted: #7A7570;
+      --danger: #C0392B;
+      --danger-dim: rgba(192,57,43,0.12);
+      --ok: #2E7D52;
+      --ok-dim: rgba(46,125,82,0.12);
+    }
+
+    html { background: var(--bg); }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 44px 24px 64px;
+      -webkit-font-smoothing: antialiased;
+      font-size: 14px;
+    }
+
+    .wrap { max-width: 660px; margin: 0 auto; }
+
+    /* ── PAGE BREAKS ── */
+    .new-page { break-before: page; }
+    .avoid-break { break-inside: avoid; }
+    .divider.new-page { height: 0; background: transparent; margin: 0; }
+
+    /* ── HEADER ── */
+    .header { margin-bottom: 36px; }
+
+    .header-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .header-eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 10vw, 56px);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .header h1 span { color: var(--gold); }
+
+    .header-sub {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .header-warning {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(201,168,76,0.75);
+      background: rgba(201,168,76,0.07);
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding: 7px 12px;
+      line-height: 1.5;
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(201,168,76,0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 36px;
+    }
+    .stat-cell {
+      background: var(--surface);
+      padding: 18px 12px;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 30px;
+      letter-spacing: 0.04em;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--gold-line);
+      margin: 28px 0;
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* ── VISÃO GERAL ── */
+    .overview-text {
+      font-size: 14px;
+      line-height: 1.85;
+      color: rgba(232,228,220,0.82);
+    }
+    .overview-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── INFO BLOCK ── */
+    .info-block {
+      background: var(--surface);
+      border-left: 3px solid rgba(201,168,76,0.35);
+      border-radius: 0 4px 4px 0;
+      padding: 18px 18px 14px;
+      margin-bottom: 12px;
+    }
+    .info-block-title {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+    }
+    .info-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+    .info-key { color: var(--muted); flex-shrink: 0; padding-top: 1px; }
+    .info-val { color: var(--text); text-align: right; font-weight: 500; line-height: 1.4; }
+    .info-val.ok { color: #5DBE8A; }
+    .info-val.warn { color: var(--gold); }
+    .info-val.bad { color: #E05C5C; }
+
+    .info-quote {
+      font-size: 12.5px;
+      font-style: italic;
+      color: rgba(232,228,220,0.6);
+      border-left: 2px solid var(--gold-line);
+      padding-left: 10px;
+      margin: 10px 0 8px;
+      line-height: 1.65;
+    }
+    .info-note {
+      font-size: 12.5px;
+      line-height: 1.75;
+      color: rgba(232,228,220,0.65);
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .info-note strong { color: rgba(232,228,220,0.85); font-weight: 600; }
+
+    /* ── DESTAQUES CARDS ── */
+    .destaque-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+    .destaque-item {
+      background: var(--surface);
+      border-radius: 4px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .destaque-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .destaque-nome { font-size: 13px; font-weight: 600; color: var(--text); }
+    .destaque-status { font-size: 11px; font-weight: 500; white-space: nowrap; flex-shrink: 0; }
+    .destaque-status.ok  { color: #5DBE8A; }
+    .destaque-status.warn { color: var(--gold); }
+    .destaque-status.bad  { color: #E05C5C; }
+    .destaque-tema { font-size: 12px; color: var(--muted); }
+
+    /* ── RANKING CARDS ── */
+    .rank-list { display: flex; flex-direction: column; gap: 6px; }
+    .rank-item {
+      background: var(--surface);
+      border-radius: 4px;
+      padding: 12px 14px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+    .rank-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 1px;
+      min-width: 44px;
+    }
+    .rank-pos {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      color: rgba(201,168,76,0.4);
+      line-height: 1;
+    }
+    .rank-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      line-height: 1;
+      color: var(--text);
+    }
+    .rank-score.best  { color: #5DBE8A; }
+    .rank-score.worst { color: #E05C5C; }
+    .rank-score-label {
+      font-size: 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .rank-right { flex: 1; min-width: 0; }
+    .rank-tema {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 2px;
+    }
+    .rank-meta { font-size: 11px; color: var(--muted); }
+
+    /* ── CARD: FUNCIONANDO ── */
+    .card {
+      border-radius: 4px;
+      padding: 22px 20px;
+      margin-bottom: 10px;
+    }
+    .card-ok {
+      background: var(--ok-dim);
+      border-left: 3px solid rgba(46,125,82,0.5);
+    }
+    .card-ok .card-icon {
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: rgba(46,125,82,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 10px;
+    }
+    .card-ok .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 19px; letter-spacing: 0.04em;
+      color: #5DBE8A; margin-bottom: 7px; line-height: 1.1;
+    }
+    .card-ok .card-text { font-size: 13px; line-height: 1.8; color: rgba(232,228,220,0.72); }
+    .card-ok .card-text strong { color: rgba(232,228,220,0.92); font-weight: 600; }
+
+    /* ── CARD: PROBLEMA ── */
+    .card-problem {
+      background: var(--surface);
+      border-left: 3px solid rgba(201,168,76,0.4);
+      padding: 22px 20px;
+    }
+    .badge-diagnostico {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gold); background: var(--gold-dim);
+      border-radius: 2px; padding: 3px 8px; margin-bottom: 12px;
+    }
+    .card-problem .card-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(18px, 4vw, 24px);
+      letter-spacing: 0.03em; line-height: 1.05;
+      color: var(--text); margin-bottom: 10px;
+    }
+    .card-problem .card-text {
+      font-size: 13px; line-height: 1.8;
+      color: rgba(232,228,220,0.72); margin-bottom: 12px;
+    }
+    .card-problem .card-text strong { color: rgba(232,228,220,0.92); font-weight: 600; }
+    .severity-tag {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 11px; font-weight: 500;
+      color: var(--danger); background: var(--danger-dim);
+      border-radius: 2px; padding: 5px 10px;
+    }
+    .severity-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--danger); flex-shrink: 0; }
+
+    /* ── INSIGHTS ── */
+    .insight-list { list-style: none; }
+    .insight-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .insight-item:last-child { border-bottom: none; }
+    .insight-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px; line-height: 1;
+      color: rgba(201,168,76,0.2); flex-shrink: 0;
+      min-width: 32px; text-align: right;
+    }
+    .insight-text { font-size: 13.5px; line-height: 1.82; color: rgba(232,228,220,0.75); padding-top: 5px; }
+    .insight-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── RECOMENDAÇÕES ── */
+    .rec-item {
+      background: var(--surface);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 4px 4px 0;
+      padding: 16px 18px;
+      margin-bottom: 8px;
+    }
+    .rec-num { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+    .rec-title { font-family: 'Bebas Neue', sans-serif; font-size: 17px; letter-spacing: 0.03em; color: var(--text); margin-bottom: 8px; line-height: 1.1; }
+    .rec-text { font-size: 13px; line-height: 1.75; color: rgba(232,228,220,0.65); }
+    .rec-text strong { color: rgba(232,228,220,0.85); font-weight: 600; }
+
+    /* ── QUICK WINS ── */
+    .quickwins-wrap { background: var(--surface); border-radius: 4px; overflow: hidden; }
+    .quickwins-header {
+      background: rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.2);
+      padding: 12px 18px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+    }
+    .quickwin-item { padding: 18px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .quickwin-item:last-child { border-bottom: none; }
+    .quickwin-label { font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
+    .quickwin-text { font-size: 13px; line-height: 1.78; color: rgba(232,228,220,0.72); }
+    .quickwin-text strong { color: var(--text); font-weight: 600; }
+
+    /* ── FOOTER ── */
+    .footer { padding-top: 40px; display: flex; flex-direction: column; gap: 4px; }
+    .footer-name { font-size: 13px; font-weight: 600; color: var(--gold); letter-spacing: 0.04em; }
+    .footer-tag  { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    svg { display: block; flex-shrink: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- ═══ PÁGINA 1 — CAPA + VISÃO GERAL ═══ -->
+    <header class="header avoid-break">
+      <div class="header-eyebrow">Auditoria Instagram · @paulocanutojr</div>
+      <h1>Raio-X<br /><span>Preliminar.</span></h1>
+      <p class="header-sub">Análise de presença digital · Instagram · 30 de abril de 2026</p>
+      <div class="header-warning">
+        ⚠ &nbsp;7 posts analisados — amostra reduzida. Use como primeira impressão, não como diagnóstico definitivo.
+      </div>
+    </header>
+
+    <div class="stats-bar avoid-break">
+      <div class="stat-cell">
+        <div class="stat-value">3.088</div>
+        <div class="stat-label">Seguidores</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-value">7</div>
+        <div class="stat-label">Posts analisados</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-value">161</div>
+        <div class="stat-label">Score máx.</div>
+      </div>
+    </div>
+
+    <p class="section-label">Visão Geral</p>
+    <p class="overview-text">
+      Paulo Canuto Jr. opera um perfil de mentor/treinador voltado para <strong>homens cristãos</strong> que enfrentam bloqueios emocionais, crise de identidade e fragilidade na paternidade. A produção audiovisual dos Reels é forte — thumbnails dramáticas, texto de alto impacto, narrativa visceral — mas a conta acusa um problema estrutural claro: <strong>o conteúdo não converte em base engajada</strong>. Com 3.088 seguidores e posts oscilando entre 15 e 89 curtidas, os números revelam uma audiência pequena e pouco ativa. O único post que destravou o engajamento genuíno foi justamente o que saiu da "fórmula" — uma foto de aniversário da esposa.
+    </p>
+
+    <!-- ═══ PÁGINA 2 — BIO, GRID E DESTAQUES ═══ -->
+    <div class="divider new-page"></div>
+
+    <p class="section-label">Bio e Link</p>
+    <div class="info-block avoid-break">
+      <div class="info-block-title">Bio atual</div>
+      <div class="info-quote">
+        Escritor(a)<br />
+        🌎 Mentor | Treinador de Pais<br />
+        📋 Identidade • Paternidade • Direção<br />
+        ⬇️ CANSOU DE VIVER O MESMO?<br />
+        VAGAS ABERTAS 👇👇👇👇
+      </div>
+      <div class="info-row"><span class="info-key">CTA na bio</span><span class="info-val ok">Sim — "Vagas abertas" + link</span></div>
+      <div class="info-row"><span class="info-key">Palavras-chave</span><span class="info-val ok">Mentor, Treinador de Pais, Paternidade</span></div>
+      <div class="info-row"><span class="info-key">Link</span><span class="info-val ok">Hotmart — Programa A.L.V.O</span></div>
+      <div class="info-row"><span class="info-key">Destino coerente</span><span class="info-val ok">Sim — alinhado com o conteúdo</span></div>
+      <div class="info-row"><span class="info-key">Categoria</span><span class="info-val bad">"Escritor(a)" — desatualizada</span></div>
+      <div class="info-note"><strong>O que melhorar:</strong> Corrigir a categoria para "Coach" ou "Mentor" e inserir um número de resultado concreto (ex: "Já ajudei X homens a destravarem sua vida").</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-label">Grid Visual</p>
+    <div class="info-block avoid-break">
+      <div class="info-row"><span class="info-key">Identidade visual</span><span class="info-val warn">Irregular, mas reconhecível</span></div>
+      <div class="info-row"><span class="info-key">Convida a seguir</span><span class="info-val warn">Parcialmente</span></div>
+      <div class="info-note">O grid tem direção visual perceptível — tons escuros, personagens masculinos, tipografia pesada em amarelo/branco/vermelho — mas sem paleta rígida. A foto de aniversário (Post 1) quebra o padrão sem ser intencional. De longe, o perfil comunica "conteúdo masculino de transformação/fé", mas carece de coesão refinada para seduzir novos seguidores.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-label">Destaques de Stories</p>
+    <div class="destaque-list">
+      <div class="destaque-item avoid-break">
+        <div class="destaque-header">
+          <span class="destaque-nome">SOBRE MIM</span>
+          <span class="destaque-status ok">Atualizado · 3 sem</span>
+        </div>
+        <span class="destaque-tema">Apresentação pessoal · Foto/texto</span>
+      </div>
+      <div class="destaque-item avoid-break">
+        <div class="destaque-header">
+          <span class="destaque-nome">Perguntas</span>
+          <span class="destaque-status warn">Recente · 13 sem</span>
+        </div>
+        <span class="destaque-tema">Respostas em vídeo (no carro)</span>
+      </div>
+      <div class="destaque-item avoid-break">
+        <div class="destaque-header">
+          <span class="destaque-nome">Pensamentos</span>
+          <span class="destaque-status bad">Abandonado · ~4 anos</span>
+        </div>
+        <span class="destaque-tema">Conteúdo reflexivo · Vídeo</span>
+      </div>
+      <div class="destaque-item avoid-break">
+        <div class="destaque-header">
+          <span class="destaque-nome">1 minuto</span>
+          <span class="destaque-status bad">Desatualizado · ~1 ano</span>
+        </div>
+        <span class="destaque-tema">Reels curtos</span>
+      </div>
+      <div class="destaque-item avoid-break">
+        <div class="destaque-header">
+          <span class="destaque-nome">Legado d Cristo</span>
+          <span class="destaque-status bad">Desatualizado · 39 sem</span>
+        </div>
+        <span class="destaque-tema">Citações teológicas · Foto/texto</span>
+      </div>
+      <div class="destaque-item avoid-break">
+        <div class="destaque-header">
+          <span class="destaque-nome">Promessas</span>
+          <span class="destaque-status bad">Abandonado · ~6 anos</span>
+        </div>
+        <span class="destaque-tema">Promessas bíblicas · Foto/texto</span>
+      </div>
+    </div>
+    <p class="info-note" style="margin-top:6px; padding-top:0; border-top:none;">4 dos 6 destaques estão abandonados ou desatualizados. <strong>Não existe nenhum destaque dedicado ao produto/mentoria (ALVO)</strong> — o ativo de conversão mais importante que falta hoje.</p>
+
+    <!-- ═══ PÁGINA 3 — RANKING ═══ -->
+    <div class="divider new-page"></div>
+
+    <p class="section-label">Ranking de Engajamento</p>
+    <p style="font-size:12px; color:var(--muted); margin-bottom:14px;">Score = curtidas + comentários × 3</p>
+    <div class="rank-list">
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#1</span>
+          <span class="rank-score best">161</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">Aniversário da esposa — 42 anos</div>
+          <div class="rank-meta">Carrossel pessoal · 65❤ · 32💬</div>
+        </div>
+      </div>
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#2</span>
+          <span class="rank-score">95</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">Seu filho sentiu sua ausência</div>
+          <div class="rank-meta">Reel · 89❤ · 2💬</div>
+        </div>
+      </div>
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#3</span>
+          <span class="rank-score">82</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">O que o marido sente e a esposa ignora</div>
+          <div class="rank-meta">Reel · 76❤ · 2💬</div>
+        </div>
+      </div>
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#4</span>
+          <span class="rank-score">76</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">Você não está atrasado, está travado</div>
+          <div class="rank-meta">Reel · 67❤ · 3💬</div>
+        </div>
+      </div>
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#5</span>
+          <span class="rank-score">52</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">ALVO — Turma aberta, inscrições</div>
+          <div class="rank-meta">Carrossel promo · 22❤ · 10💬</div>
+        </div>
+      </div>
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#6</span>
+          <span class="rank-score">38</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">Deus não se calou — bloqueio espiritual</div>
+          <div class="rank-meta">Reel · 32❤ · 2💬</div>
+        </div>
+      </div>
+      <div class="rank-item avoid-break">
+        <div class="rank-left">
+          <span class="rank-pos">#7</span>
+          <span class="rank-score worst">15</span>
+          <span class="rank-score-label">score</span>
+        </div>
+        <div class="rank-right">
+          <div class="rank-tema">Você não está cansado, está preso</div>
+          <div class="rank-meta">Reel · 15❤ · 0💬</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PÁGINA 4 — O QUE FUNCIONOU / NÃO FUNCIONOU ═══ -->
+    <div class="divider new-page"></div>
+
+    <p class="section-label">O que está funcionando — Top 2 padrões</p>
+
+    <div class="card card-ok avoid-break">
+      <div class="card-icon" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8.5L6.5 12L13 5" stroke="#5DBE8A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="card-title">Post 1 — Carrossel de aniversário (Score: 161)</h2>
+      <p class="card-text">Destoa totalmente do restante do feed e por isso funcionou. A foto com a esposa e os filhos gerou 32 comentários de parabenização — o único engajamento genuíno da amostra. O aprendizado: <strong>conteúdo com rostos reais e momentos de vida gera conexão que os Reels dramatizados não alcançam</strong>.</p>
+    </div>
+
+    <div class="card card-ok avoid-break">
+      <div class="card-icon" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8.5L6.5 12L13 5" stroke="#5DBE8A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="card-title">Post 7 — "Seu filho sentiu sua ausência" (Score: 95)</h2>
+      <p class="card-text">O melhor Reel da amostra. Acertou no tema (paternidade), imagem emocional forte e legenda curta que provoca culpa produtiva sem atacar. O tom foi <strong>provocativo-reflexivo sem ser sermão</strong> — a audiência sentiu antes de pensar.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-label">O que não está funcionando — Bottom 2 padrões</p>
+
+    <div class="card card-problem avoid-break">
+      <div class="badge-diagnostico">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 2L8 9M8 12V13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Diagnóstico
+      </div>
+      <h2 class="card-title">Post 6 — "Você não está cansado" (Score: 15)</h2>
+      <p class="card-text">Zero comentários, 15 curtidas. É o terceiro Reel em sequência com a estrutura "Você não está X, você está Y" em menos de uma semana. A audiência parou de responder. <strong>Repetição sem variação cria fadiga rápida.</strong></p>
+      <div class="severity-tag"><span class="severity-dot"></span>Saturação de formato · Fadiga do seguidor</div>
+    </div>
+
+    <div class="card card-problem avoid-break">
+      <div class="badge-diagnostico">
+        <svg width="9" height="9" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M8 2L8 9M8 12V13" stroke="#C9A84C" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Diagnóstico
+      </div>
+      <h2 class="card-title">Post 3 — "Deus não se calou" (Score: 38)</h2>
+      <p class="card-text">O tema — bloqueio espiritual — é abstrato demais. A audiência responde melhor a <strong>dores concretas e relacionais</strong>. O CTA "LINK NOS STORIES" depende de uma ação fora do contexto do post, o que reduz a conversão.</p>
+      <div class="severity-tag"><span class="severity-dot"></span>Tema abstrato · CTA dependente de stories</div>
+    </div>
+
+    <!-- ═══ PÁGINA 5 — INSIGHTS + RECOMENDAÇÕES ═══ -->
+    <div class="divider new-page"></div>
+
+    <p class="section-label">Principais Insights</p>
+    <ul class="insight-list">
+      <li class="insight-item avoid-break">
+        <span class="insight-num">01</span>
+        <p class="insight-text"><strong>Paternidade e casamento superam espiritualidade abstrata em engajamento.</strong> Os dois Reels mais fortes tratam de ausência paterna e dinâmica matrimonial. Os dois mais fracos abordam espiritualidade de forma genérica.</p>
+      </li>
+      <li class="insight-item avoid-break">
+        <span class="insight-num">02</span>
+        <p class="insight-text"><strong>Conteúdo pessoal gera mais conexão que conteúdo de fórmula.</strong> O único post com o rosto real de Paulo bateu todos os Reels dramatizados em comentários. A audiência ainda está no estágio de "seguir a pessoa", não de "consumir o método".</p>
+      </li>
+      <li class="insight-item avoid-break">
+        <span class="insight-num">03</span>
+        <p class="insight-text"><strong>A mesma fórmula narrativa 3 vezes em 4 dias criou fadiga visível.</strong> Posts 4, 6 e 7 usam a estrutura "Você não está X, você está Y" — os dois últimos caíram progressivamente em score.</p>
+      </li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <p class="section-label">Recomendações Práticas</p>
+
+    <div class="rec-item avoid-break">
+      <div class="rec-num">Recomendação 01</div>
+      <div class="rec-title">Criar destaque "ALVO" ou "Mentoria" imediatamente</div>
+      <p class="rec-text">Qualquer visitante que chegar por um Reel não tem onde saber mais além do link na bio. <strong>Um destaque com depoimentos, explicação do programa e CTA seria o ativo de conversão mais valioso que falta hoje.</strong></p>
+    </div>
+
+    <div class="rec-item avoid-break">
+      <div class="rec-num">Recomendação 02</div>
+      <div class="rec-title">Incluir o rosto de Paulo sistematicamente nos Reels</div>
+      <p class="rec-text">O Post 1 provou que rosto real e contexto de vida pessoal geram conexão que thumbnails dramáticas não replicam. Reels onde Paulo fala direto para a câmera devem ser parte do fluxo regular, <strong>não apenas em datas especiais.</strong></p>
+    </div>
+
+    <div class="rec-item avoid-break">
+      <div class="rec-num">Recomendação 03</div>
+      <div class="rec-title">Responder comentários de interesse no produto</div>
+      <p class="rec-text">No Post 2 (ALVO), vários comentários pediram informações e Paulo não respondeu. <strong>Cada comentário de interesse é um lead quente desperdiçado em público.</strong> Responder com DM ou link gera conversão direta.</p>
+    </div>
+
+    <div class="rec-item avoid-break">
+      <div class="rec-num">Recomendação 04</div>
+      <div class="rec-title">Diversificar formatos além do Reel de fórmula</div>
+      <p class="rec-text">Dos 7 posts, 5 são Reels com a mesma estrutura. Carrosséis educativos ou reflexões em texto longo atingiriam <strong>diferentes momentos de consumo da audiência.</strong></p>
+    </div>
+
+    <!-- ═══ PÁGINA 6 — QUICK WINS ═══ -->
+    <div class="divider new-page"></div>
+
+    <p class="section-label">Quick Wins — Próximos 5 dias</p>
+
+    <div class="quickwins-wrap avoid-break">
+      <div class="quickwins-header">Ações de alto impacto, custo zero</div>
+      <div class="quickwin-item">
+        <div class="quickwin-label">Quick Win 01</div>
+        <p class="quickwin-text"><strong>Arquivar os destaques abandonados e criar um destaque "ALVO"</strong> com 5 a 8 slides apresentando o programa, depoimentos e link direto. Custo: zero. Impacto: qualquer visitante via Reel terá um caminho claro de conversão.</p>
+      </div>
+      <div class="quickwin-item">
+        <div class="quickwin-label">Quick Win 02</div>
+        <p class="quickwin-text"><strong>Publicar um Reel em que Paulo fale direto para a câmera, sem edição dramática</strong> — apenas ele, 30 a 60 segundos, sobre uma dor do nicho. O estilo "gravado no carro" dos destaques "Perguntas" tem alto potencial de autenticidade e quebraria o padrão visual do grid de forma estratégica.</p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <p class="footer-name">Agência Logos</p>
+      <p class="footer-tag">Auditoria Instagram · @paulocanutojr · 30 de abril de 2026</p>
+    </footer>
+
+  </main>
+</body>
+</html>

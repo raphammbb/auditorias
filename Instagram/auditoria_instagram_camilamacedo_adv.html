@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria Instagram — @camilamacedo_adv</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    :root {
+      --bg:       #0D1B2A;
+      --bg2:      #112233;
+      --bg3:      #152A3E;
+      --card:     #1A3044;
+      --card2:    #1E3750;
+      --border:   rgba(201,168,76,0.18);
+      --border2:  rgba(255,255,255,0.07);
+      --gold:     #C9A84C;
+      --gold-lt:  #E0C06A;
+      --gold-dim: rgba(201,168,76,0.12);
+      --text:     #F0EFE9;
+      --muted:    #8FA0B0;
+      --green:    #3DBE7A;
+      --red:      #E05252;
+      --yellow:   #E8A835;
+      --slate:    #3D4F5C;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* ── UTILITIES ── */
+    .gold-text {
+      background: linear-gradient(135deg, #C9A84C 0%, #E8D48A 50%, #C9A84C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section { padding: 80px 24px; }
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .section-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    h2.section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 640px;
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 16px 0 32px;
+    }
+
+    /* ── HERO / COVER ── */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 40%, rgba(201,168,76,0.10) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(13,27,42,0) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .cover-glow {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 65%);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
+    }
+
+    .cover-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 32px;
+      letter-spacing: 0.05em;
+    }
+
+    .cover-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+
+    .cover-icon {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 28px;
+    }
+
+    .cover-icon svg {
+      width: 72px;
+      height: 72px;
+    }
+
+    .cover h1 {
+      position: relative;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+
+    .cover-subtitle {
+      position: relative;
+      color: var(--muted);
+      font-size: clamp(14px, 2vw, 16px);
+      margin-bottom: 48px;
+      max-width: 540px;
+    }
+
+    .cover-subtitle strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── METRIC CARDS ── */
+    .metrics-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      width: 100%;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 640px) {
+      .metrics-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .metric-card:hover {
+      border-color: var(--border);
+      transform: translateY(-2px);
+    }
+
+    .metric-card.alert {
+      border-color: rgba(224,82,82,0.3);
+      background: rgba(224,82,82,0.06);
+    }
+
+    .metric-card .metric-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .metric-card .metric-label {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .metric-card .metric-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .metric-card.alert .metric-value { color: var(--red); }
+    .metric-card:not(.alert) .metric-value { color: var(--gold-lt); }
+
+    /* ── AVISO AMOSTRA ── */
+    .sample-warning {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(232,168,53,0.08);
+      border: 1px solid rgba(232,168,53,0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 40px;
+      font-size: 14px;
+      color: #D4A84A;
+    }
+
+    .sample-warning svg { flex-shrink: 0; margin-top: 1px; }
+
+    /* ── CARD PADRÃO ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover { border-color: var(--border); }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .card-body {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .card-body strong { color: var(--text); font-weight: 600; }
+
+    /* ── PILL BADGES ── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .pill-green { background: rgba(61,190,122,0.12); color: var(--green); border: 1px solid rgba(61,190,122,0.25); }
+    .pill-red   { background: rgba(224,82,82,0.12);  color: var(--red);   border: 1px solid rgba(224,82,82,0.25); }
+    .pill-yellow{ background: rgba(232,168,53,0.12); color: var(--yellow);border: 1px solid rgba(232,168,53,0.25); }
+    .pill-gold  { background: var(--gold-dim);       color: var(--gold);  border: 1px solid var(--border); }
+
+    /* ── DIAGNÓSTICO DO GANCHO ── */
+    .gancho-card {
+      background: rgba(224,82,82,0.06);
+      border: 1px solid rgba(224,82,82,0.3);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .gancho-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .gancho-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(224,82,82,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .gancho-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .gancho-sub { font-size: 13px; color: var(--muted); }
+
+    .gancho-row {
+      margin-bottom: 16px;
+    }
+
+    .gancho-row-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+
+    .gancho-row-text {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .gancho-row-text strong { color: var(--text); }
+
+    .code-snippet {
+      display: inline-block;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 2px 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: var(--red);
+    }
+
+    /* ── BIO E LINK ── */
+    .bio-box {
+      background: var(--bg3);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border2);
+      font-size: 14px;
+    }
+
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .info-row .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .info-row .value { color: var(--muted); }
+    .info-row .value strong { color: var(--text); }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border2);
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead th {
+      background: var(--bg3);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 12px 16px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-top: 1px solid var(--border2);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+    tbody td {
+      padding: 12px 16px;
+      color: var(--muted);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    tbody td strong { color: var(--text); font-weight: 600; }
+
+    .score-badge {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .score-high { background: rgba(61,190,122,0.15); color: var(--green); border: 1px solid rgba(61,190,122,0.3); }
+    .score-mid  { background: rgba(232,168,53,0.15);  color: var(--yellow); border: 1px solid rgba(232,168,53,0.3); }
+    .score-low  { background: rgba(224,82,82,0.15);   color: var(--red); border: 1px solid rgba(224,82,82,0.3); }
+
+    /* ── RANKING ── */
+    .rank-list { display: flex; flex-direction: column; gap: 12px; }
+
+    .rank-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      transition: border-color 0.2s;
+    }
+
+    .rank-item:hover { border-color: var(--border); }
+
+    .rank-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gold);
+      min-width: 28px;
+      text-align: center;
+    }
+
+    .rank-bar-wrap {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .rank-bar-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .rank-bar-label .theme {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .rank-bar-label .score {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .bar-track {
+      height: 6px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-lt) 100%);
+      transition: width 0.6s ease;
+    }
+
+    /* ── TOP/BOTTOM POSTS ── */
+    .post-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .post-card:hover { border-color: var(--border); }
+
+    .post-card.top { border-left: 3px solid var(--green); }
+    .post-card.bottom { border-left: 3px solid var(--red); }
+
+    .post-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .post-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .post-body strong { color: var(--text); }
+
+    /* ── INSIGHTS ── */
+    .insight-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .insight-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .insight-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .insight-text { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .insight-text strong { color: var(--text); }
+
+    /* ── RECOMENDAÇÕES ── */
+    .rec-list { display: flex; flex-direction: column; gap: 16px; }
+
+    .rec-item {
+      display: flex;
+      gap: 16px;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 22px;
+      transition: border-color 0.2s;
+    }
+
+    .rec-item:hover { border-color: var(--border); }
+
+    .rec-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .rec-content { flex: 1; }
+
+    .rec-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .rec-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── QUICK WINS ── */
+    .qw-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .qw-item {
+      display: flex;
+      gap: 14px;
+      background: rgba(201,168,76,0.05);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .qw-tag {
+      flex-shrink: 0;
+      padding: 4px 12px;
+      background: var(--gold-dim);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      white-space: nowrap;
+      height: fit-content;
+      margin-top: 2px;
+    }
+
+    .qw-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .qw-body strong { color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border2);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── RAIO-X TWO-COL ── */
+    .rx-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .rx-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .rx-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    .rx-card.strength { border-top: 3px solid var(--green); }
+    .rx-card.weakness { border-top: 3px solid var(--red); }
+
+    .rx-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .rx-card.strength .rx-card-label { color: var(--green); }
+    .rx-card.weakness .rx-card-label { color: var(--red); }
+
+    .rx-card-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .rx-card-text strong { color: var(--text); }
+
+    /* ── HIGHLIGHTS TABLE ── */
+    .highlights-note {
+      background: rgba(224,82,82,0.06);
+      border: 1px solid rgba(224,82,82,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .highlights-note strong { color: var(--text); }
+
+    /* ── COMMENTS SECTION ── */
+    .comment-empty {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+    }
+
+    .comment-empty svg { margin: 0 auto 16px; display: block; opacity: 0.3; }
+
+    .comment-empty p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .comment-empty strong { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .section { padding: 60px 16px; }
+      .card, .gancho-card, .post-card, .rec-item, .qw-item { padding: 18px; }
+    }
+
+    /* ── GRID VISUAL ── */
+    .grid-visual-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    @media (min-width: 540px) {
+      .grid-visual-stats { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .gv-stat {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .gv-stat .gv-label { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+
+    .gv-stat .gv-pill {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13,27,42,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border2);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .nav-handle {
+      font-size: 13px;
+      color: var(--gold);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Auditoria Instagram</span>
+  <span class="nav-handle">@camilamacedo_adv</span>
+</nav>
+
+<!-- HERO -->
+<section class="cover">
+  <div class="cover-glow"></div>
+
+  <div class="cover-badge">
+    <span class="dot"></span>
+    Auditoria de Conteúdo &middot; Instagram &middot; 22/05/2026
+  </div>
+
+  <!-- Scales icon -->
+  <div class="cover-icon">
+    <svg viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="36" cy="36" r="36" fill="rgba(201,168,76,0.1)"/>
+      <g stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="36" y1="18" x2="36" y2="54"/>
+        <line x1="22" y1="26" x2="50" y2="26"/>
+        <path d="M22 26 L16 38 Q19 44 22 38 Q25 44 28 38 Z"/>
+        <path d="M50 26 L44 38 Q47 44 50 38 Q53 44 56 38 Z"/>
+        <line x1="28" y1="54" x2="44" y2="54"/>
+      </g>
+    </svg>
+  </div>
+
+  <h1 class="gold-text">Manual de Boas Práticas</h1>
+
+  <p class="cover-subtitle">
+    Análise de desempenho para <strong>@camilamacedo_adv</strong> &middot; Camila Macedo Advocacia
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-value">7</div>
+      <div class="metric-label">Posts Analisados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">1.008</div>
+      <div class="metric-label">Seguidores</div>
+    </div>
+    <div class="metric-card alert">
+      <div class="metric-value">6 meses</div>
+      <div class="metric-label">Sem Posts</div>
+      <div class="metric-sub">Último: 19/11/2025</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">5,2<span style="font-size:1rem;color:var(--muted)">/10</span></div>
+      <div class="metric-label">Score Geral</div>
+    </div>
+  </div>
+</section>
+
+<!-- VISÃO GERAL -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Diagnóstico Inicial</span>
+    <h2 class="section-title">Visão Geral do Perfil</h2>
+    <div class="divider"></div>
+
+    <div class="sample-warning">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+      <span><strong>Amostra reduzida</strong> — 7 posts analisados. Use como primeira impressão, não como diagnóstico definitivo.</span>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        O perfil comunica um nicho bem definido e juridicamente específico — isenção de IR para aposentados com doenças graves — mas está <strong>completamente parado há 6 meses</strong> (último post: 19/11/2025). O visual é consistente e bem produzido para um perfil de advocacia, mas o engajamento é baixo mesmo considerando a base pequena de 1.008 seguidores. O único destaque de stories está fora do padrão da marca, e o único CTA do perfil (o link na bio) tem um <strong>bug técnico</strong> que corrompe a mensagem pré-preenchida no WhatsApp.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RAIO-X DO PERFIL -->
+<section class="section">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Raio-X</span>
+    <h2 class="section-title">Raio-X do Perfil</h2>
+    <div class="divider"></div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="info-row">
+        <span class="label">Perfil</span>
+        <span class="value"><strong>@camilamacedo_adv</strong></span>
+      </div>
+      <div class="info-row">
+        <span class="label">Segmento / Nicho</span>
+        <span class="value">Advocacia tributária com foco em isenção de Imposto de Renda para aposentados e pensionistas com doenças graves (neoplasias, cardiopatia, etc). Conta classificada como <strong>"Produto/serviço"</strong>.</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Nível de Atividade Real</span>
+        <span class="value">O post mais recente é de <strong>19 de novembro de 2025</strong> — ou seja, o perfil está parado há aproximadamente 6 meses (desde maio de 2026). Os posts da primeira fileira do grid (posições 1, 2 e 3) têm datas de 19/11, 17/11 e 14/11 de 2025, e não há nenhuma indicação de pin/fixado. A conta simplesmente parou de postar.</span>
+      </div>
+    </div>
+
+    <div class="rx-grid">
+      <div class="rx-card strength">
+        <div class="rx-card-label">Ponto Forte</div>
+        <div class="rx-card-text">O visual dos posts é consistente e bem produzido — identidade visual com logo <strong>"Camila Macedo / CM"</strong>, paleta de cores coesa (azul-petróleo, branco, dourado), carrosséis com estrutura didática e textos que geram gatilho de curiosidade no nicho certo. A bio é clara e direta: diz exatamente o que faz e para quem.</div>
+      </div>
+      <div class="rx-card weakness">
+        <div class="rx-card-label">Ponto Fraco</div>
+        <div class="rx-card-text">O link da bio é um wa.me com mensagem pré-preenchida — mas a URL está com <strong>duplo encoding</strong> (%252C, %2520). Quem clica e abre o WhatsApp recebe uma mensagem em texto poluído com %2C e %20 no lugar de vírgula e espaço. Além disso, o único Destaque tem uma capa que é um print de outra página — completamente fora do padrão visual dos posts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNÓSTICO DO GANCHO -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Gancho Crítico</span>
+    <h2 class="section-title">Diagnóstico do Gancho</h2>
+    <div class="divider"></div>
+
+    <div class="gancho-card">
+      <div class="gancho-header">
+        <div class="gancho-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E05252" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div>
+          <div class="gancho-title">Link da bio com URL mal formatada</div>
+          <div class="gancho-sub">Duplo encoding na mensagem pré-preenchida do WhatsApp</div>
+        </div>
+        <span class="pill pill-red" style="margin-left:auto;">Alto Impacto</span>
+      </div>
+
+      <div class="gancho-row">
+        <div class="gancho-row-label">Problema Escolhido</div>
+        <div class="gancho-row-text">Link da bio com URL mal formatada (duplo encoding).</div>
+      </div>
+
+      <div class="gancho-row">
+        <div class="gancho-row-label">Evidência Concreta</div>
+        <div class="gancho-row-text">
+          A URL do link contém <span class="code-snippet">%252C</span> e <span class="code-snippet">%2520</span> onde deveria ter simplesmente <span class="code-snippet">,</span> e <span class="code-snippet"> </span> (espaço). Isso significa que quem clica para falar com a Camila pelo WhatsApp recebe uma mensagem pré-escrita cheia de caracteres estranhos — algo como <span class="code-snippet">Ol%C3%A1%2C%20gostaria%20de%20saber%20mais...</span> — em vez do texto limpo que ela configurou.
+        </div>
+      </div>
+
+      <div class="gancho-row">
+        <div class="gancho-row-label">Por que isso importa</div>
+        <div class="gancho-row-text">O objetivo inteiro do link na bio é <strong>converter o visitante em contato</strong>. Se a primeira mensagem que o potencial cliente envia aparece quebrada, passa a impressão de erro ou descuido, e quem não entende tecnologia provavelmente fecha sem mandar nada.</div>
+      </div>
+
+      <div class="gancho-row" style="margin-bottom:0;">
+        <div class="gancho-row-label">Severidade</div>
+        <div class="gancho-row-text"><strong>Alto impacto</strong> — é o único CTA do perfil inteiro (não tem link tree, não tem outro botão de contato), e está com defeito funcional visível.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BIO E LINK -->
+<section class="section">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Perfil</span>
+    <h2 class="section-title">Bio e Link</h2>
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="card-title">Bio Atual</div>
+      <div class="bio-box">
+        ⚖️ Advogada defensora de aposentados com doenças graves<br/>
+        💰 Te ajudo a parar de pagar IR injusto | IRZERO<br/>
+        Descubra se sua família tem direito agora ⬇️
+      </div>
+      <div class="info-row">
+        <span class="label">Avaliação</span>
+        <span class="value">Clara e estratégica — em 3 linhas comunica quem é, o que faz, para quem e o que o visitante deve fazer a seguir.</span>
+      </div>
+      <div class="info-row">
+        <span class="label">CTA na Bio</span>
+        <span class="value">Sim — seta apontando para o link + <strong>"Descubra se sua família tem direito agora"</strong></span>
+      </div>
+      <div class="info-row">
+        <span class="label">Palavras-chave</span>
+        <span class="value">Sim — <strong>"aposentados"</strong>, <strong>"doenças graves"</strong>, <strong>"IR"</strong>, <strong>"IRZERO"</strong>, <strong>"isenção"</strong> (implícita)</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Link</span>
+        <span class="value">Presente | Tipo: Link direto (wa.me WhatsApp) | Destino coerente: Sim</span>
+      </div>
+      <div class="info-row" style="border-bottom:none;">
+        <span class="label">Problema Crítico</span>
+        <span class="value" style="color:var(--red);">A URL contém duplo encoding (%252C, %2520), o que faz a mensagem pré-preenchida chegar corrompida ao destinatário, exibindo %2C e %20 no lugar de vírgula e espaço.</span>
+      </div>
+    </div>
+
+    <div class="card" style="background:rgba(201,168,76,0.04);border-color:var(--border);">
+      <div class="card-title" style="color:var(--gold);">O que melhorar</div>
+      <div class="card-body">
+        Corrigir a URL do WhatsApp (remover a dupla codificação) e considerar substituir pelo <strong>Linktree</strong> para adicionar mais CTAs — uma landing page, um quiz de elegibilidade, ou um link para conteúdo específico.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRID VISUAL -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Estética</span>
+    <h2 class="section-title">Grid Visual</h2>
+    <div class="divider"></div>
+
+    <div class="card">
+      <div class="grid-visual-stats">
+        <div class="gv-stat">
+          <div class="gv-label">Identidade Visual</div>
+          <span class="gv-pill pill-green">Coesa</span>
+        </div>
+        <div class="gv-stat">
+          <div class="gv-label">Convida a Seguir</div>
+          <span class="gv-pill pill-yellow">Parcial</span>
+        </div>
+        <div class="gv-stat">
+          <div class="gv-label">Paleta</div>
+          <span class="gv-pill pill-gold">Azul-petróleo + Dourado</span>
+        </div>
+      </div>
+
+      <div style="margin-top:20px;" class="card-body">
+        <p style="margin-bottom:10px;"><strong>Identidade visual:</strong> Coesa — paleta azul-petróleo/branco/dourado aplicada de forma consistente, logo "CM / Camila Macedo" presente em praticamente todos os posts, tipografia uniforme nos carrosséis.</p>
+        <p style="margin-bottom:10px;"><strong>Convida a seguir:</strong> Parcialmente — o visual é profissional e organizado, mas a ausência de posts nos últimos 6 meses dá a impressão de perfil abandonado para quem visita pela primeira vez.</p>
+        <p><strong>Avaliação:</strong> Grid bem diagramado e com identidade visual acima da média para advogados, mas o "silêncio" dos últimos meses prejudica qualquer impressão positiva que o visual criaria.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DESTAQUES DE STORIES -->
+<section class="section">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Stories</span>
+    <h2 class="section-title">Destaques de Stories</h2>
+    <div class="divider"></div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Slides</th>
+            <th>Tema</th>
+            <th>Tipos de Conteúdo</th>
+            <th>CTA</th>
+            <th>Visual</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Destaques</strong></td>
+            <td><span class="pill pill-yellow">1</span></td>
+            <td>Divulgação de novo perfil no Facebook</td>
+            <td>Print de tela (screenshot externo) + texto + link para Facebook.com</td>
+            <td><span class="pill pill-yellow">Sim — Facebook.com</span></td>
+            <td><span class="pill pill-red">Sem identidade visual</span></td>
+            <td><span class="pill pill-red">Desatualizado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlights-note">
+      <strong>Avaliação rápida:</strong> O único destaque existente contradiz toda a identidade visual do perfil — é um print bruto de tela com texto genérico pedindo para curtirem a página no Facebook. Não representa o serviço, não captura leads e não responde nenhuma dúvida do público. Para um perfil que vende um serviço jurídico específico, a ausência de destaques com FAQ, depoimentos, explicação do processo ou casos de sucesso é uma <strong>lacuna grave</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- RANKING DE ENGAJAMENTO -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Performance</span>
+    <h2 class="section-title">Ranking de Engajamento</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Post 3 excluído do score — curtidas exibidas como "curtido por X e outras pessoas" sem número preciso.</p>
+
+    <div class="rank-list">
+      <div class="rank-item">
+        <div class="rank-num">1º</div>
+        <div class="rank-bar-wrap">
+          <div class="rank-bar-label">
+            <span class="theme">Post 2 — Documentos obrigatórios para isenção</span>
+            <span class="score">11 <span style="font-size:11px;color:var(--muted);">curtidas</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div>
+        </div>
+        <span class="pill pill-green">Carrossel</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">1º</div>
+        <div class="rank-bar-wrap">
+          <div class="rank-bar-label">
+            <span class="theme">Post 5 — Laudo errado nega isenção — risco técnico</span>
+            <span class="score">11 <span style="font-size:11px;color:var(--muted);">curtidas</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div>
+        </div>
+        <span class="pill pill-green">Carrossel</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">3º</div>
+        <div class="rank-bar-wrap">
+          <div class="rank-bar-label">
+            <span class="theme">Post 1 — 5 mentiras sobre isenção de IR</span>
+            <span class="score">6 <span style="font-size:11px;color:var(--muted);">curtidas</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:54.5%;"></div></div>
+        </div>
+        <span class="pill pill-yellow">Carrossel</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">3º</div>
+        <div class="rank-bar-wrap">
+          <div class="rank-bar-label">
+            <span class="theme">Post 6 — Aposentado com câncer em remissão ainda tem direito</span>
+            <span class="score">6 <span style="font-size:11px;color:var(--muted);">curtidas</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:54.5%;"></div></div>
+        </div>
+        <span class="pill pill-yellow">Carrossel</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">5º</div>
+        <div class="rank-bar-wrap">
+          <div class="rank-bar-label">
+            <span class="theme">Post 7 — Seu pai teve câncer — ele pode ter isenção</span>
+            <span class="score">5 <span style="font-size:11px;color:var(--muted);">curtidas</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:45.4%;"></div></div>
+        </div>
+        <span class="pill pill-yellow">Carrossel</span>
+      </div>
+      <div class="rank-item">
+        <div class="rank-num">6º</div>
+        <div class="rank-bar-wrap">
+          <div class="rank-bar-label">
+            <span class="theme">Post 4 — 16 doenças que garantem isenção total</span>
+            <span class="score">3 <span style="font-size:11px;color:var(--muted);">curtidas</span></span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:27.3%;background:linear-gradient(90deg,var(--red),#E87070);"></div></div>
+        </div>
+        <span class="pill pill-red">Carrossel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE ESTÁ FUNCIONANDO -->
+<section class="section">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Top Conteúdo</span>
+    <h2 class="section-title">O que está funcionando — Top 2 padrões</h2>
+    <div class="divider"></div>
+
+    <div class="post-card top">
+      <div class="post-header">
+        <div class="post-title">Post 2 — "DOCUMENTOS OBRIGATÓRIOS" <span style="color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;">(11 curtidas)</span></div>
+        <span class="pill pill-green">1º lugar</span>
+      </div>
+      <div class="post-body">
+        Funcionou pela <strong>utilidade prática imediata</strong> e pela estrutura de lista simples e direta. A legenda é curta e objetiva — nada de introdução longa — e entrega valor em formato de checklist. O visual com a Camila em posição de autoridade (confiante, olhando para o leitor) combinado com o título imperativo <strong>"Comprove sua aposentadoria ou pensão"</strong> cria senso de ação. É o post mais "salvável" da amostra, o que provavelmente explica a performance: quem precisa desse serviço salva esse post para consultar depois.
+      </div>
+    </div>
+
+    <div class="post-card top">
+      <div class="post-header">
+        <div class="post-title">Post 5 — "A PALAVRA ERRADA NO LAUDO" <span style="color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;">(11 curtidas)</span></div>
+        <span class="pill pill-green">1º lugar</span>
+      </div>
+      <div class="post-body">
+        Funcionou pelo <strong>gatilho de risco e perda</strong>. A frase de abertura <em>"A palavra errada no laudo pode negar sua isenção de IR"</em> gera tensão imediata em quem está no processo ou pensa em entrar. O CTA está integrado organicamente na narrativa (<em>"A assessoria jurídica não é luxo. É proteção"</em>) e a legenda termina com a oferta de análise gratuita sem soar como anúncio. É o post mais persuasivo da amostra — combina <strong>alerta, prova de credibilidade e convite de baixo risco</strong>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMENTÁRIOS -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Audiência</span>
+    <h2 class="section-title">O que a Audiência está Dizendo</h2>
+    <div class="divider"></div>
+    <p class="section-desc">Posts 2 e 5 empatados — analisado o Post 2, post mais informacional.</p>
+
+    <div class="comment-empty">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <p style="margin-bottom:8px;"><strong>Nenhum comentário registrado em todos os 7 posts.</strong></p>
+      <p>Tipos predominantes: nenhum | Perguntas da audiência: nenhuma | O perfil responde: N/A</p>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-title">Insight</div>
+      <div class="card-body">
+        A ausência total de comentários em todos os 7 posts é um sinal preocupante — pode indicar audiência ainda pequena e pouco engajada, mas também <strong>ausência de estratégias de geração de conversa</strong> (perguntas abertas no final das legendas, convite explícito para comentar são raros ou genéricos). Das 7 legendas, apenas 2 fazem perguntas explícitas à audiência (Posts 4 e 5), e mesmo essas perguntas são fechadas ("você tem essas doenças?"). Nenhum post convida ativamente a comentar, marcar alguém ou compartilhar uma experiência. É impossível determinar se a audiência está silenciosa por desinteresse ou por falta de estímulo com apenas 7 posts.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE NÃO ESTÁ FUNCIONANDO -->
+<section class="section">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Bottom Conteúdo</span>
+    <h2 class="section-title">O que não está funcionando — Bottom 2 padrões</h2>
+    <div class="divider"></div>
+
+    <div class="post-card bottom">
+      <div class="post-header">
+        <div class="post-title">Post 4 — "16 DOENÇAS" <span style="color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;">(3 curtidas) — pior score</span></div>
+        <span class="pill pill-red">6º lugar</span>
+      </div>
+      <div class="post-body">
+        Contraditório, porque é o post de <strong>maior valor informacional</strong> da amostra — lista completa de 16 doenças, explicação do direito de restituição, pergunta direta à audiência. O problema provável é o excesso de conteúdo em texto corrido na legenda sem formatação visual que ajude a leitura no celular. Além disso, o visual do post (ancião segurando caneca) não cria urgência ou identificação clara com o público que já tem a doença — cria distância emocional em vez de aproximação. Hipótese: posts muito longos com lista pura podem ter sofrido queda no alcance pelo próprio algoritmo.
+      </div>
+    </div>
+
+    <div class="post-card bottom">
+      <div class="post-header">
+        <div class="post-title">Post 7 — "SEU PAI TEVE CÂNCER?" <span style="color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:400;">(5 curtidas)</span></div>
+        <span class="pill pill-red">5º lugar</span>
+      </div>
+      <div class="post-body">
+        É o post mais emocional da amostra em termos de visual (foto de idoso com <strong>"ISENTO POR LEI"</strong> carimbado), mas a legenda não aproveita esse gancho emocional — é informativa e fria, sem uma frase de abertura impactante. A legenda começa com <em>"Se o seu pai já enfrentou um câncer e recebe aposentadoria..."</em> — uma condicional longa que dissipa a emoção que o visual criou. Falta de CTA explícito no final (termina com <em>"alívio financeiro real para quem já enfrentou demais"</em> — bonito, mas sem call to action).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPAIS INSIGHTS -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Síntese</span>
+    <h2 class="section-title">Principais Insights</h2>
+    <div class="divider"></div>
+
+    <div class="insight-list">
+      <div class="insight-item">
+        <div class="insight-num">1</div>
+        <div class="insight-text">
+          <strong>Conteúdo utilitário e de alerta performam melhor que conteúdo informativo puro.</strong> Os posts que funcionaram entregam ou uma checklist prática (Post 2) ou um aviso de risco concreto (Post 5). Os posts que tentam "ensinar" com listas longas (Post 4) ou contar histórias (Post 7) tiveram desempenho inferior — nessa amostra, o que o público salva e curte é o que tem <strong>aplicação imediata</strong>.
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">2</div>
+        <div class="insight-text">
+          <strong>Zero comentários em todos os 7 posts indica ausência de estratégia de conversa.</strong> Das 7 legendas, apenas 2 fazem perguntas explícitas à audiência (Posts 4 e 5), e mesmo essas perguntas são fechadas ("você tem essas doenças?"). Nenhum post convida ativamente a comentar, marcar alguém ou compartilhar uma experiência.
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-num">3</div>
+        <div class="insight-text">
+          <strong>O perfil está completamente estagnado.</strong> O último post é de novembro de 2025 — 6 meses de silêncio. Para um negócio baseado em confiança e autoridade jurídica, essa inatividade é duplamente prejudicial: prejudica o alcance orgânico pelo algoritmo e corrói a percepção de credibilidade de quem visita o perfil.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMENDAÇÕES PRÁTICAS -->
+<section class="section">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Plano de Ação</span>
+    <h2 class="section-title">Recomendações Práticas</h2>
+    <div class="divider"></div>
+
+    <div class="rec-list">
+      <div class="rec-item">
+        <div class="rec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+          </svg>
+        </div>
+        <div class="rec-content">
+          <div class="rec-title">1. Retomar a publicação imediatamente com um post de "volta"</div>
+          <div class="rec-body">Não comece com um post educativo genérico — publique algo que sinalize que a Camila está presente e ativa. Um <strong>reel curto (30-45s)</strong> com ela falando diretamente para a câmera sobre um caso ou atualização jurídica recente teria muito mais impacto de retomada do que um carrossel. A amostra não tem nenhum reel — testar o formato é prioritário dado que ele recebe mais distribuição orgânica pelo algoritmo.</div>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <div class="rec-content">
+          <div class="rec-title">2. Corrigir o link da bio urgentemente</div>
+          <div class="rec-body">O único CTA do perfil está com bug. Substituir o link <strong>wa.me com duplo encoding</strong> por uma versão correta — ou migrar para um Linktree com pelo menos dois destinos (WhatsApp + uma página de "Descubra se você tem direito" com formulário ou quiz simples).</div>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <div class="rec-content">
+          <div class="rec-title">3. Criar um destaque "Como funciona" ou "Perguntas frequentes"</div>
+          <div class="rec-body">O perfil não tem nenhum mecanismo de aquecimento para o visitante que chega pela primeira vez. Um destaque com <strong>5 a 8 stories</strong> respondendo às 4-5 perguntas mais comuns (Quem tem direito? Custa quanto? Quanto tempo leva? O que precisa?) reduziria a fricção antes do contato no WhatsApp — que é o próximo passo de conversão.</div>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="rec-content">
+          <div class="rec-title">4. Inserir perguntas abertas no final das legendas e variar formatos de CTA</div>
+          <div class="rec-body">Nenhum post da amostra convida explicitamente a comentar. Adicionar uma frase ao final do tipo <em>"Você conhece alguém que pode ter esse direito? Marca nos comentários"</em> ou <em>"Qual dessas doenças afetou sua família? Me conta aqui"</em> cria conversas e alimenta o algoritmo com engajamento qualificado. Além disso, variar entre <strong>"salva esse post"</strong>, <strong>"manda pra quem precisa"</strong> e <strong>"comenta aqui"</strong> distribui o engajamento em tipos diferentes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK WINS -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <span class="section-label"><span class="dot"></span>Ação Imediata</span>
+    <h2 class="section-title">Quick Wins</h2>
+    <div class="divider"></div>
+
+    <div class="qw-list">
+      <div class="qw-item">
+        <div class="qw-tag">Hoje · 5 min</div>
+        <div class="qw-body">
+          <strong>Corrigir a URL do WhatsApp na bio</strong> — recriar o link em wa.me com a mensagem pré-preenchida correta, sem duplo encoding. Testar clicando pelo celular antes de salvar.
+        </div>
+      </div>
+      <div class="qw-item">
+        <div class="qw-tag">5 dias</div>
+        <div class="qw-body">
+          <strong>Publicar um Reel curto de retomada</strong> — 30 a 45 segundos, Camila na câmera, com a estrutura: <em>"Você sabia que [dado surpreendente sobre isenção de IR]? Muita família que acompanho descobriu isso tarde demais. Se você tem um familiar aposentado com doença grave, vem aqui que eu explico em 2 minutos."</em> Esse formato combina o que já funciona no perfil (conteúdo de alerta) com um canal novo (Reel) que gera distribuição para audiência fria — o mais necessário para um perfil que ficou 6 meses parado.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo gold-text">Agência Logos</div>
+  <p>Auditoria de Instagram &middot; @camilamacedo_adv &middot; 22/05/2026</p>
+  <p style="margin-top:6px;font-size:12px;">Este relatório é confidencial e destinado exclusivamente ao cliente.</p>
+</footer>
+
+</body>
+</html>

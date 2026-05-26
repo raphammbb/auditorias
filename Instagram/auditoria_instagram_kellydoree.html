@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Instagram · @kellydoree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --terra: #C0673A;
+    --terra-light: #D4845E;
+    --rose: #C9624F;
+    --gold: #C9993A;
+    --gold-light: #E8C46A;
+    --cream: #FAF3E8;
+    --warm: #F2E4CC;
+    --dark: #3D2314;
+    --mid: #7A4528;
+    --text: #4A2C18;
+    --muted: #9E7355;
+    --white: #FFFDF9;
+  }
+
+  body {
+    font-family: 'Cabin', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .amatic {
+    font-family: 'Amatic SC', cursive;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── BANNER ILUSTRATIVO ── */
+  .banner-mock {
+    background: #FEF3C7;
+    border-bottom: 2px dashed #F59E0B;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #92400E;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .banner-mock svg { display: inline; vertical-align: middle; margin-right: 6px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #3D2314 0%, #7A3520 40%, #C0673A 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 80%, rgba(201,153,58,0.15) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(201,98,79,0.2) 0%, transparent 50%);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #F8D9B0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-badge span.dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--gold-light);
+    display: inline-block;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #E8C46A, #F8A97A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    color: rgba(255,255,255,0.7);
+    font-size: 1rem;
+    margin-bottom: 48px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-sub strong { color: #F8D9B0; }
+
+  /* Score + métricas */
+  .hero-metrics {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .score-circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(#E8C46A 0% 68%, rgba(255,255,255,0.15) 68% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .score-circle::after {
+    content: '';
+    position: absolute;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: #3D2314;
+  }
+
+  .score-inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .score-inner .num {
+    font-family: 'Amatic SC', cursive;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #E8C46A;
+    line-height: 1;
+  }
+
+  .score-inner .label {
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .metric-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 16px;
+    padding: 16px 24px;
+    text-align: center;
+    min-width: 110px;
+  }
+
+  .metric-card .val {
+    font-family: 'Amatic SC', cursive;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #F8D9B0;
+    line-height: 1;
+  }
+
+  .metric-card .lbl {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  /* ── SEÇÕES ── */
+  .section {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terra);
+    margin-bottom: 12px;
+  }
+
+  .section-tag .line {
+    width: 32px; height: 2px;
+    background: var(--terra);
+    border-radius: 2px;
+  }
+
+  .section h2 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--dark);
+    margin-bottom: 32px;
+    line-height: 1.1;
+  }
+
+  /* ── MÉTRICAS RÁPIDAS ── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .mcard {
+    background: var(--white);
+    border: 1.5px solid var(--warm);
+    border-radius: 16px;
+    padding: 20px 16px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .mcard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(192,103,58,0.12);
+  }
+
+  .mcard .icon {
+    width: 36px; height: 36px;
+    margin: 0 auto 10px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--warm);
+    border-radius: 10px;
+  }
+
+  .mcard .icon svg { width: 20px; height: 20px; }
+
+  .mcard .val {
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--terra);
+    line-height: 1;
+  }
+
+  .mcard .lbl {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  /* ── POSITIVOS E GAPS ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 600px) {
+    .two-col { grid-template-columns: 1fr; }
+    .hero-metrics { flex-direction: column; }
+  }
+
+  .check-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    border: 1.5px solid var(--warm);
+  }
+
+  .check-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .check-card h3 svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+  .check-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+  .check-card li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .check-card li svg { flex-shrink: 0; margin-top: 2px; }
+
+  .card-positive { border-top: 4px solid #4CAF50; }
+  .card-gaps { border-top: 4px solid var(--rose); }
+
+  /* ── BARRAS ── */
+  .bar-list { display: flex; flex-direction: column; gap: 20px; }
+
+  .bar-item label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--dark);
+  }
+
+  .bar-item label span { color: var(--muted); font-weight: 400; }
+
+  .bar-track {
+    height: 10px;
+    background: var(--warm);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--terra), var(--gold));
+    transition: width 0.6s ease;
+  }
+
+  /* ── RECOMENDAÇÕES ── */
+  .recs-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .rec-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--white);
+    border: 1.5px solid var(--warm);
+    border-radius: 16px;
+    padding: 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .rec-item:hover {
+    transform: translateX(6px);
+    box-shadow: 0 4px 16px rgba(192,103,58,0.1);
+  }
+
+  .rec-num {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--terra), var(--gold));
+    color: #fff;
+    font-family: 'Amatic SC', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .rec-body strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .rec-body p {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── OPORTUNIDADES ── */
+  .opp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .opp-card {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 100%);
+    border-radius: 20px;
+    padding: 28px 22px;
+    color: #fff;
+  }
+
+  .opp-card .opp-icon {
+    width: 44px; height: 44px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+
+  .opp-card .opp-icon svg { width: 24px; height: 24px; stroke: #E8C46A; }
+
+  .opp-card h3 {
+    font-size: 1.4rem;
+    color: #F8D9B0;
+    margin-bottom: 8px;
+  }
+
+  .opp-card p { font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 0.78rem;
+  }
+
+  footer strong { color: rgba(255,255,255,0.7); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--warm);
+    margin: 0 24px;
+  }
+
+  /* ── SECTION BG ALT ── */
+  .bg-alt { background: var(--warm); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Banner Ilustrativo -->
+<div class="banner-mock" role="alert">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#92400E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  Prévia Ilustrativa — dados fictícios para demonstração. Auditoria real disponível após análise completa do perfil.
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Auditoria de Conteúdo · Instagram · 26/05/2026
+  </div>
+
+  <h1><em>Manual de</em><br>Boas Práticas</h1>
+
+  <p class="hero-sub">Análise de desempenho para <strong>@kellydoree</strong> · Kelly</p>
+
+  <div class="hero-metrics">
+    <div class="score-circle">
+      <div class="score-inner">
+        <div class="num">6.8</div>
+        <div class="label">Score</div>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="val">9</div>
+      <div class="lbl">Posts Analisados<br>(Ilustrativo)</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="val">4,2%</div>
+      <div class="lbl">Engajamento<br>Estimado</div>
+    </div>
+
+    <div class="metric-card">
+      <div class="val">3x</div>
+      <div class="lbl">Posts por<br>Semana</div>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTRICAS RÁPIDAS -->
+<div class="bg-alt">
+  <div class="section">
+    <div class="section-tag"><span class="line"></span>Visão Geral</div>
+    <h2>Diagnóstico Rápido</h2>
+
+    <div class="metrics-grid">
+      <div class="mcard">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="val">3x/sem</div>
+        <div class="lbl">Frequência de Postagem</div>
+      </div>
+
+      <div class="mcard">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="val">4,2%</div>
+        <div class="lbl">Taxa de Engajamento</div>
+      </div>
+
+      <div class="mcard">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="val">Irregular</div>
+        <div class="lbl">Uso de Stories</div>
+      </div>
+
+      <div class="mcard">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <div class="val">Baixo</div>
+        <div class="lbl">Uso de Reels</div>
+      </div>
+
+      <div class="mcard">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="val">Parcial</div>
+        <div class="lbl">Bio Otimizada</div>
+      </div>
+
+      <div class="mcard">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </div>
+        <div class="val">Nenhum</div>
+        <div class="lbl">Highlights Organizados</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PONTOS POSITIVOS + GAPS -->
+<div class="section">
+  <div class="section-tag"><span class="line"></span>Análise</div>
+  <h2>O que está bem e o que melhorar</h2>
+
+  <div class="two-col">
+    <div class="check-card card-positive">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Pontos Positivos
+      </h3>
+      <ul>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Identidade visual consistente e autoral — cores e estética própria bem definidas
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Conteúdo genuíno que transmite personalidade
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Boa conexão com a audiência nos comentários
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Fotos dos cookies com ótima apresentação visual
+        </li>
+      </ul>
+    </div>
+
+    <div class="check-card card-gaps">
+      <h3>
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Gaps Identificados
+      </h3>
+      <ul>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Ausência de CTA nas legendas
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Bio sem link de contato ou cardápio
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Pouco uso de Reels — formato de maior alcance orgânico
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Hashtags repetitivas e sem pesquisa de volume
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Nenhum Highlight organizado nos Stories
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Frequência irregular — períodos de silêncio prejudicam o algoritmo
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- BARRAS DE DESEMPENHO -->
+<div class="bg-alt">
+  <div class="section">
+    <div class="section-tag"><span class="line"></span>Performance</div>
+    <h2>Desempenho por Área</h2>
+
+    <div class="bar-list">
+      <div class="bar-item">
+        <label>Identidade Visual <span>8,5/10</span></label>
+        <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+      </div>
+      <div class="bar-item">
+        <label>Engajamento <span>6,5/10</span></label>
+        <div class="bar-track"><div class="bar-fill" style="width:65%"></div></div>
+      </div>
+      <div class="bar-item">
+        <label>Consistência de Postagem <span>5,0/10</span></label>
+        <div class="bar-track"><div class="bar-fill" style="width:50%"></div></div>
+      </div>
+      <div class="bar-item">
+        <label>Otimização de Bio <span>4,0/10</span></label>
+        <div class="bar-track"><div class="bar-fill" style="width:40%"></div></div>
+      </div>
+      <div class="bar-item">
+        <label>Uso de Reels <span>3,0/10</span></label>
+        <div class="bar-track"><div class="bar-fill" style="width:30%"></div></div>
+      </div>
+      <div class="bar-item">
+        <label>Estratégia de Hashtags <span>4,5/10</span></label>
+        <div class="bar-track"><div class="bar-fill" style="width:45%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- RECOMENDAÇÕES -->
+<div class="section">
+  <div class="section-tag"><span class="line"></span>Plano de Ação</div>
+  <h2>Recomendações</h2>
+
+  <div class="recs-list">
+    <div class="rec-item">
+      <div class="rec-num">1</div>
+      <div class="rec-body">
+        <strong>Adicione link na bio</strong>
+        <p>Insira o WhatsApp ou cardápio de cookies diretamente na bio. É o caminho mais direto para transformar visitantes em clientes.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">2</div>
+      <div class="rec-body">
+        <strong>Crie ao menos 1 Reel por semana</strong>
+        <p>Mostre o processo de fazer cookies: misturando, decorando, embalando. Bastidores têm altíssimo potencial de alcance orgânico.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">3</div>
+      <div class="rec-body">
+        <strong>Organize os Highlights</strong>
+        <p>Crie destaques temáticos: "Cookies", "Sobre mim" e "Pedidos". Isso facilita a navegação de quem chega no perfil pela primeira vez.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">4</div>
+      <div class="rec-body">
+        <strong>Varie as hashtags a cada post</strong>
+        <p>Use um mix de nicho + localização + volume médio. Evite repetir as mesmas tags — o algoritmo penaliza essa prática.</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">5</div>
+      <div class="rec-body">
+        <strong>Inclua CTA em todas as legendas</strong>
+        <p>Termine cada legenda com uma chamada clara: "Me chama pra encomendar", "Salva pra não esquecer", "Compartilha com alguém que ama cookies".</p>
+      </div>
+    </div>
+    <div class="rec-item">
+      <div class="rec-num">6</div>
+      <div class="rec-body">
+        <strong>Mantenha calendário editorial fixo</strong>
+        <p>Mínimo 3 posts por semana em dias definidos. Consistência é o fator que mais impacta o alcance no algoritmo do Instagram.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- OPORTUNIDADES -->
+<div class="bg-alt">
+  <div class="section">
+    <div class="section-tag"><span class="line"></span>Potencial</div>
+    <h2>Oportunidades de Conteúdo</h2>
+
+    <div class="opp-grid">
+      <div class="opp-card">
+        <div class="opp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>
+        </div>
+        <h3>Bastidores da Produção</h3>
+        <p>Mostrar o processo completo — do preparo à finalização — gera conexão emocional e alto engajamento orgânico.</p>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Colaborações Criativas</h3>
+        <p>Parcerias com artistas e criadores locais ampliam o alcance e atraem novos seguidores com perfil alinhado.</p>
+      </div>
+
+      <div class="opp-card">
+        <div class="opp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Antes e Depois</h3>
+        <p>Conteúdo de transformação — "encomenda recebida vs. entregue" — performa muito bem em compartilhamentos e salvamentos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Auditoria gerada por <strong>Agência Logos</strong> · <strong>@kellydoree</strong> · 26/05/2026</p>
+  <p style="margin-top:6px;">Esta é uma <strong>prévia ilustrativa</strong> com dados fictícios para fins de demonstração.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria de Site — Black Series Motors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,700;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E4C575;
+      --gold-dim: #8B6E2E;
+      --bg: #090909;
+      --bg-card: #111111;
+      --bg-card-2: #161616;
+      --border: rgba(201,168,76,0.18);
+      --border-subtle: rgba(255,255,255,0.06);
+      --text: #F0EDE6;
+      --text-muted: #888880;
+      --text-dim: #555550;
+      --red: #C0392B;
+      --red-bg: rgba(192,57,43,0.12);
+      --red-border: rgba(192,57,43,0.3);
+      --green: #2ECC71;
+      --green-bg: rgba(46,204,113,0.1);
+      --green-border: rgba(46,204,113,0.25);
+      --amber: #E67E22;
+      --amber-bg: rgba(230,126,34,0.12);
+      --amber-border: rgba(230,126,34,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 4px; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+
+    /* BADGE PILL */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.08);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 36px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    /* HERO TITLE */
+    .hero-title {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #E4C575 0%, #C9A84C 40%, #8B6E2E 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: var(--text-muted);
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      margin-bottom: 48px;
+      max-width: 520px;
+    }
+
+    .hero-subtitle span {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* METRIC CARDS */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+
+    @media (min-width: 640px) {
+      .metric-grid { grid-template-columns: repeat(4, 1fr); max-width: 760px; }
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+
+    .metric-card:hover { border-color: var(--border); }
+
+    .metric-status {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .metric-value {
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .metric-value.parcial { color: var(--amber); }
+    .metric-value.ausente { color: var(--red); }
+    .metric-value.ok { color: var(--green); }
+
+    /* PAGES PILL */
+    .pages-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      padding: 8px 20px;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .pages-pill strong { color: var(--gold); }
+
+    /* SECTION WRAPPER */
+    .section {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 72px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section:last-child { border-bottom: none; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Bodoni Moda', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 28px;
+    }
+
+    /* PROSE */
+    .prose {
+      color: #BCBAAF;
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 720px;
+    }
+
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    .prose p + p { margin-top: 16px; }
+
+    /* HIGHLIGHT BOX */
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      font-size: 15px;
+      color: #BCBAAF;
+      line-height: 1.8;
+    }
+
+    .highlight-box .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    /* STATUS INLINE */
+    .status-parcial {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .status-ausente {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--red);
+      font-weight: 600;
+    }
+
+    .status-presente {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* TABLE */
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 32px 0;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 600px;
+    }
+
+    thead tr {
+      background: rgba(201,168,76,0.07);
+    }
+
+    thead th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+    tbody td {
+      padding: 14px 16px;
+      color: #BCBAAF;
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    tbody td:first-child {
+      color: var(--text);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .cta-yes {
+      display: inline-block;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cta-no {
+      display: inline-block;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* CRITICAL ERROR CARDS */
+    .error-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .error-card {
+      background: var(--red-bg);
+      border: 1px solid var(--red-border);
+      border-left: 3px solid var(--red);
+      border-radius: 10px;
+      padding: 18px 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .error-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      color: var(--red);
+      margin-top: 2px;
+    }
+
+    .error-title {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .error-desc {
+      font-size: 13.5px;
+      color: #BCBAAF;
+      line-height: 1.6;
+    }
+
+    /* STRENGTHS CARDS */
+    .strength-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    @media (min-width: 640px) {
+      .strength-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .strength-card {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 12px;
+      padding: 22px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .strength-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(46,204,113,0.2);
+      border: 1px solid var(--green-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .strength-title {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .strength-desc {
+      font-size: 13.5px;
+      color: #BCBAAF;
+      line-height: 1.65;
+    }
+
+    /* PRIORITY PROBLEMS */
+    .priority-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .priority-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      cursor: default;
+      transition: border-color 0.2s;
+    }
+
+    .priority-card:hover { border-color: var(--border); }
+
+    .priority-num {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Bodoni Moda', serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #0A0A0A;
+      margin-top: 2px;
+    }
+
+    .priority-title {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .priority-desc {
+      font-size: 14px;
+      color: #BCBAAF;
+      line-height: 1.75;
+    }
+
+    /* FOOTER INFO — RODAPÉ ANALYSIS */
+    .footer-info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    @media (min-width: 600px) {
+      .footer-info-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .footer-info-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .footer-info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .footer-info-value {
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* RECOMMENDATION BOX */
+    .reco-box {
+      background: rgba(201,168,76,0.06);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 28px;
+      margin-top: 28px;
+      font-size: 15px;
+      color: #BCBAAF;
+      line-height: 1.8;
+    }
+
+    .reco-box strong { color: var(--text); }
+
+    /* NEXT STEP CARDS */
+    .next-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    @media (min-width: 640px) {
+      .next-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .next-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 24px;
+      transition: border-color 0.2s;
+      cursor: default;
+    }
+
+    .next-card:hover { border-color: var(--border); }
+
+    .next-card.featured {
+      border-color: var(--gold-dim);
+      background: rgba(201,168,76,0.05);
+    }
+
+    .next-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .next-tag.recomendado {
+      background: rgba(201,168,76,0.15);
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+    }
+
+    .next-tag.premium {
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .next-card-title {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .next-card-desc {
+      font-size: 13.5px;
+      color: #BCBAAF;
+      line-height: 1.7;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Bodoni Moda', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-dim));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-meta {
+      font-size: 12px;
+      color: var(--text-dim);
+      letter-spacing: 0.04em;
+    }
+
+    .footer-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold-dim);
+      opacity: 0.4;
+    }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* INLINE ICON SVG HELPERS */
+    .icon-x, .icon-check, .icon-warn, .icon-alert {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* RESPONSIVE OVERRIDES */
+    @media (max-width: 480px) {
+      .hero { padding: 100px 20px 60px; }
+      .section { padding: 56px 20px; }
+      .priority-card { flex-direction: column; gap: 12px; }
+      .error-card { flex-direction: column; gap: 10px; }
+      .strength-card { flex-direction: column; gap: 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .badge-dot { animation: none; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+  <section class="hero">
+
+    <div class="badge-pill">
+      <span class="badge-dot"></span>
+      Auditoria de Site &nbsp;·&nbsp; Demo — Primeira Impressão &nbsp;·&nbsp; 26/05/2026
+    </div>
+
+    <h1 class="hero-title">Análise de Site</h1>
+
+    <p class="hero-subtitle">
+      Diagnóstico de homepage para <span>blackseriesmotors.com.br</span> &nbsp;·&nbsp; Black Series Motors
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-status">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E67E22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </div>
+        <div class="metric-label">Proposta de Valor</div>
+        <div class="metric-value parcial">Parcial</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <div class="metric-label">CTAs acima da dobra</div>
+        <div class="metric-value ausente">Ausente</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+        </div>
+        <div class="metric-label">Prova Social</div>
+        <div class="metric-value ausente">Ausente</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div class="metric-label">Identidade Visual</div>
+        <div class="metric-value ok">Consistente</div>
+      </div>
+    </div>
+
+    <div class="pages-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+      </svg>
+      Esta análise é baseada na homepage — <strong>5 seções avaliadas</strong>
+    </div>
+
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ PRIMEIRA IMPRESSÃO ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Diagnóstico Inicial</div>
+    <h2 class="section-title">Primeira Impressão</h2>
+    <div class="prose">
+      <p>O site transmite imediatamente que se trata de uma revendedora de veículos premium — a identidade visual preta e dourada é coerente com o posicionamento de luxo. Porém, o visitante que abrir o site pela primeira vez não verá nenhuma frase dizendo quem é a empresa, onde fica ou por que deveria confiar nela: o hero é um carrossel silencioso de fotos de carros, sem uma única linha de texto explicativa.</p>
+      <p>A sensação é de <strong>catálogo, não de marca.</strong></p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ PROPOSTA DE VALOR ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Comunicação Estratégica</div>
+    <h2 class="section-title">Proposta de Valor</h2>
+
+    <div class="highlight-box">
+      <div class="label">O site deixa claro o que a empresa faz?</div>
+      <span class="status-parcial">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Parcialmente
+      </span>
+    </div>
+
+    <div class="footer-info-grid">
+      <div class="footer-info-item">
+        <div class="footer-info-label">Headline principal</div>
+        <div class="footer-info-value">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span style="color:var(--red)">Ausente</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Não há headline de texto no hero. O nome "Black Series Motors" funciona como único identificador.</div>
+      </div>
+      <div class="footer-info-item">
+        <div class="footer-info-label">CTA principal</div>
+        <div class="footer-info-value">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span style="color:var(--green)">Presente</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">"VER TODO NOSSO ESTOQUE" — porém abaixo da dobra, na seção de busca. Não visível sem scroll na viewport padrão desktop.</div>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top:20px">
+      <p>O hero ocupa 100% da viewport com imagens fotográficas de veículos, sem nenhuma frase de posicionamento, tagline ou proposta de valor textual. O visitante infere o segmento pelo contexto visual, mas não sabe nada sobre diferencial, localização ou tipo de estoque sem continuar navegando.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ SEÇÕES ENCONTRADAS ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Estrutura da Página</div>
+    <h2 class="section-title">Seções Encontradas</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Seção</th>
+            <th>Conteúdo</th>
+            <th>Tem CTA?</th>
+            <th>Observação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hero / Carrossel</td>
+            <td>11 slides com fotos de veículos do estoque, cada slide é um link para o anúncio do carro</td>
+            <td><span class="cta-yes">Sim</span><br><span style="font-size:11px;color:var(--text-muted)">cada slide leva ao detalhe do veículo</span></td>
+            <td>Ausência total de headline ou tagline; os slides não têm sobreposição de texto, o que desperdiça espaço premium de comunicação</td>
+          </tr>
+          <tr>
+            <td>Busca por marca/modelo</td>
+            <td>Campo de pesquisa de texto + grid de 20 marcas (Audi, BMW, Porsche, Mercedes, Ducati etc.) com logotipos clicáveis</td>
+            <td><span class="cta-yes">Sim</span><br><span style="font-size:11px;color:var(--text-muted)">"VER TODO NOSSO ESTOQUE"</span></td>
+            <td>Funcional e bem organizado; o mix de carros e motos no mesmo grid sem separação visual pode gerar confusão inicial</td>
+          </tr>
+          <tr>
+            <td>Últimas Novidades</td>
+            <td>Grid de 8 veículos recentes com foto, nome, especificações, ano, km e preço</td>
+            <td><span class="cta-yes">Sim</span><br><span style="font-size:11px;color:var(--text-muted)">"VER MAIS" em cada card + "CLIQUE E VEJA TODO NOSSO ESTOQUE" ao final</span></td>
+            <td>Cards limpos e informativos; preços exibidos — positivo para conversão direta. A seção não tem frase introdutória contextualizando o estoque</td>
+          </tr>
+          <tr>
+            <td>Mapa de Localização</td>
+            <td>Google Maps embedado mostrando a localização na Vila Olímpia, SP</td>
+            <td><span class="cta-no">Não</span></td>
+            <td>Mapa funcional; mas o endereço de sala comercial (Sala 910, num edifício de escritórios) pode gerar dúvida em quem espera uma loja física de automóveis</td>
+          </tr>
+          <tr>
+            <td>Rodapé</td>
+            <td>Endereço, telefones, Instagram, mapa do site e copyright</td>
+            <td><span class="cta-yes">Sim</span><br><span style="font-size:11px;color:var(--text-muted)">"Fale Conosco"</span></td>
+            <td>Organizado em três colunas; ausência de CNPJ e e-mail de contato</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ ERROS CRÍTICOS ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Pontos de Atenção Máxima</div>
+    <h2 class="section-title">Erros Críticos</h2>
+
+    <div class="error-grid">
+      <div class="error-card">
+        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div>
+          <div class="error-title">Ausência de headline no hero</div>
+          <div class="error-desc">O slide ocupa toda a viewport sem nenhum texto — é o erro de comunicação mais grave da página.</div>
+        </div>
+      </div>
+      <div class="error-card">
+        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div>
+          <div class="error-title">Nenhum CTA visível acima da dobra</div>
+          <div class="error-desc">O botão de estoque só aparece após scroll, e os links do carrossel não são percebidos como CTAs pelo usuário comum.</div>
+        </div>
+      </div>
+      <div class="error-card">
+        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div>
+          <div class="error-title">Inconsistência de dados nos cards de motos</div>
+          <div class="error-desc">O terceiro slot de "Últimas Novidades" apresenta uma linha a menos de dados: a Ducati Scrambler Icon e a Yamaha XMAX 300 não exibem "preço" formatado da mesma forma visualmente — verificar consistência no template de card de motos.</div>
+        </div>
+      </div>
+      <div class="error-card">
+        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div>
+          <div class="error-title">CNPJ ausente no rodapé</div>
+          <div class="error-desc">Obrigatório para e-commerce e revendedoras, e esperado por qualquer comprador de veículo de alto valor.</div>
+        </div>
+      </div>
+      <div class="error-card">
+        <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div>
+          <div class="error-title">E-mail de contato ausente</div>
+          <div class="error-desc">Apenas telefone e WhatsApp — limita o canal para quem prefere comunicação assíncrona ou está fora do Brasil.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; padding:14px 18px; background:var(--green-bg); border:1px solid var(--green-border); border-radius:10px; font-size:13px; color:#BCBAAF;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;margin-right:6px"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Nenhum <em>lorem ipsum</em>, imagem quebrada ou erro grave de português encontrado.
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ ANÁLISE DO RODAPÉ ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Informações de Contato e Legais</div>
+    <h2 class="section-title">Análise do Rodapé</h2>
+
+    <div class="footer-info-grid">
+      <div class="footer-info-item">
+        <div class="footer-info-label">Contato visível</div>
+        <div class="footer-info-value">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E67E22" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span style="color:var(--amber)">Parcialmente</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Há telefone fixo e celular/WhatsApp, endereço físico e horário de atendimento. Falta e-mail.</div>
+      </div>
+      <div class="footer-info-item">
+        <div class="footer-info-label">Redes Sociais</div>
+        <div class="footer-info-value">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span style="color:var(--green)">Presentes</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Instagram (ícone no rodapé + botão flutuante lateral). Nenhuma outra rede.</div>
+      </div>
+      <div class="footer-info-item">
+        <div class="footer-info-label">Informações Legais</div>
+        <div class="footer-info-value">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C0392B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+          <span style="color:var(--red)">Ausentes</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">Sem CNPJ, razão social ou informações de registro de empresa.</div>
+      </div>
+      <div class="footer-info-item">
+        <div class="footer-info-label">Copyright</div>
+        <div class="footer-info-value">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span style="color:var(--green)">Presente</span>
+        </div>
+        <div style="font-size:12.5px;color:var(--text-muted);margin-top:6px">"© Black Series Motors - http://blackseriesmotors.com.br/"</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ PONTOS FORTES ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">O que está funcionando bem</div>
+    <h2 class="section-title">Pontos Fortes</h2>
+
+    <div class="strength-grid">
+      <div class="strength-card">
+        <div class="strength-num">1</div>
+        <div>
+          <div class="strength-title">Identidade visual consistente e alinhada ao posicionamento premium</div>
+          <div class="strength-desc">A paleta preta e dourada, aplicada do logo ao header, aos botões e aos preços nos cards, cria uma linguagem visual coesa que comunica sofisticação sem ser gritante. Isso é raro em revendedoras do setor.</div>
+        </div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-num">2</div>
+        <div>
+          <div class="strength-title">Grid de marcas navegável e estoque com preços visíveis na homepage</div>
+          <div class="strength-desc">Exibir preços diretamente nos cards — sem obrigar o usuário a entrar no anúncio — reduz fricção e agiliza a jornada de quem está comparando. Poucas revendedoras fazem isso com essa clareza visual.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ PROBLEMAS PRIORITÁRIOS ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Impacto em Conversão</div>
+    <h2 class="section-title">Problemas Prioritários</h2>
+
+    <div class="priority-grid">
+      <div class="priority-card">
+        <div class="priority-num">1</div>
+        <div>
+          <div class="priority-title">Hero sem headline é o problema número 1</div>
+          <div class="priority-desc">O espaço mais valioso do site — a primeira tela que o visitante vê — não diz nada sobre quem é a empresa, o que a torna diferente, ou por que o visitante deveria continuar ali. "Carrossel de fotos bonitas" não é proposta de valor. Uma frase simples sobreposta ao slide (<strong style="color:var(--gold)">"Veículos premium seminovos em São Paulo" + CTA</strong>) já mudaria radicalmente a eficácia da página.</div>
+        </div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-num">2</div>
+        <div>
+          <div class="priority-title">Nenhum CTA acima da dobra</div>
+          <div class="priority-desc">O botão "VER TODO NOSSO ESTOQUE" só aparece após scroll. Em mobile, onde a dobra é ainda mais curtinha, isso significa que uma parcela significativa dos visitantes abandona o site sem ter visto um único convite à ação. O carrossel redireciona para veículos individuais, mas isso não é perceptível como CTA. <strong style="color:var(--text)">Um botão explícito precisa estar no hero.</strong></div>
+        </div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-num">3</div>
+        <div>
+          <div class="priority-title">Ausência de prova social e informações institucionais na homepage</div>
+          <div class="priority-desc">O site não mostra depoimentos, tempo de mercado, número de carros vendidos, avaliação no Google, certificações — nada que construa confiança antes da decisão de compra. Para um produto de ticket médio de <strong style="color:var(--gold)">R$ 100k–500k</strong>, a confiança precisa ser construída ativamente. A página "Quem Somos" existe no menu, mas o visitante não é conduzido até ela.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ RECOMENDAÇÃO RÁPIDA ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Diagnóstico Final</div>
+    <h2 class="section-title">Recomendação Rápida</h2>
+
+    <div class="reco-box">
+      <p>Vale muito investir em melhorias neste site — a base visual é sólida e o inventário parece robusto. O problema não é o design, <strong>é a ausência de comunicação estratégica.</strong></p>
+      <p style="margin-top:16px">O ponto de partida deve ser o hero: inserir uma headline com posicionamento claro e um CTA visível sem scroll resolve imediatamente o maior gap de conversão. Em segundo lugar, adicionar um bloco de prova social (avaliações Google, anos de mercado, quantidade de veículos comercializados) ainda na homepage aumentaria a confiança necessária para o visitante dar o próximo passo — seja ligar, enviar mensagem ou visitar a loja.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ PRÓXIMO PASSO ═══════════════════════════ -->
+  <section class="section">
+    <div class="section-eyebrow">Evolução da Análise</div>
+    <h2 class="section-title">Próximo Passo Sugerido</h2>
+
+    <div class="next-grid">
+      <div class="next-card featured">
+        <div class="next-tag recomendado">Recomendado</div>
+        <div class="next-card-title">Audit Essencial</div>
+        <div class="next-card-desc">Análise das páginas internas: estoque, ficha de veículo, formulário de financiamento e página de venda de veículo. O fluxo de conversão dessas páginas é onde a decisão de compra acontece de fato — e há indicativos de que melhorias pontuais ali (headline do hero, CTA, prova social) podem ter impacto imediato em leads qualificados.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-tag premium">Premium</div>
+        <div class="next-card-title">Audit Premium</div>
+        <div class="next-card-desc">Indicado caso a empresa queira também análise de performance técnica (velocidade, SEO e mobile), especialmente porque revendedoras dependem fortemente de tráfego orgânico local. Inclui tudo do Essencial + diagnóstico técnico completo.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+  <footer>
+    <div class="site-footer">
+      <div class="footer-line"></div>
+      <div class="footer-logo">Agência Logos</div>
+      <div class="footer-meta">agencialogos.com.br &nbsp;·&nbsp; Auditoria gerada em 26/05/2026</div>
+      <div class="footer-meta" style="opacity:0.5">Demo — Primeira Impressão &nbsp;·&nbsp; blackseriesmotors.com.br</div>
+    </div>
+  </footer>
+
+</body>
+</html>

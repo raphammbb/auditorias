@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Instagram — @avaliaperfis0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0D0D0D;
+    --bg2: #111111;
+    --card: #161616;
+    --card2: #1A1A1A;
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-dim: rgba(201,168,76,0.12);
+    --gold-border: rgba(201,168,76,0.18);
+    --cream: #F5F0E8;
+    --cream-muted: #B8B0A0;
+    --danger: #E05050;
+    --success: #4CAF6F;
+    --warn: #C9A84C;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-border); border-radius: 3px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(201,168,76,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold-border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--gold-light);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .badge-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #F0D080 0%, #C9A84C 50%, #A07830 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--cream-muted);
+    margin-bottom: 48px;
+    font-weight: 400;
+  }
+
+  .hero-subtitle span {
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  .metrics-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .metric-card {
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 14px;
+    padding: 20px 28px;
+    min-width: 140px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .metric-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .metric-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .metric-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+  }
+
+  .alert-banner {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 14px 20px;
+    max-width: 720px;
+    font-size: 0.88rem;
+    color: var(--gold-light);
+    line-height: 1.5;
+    position: relative;
+    text-align: left;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section {
+    padding: 72px 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 32px;
+    line-height: 1.25;
+  }
+
+  .section-title span {
+    background: linear-gradient(90deg, #F0D080, #C9A84C);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .card-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .card p {
+    color: var(--cream-muted);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+
+  .card p strong {
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  /* ── BIO BLOCK ── */
+  .bio-quote {
+    background: var(--card2);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--cream);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .bio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .bio-item {
+    background: var(--card2);
+    border: 1px solid var(--gold-border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .bio-item-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .bio-item-value {
+    font-size: 0.88rem;
+    color: var(--cream-muted);
+    line-height: 1.5;
+  }
+
+  .bio-item-value strong { color: var(--cream); font-weight: 600; }
+
+  /* ── STATUS BADGES ── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .badge-ok { background: rgba(76,175,111,0.12); color: #4CAF6F; border: 1px solid rgba(76,175,111,0.25); }
+  .badge-warn { background: rgba(201,168,76,0.12); color: var(--gold-light); border: 1px solid var(--gold-border); }
+  .badge-bad { background: rgba(224,80,80,0.12); color: #E05050; border: 1px solid rgba(224,80,80,0.25); }
+
+  /* ── TABLES ── */
+  .table-wrap { overflow-x: auto; margin: 20px 0; border-radius: 12px; border: 1px solid var(--gold-border); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  thead {
+    background: rgba(201,168,76,0.08);
+  }
+
+  thead th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border-bottom: 1px solid var(--gold-border);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+
+  tbody tr:hover { background: rgba(201,168,76,0.04); }
+
+  tbody td {
+    padding: 12px 16px;
+    color: var(--cream-muted);
+    vertical-align: top;
+  }
+
+  tbody td strong { color: var(--cream); font-weight: 600; }
+
+  /* ── SCORE BAR ── */
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .score-bar {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #C9A84C, #F0D080);
+    border-radius: 3px;
+    transition: width 0.6s ease;
+  }
+
+  .score-num {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    min-width: 28px;
+    text-align: right;
+  }
+
+  /* ── INSIGHT ITEMS ── */
+  .insight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .insight-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+
+  .insight-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .insight-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  .insight-text { font-size: 0.92rem; color: var(--cream-muted); line-height: 1.6; }
+  .insight-text strong { color: var(--cream); font-weight: 600; }
+
+  /* ── RECOMMENDATIONS ── */
+  .rec-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    counter-reset: recs;
+  }
+
+  .rec-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 14px;
+    padding: 20px;
+    counter-increment: recs;
+    transition: border-color 0.2s;
+  }
+
+  .rec-item:hover { border-color: var(--gold); cursor: default; }
+
+  .rec-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    border: 1.5px solid var(--gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--gold);
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .rec-content { flex: 1; }
+  .rec-content strong { color: var(--cream); font-weight: 600; display: block; margin-bottom: 6px; font-size: 0.95rem; }
+  .rec-content p { color: var(--cream-muted); font-size: 0.88rem; line-height: 1.65; }
+
+  /* ── QUICK WINS ── */
+  .qw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .qw-card {
+    background: linear-gradient(135deg, rgba(201,168,76,0.07) 0%, rgba(201,168,76,0.03) 100%);
+    border: 1px solid var(--gold-border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .qw-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+
+  .qw-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-dim);
+    color: rgba(201,168,76,0.3);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .qw-card p { font-size: 0.88rem; color: var(--cream-muted); line-height: 1.6; }
+  .qw-card p strong { color: var(--cream); font-weight: 600; }
+
+  /* ── HIGHLIGHTS TABLE ── */
+  .highlight-status {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+
+  /* ── CHART SECTION ── */
+  .chart-wrap {
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .chart-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .chart-subtitle {
+    font-size: 0.8rem;
+    color: var(--cream-muted);
+    margin-bottom: 24px;
+  }
+
+  /* ── PATTERN CARDS (O que func / não func) ── */
+  .pattern-card {
+    background: var(--card);
+    border: 1px solid var(--gold-border);
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 14px;
+  }
+
+  .pattern-card.good { border-left: 3px solid #4CAF6F; }
+  .pattern-card.bad { border-left: 3px solid #E05050; }
+
+  .pattern-post-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+
+  .pattern-post-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  .pattern-card p { font-size: 0.9rem; color: var(--cream-muted); line-height: 1.7; }
+  .pattern-card p strong { color: var(--cream); font-weight: 600; }
+
+  /* ── FORMAT MIX ── */
+  .format-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .format-row:last-child { border-bottom: none; }
+
+  .format-name {
+    width: 100px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--cream);
+    flex-shrink: 0;
+  }
+
+  .format-bar-wrap {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .format-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #C9A84C, #F0D080);
+    border-radius: 4px;
+  }
+
+  .format-meta {
+    display: flex;
+    gap: 16px;
+    min-width: 120px;
+    justify-content: flex-end;
+  }
+
+  .format-pct { font-size: 0.8rem; color: var(--gold-light); font-weight: 600; }
+  .format-score { font-size: 0.8rem; color: var(--cream-muted); }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 36px 24px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 0.82rem;
+    color: var(--cream-muted);
+  }
+
+  .footer strong { color: var(--gold-light); font-weight: 600; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .metrics-row { gap: 10px; }
+    .metric-card { padding: 16px 18px; min-width: 120px; }
+    .metric-value { font-size: 1.6rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .bio-grid { grid-template-columns: 1fr; }
+    .qw-grid { grid-template-columns: 1fr; }
+    .format-meta { min-width: 80px; }
+    thead th { font-size: 0.66rem; padding: 10px 10px; }
+    tbody td { padding: 10px; font-size: 0.82rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+
+  <div class="badge-pill">
+    <span class="badge-dot"></span>
+    Auditoria de Conteúdo · Instagram · 03/06/2026
+  </div>
+
+  <h1 class="hero-title">Manual de Boas Práticas</h1>
+  <p class="hero-subtitle">Análise de desempenho para <span>@avaliaperfis0</span> · Avalia Perfis</p>
+
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-value">5</div>
+      <div class="metric-label">Posts Analisados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">2.004</div>
+      <div class="metric-label">Seguidores</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">4,2</div>
+      <div class="metric-label">Score Médio</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="font-size:1.1rem; padding-top:4px;">29/05<br><span style="font-size:.7rem; color:var(--cream-muted);">→</span><br>02/06</div>
+      <div class="metric-label">Período</div>
+    </div>
+  </div>
+
+  <div class="alert-banner">
+    <strong style="color:var(--gold-light);">⚠ Amostra Total</strong> — Este relatório analisa 100% dos posts publicados pelo perfil (apenas 5 posts existentes). Em vez de uma análise estatística robusta com padrões confiáveis, o que se tem é a análise completa de todo o histórico do perfil. Os rankings foram adaptados para a realidade de 5 posts. Todas as conclusões devem ser lidas com esse contexto em mente.
+  </div>
+</section>
+
+<!-- ═══ VISÃO GERAL ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">01 · Diagnóstico</p>
+    <h2 class="section-title">Visão <span>Geral</span></h2>
+
+    <div class="card">
+      <p>
+        O <strong>@avaliaperfis0</strong> é um perfil recém-lançado de análise/consultoria de perfis comerciais no Instagram, com apenas 5 dias de existência de conteúdo publicado e uma base de <strong>2.004 seguidores</strong> — um número expressivo para uma conta tão nova, indicando provável divulgação cruzada via TikTok (253 seguidores) ou bases de contatos preexistentes.
+      </p>
+      <br>
+      <p>
+        O engajamento é muito baixo mesmo para um perfil iniciante: o post mais curtido tem apenas <strong>7 curtidas e 1 comentário</strong>, com média geral de 3,6 curtidas por post. O nicho está bem definido (avaliação gratuita de perfis comerciais), o posicionamento é claro, mas a execução de conteúdo ainda é incipiente: <strong>4 dos 5 posts são variações do mesmo CTA de captação ("Comente AVALIA")</strong>, o que cria uma experiência repetitiva para quem visita o perfil.
+      </p>
+      <br>
+      <p>
+        O ponto mais forte da conta são os destaques — bem estruturados e visualmente coesos — que compensam parcialmente a escassez de posts no feed. <strong>O perfil tem potencial real, mas precisa urgentemente de volume de conteúdo e diversificação de pauta.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BIO E LINK ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">02 · Perfil</p>
+    <h2 class="section-title">Bio e <span>Link</span></h2>
+
+    <div class="card">
+      <div class="card-title">Bio Completa</div>
+      <div class="bio-quote">
+        Análise de perfis comerciais<br>
+        Bio • Visual • Posicionamento<br>
+        Mais confiança e credibilidade<br>
+        Avaliações gratuitas
+      </div>
+      <p><strong>Avaliação:</strong> Clara e estratégica — em apenas 4 linhas, a bio comunica o que a conta faz, como faz e qual benefício entrega. É direta e objetiva.</p>
+    </div>
+
+    <div class="bio-grid">
+      <div class="bio-item">
+        <div class="bio-item-label">CTA na Bio</div>
+        <div class="bio-item-value">
+          <span class="badge badge-warn">Parcial</span><br><br>
+          Há "Avaliações gratuitas" como frase de ação, mas não há instrução explícita de "Comente AVALIA" ou "Mande DM para participar". O link reforça o TikTok, não a ação imediata de captação.
+        </div>
+      </div>
+      <div class="bio-item">
+        <div class="bio-item-label">Palavras-chave</div>
+        <div class="bio-item-value">
+          <span class="badge badge-ok">Sim</span><br><br>
+          "análise de perfis comerciais", "bio", "visual", "posicionamento", "credibilidade", "avaliações gratuitas". Todas extremamente relevantes para o nicho.
+        </div>
+      </div>
+      <div class="bio-item">
+        <div class="bio-item-label">Emoji / Formatação</div>
+        <div class="bio-item-value">
+          <span class="badge badge-warn">Sem emojis</span><br><br>
+          Formatação simples com bullet "•" separando os pilares. Sem emojis.
+        </div>
+      </div>
+      <div class="bio-item">
+        <div class="bio-item-label">Link</div>
+        <div class="bio-item-value">
+          <span class="badge badge-warn">Parcial</span><br><br>
+          <strong>Tipo:</strong> Link direto para TikTok (www.tiktok.com/@avaliaperfis) | <strong>Ativo:</strong> Sim | <strong>Destino coerente:</strong> Parcialmente — link leva ao TikTok, mas o CTA nos posts direciona para DM/comentário no Instagram. Sem linktree ou landing page.
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--gold); margin-top: 8px;">
+      <div class="card-title">O que melhorar</div>
+      <p>
+        A bio carece de um CTA explícito e acionável — adicionar uma linha como "Comente AVALIA para participar" criaria muito mais conversão. O link deveria apontar para um linktree ou landing page com link direto para DM ou formulário de avaliação, em vez do TikTok, que não facilita a captação imediata. Considerar adicionar 1 emoji estratégico (como 🔍 ou ✅) para dar mais personalidade visual sem poluir.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GRID VISUAL ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">03 · Estética</p>
+    <h2 class="section-title">Grid <span>Visual</span></h2>
+
+    <div class="card-grid">
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Identidade Visual</div>
+        <p><span class="badge badge-ok" style="margin-bottom:10px; display:inline-flex;">Coesa</span><br><br>Paleta consistente de bege/champanhe/dourado + preto, com logo AP circular em todos os posts. Carrosséis com textura de folhagem elegante como elemento de fundo recorrente.</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Convida a Seguir?</div>
+        <p><span class="badge badge-warn" style="margin-bottom:10px; display:inline-flex;">Parcialmente</span><br><br>Grid bem produzido visualmente, mas 4 dos 5 posts têm aparência de "anúncio/oferta", dando a sensação de perfil em fase de lançamento sem conteúdo de valor para justificar o follow.</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Padrão de Layout</div>
+        <p><span class="badge badge-ok" style="margin-bottom:10px; display:inline-flex;">Intencional</span><br><br>Alternância perceptível entre fundo escuro (preto/dourado) e fundo claro (bege/creme), criando ritmo visual interessante. Tipografia grande e bold como headline é o padrão dominante.</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Evolução nos 5 Posts</div>
+        <p><span class="badge badge-ok" style="margin-bottom:10px; display:inline-flex;">Consistente</span><br><br>Sem variação perceptível de qualidade entre o primeiro e o último post — todos têm aparência profissional e alinhada ao mesmo manual de marca.</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--gold);">
+      <div class="card-title">Análise Geral do Grid</div>
+      <p>
+        O grid já tem uma identidade visual sólida e profissional para um perfil tão novo — isso é um diferencial real. <strong>O problema não é estético, é de volume e diversidade:</strong> o grid inteiro parece uma única landing page repetida com o mesmo CTA. Um visitante novo olha os 5 posts e vê "Comente AVALIA" em todos, o que pode parecer mais uma campanha de captação do que um perfil com autoridade editorial. A presença de 1 post de conteúdo mais editorial (o carrossel do caso da empresária) quebra bem esse padrão — e é justamente o mais curtido.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DESTAQUES ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">04 · Stories</p>
+    <h2 class="section-title">Destaques de <span>Stories</span></h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Slides</th>
+            <th>Tema</th>
+            <th>CTA</th>
+            <th>Capas</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Dúvidas</strong></td>
+            <td>~6</td>
+            <td>Q&amp;A sobre Instagram comercial</td>
+            <td><span class="badge badge-warn">Não direto</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-ok">Atualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Dicas</strong></td>
+            <td>~1–2</td>
+            <td>Dicas educativas sobre perfil</td>
+            <td><span class="badge badge-warn">Não direto</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-ok">Recente</span></td>
+          </tr>
+          <tr>
+            <td><strong>Quem Somos</strong></td>
+            <td>~1–2</td>
+            <td>Apresentação do serviço</td>
+            <td><span class="badge badge-ok">Sim (indireto)</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-ok">Atualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Antes e Dep...</strong></td>
+            <td>~1</td>
+            <td>Transformações antes/depois</td>
+            <td><span class="badge badge-bad">Não</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-bad">Quase vazio</span></td>
+          </tr>
+          <tr>
+            <td><strong>Avaliações</strong></td>
+            <td>~1</td>
+            <td>Depoimentos de clientes</td>
+            <td><span class="badge badge-bad">Não</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-bad">Quase vazio</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--gold);">
+      <div class="card-title">Análise Estratégica</div>
+      <p>
+        Os destaques têm capas personalizadas e coerentes com a identidade visual do perfil — um detalhe profissional que muitos perfis estabelecidos negligenciam. A organização segue uma lógica razoável: começa com "Dúvidas" (prova de autoridade), passa por "Dicas" e "Quem Somos" (apresentação do serviço), e fecha com "Antes e Depois" e "Avaliações" (provas sociais).
+      </p>
+      <br>
+      <p>
+        <strong>O problema grave:</strong> "Antes e Depois" e "Avaliações" estão praticamente vazios — com apenas 1 slide de capa cada — o que frustra quem clicar esperando ver resultados reais. Esses dois destaques deveriam ser os mais robustos do perfil e são os mais fracos. O destaque "Dúvidas" é o mais desenvolvido e demonstra que a conta já começou a criar conteúdo educativo de qualidade via stories. A coerência temática entre destaques e posts é total: ambos giram em torno de análise de perfil, posicionamento e autoridade.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COLETA DOS POSTS ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">05 · Dados</p>
+    <h2 class="section-title">Coleta Completa dos <span>5 Posts</span></h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Data</th>
+            <th>Formato</th>
+            <th>Curtidas</th>
+            <th>Coment.</th>
+            <th>Score</th>
+            <th>CTA</th>
+            <th>Pergunta</th>
+            <th>Legenda</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>01/06 ~20h</td>
+            <td>Carrossel</td>
+            <td>6</td>
+            <td>0</td>
+            <td><strong style="color:var(--gold-light);">6</strong></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td>Longa</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>01/06 ~13h</td>
+            <td>Carrossel</td>
+            <td>7</td>
+            <td>1*</td>
+            <td><strong style="color:var(--gold-light);">10</strong></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td>Média</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>31/05</td>
+            <td>Foto</td>
+            <td>1</td>
+            <td>0</td>
+            <td><strong style="color:var(--cream-muted);">1</strong></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-bad">Não</span></td>
+            <td>Média</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>30/05</td>
+            <td>Carrossel</td>
+            <td>3</td>
+            <td>0</td>
+            <td><strong style="color:var(--cream-muted);">3</strong></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-bad">Não</span></td>
+            <td>Longa</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>29/05</td>
+            <td>Carrossel</td>
+            <td>1</td>
+            <td>0</td>
+            <td><strong style="color:var(--cream-muted);">1</strong></td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-bad">Não</span></td>
+            <td>Longa</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.78rem; color:var(--cream-muted); padding: 0 4px;">* Comentário do próprio perfil (auto-comentário de reforço do CTA). Score = Curtidas + Comentários × 3.</p>
+
+    <br>
+
+    <!-- HASHTAGS POR POST -->
+    <div class="card">
+      <div class="card-title">Hashtags por Post</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div><strong style="color:var(--gold-light); font-size:0.82rem;">Post 1 —</strong> <span style="font-size:0.82rem; color:var(--cream-muted);">#MarketingDigital #PosicionamentoDeMarca #Branding #GestaoDeImagem #autoridadedigital</span></div>
+        <div><strong style="color:var(--gold-light); font-size:0.82rem;">Post 2 —</strong> <span style="font-size:0.82rem; color:var(--cream-muted);">#avaliandoperfis #instagramcomercial #marketingdigital #empreendedorismo #socialmedia</span></div>
+        <div><strong style="color:var(--gold-light); font-size:0.82rem;">Post 3 —</strong> <span style="font-size:0.82rem; color:var(--cream-muted);">#AvaliaçãoGratuita #InstagramParaNegócios #MarketingDigital #PerfilProfissional #Empreendedorismo</span></div>
+        <div><strong style="color:var(--gold-light); font-size:0.82rem;">Post 4 —</strong> <span style="font-size:0.82rem; color:var(--cream-muted);">#InstagramParaNegocios #PerfilProfissional #MarketingDigital #Empreendedorismo #SocialMedia</span></div>
+        <div><strong style="color:var(--gold-light); font-size:0.82rem;">Post 5 —</strong> <span style="font-size:0.82rem; color:var(--cream-muted);">#avaliandoperfis #empreendedorismo #marketingdigital #perfilcomercial #socialmedia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RANKING + GRÁFICO ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">06 · Performance</p>
+    <h2 class="section-title">Ranking de <span>Engajamento</span></h2>
+
+    <!-- Ranking visual -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title">Score por Post (maior → menor)</div>
+      <div style="display:flex; flex-direction:column; gap:14px; margin-top:8px;">
+        <div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:0.85rem; color:var(--cream);"><strong>#2</strong> — Carrossel · Seguidores x Seguindo</span>
+            <span class="badge badge-ok">Top</span>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar"><div class="score-bar-fill" style="width:100%;"></div></div>
+            <span class="score-num">10</span>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:0.85rem; color:var(--cream);"><strong>#1</strong> — Carrossel · Crise de imagem / branding</span>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar"><div class="score-bar-fill" style="width:60%;"></div></div>
+            <span class="score-num">6</span>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:0.85rem; color:var(--cream);"><strong>#4</strong> — Carrossel · Apresentação do serviço</span>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar"><div class="score-bar-fill" style="width:30%;"></div></div>
+            <span class="score-num">3</span>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:0.85rem; color:var(--cream);"><strong>#3</strong> — Foto · Promoção avaliação gratuita</span>
+            <span class="badge badge-bad">Bottom</span>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar"><div class="score-bar-fill" style="width:10%;"></div></div>
+            <span class="score-num">1</span>
+          </div>
+        </div>
+        <div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+            <span style="font-size:0.85rem; color:var(--cream);"><strong>#5</strong> — Carrossel · Manifesto inaugural</span>
+            <span class="badge badge-bad">Bottom</span>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar"><div class="score-bar-fill" style="width:10%;"></div></div>
+            <span class="score-num">1</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart.js -->
+    <div class="chart-wrap">
+      <div class="chart-title">Score de Engajamento por Post</div>
+      <div class="chart-subtitle">Ordenado cronologicamente (Post 5 = mais antigo, Post 1 = mais recente)</div>
+      <canvas id="scoreChart" height="220"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MIX DE FORMATOS ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">07 · Formatos</p>
+    <h2 class="section-title">Mix de <span>Formatos</span></h2>
+
+    <div class="card">
+      <div class="format-row">
+        <div class="format-name">Carrossel</div>
+        <div class="format-bar-wrap"><div class="format-bar-fill" style="width:80%;"></div></div>
+        <div class="format-meta">
+          <span class="format-pct">80%</span>
+          <span class="format-score">Score médio: 5,0</span>
+        </div>
+      </div>
+      <div class="format-row">
+        <div class="format-name">Foto</div>
+        <div class="format-bar-wrap"><div class="format-bar-fill" style="width:20%;"></div></div>
+        <div class="format-meta">
+          <span class="format-pct">20%</span>
+          <span class="format-score">Score médio: 1,0</span>
+        </div>
+      </div>
+      <div class="format-row">
+        <div class="format-name">Reel</div>
+        <div class="format-bar-wrap"><div class="format-bar-fill" style="width:0%;"></div></div>
+        <div class="format-meta">
+          <span class="format-pct">0%</span>
+          <span class="format-score" style="color:#E05050;">Ausente</span>
+        </div>
+      </div>
+      <div class="format-row">
+        <div class="format-name">Texto</div>
+        <div class="format-bar-wrap"><div class="format-bar-fill" style="width:0%;"></div></div>
+        <div class="format-meta">
+          <span class="format-pct">0%</span>
+          <span class="format-score" style="color:#E05050;">Ausente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TENDÊNCIA ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">08 · Evolução</p>
+    <h2 class="section-title">Tendência de <span>Engajamento</span></h2>
+
+    <div class="card">
+      <p>
+        O perfil publicou todos os 5 posts em um intervalo de apenas 4 dias (29/05 a 02/06/2026), indicando uma fase intensa de lançamento. A tendência é claramente <strong>crescente</strong>: os posts mais antigos (5 e 3) têm score 1 cada, enquanto os dois mais recentes (1 e 2) têm scores 6 e 10 respectivamente. Isso sugere que a conta está ganhando audiência progressivamente e que os posts mais recentes se beneficiam de uma base de seguidores maior.
+      </p>
+      <br>
+      <p>
+        Não há pico isolado anômalo — o crescimento é gradual e linear. O único ponto de atenção é que o <strong>Post 3 (foto estática de "promoção", publicado em 31/05) quebrou a tendência de alta com score 1</strong>, sugerindo que conteúdo puramente promocional performa significativamente pior do que conteúdo educativo ou contextualizado.
+      </p>
+      <br>
+      <p>
+        A frequência de publicação foi de aproximadamente 1 post por dia nos primeiros 5 dias — ritmo alto para uma fase de lançamento, mas que parece insustentável a médio prazo sem uma estratégia editorial mais diversificada.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ O QUE ESTÁ FUNCIONANDO ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">09 · Padrões</p>
+    <h2 class="section-title">O que está <span>Funcionando</span></h2>
+    <p style="color:var(--cream-muted); font-size:0.9rem; margin-bottom:24px;">Top 3 padrões com maior engajamento</p>
+
+    <div class="pattern-card good">
+      <div class="pattern-post-label">
+        <span class="pattern-post-num">Post #2</span>
+        <span class="badge badge-ok">Score 10 — Melhor da conta</span>
+      </div>
+      <p>
+        <strong>"Tenha mais seguidores do que seguindo"</strong> — Funcionou porque atacou uma dor específica e verificável (a relação seguindo/seguidores) que qualquer dono de perfil comercial pode checar imediatamente no próprio perfil. O gancho é prático e autocrítico: o leitor olha para o próprio número e se identifica. O CTA "Comente AVALIA" é direto e de baixo atrito. A legenda tem pergunta implícita ("Seu perfil está atraindo clientes ou afastando oportunidades?") que gera reflexão. O visual do carrossel com mockup de celular e exemplo de perfil ideal é altamente persuasivo.
+      </p>
+    </div>
+
+    <div class="pattern-card good">
+      <div class="pattern-post-label">
+        <span class="pattern-post-num">Post #1</span>
+        <span class="badge badge-ok">Score 6 — Segundo melhor</span>
+      </div>
+      <p>
+        <strong>"Uma pergunta simples gerou uma crise de imagem milionária"</strong> — Funcionou porque conectou um tema viral (polêmica real de uma empresária) ao nicho do perfil (posicionamento de marca). Isso é <strong>newsjacking bem executado</strong>: capitaliza sobre algo que já está em discussão nas redes e adiciona uma camada de análise especializada. A legenda é a mais longa e elaborada da conta, com estrutura de storytelling clara, e termina com pergunta aberta que convida comentários genuínos. É o único post que não é essencialmente um anúncio de captação.
+      </p>
+    </div>
+
+    <div class="pattern-card good">
+      <div class="pattern-post-label">
+        <span class="pattern-post-num">Post #4</span>
+        <span class="badge badge-ok">Score 3 — Terceiro lugar</span>
+      </div>
+      <p>
+        Carrossel de apresentação com os pilares da análise (bio, visual, posicionamento, resultados) — performou melhor que os posts 3 e 5 provavelmente pela riqueza visual do carrossel (múltiplos slides com detalhes do serviço) e pela clareza da proposta de valor apresentada de forma estruturada.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AUDIÊNCIA ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">10 · Audiência</p>
+    <h2 class="section-title">O que a Audiência está <span>Dizendo</span></h2>
+
+    <div class="card-grid">
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Tipos de Comentários</div>
+        <p><span class="badge badge-bad" style="margin-bottom:8px; display:inline-flex;">Praticamente nulos</span><br><br>O único comentário identificado é do próprio perfil (auto-comentário reforçando o CTA no Post 2).</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Perguntas Recorrentes</div>
+        <p>Nenhuma identificada nos comentários do feed (volume insuficiente para análise).</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">Críticas ou Objeções</div>
+        <p>Nenhuma identificada. Volume de comentários praticamente zero.</p>
+      </div>
+      <div class="card" style="margin-bottom:0;">
+        <div class="card-title">O Perfil Responde?</div>
+        <p><span class="badge badge-warn" style="margin-bottom:8px; display:inline-flex;">Proativo</span><br><br>O próprio perfil comentou no Post 2 reforçando o CTA. Mas com 0 comentários de terceiros na maioria dos posts, não há histórico de resposta a seguidores.</p>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--gold); margin-top: 8px;">
+      <div class="card-title">Insight Principal da Audiência</div>
+      <p>
+        A ausência quase total de comentários (com 2.004 seguidores) é o sinal mais importante da auditoria. Indica que, apesar de uma base de seguidores razoável para uma conta nova, a audiência ainda não está engajada o suficiente para comentar — seja porque os posts não provocam o suficiente, porque os CTAs de "Comente AVALIA" exigem um nível de comprometimento maior do que um comentário espontâneo, ou porque boa parte dos seguidores não viu os posts ainda (alcance orgânico baixo).
+      </p>
+      <br>
+      <p>
+        O único post que contém uma pergunta genuinamente provocativa ao público (#1, sobre a crise de imagem) é justamente o que gerou mais curtidas, <strong>confirmando que conteúdo que provoca opinião tende a converter melhor.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ O QUE NÃO ESTÁ FUNCIONANDO ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">11 · Gaps</p>
+    <h2 class="section-title">O que <span>Não</span> Está Funcionando</h2>
+    <p style="color:var(--cream-muted); font-size:0.9rem; margin-bottom:24px;">Bottom 2 padrões com menor desempenho</p>
+
+    <div class="pattern-card bad">
+      <div class="pattern-post-label">
+        <span class="pattern-post-num">Post #3</span>
+        <span class="badge badge-bad">Score 1 — Pior não inaugural</span>
+      </div>
+      <p>
+        <strong>Foto "SEU PERFIL PODE ESTAR AFASTANDO CLIENTES"</strong> — A imagem é visualmente densa e carregada de texto — parece mais um flyer de anúncio pago do que conteúdo orgânico. A legenda é médio-longa mas inteiramente focada em convencer a pessoa a se cadastrar, sem nenhum conteúdo educativo ou histórico que justifique a conversão. É o post mais "publicitário" da conta e o que menos funcionou, o que é um sinal claro de que <strong>a audiência responde melhor a conteúdo de valor do que a promoção direta.</strong>
+      </p>
+    </div>
+
+    <div class="pattern-card bad">
+      <div class="pattern-post-label">
+        <span class="pattern-post-num">Post #5</span>
+        <span class="badge badge-bad">Score 1 — Manifesto inaugural</span>
+      </div>
+      <p>
+        <strong>"Muitos negócios são excelentes"</strong> — O primeiro post do perfil, com um texto genuinamente bem escrito e conceitual, performou igual ao post mais promocional. Isso sugere que o problema do Post 5 não foi a qualidade do conteúdo, mas <strong>a ausência de audiência no momento da publicação</strong> (a conta acabara de ser criada). Não é uma falha de conteúdo — é uma falha de timing. Republicar esse texto ou transformá-lo em carrossel agora que a conta tem 2.000 seguidores pode ser uma boa estratégia de quick win.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRINCIPAIS INSIGHTS ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">12 · Síntese</p>
+    <h2 class="section-title">Principais <span>Insights</span></h2>
+
+    <div class="insight-list">
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>O perfil tem uma identidade visual excepcionalmente sólida para seu estágio.</strong> Muitas contas com anos de existência não têm a consistência visual que o @avaliaperfis0 já apresenta com 5 posts. Isso é um ativo real.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>O maior problema não é qualidade — é quantidade e diversidade.</strong> Com apenas 5 posts e 4 deles com essencialmente o mesmo CTA de captação, o perfil parece uma landing page, não uma conta de conteúdo. Isso limita o alcance orgânico e o motivo para alguém seguir.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>Carrossel é o formato dominante e o que performa melhor</strong> (score médio 5,0 vs. 1,0 da foto estática). O perfil acertou ao apostar nesse formato. Reels, entretanto, estão completamente ausentes — e no Instagram de 2026, reels são o principal veículo de crescimento orgânico.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>O conteúdo que conecta com um evento atual (newsjacking) superou todos os outros.</strong> O Post 1, sobre a crise de imagem da empresária, tem o segundo melhor score e é o único post que foge do padrão de captação. Isso é um padrão forte e replicável.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>CTAs repetitivos criam cegueira.</strong> Todos os 5 posts pedem "Comente AVALIA" ou "Mande DM". Isso é necessário para captação, mas quando é o único tipo de CTA existente, deixa de ser percebido como urgente.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>O destaque "Dúvidas" é o conteúdo mais rico da conta</strong> — com 6 stories de Q&amp;A genuíno sobre dúvidas do nicho. Esse formato precisa vazar para o feed em forma de carrossel ou reel.
+        </div>
+      </div>
+
+      <div class="insight-item">
+        <div class="insight-icon">
+          <svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div class="insight-text">
+          <strong>"Antes e Depois" e "Avaliações" são os destaques mais fracos</strong> — estão praticamente vazios. Para uma conta cujo core do negócio é a transformação de perfis, a ausência de provas sociais visuais é uma fraqueza estratégica séria que precisa ser corrigida com urgência.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECOMENDAÇÕES ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">13 · Ação</p>
+    <h2 class="section-title">Recomendações <span>Práticas</span></h2>
+
+    <div class="rec-list">
+
+      <div class="rec-item">
+        <div class="rec-num">1</div>
+        <div class="rec-content">
+          <strong>Publique 1 Reel por semana nos próximos 30 dias.</strong>
+          <p>Conteúdo: bastidores de uma avaliação gratuita (com autorização), mostrando o antes/depois em vídeo. Reels são o principal mecanismo de alcance orgânico no Instagram em 2026. Um perfil que já tem identidade visual sólida e um serviço demonstrável tem tudo para viralizar nesse formato.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">2</div>
+        <div class="rec-content">
+          <strong>Crie uma pauta editorial com pelo menos 3 tipos de conteúdo diferentes.</strong>
+          <p>Atualmente 80% dos posts são variações do mesmo CTA. Divida a pauta em: 40% conteúdo educativo (dicas, erros, análises de casos), 40% social proof (antes/depois, depoimentos, bastidores de avaliações), e 20% captação direta (o "Comente AVALIA").</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">3</div>
+        <div class="rec-content">
+          <strong>Republique o Post #5 (manifesto inaugural) como carrossel agora.</strong>
+          <p>O conteúdo é excelente, mas foi publicado quando a conta tinha poucos seguidores. Transforme o texto em carrossel com design visual e publique na semana que vem — é um quick win de esforço zero com potencial de engajamento muito maior.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">4</div>
+        <div class="rec-content">
+          <strong>Popule os destaques "Antes e Depois" e "Avaliações" com urgência.</strong>
+          <p>Esses dois destaques existem como promessa, mas estão vazios. Um visitante que clica em "Avaliações" e não encontra nada perde confiança no serviço. Meta: ter pelo menos 5 slides em cada um dentro de 14 dias.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">5</div>
+        <div class="rec-content">
+          <strong>Atualize o link da bio para um linktree com 2 opções.</strong>
+          <p>(1) Link direto para DM no Instagram com a mensagem pré-preenchida "Quero minha avaliação gratuita" e (2) Link para o TikTok. Isso reduz o atrito da conversão de forma mensurável.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">6</div>
+        <div class="rec-content">
+          <strong>Adicione um CTA na bio.</strong>
+          <p>Inclua uma linha como "Comente AVALIA para participar" ou "Mande seu perfil no direct" abaixo de "Avaliações gratuitas". A bio atualmente não instrui o visitante sobre qual ação tomar.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">7</div>
+        <div class="rec-content">
+          <strong>Faça pelo menos 2 posts por semana de conteúdo educativo sem CTA de captação.</strong>
+          <p>Exemplos: "3 erros que fazem seu perfil parecer amador", "O que sua bio diz sobre seu negócio antes de você abrir a boca", "Por que perfis com bio vaga perdem seguidores". Isso constrói autoridade e alcança novos públicos via pesquisa e compartilhamentos.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <div class="rec-num">8</div>
+        <div class="rec-content">
+          <strong>Use o newsjacking sistematicamente: monitore 1 caso viral por semana e conecte ao seu nicho.</strong>
+          <p>O Post #1 (caso da empresária) foi o melhor conteúdo da conta por esse motivo. Configure alertas para termos como "polêmica empresária", "crise de marca", "influencer e negócio" e produza análises rápidas de posicionamento. Esse formato combina alcance (tema em alta) com autoridade (análise especializada).</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUICK WINS ═══ -->
+<section class="section">
+  <div class="container">
+    <p class="section-label">14 · Imediato</p>
+    <h2 class="section-title">Quick Wins — <span>Próximos 14 dias</span></h2>
+
+    <div class="qw-grid">
+      <div class="qw-card">
+        <div class="qw-num">01</div>
+        <p><strong>Republique o Post #5 como carrossel</strong> — conteúdo pronto, esforço mínimo, audiência maior do que no lançamento.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">02</div>
+        <p><strong>Grave um Reel de 30–60 segundos</strong> mostrando uma avaliação real (com autorização) — o conteúdo nativo mais impactante que você pode criar agora para crescer organicamente.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">03</div>
+        <p><strong>Popule os destaques "Avaliações" e "Antes e Depois"</strong> com ao menos 3 cases cada — é prova social que aumenta conversão de DMs imediatamente, sem precisar publicar nada novo no feed.</p>
+      </div>
+      <div class="qw-card">
+        <div class="qw-num">04</div>
+        <p><strong>Faça 1 post de conteúdo educativo puro esta semana</strong> (sem CTA de captação) — para quebrar o padrão repetitivo do grid e começar a construir audiência que segue pelo valor.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px; background:rgba(201,168,76,0.04);">
+      <p style="font-size:0.85rem; color:var(--cream-muted); font-style:italic;">
+        Relatório elaborado com base em análise completa do perfil @avaliaperfis0: bio, link, grid visual, 5 destaques de stories e todos os 5 posts existentes no perfil em 03/06/2026.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <p>Auditoria gerada por <strong>Agência Logos</strong> · 03/06/2026</p>
+</footer>
+
+<!-- ═══ CHART.JS ═══ -->
+<script>
+  const ctx = document.getElementById('scoreChart').getContext('2d');
+
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, 'rgba(201,168,76,0.6)');
+  gradient.addColorStop(1, 'rgba(201,168,76,0.05)');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Post 5\n(29/05)', 'Post 4\n(30/05)', 'Post 3\n(31/05)', 'Post 1\n(01/06 ~20h)', 'Post 2\n(01/06 ~13h)'],
+      datasets: [{
+        label: 'Score de Engajamento',
+        data: [1, 3, 1, 6, 10],
+        backgroundColor: [
+          'rgba(201,168,76,0.25)',
+          'rgba(201,168,76,0.40)',
+          'rgba(201,168,76,0.15)',
+          'rgba(201,168,76,0.65)',
+          'rgba(201,168,76,0.90)',
+        ],
+        borderColor: [
+          'rgba(201,168,76,0.5)',
+          'rgba(201,168,76,0.7)',
+          'rgba(201,168,76,0.35)',
+          'rgba(240,208,128,0.85)',
+          'rgba(240,208,128,1)',
+        ],
+        borderWidth: 1.5,
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1A1A1A',
+          borderColor: 'rgba(201,168,76,0.3)',
+          borderWidth: 1,
+          titleColor: '#F0D080',
+          bodyColor: '#B8B0A0',
+          padding: 12,
+          callbacks: {
+            label: (ctx) => ` Score: ${ctx.parsed.y}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: '#B8B0A0',
+            font: { size: 11, family: 'Inter' }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          max: 12,
+          grid: { color: 'rgba(255,255,255,0.06)' },
+          ticks: {
+            color: '#B8B0A0',
+            font: { size: 11, family: 'Inter' },
+            stepSize: 2
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

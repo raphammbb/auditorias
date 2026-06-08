@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Instagram — @navalhadeouro.sp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0A0908;
+    --dark: #111009;
+    --surface: #1A1712;
+    --surface-2: #221E16;
+    --surface-3: #2A2519;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dark: #9A7A2F;
+    --gold-dim: rgba(201,168,76,0.15);
+    --amber: #D97706;
+    --white: #F5F0E8;
+    --white-dim: rgba(245,240,232,0.7);
+    --white-muted: rgba(245,240,232,0.45);
+    --border: rgba(201,168,76,0.18);
+    --border-soft: rgba(245,240,232,0.08);
+    --red: #C0392B;
+    --green: #27AE60;
+    --orange: #E67E22;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--black);
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─────────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 80% 100%, rgba(201,168,76,0.07) 0%, transparent 60%),
+                var(--black);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C9A84C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold);
+    flex-shrink: 0;
+  }
+
+  .hero-title {
+    font-family: 'Bodoni Moda', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #E8C96A 0%, #C9A84C 35%, #F5E6A3 60%, #9A7A2F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.25rem;
+    max-width: 800px;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--white-muted);
+    letter-spacing: 0.03em;
+    margin-bottom: 3rem;
+  }
+
+  .hero-subtitle strong {
+    color: var(--white-dim);
+    font-weight: 600;
+  }
+
+  .metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .metric-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.1rem 1.5rem;
+    text-align: center;
+    flex: 1;
+    min-width: 130px;
+    max-width: 200px;
+  }
+
+  .metric-card .value {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .metric-card .label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white-muted);
+  }
+
+  .hero-warning {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 10px;
+    padding: 0.75rem 1.1rem;
+    font-size: 0.82rem;
+    color: var(--gold);
+    max-width: 560px;
+    text-align: left;
+    line-height: 1.5;
+  }
+
+  .hero-warning svg { flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── DECORATIVE DIVIDER ─────────────────────────────────── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 0 1.5rem;
+    opacity: 0.4;
+  }
+  .section-divider::before, .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+  }
+  .section-divider svg { color: var(--gold); flex-shrink: 0; }
+
+  /* ─── LAYOUT ─────────────────────────────────────────────── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section {
+    padding: 4rem 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  /* ─── SECTION HEADER ──────────────────────────────────────── */
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Bodoni Moda', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  /* ─── CARDS ─────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+
+  .card-gold {
+    border-color: var(--border);
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%);
+  }
+
+  .card + .card { margin-top: 1rem; }
+
+  .card-title {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    margin-bottom: 0.75rem;
+  }
+
+  .card-body {
+    font-size: 0.9rem;
+    color: var(--white-dim);
+    line-height: 1.75;
+  }
+
+  /* ─── PROSE ─────────────────────────────────────────────── */
+  .prose { font-size: 0.92rem; color: var(--white-dim); line-height: 1.8; }
+  .prose strong { color: var(--white); font-weight: 600; }
+  .prose em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* ─── BIO BLOCK ──────────────────────────────────────────── */
+  .bio-block {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 1.2rem 1.5rem;
+    font-size: 0.88rem;
+    line-height: 1.9;
+    color: var(--white);
+    margin: 1.25rem 0;
+    font-family: 'Jost', sans-serif;
+  }
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .badge-green { background: rgba(39,174,96,0.15); color: #4ADE80; border: 1px solid rgba(39,174,96,0.3); }
+  .badge-gold { background: rgba(201,168,76,0.15); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.35); }
+  .badge-red { background: rgba(192,57,43,0.15); color: #F87171; border: 1px solid rgba(192,57,43,0.3); }
+  .badge-orange { background: rgba(230,126,34,0.15); color: #FB923C; border: 1px solid rgba(230,126,34,0.3); }
+
+  .info-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .info-label {
+    color: var(--white-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    min-width: 120px;
+    flex-shrink: 0;
+  }
+
+  /* ─── TABLE ──────────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border-soft); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+  }
+
+  thead tr { background: var(--surface-2); }
+
+  thead th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    border-top: 1px solid var(--border-soft);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(201,168,76,0.04); }
+
+  tbody td {
+    padding: 0.75rem 1rem;
+    color: var(--white-dim);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  .score-val {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  .score-hidden {
+    font-size: 0.75rem;
+    color: var(--white-muted);
+    font-style: italic;
+  }
+
+  .rank-1st { color: var(--gold-light); font-weight: 700; }
+
+  /* ─── RANKING BARS ───────────────────────────────────────── */
+  .bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .bar-label {
+    font-size: 0.78rem;
+    color: var(--white-muted);
+    width: 60px;
+    flex-shrink: 0;
+    text-align: right;
+  }
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: var(--surface-3);
+    border-radius: 100px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+    border-radius: 100px;
+  }
+  .bar-score {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gold);
+    width: 30px;
+    text-align: right;
+  }
+
+  /* ─── INSIGHTS GRID ──────────────────────────────────────── */
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .insight-card {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-top: 3px solid var(--gold-dark);
+    border-radius: 12px;
+    padding: 1.4rem;
+  }
+
+  .insight-card .icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--gold-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.9rem;
+    color: var(--gold);
+  }
+
+  .insight-card h4 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .insight-card p {
+    font-size: 0.82rem;
+    color: var(--white-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── RECOMENDAÇÕES ──────────────────────────────────────── */
+  .rec-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+  .rec-item {
+    display: flex;
+    gap: 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 1.4rem;
+    align-items: flex-start;
+  }
+
+  .rec-number {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--gold-dark);
+    opacity: 0.6;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+    padding-top: 2px;
+  }
+
+  .rec-content h4 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .rec-content p {
+    font-size: 0.86rem;
+    color: var(--white-muted);
+    line-height: 1.75;
+  }
+
+  .impact-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+  .impact-high { background: rgba(201,168,76,0.15); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+  .impact-medium { background: rgba(230,126,34,0.12); color: #FB923C; border: 1px solid rgba(230,126,34,0.25); }
+
+  /* ─── QUICK WINS ──────────────────────────────────────────── */
+  .qw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .qw-card {
+    background: linear-gradient(135deg, var(--surface-2) 0%, var(--surface) 100%);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .qw-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+  }
+
+  .qw-card .qw-num {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .qw-card h4 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+  }
+
+  .qw-card p {
+    font-size: 0.84rem;
+    color: var(--white-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── DOIS PAINÉIS (TOP / BOTTOM) ────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .panel-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .panel-icon.green { background: rgba(39,174,96,0.15); color: #4ADE80; }
+  .panel-icon.red { background: rgba(192,57,43,0.15); color: #F87171; }
+
+  .panel h4 {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
+  .panel-sub {
+    font-size: 0.72rem;
+    color: var(--white-muted);
+    margin-bottom: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .panel p {
+    font-size: 0.84rem;
+    color: var(--white-muted);
+    line-height: 1.75;
+  }
+
+  .panel p + p { margin-top: 0.75rem; }
+
+  /* ─── AUDIÊNCIA ──────────────────────────────────────────── */
+  .aud-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 0.88rem;
+  }
+  .aud-row:last-child { border-bottom: none; }
+  .aud-key {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 0.8rem;
+    min-width: 180px;
+    flex-shrink: 0;
+  }
+  .aud-val { color: var(--white-dim); line-height: 1.65; }
+
+  /* ─── AVISO ──────────────────────────────────────────────── */
+  .alert-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.83rem;
+    color: var(--gold);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .alert-box svg { flex-shrink: 0; margin-top: 2px; }
+
+  /* ─── NOTA DE RODAPÉ ─────────────────────────────────────── */
+  .footnote {
+    font-size: 0.78rem;
+    color: var(--white-muted);
+    line-height: 1.7;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    margin-top: 2rem;
+    font-style: italic;
+  }
+
+  /* ─── FOOTER ─────────────────────────────────────────────── */
+  .footer {
+    padding: 3rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--border-soft);
+    background: var(--dark);
+  }
+
+  .footer-logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-sub {
+    font-size: 0.8rem;
+    color: var(--white-muted);
+    margin-bottom: 1rem;
+  }
+
+  .footer-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold-dark);
+    margin: 1rem auto;
+    opacity: 0.4;
+  }
+
+  .footer-copy {
+    font-size: 0.73rem;
+    color: var(--white-muted);
+    opacity: 0.5;
+  }
+
+  /* ─── NAV ─────────────────────────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    background: rgba(10,9,8,0.85);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 100px;
+    padding: 0.5rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    white-space: nowrap;
+  }
+
+  .nav-logo {
+    font-family: 'Bodoni Moda', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    margin-right: 0.75rem;
+  }
+
+  .nav a {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--white-muted);
+    text-decoration: none;
+    padding: 0.25rem 0.55rem;
+    border-radius: 100px;
+    transition: color 0.15s, background 0.15s;
+    cursor: pointer;
+  }
+  .nav a:hover { color: var(--white); background: rgba(201,168,76,0.1); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 680px) {
+    .nav { display: none; }
+    .two-col { grid-template-columns: 1fr; }
+    .metric-card { min-width: 100px; }
+    .hero-title { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+    .insights-grid { grid-template-columns: 1fr; }
+    .qw-grid { grid-template-columns: 1fr; }
+    .info-label { min-width: 90px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Navegação da auditoria">
+  <span class="nav-logo">💈 NOsp</span>
+  <a href="#visao-geral">Visão Geral</a>
+  <a href="#engajamento">Ranking</a>
+  <a href="#insights">Insights</a>
+  <a href="#recomendacoes">Ações</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="topo" aria-label="Capa da auditoria">
+  <div class="hero-badge">
+    Auditoria de Conteúdo · Instagram · 08/06/2026
+  </div>
+
+  <h1 class="hero-title">Manual de<br>Boas Práticas</h1>
+
+  <p class="hero-subtitle">
+    Análise de desempenho para <strong>@navalhadeouro.sp</strong> · Navalha de Ouro SP
+  </p>
+
+  <div class="metrics-row" role="list">
+    <div class="metric-card" role="listitem">
+      <span class="value">7</span>
+      <span class="label">Posts Analisados</span>
+    </div>
+    <div class="metric-card" role="listitem">
+      <span class="value">~8</span>
+      <span class="label">Meses Cobertos</span>
+    </div>
+    <div class="metric-card" role="listitem">
+      <span class="value">934</span>
+      <span class="label">Seguidores</span>
+    </div>
+    <div class="metric-card" role="listitem">
+      <span class="value">~20</span>
+      <span class="label">Posts Totais</span>
+    </div>
+  </div>
+
+  <div class="hero-warning" role="alert">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+    <span>Amostra reduzida — use como primeira impressão, não como diagnóstico definitivo.</span>
+  </div>
+</section>
+
+<!-- VISÃO GERAL -->
+<section class="section" id="visao-geral" aria-labelledby="visao-geral-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">01 — Visão Geral</span>
+      <h2 class="section-title" id="visao-geral-title">Diagnóstico do Perfil</h2>
+    </div>
+
+    <div class="card card-gold">
+      <p class="prose">
+        A <strong>Navalha de Ouro SP</strong> é uma barbearia recente (conta com ~20 posts no total, inaugurada há cerca de 1 ano) com identidade visual bem definida e proposta premium clara, mas que ainda engatinha no conteúdo digital. O perfil publica com <strong>baixíssima frequência</strong> — os 7 posts analisados cobrem um período de quase 8 meses — e usa o Instagram quase exclusivamente como <em>vitrine passiva</em>, sem voz, sem conversa com a audiência e sem estratégia visível de crescimento. O potencial existe; a execução é imatura.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- BIO E LINK -->
+<section class="section" id="bio" aria-labelledby="bio-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">02 — Bio e Link</span>
+      <h2 class="section-title" id="bio-title">Perfil e Chamadas para Ação</h2>
+    </div>
+
+    <div class="bio-block" role="figure" aria-label="Bio atual do Instagram">
+      💈 Barbearia Premium na Vila Mascote - SP<br>
+      🔥 Atendimento com excelência!<br>
+      📍 Agende pelo Booksy<br>
+      👇 Transforme seu estilo
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:0.5rem; margin-bottom:1.5rem;">
+      <div class="info-row">
+        <span class="info-label">Avaliação geral</span>
+        <span class="badge-pill badge-gold">Clara e parcialmente estratégica</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">CTA na bio</span>
+        <span class="badge-pill badge-green">Sim — "Agende pelo Booksy" + link</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Palavras-chave</span>
+        <span class="badge-pill badge-green">Sim — "Barbearia Premium", "Vila Mascote", "Booksy"</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Link na bio</span>
+        <span class="badge-pill badge-green">Presente — link direto para o Booksy</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Destino coerente</span>
+        <span class="badge-pill badge-green">Sim — Booksy ativo com equipe e agendamento</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">O que melhorar</div>
+      <p class="card-body">A frase <strong>"Transforme seu estilo"</strong> é genérica e não diferencia a marca de nenhuma outra barbearia. Deveria ser substituída por um diferencial real — ex.: <em>"Corte masculino + experiência premium"</em> ou destacar algo específico da casa (atendimento VIP, café, ambiente). A bio comunica o que é e onde fica, mas ainda falta a resposta para: <em>"por que eu, e não outra barbearia?"</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- GRID VISUAL -->
+<section class="section" id="grid" aria-labelledby="grid-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">03 — Grid Visual</span>
+      <h2 class="section-title" id="grid-title">Identidade e Consistência Visual</h2>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.5rem;">
+      <div class="info-row">
+        <span class="info-label">Identidade visual</span>
+        <span class="badge-pill badge-green">Coesa — paleta verde escuro + dourado + preto</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Convida a seguir?</span>
+        <span class="badge-pill badge-orange">Parcialmente</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Avaliação do Grid</div>
+      <p class="card-body">
+        O logo (escudo dourado "Navalha de Ouro SP") é bem trabalhado e reconhecível. A arte gráfica do Post 1 e os reels de bastidores têm apelo, mas a mistura de reels totalmente escuros (carregando), posts de outras contas e reels de produtos desconexos (café, pomada) <strong>fragmentam a leitura do grid</strong>.
+        <br><br>
+        A frequência baixíssima de publicação e a mistura de temas sem critério aparente (noivos, café, poste giratório, cortes) dão a sensação de perfil ainda <em>"montando o quebra-cabeça"</em>, sem linha editorial definida. O potencial visual existe — o que falta é uma grade temática intencional.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DESTAQUES DE STORIES -->
+<section class="section" id="destaques" aria-labelledby="destaques-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">04 — Destaques de Stories</span>
+      <h2 class="section-title" id="destaques-title">Análise dos Highlights</h2>
+    </div>
+
+    <div class="table-wrap" role="region" aria-label="Tabela de destaques de stories">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Slides</th>
+            <th>Tema</th>
+            <th>CTA</th>
+            <th>Qualidade Visual</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--white)">Clientes</strong></td>
+            <td>~20</td>
+            <td>Depoimentos e resultados de clientes</td>
+            <td>Implícito (tag)</td>
+            <td>Irregular — mix de stories próprios e repostados</td>
+            <td><span class="badge-pill badge-red">Desatualizado (49 sem)</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--white)">dia do noivo</strong></td>
+            <td>~3</td>
+            <td>Pacote/atendimento para noivos</td>
+            <td>Implícito (tag)</td>
+            <td>Razoável</td>
+            <td><span class="badge-pill badge-red">Desatualizado (47 sem)</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--white)">Contato</strong></td>
+            <td>1</td>
+            <td>Canal de contato WhatsApp</td>
+            <td>Sim — WhatsApp direto</td>
+            <td>Profissional e alinhado à marca</td>
+            <td><span class="badge-pill badge-orange">47 sem — funcional</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--white)">Localização</strong></td>
+            <td>1</td>
+            <td>Endereço físico</td>
+            <td>Não explícito</td>
+            <td>Profissional e claro</td>
+            <td><span class="badge-pill badge-orange">47 sem — evergreen</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--white)">Inauguração</strong></td>
+            <td>10+</td>
+            <td>Bastidores da abertura</td>
+            <td>Não</td>
+            <td>Irregular — conteúdo de terceiros</td>
+            <td><span class="badge-pill badge-red">Muito desatualizado (48 sem)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:1.25rem;">
+      <div class="card-title">Avaliação Rápida</div>
+      <p class="card-body">
+        Os destaques de <strong>Contato</strong> e <strong>Localização</strong> são funcionais e estrategicamente corretos — qualquer visitante novo encontra facilmente como agendar e onde fica. Porém, todos os destaques têm quase 1 ano sem atualização, transmitindo a sensação de um perfil que <em>"arrumou a casa na inauguração e não mexeu mais"</em>.
+        <br><br>
+        O destaque <strong>"Inauguração"</strong> em especial já cumpriu seu propósito e poderia ser substituído por algo mais atual como <em>"Portfólio"</em> ou <em>"Nossos Cortes"</em>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- RANKING DE ENGAJAMENTO -->
+<section class="section" id="engajamento" aria-labelledby="engajamento-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">05 — Ranking de Engajamento</span>
+      <h2 class="section-title" id="engajamento-title">Performance dos 7 Posts</h2>
+    </div>
+
+    <div class="alert-box" role="note">
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+      Post 4 (31/jan) excluído do scoring — curtidas ocultas pelo autor colaborativo. Aparece na tabela como referência mas sem score calculado.
+    </div>
+
+    <!-- Barras visuais -->
+    <div style="margin-bottom:2rem;">
+      <div class="bar-row">
+        <span class="bar-label">Post 1</span>
+        <div class="bar-track"><div class="bar-fill" style="width:100%" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="28"></div></div>
+        <span class="bar-score">28</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Post 6</span>
+        <div class="bar-track"><div class="bar-fill" style="width:57%" role="progressbar" aria-valuenow="16" aria-valuemin="0" aria-valuemax="28"></div></div>
+        <span class="bar-score">16</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Post 5</span>
+        <div class="bar-track"><div class="bar-fill" style="width:46%" role="progressbar" aria-valuenow="13" aria-valuemin="0" aria-valuemax="28"></div></div>
+        <span class="bar-score">13</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Post 2</span>
+        <div class="bar-track"><div class="bar-fill" style="width:36%" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="28"></div></div>
+        <span class="bar-score">10</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Post 3</span>
+        <div class="bar-track"><div class="bar-fill" style="width:18%" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="28"></div></div>
+        <span class="bar-score">5</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Post 7</span>
+        <div class="bar-track"><div class="bar-fill" style="width:18%" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="28"></div></div>
+        <span class="bar-score">5</span>
+      </div>
+    </div>
+
+    <div class="table-wrap" role="region" aria-label="Tabela de ranking de engajamento">
+      <table>
+        <thead>
+          <tr>
+            <th>Posição</th>
+            <th>Post</th>
+            <th>Formato</th>
+            <th>Score</th>
+            <th>Curtidas</th>
+            <th>Comentários</th>
+            <th>Tema</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rank-1st">1º</td>
+            <td>Post 1</td>
+            <td>Foto/arte gráfica</td>
+            <td><span class="score-val">28</span></td>
+            <td>25</td>
+            <td>1</td>
+            <td>Dia do Trabalhador — equipe</td>
+          </tr>
+          <tr>
+            <td>2º</td>
+            <td>Post 6</td>
+            <td>Reel colaborativo</td>
+            <td><span class="score-val">16</span></td>
+            <td>13</td>
+            <td>1</td>
+            <td>Antes/depois — corte de cabelo longo</td>
+          </tr>
+          <tr>
+            <td>3º</td>
+            <td>Post 5</td>
+            <td>Reel</td>
+            <td><span class="score-val">13</span></td>
+            <td>10</td>
+            <td>1</td>
+            <td>Barber pole — símbolo de barbearia</td>
+          </tr>
+          <tr>
+            <td>4º</td>
+            <td>Post 2</td>
+            <td>Reel</td>
+            <td><span class="score-val">10</span></td>
+            <td>7</td>
+            <td>1</td>
+            <td>Café/produto (estética/mood)</td>
+          </tr>
+          <tr>
+            <td>5º</td>
+            <td>Post 3</td>
+            <td>Reel</td>
+            <td><span class="score-val">5</span></td>
+            <td>5</td>
+            <td>0</td>
+            <td>Bastidores — cliente com toalha</td>
+          </tr>
+          <tr>
+            <td>6º</td>
+            <td>Post 7</td>
+            <td>Reel</td>
+            <td><span class="score-val">5</span></td>
+            <td>5</td>
+            <td>0</td>
+            <td>Produto (pomada Modelado)</td>
+          </tr>
+          <tr style="opacity:0.7;">
+            <td>—</td>
+            <td>Post 4</td>
+            <td>Reel colaborativo</td>
+            <td><span class="score-hidden">oculto</span></td>
+            <td>oculto</td>
+            <td><strong style="color:var(--gold-light)">26</strong></td>
+            <td>Corte infantil — colaboração com @davifernand3s</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE ESTÁ / NÃO ESTÁ FUNCIONANDO -->
+<section class="section" id="padroes" aria-labelledby="padroes-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">06 — Padrões Identificados</span>
+      <h2 class="section-title" id="padroes-title">O que Funciona e o que Não Funciona</h2>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-icon green" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </div>
+          <h4>Top 2 Padrões</h4>
+        </div>
+        <p class="panel-sub">Posts com maior engajamento</p>
+
+        <p><strong style="color:var(--white)">Post 1 — "Dia do Trabalhador" (Score 28)</strong><br>
+        Único post com conteúdo de texto + pessoas visíveis + identidade visual bem aplicada. A combinação de data comemorativa com a equipe gerou conexão emocional — 25 curtidas representam ~2,7% de alcance sobre a base, o melhor índice da amostra. O diferencial: humanizar a marca mostrando os profissionais com nome, valorizando o trabalho deles.</p>
+
+        <p><strong style="color:var(--white)">Post 6 — Reel colaborativo "Antes/depois" (Score 16)</strong><br>
+        O formato colaborativo com @reuber_sreis expandiu o alcance. O tema "transformação de visual" — cabelo longo → corte estruturado — é visualmente impactante e imediatamente compreensível.</p>
+
+        <p><strong style="color:var(--white)">Post 4 — referência (26 comentários)</strong><br>
+        Reel colaborativo com @davifernand3s, corte infantil, legenda "Estilo não se faz, se cria". Maior volume de interações de toda a amostra. O acesso a uma audiência externa foi o fator decisivo — <em>colaborações com outras contas são o maior acelerador de engajamento deste perfil</em>.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-icon red" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </div>
+          <h4>Bottom 2 Padrões</h4>
+        </div>
+        <p class="panel-sub">Posts com menor engajamento</p>
+
+        <p><strong style="color:var(--white)">Post 3 — Bastidores (Score 5, 7 fev)</strong><br>
+        Vídeo mostrando cliente de costas com toalha na cabeça. Legenda = zero (apenas hashtags genéricas). Nenhum contexto, nenhuma história, nenhum CTA. O espectador não sabe o que está vendo nem por que deveria se importar.</p>
+
+        <p><strong style="color:var(--white)">Post 7 — Reel de pomada (Score 5, 15 out 2025)</strong><br>
+        Vídeo cinematográfico de uma pomada girando. O visual sofisticado não converte quando o benefício para o cliente não está claro — sem antes/depois, sem preço, sem link de compra.</p>
+
+        <p><strong style="color:var(--white)">Em comum nos dois piores:</strong><br>
+        Ausência de rosto humano, ausência de CTA e ausência de narrativa. São posts que mostram elementos da barbearia sem nunca responder <em>"e daí, o que isso tem a ver com você?"</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE A AUDIÊNCIA ESTÁ DIZENDO -->
+<section class="section" id="audiencia" aria-labelledby="audiencia-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">07 — Voz da Audiência</span>
+      <h2 class="section-title" id="audiencia-title">O que a Audiência Está Dizendo</h2>
+    </div>
+
+    <div class="card card-gold">
+      <div class="aud-row">
+        <span class="aud-key">Tipos predominantes</span>
+        <span class="aud-val">Elogio genérico — único comentário no Post 1: <strong style="color:var(--white)">"Abs"</strong> (abreviação de "abraços").</span>
+      </div>
+      <div class="aud-row">
+        <span class="aud-key">Perguntas da audiência</span>
+        <span class="aud-val">Nenhuma pergunta registrada nos posts analisados.</span>
+      </div>
+      <div class="aud-row">
+        <span class="aud-key">O perfil responde?</span>
+        <span class="aud-val">Raramente/nunca — no Post 1, o único comentário não recebeu resposta. No Post 4 (colaborativo), a navalhadeouro.sp comentou apenas emojis 🔥💈🚀 sem responder individualmente.</span>
+      </div>
+      <div class="aud-row">
+        <span class="aud-key">Perfil da audiência</span>
+        <span class="aud-val">Basicamente conhecidos e parceiros — reuber_sreis curtiu quase todos os posts; heloizafernand3s aparece duas vezes; wanda_costass e outros parecem ser do círculo próximo. <strong style="color:var(--white)">Não há evidências de atração de público novo</strong> ou de pessoas comentando por interesse genuíno em agendar um corte — audiência ainda restrita ao núcleo original da marca.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRINCIPAIS INSIGHTS -->
+<section class="section" id="insights" aria-labelledby="insights-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">08 — Principais Insights</span>
+      <h2 class="section-title" id="insights-title">Os Três Diagnósticos Centrais</h2>
+    </div>
+
+    <div class="insights-grid">
+      <div class="insight-card">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h4>Frequência é o Maior Problema</h4>
+        <p>Os 7 posts cobrem ~8 meses — menos de 1 post por mês. O algoritmo do Instagram penaliza contas inativas e a audiência simplesmente esquece que o perfil existe. Nessa cadência, qualquer estratégia de conteúdo é ineficaz por definição.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+        </div>
+        <h4>Colaborações Desbloqueiam o Alcance Real</h4>
+        <p>Os dois posts com maior engajamento (Post 4: 26 comentários; Post 6: 13 curtidas) foram colaborativos. O perfil tem uma rede de relacionamentos, mas ainda não usa isso sistematicamente para crescer.</p>
+      </div>
+
+      <div class="insight-card">
+        <div class="icon-wrap" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"/></svg>
+        </div>
+        <h4>Falta Voz e Legenda</h4>
+        <p>5 dos 7 posts têm como legenda apenas hashtags ou frases genéricas com menos de 10 palavras. O único post com texto mínimo foi o mais curtido da amostra. Conteúdo sem história raramente estimula comentários.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMENDAÇÕES -->
+<section class="section" id="recomendacoes" aria-labelledby="rec-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">09 — Recomendações Práticas</span>
+      <h2 class="section-title" id="rec-title">4 Ações para Mudar o Jogo</h2>
+    </div>
+
+    <div class="rec-list">
+      <div class="rec-item">
+        <span class="rec-number">1</span>
+        <div class="rec-content">
+          <span class="impact-tag impact-high">Impacto Alto</span>
+          <h4>Cadência mínima de 2 a 3 posts por semana</h4>
+          <p>Antes de otimizar qualquer outra coisa — formato, copy, hashtag — é preciso <strong>existir</strong>. A conta está praticamente inativa, o que mata o alcance orgânico. Não é necessário criar conteúdo complexo: um reel de 15s de um corte do dia já é suficiente para manter presença. O ideal seria: 2 reels de resultado (antes/depois ou processo) + 1 post de conexão (bastidores, equipe, data comemorativa) por semana.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <span class="rec-number">2</span>
+        <div class="rec-content">
+          <span class="impact-tag impact-high">Impacto Alto</span>
+          <h4>Legenda em todo post — mínimo 2 frases com pergunta ou CTA</h4>
+          <p>Baseado na evidência dos 7 posts: posts sem texto geraram 0 comentários. Basta uma frase simples como "Esse corte saiu incrível hoje — qual estilo você prefere, clássico ou moderno? 💈" para abrir conversa. Inclua sempre o CTA de agendamento: "Agende pelo link na bio" — especialmente em posts de resultado/transformação.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <span class="rec-number">3</span>
+        <div class="rec-content">
+          <span class="impact-tag impact-high">Impacto Alto</span>
+          <h4>Rotina mensal de posts colaborativos com clientes ou parceiros</h4>
+          <p>O post @davifernand3s gerou 26 comentários enquanto a média dos outros é de 0 a 1. A estratégia é simples: ao atender clientes com perfil público (influenciadores, artistas, outros profissionais), proponha um post colaborativo. Isso não custa nada e multiplica o alcance organicamente. Clientes como o MC mencionado nos stories já são candidatos naturais.</p>
+        </div>
+      </div>
+
+      <div class="rec-item">
+        <span class="rec-number">4</span>
+        <div class="rec-content">
+          <span class="impact-tag impact-medium">Impacto Médio</span>
+          <h4>Atualize os Destaques — substitua "Inauguração" por "Portfólio" ou "Cortes"</h4>
+          <p>O destaque "Inauguração" de quase 1 ano transmite a sensação de perfil parado. Crie um novo destaque com os melhores resultados de corte (antes/depois), atualize o "Clientes" com depoimentos recentes e adicione um destaque "Agendamento" com as informações do Booksy em formato de stories estáticos — isso reduz a fricção para o novo seguidor converter em cliente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK WINS -->
+<section class="section" id="quick-wins" aria-labelledby="qw-title">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">10 — Quick Wins</span>
+      <h2 class="section-title" id="qw-title">Nos Próximos 5 Dias</h2>
+    </div>
+
+    <div class="qw-grid">
+      <div class="qw-card">
+        <div class="qw-num">Quick Win 01</div>
+        <h4>Poste 1 reel de resultado com legenda + CTA</h4>
+        <p>Grave um vídeo curto de antes/depois de qualquer corte recente, escreva 3 linhas de legenda com uma pergunta ("Vocês preferem fade alto ou baixo?"), adicione "Agendamentos no link da bio" e publique. Isso já coloca o perfil de volta no algoritmo e cria um modelo para repetir toda semana.</p>
+      </div>
+
+      <div class="qw-card">
+        <div class="qw-num">Quick Win 02</div>
+        <h4>Reative os Stories com uma sequência de 3 slides</h4>
+        <p>Use os Stories para mostrar o dia a dia da barbearia hoje (não há nada ativo no perfil no momento). 3 slides simples: (1) foto do espaço com "Bom dia, agenda aberta hoje"; (2) foto/vídeo de um corte em andamento; (3) sticker de link para o Booksy. Custa menos de 10 minutos e sinaliza ao algoritmo que o perfil está vivo.</p>
+      </div>
+    </div>
+
+    <div class="footnote" role="note">
+      Auditoria realizada com base nos 7 posts mais recentes do grid público do perfil @navalhadeouro.sp em 08/06/2026. Dados de curtidas, comentários e datas coletados diretamente da plataforma. O Post 4 (colaborativo com @davifernand3s) foi incluído na análise qualitativa mas excluído do ranking de score por ter curtidas ocultas.
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-logo">Navalha de Ouro SP</div>
+  <p class="footer-sub">@navalhadeouro.sp · Vila Mascote, São Paulo</p>
+  <div class="footer-line" aria-hidden="true"></div>
+  <p class="footer-copy">Auditoria de Instagram · 08/06/2026 · Agência Logos</p>
+</footer>
+
+</body>
+</html>

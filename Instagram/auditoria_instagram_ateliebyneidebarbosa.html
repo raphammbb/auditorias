@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Instagram · @ateliebyneidebarbosa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rosa:       #C4788A;
+    --rose-light: #E8B4BC;
+    --champagne:  #F5E6D3;
+    --bege:       #FAF3EE;
+    --offwhite:   #FEFCFA;
+    --dourado:    #C9A96E;
+    --dourado-dk: #A8894D;
+    --text-dark:  #3A2A2E;
+    --text-mid:   #6B4E55;
+    --text-light: #9B7B85;
+    --border:     #EDD5CC;
+    --shadow:     rgba(196,120,138,0.12);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--offwhite);
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Playfair Display', serif; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--bege) 0%, var(--champagne) 55%, #F0D8D8 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,180,188,0.35) 0%, transparent 70%);
+    top: -80px; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,169,110,0.18) 0%, transparent 70%);
+    bottom: -60px; left: -60px;
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.75);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--rosa);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--rosa);
+    display: inline-block;
+  }
+
+  .hero-title {
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    background: linear-gradient(135deg, var(--rosa) 0%, var(--dourado) 60%, #D4875A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    max-width: 780px;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 40px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-subtitle strong {
+    font-weight: 700;
+    color: var(--rosa);
+  }
+
+  .metrics-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+
+  .metric-card {
+    background: rgba(255,255,255,0.82);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 26px;
+    min-width: 130px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px var(--shadow);
+  }
+
+  .metric-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--rosa);
+    display: block;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-top: 5px;
+    display: block;
+  }
+
+  .warning-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(201,169,110,0.15);
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 12px;
+    color: var(--dourado-dk);
+    font-weight: 700;
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section:last-of-type { border-bottom: none; }
+
+  .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--dourado);
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+    line-height: 1.25;
+  }
+
+  .section-body {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+
+  .section-body p { margin-bottom: 1rem; }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  .section-body strong {
+    color: var(--text-dark);
+    font-weight: 700;
+  }
+
+  /* ─── CARD BASE ─── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  /* ─── BIO CARD ─── */
+  .bio-block {
+    background: linear-gradient(135deg, var(--bege) 0%, var(--champagne) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    font-style: italic;
+    color: var(--text-mid);
+    line-height: 1.9;
+    font-size: 1.05rem;
+  }
+
+  .eval-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 600px) { .eval-grid { grid-template-columns: 1fr; } }
+
+  .eval-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+
+  .eval-item-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 6px;
+  }
+
+  .eval-item p { font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; }
+
+  .tag {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+
+  .tag-danger { background: rgba(196,120,138,0.15); color: var(--rosa); }
+  .tag-warn   { background: rgba(201,169,110,0.15); color: var(--dourado-dk); }
+  .tag-ok     { background: rgba(72,187,120,0.15);  color: #2D8653; }
+
+  /* ─── TABLE ─── */
+  .table-wrap { overflow-x: auto; margin-top: 20px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+  }
+
+  thead th {
+    background: linear-gradient(90deg, var(--champagne), var(--bege));
+    font-family: 'Lato', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-dark);
+    padding: 11px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+
+  tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--bege); }
+  tbody td { padding: 11px 14px; line-height: 1.5; }
+
+  .score-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa), var(--dourado));
+    color: #fff;
+    border-radius: 8px;
+    padding: 3px 10px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .rank-num {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--champagne);
+    border: 1.5px solid var(--border);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--rosa);
+  }
+
+  /* ─── STATUS CHIP ─── */
+  .chip-desatualizado {
+    display: inline-block;
+    background: rgba(196,120,138,0.1);
+    color: var(--rosa);
+    border: 1px solid rgba(196,120,138,0.3);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chip-muito-desatualizado {
+    display: inline-block;
+    background: rgba(196,120,138,0.2);
+    color: #A04060;
+    border: 1px solid rgba(196,120,138,0.5);
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* ─── POST CARDS ─── */
+  .post-card {
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    background: #fff;
+    box-shadow: 0 2px 10px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+
+  .post-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--shadow); }
+
+  .post-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .post-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  .post-card-meta {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+
+  .post-card-body {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .post-card-body strong { color: var(--text-dark); }
+
+  /* ─── INSIGHT CARDS ─── */
+  .insight-list { list-style: none; }
+
+  .insight-item {
+    display: flex;
+    gap: 14px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .insight-item:last-child { border-bottom: none; }
+
+  .insight-dot {
+    width: 10px; height: 10px;
+    min-width: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--dourado));
+    margin-top: 7px;
+  }
+
+  .insight-text {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.75;
+  }
+
+  .insight-text strong { color: var(--text-dark); }
+
+  /* ─── RECOMENDAÇÕES ─── */
+  .rec-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--rosa);
+    border-radius: 0 14px 14px 0;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px var(--shadow);
+  }
+
+  .rec-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rosa), var(--dourado));
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  .rec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  .rec-body { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+  .rec-body strong { color: var(--text-dark); }
+
+  /* ─── QUICK WINS ─── */
+  .qw-card {
+    background: linear-gradient(135deg, var(--champagne) 0%, var(--bege) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .qw-card::before {
+    content: '';
+    position: absolute;
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: rgba(196,120,138,0.12);
+    top: -20px; right: -20px;
+  }
+
+  .qw-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--rose-light);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .qw-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+
+  .qw-body { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
+  .qw-body strong { color: var(--text-dark); }
+
+  /* ─── NOTA FINAL ─── */
+  .nota-final {
+    background: linear-gradient(135deg, rgba(196,120,138,0.08) 0%, rgba(201,169,110,0.08) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-top: 40px;
+  }
+
+  .nota-final p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .nota-final strong { color: var(--text-dark); font-style: normal; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 36px 24px;
+    font-size: 0.82rem;
+    letter-spacing: 0.03em;
+  }
+
+  .footer strong { color: rgba(255,255,255,0.85); }
+
+  /* ─── ORNAMENT LINE ─── */
+  .ornament {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 32px 0 12px;
+  }
+
+  .ornament-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .ornament-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rose-light);
+  }
+
+  /* ─── SCORE BAR ─── */
+  .score-bar-wrap { margin-top: 6px; }
+
+  .score-bar-bg {
+    background: var(--champagne);
+    border-radius: 999px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--rosa), var(--dourado));
+    transition: width 0.6s ease;
+  }
+
+  /* ─── GRID VISUAL AVALIAÇÃO ─── */
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .status-row:last-child { border-bottom: none; }
+
+  .status-icon {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .status-ok { background: rgba(72,187,120,0.2); color: #2D8653; }
+  .status-warn { background: rgba(201,169,110,0.25); color: var(--dourado-dk); }
+  .status-bad { background: rgba(196,120,138,0.2); color: var(--rosa); }
+
+  .status-label { font-size: 0.88rem; color: var(--text-mid); flex: 1; }
+  .status-label strong { color: var(--text-dark); }
+
+  @media (max-width: 768px) {
+    .hero { padding: 80px 20px 60px; }
+    .metrics-grid { gap: 10px; }
+    .metric-card { min-width: 100px; padding: 14px 16px; }
+    .metric-value { font-size: 1.4rem; }
+    .section { padding: 44px 0; }
+    .rec-card { border-left-width: 3px; }
+    .card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-badge">Auditoria de Conteúdo · Instagram · 09/06/2026</div>
+
+  <h1 class="hero-title">Manual de Boas Práticas</h1>
+
+  <p class="hero-subtitle">
+    Análise de desempenho para <strong>@ateliebyneidebarbosa</strong> · Ateliê by Neide Barbosa
+  </p>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <span class="metric-value">73,9K</span>
+      <span class="metric-label">Seguidores</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-value" style="color:var(--dourado);">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </span>
+      <span class="metric-label">Conta Verificada</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-value">+3.500</span>
+      <span class="metric-label">Eventos Realizados</span>
+    </div>
+    <div class="metric-card">
+      <span class="metric-value" style="color:var(--dourado);">7</span>
+      <span class="metric-label">Posts Analisados</span>
+    </div>
+  </div>
+
+  <div class="warning-pill">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    Amostra reduzida — use como primeira impressão, não como diagnóstico definitivo
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     VISÃO GERAL
+═══════════════════════════════════════ -->
+<div class="container">
+
+  <section class="section">
+    <div class="section-label">01 · Panorama</div>
+    <h2 class="section-title">Visão Geral do Perfil</h2>
+    <div class="section-body">
+      <p>O perfil tem autoridade genuína — 73,9 mil seguidores, conta verificada, +3.500 eventos realizados. Mas o Instagram atual não está trabalhando <strong>para</strong> o negócio de Neide: nos últimos 7 posts, 6 são conteúdos publicados por marcas parceiras (ScrapBrasil, HTVRONT, Vivo Desejo) onde ela aparece como co-autora ou fornecedora. O único post dela própria nesse período tem 49 curtidas e praticamente zero conversação.</p>
+      <p>O gap entre o volume de seguidores (73,9 mil) e o engajamento dos posts próprios é sinal claro de que o perfil está sendo sustentado por associações externas — não por conteúdo próprio que vende.</p>
+    </div>
+
+    <!-- Score visual -->
+    <div style="margin-top:28px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:0.82rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-light);">Posts próprios vs. collabs</span>
+        <span style="font-size:0.82rem;font-weight:700;color:var(--rosa);">1 de 7</span>
+      </div>
+      <div class="score-bar-bg">
+        <div class="score-bar-fill" style="width:14%;"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:5px;">
+        <span style="font-size:11px;color:var(--text-light);">Conteúdo próprio</span>
+        <span style="font-size:11px;color:var(--text-light);">6 de 7 são de marcas parceiras</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       BIO E LINK
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">02 · Bio &amp; Link</div>
+    <h2 class="section-title">Bio e Link na Bio</h2>
+
+    <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-light);margin-bottom:10px;">Bio atual</p>
+    <div class="bio-block">
+      ✨ Momentos que emocionam, detalhes que contam histórias!<br>
+      🎈 Balões, lembrancinhas, presentes personalizados…<br>
+      🎁 + de 3500 eventos realizados<br>
+      📍 Consolação-SP
+    </div>
+
+    <div class="eval-grid">
+      <div class="eval-item">
+        <div class="eval-item-label">Avaliação geral</div>
+        <span class="tag tag-warn">Genérica</span>
+        <p>A bio comunica o que faz, mas não diz para quem, não tem preço mínimo/ticket e não tem CTA de ação. Não diferencia de outras lembrancinhas no Instagram.</p>
+      </div>
+      <div class="eval-item">
+        <div class="eval-item-label">CTA na bio</div>
+        <span class="tag tag-danger">Ausente</span>
+        <p>Não há frase de ação. Faltam direcionamentos como "Peça já", "Mande uma DM" ou "Faça seu orçamento".</p>
+      </div>
+      <div class="eval-item">
+        <div class="eval-item-label">Palavras-chave</div>
+        <span class="tag tag-warn">Parcial</span>
+        <p>"Lembrancinhas", "presentes personalizados" e "balões" presentes. Faltam: "convites", "festas", "personalizados SP".</p>
+      </div>
+      <div class="eval-item">
+        <div class="eval-item-label">Link na bio</div>
+        <span class="tag tag-warn">Subaproveitado</span>
+        <p>bio.site com apenas 2 botões funcionais (WhatsApp + avaliação) e <strong>1 link inválido</strong> com erro "Invalid Link". Sem catálogo, portfólio ou tipos de produto.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--dourado);margin-bottom:10px;">O que melhorar</p>
+      <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.75;">Adicionar um CTA direto na bio <strong>("Peça seu orçamento: link na bio")</strong> e <strong>consertar o link quebrado no bio.site imediatamente</strong>. O ideal é criar uma página no bio.site com seções: Catálogo por tipo de festa, Depoimentos e Contato/WhatsApp.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       GRID VISUAL
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">03 · Grid</div>
+    <h2 class="section-title">Grid Visual</h2>
+
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div class="status-row">
+        <div class="status-icon status-bad">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="status-label"><strong>Identidade visual:</strong> Irregular — não há paleta de cores definida; os posts têm 5 estilos visuais diferentes, um por marca parceira. A identidade do grid está completamente fragmentada.</div>
+      </div>
+      <div class="status-row">
+        <div class="status-icon status-warn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
+        </div>
+        <div class="status-label"><strong>Convida a seguir:</strong> Parcialmente — os eventos são bonitos e o trabalho é evidente, mas o grid não comunica "ateliê com identidade própria". Parece uma vitrine de clientes de outras marcas.</div>
+      </div>
+      <div class="status-row">
+        <div class="status-icon status-bad">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="status-label"><strong>Coesão:</strong> Ausente — cada collab traz um visual diferente, e o único post próprio aparece misturado sem critério de curadoria. Conteúdo atrativo, mas sem identidade própria do Ateliê.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       DESTAQUES DE STORIES
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">04 · Stories</div>
+    <h2 class="section-title">Destaques de Stories</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Slides</th>
+            <th>Tema</th>
+            <th>CTA</th>
+            <th>Visual</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Aulas</strong></td>
+            <td>~7</td>
+            <td>Cursos e ensino de personalização</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Irregular</td>
+            <td><span class="chip-desatualizado">20 sem. atrás</span></td>
+          </tr>
+          <tr>
+            <td><strong>Convites</strong></td>
+            <td>~8</td>
+            <td>Portfólio de convites personalizados</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-muito-desatualizado">44 sem. atrás</span></td>
+          </tr>
+          <tr>
+            <td><strong>15 anos</strong></td>
+            <td>~7</td>
+            <td>Portfólio de festa de 15 anos</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-muito-desatualizado">42 sem. atrás</span></td>
+          </tr>
+          <tr>
+            <td><strong>Chá revelação</strong></td>
+            <td>~7</td>
+            <td>Portfólio de chás revelação</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-muito-desatualizado">42 sem. atrás</span></td>
+          </tr>
+          <tr>
+            <td><strong>Destaques</strong></td>
+            <td>~7</td>
+            <td>Posts selecionados do feed</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Irregular</td>
+            <td><span class="chip-muito-desatualizado">51 sem. — muito desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Vem Aprender</strong></td>
+            <td>~7</td>
+            <td>Conteúdo educativo</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Com identidade (ScrapBrasil)</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Scrap Brasil</strong></td>
+            <td>~7</td>
+            <td>Parcerias/eventos ScrapBrasil</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Com identidade (ScrapBrasil)</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Camarim</strong></td>
+            <td>~7</td>
+            <td>Bastidores da Neide</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Irregular</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Balões</strong></td>
+            <td>~7</td>
+            <td>Portfólio de balões</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Box</strong></td>
+            <td>~7</td>
+            <td>Portfólio de box presenteáveis</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Cestas de café</strong></td>
+            <td>~7</td>
+            <td>Portfólio cestas</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tábuas de frios</strong></td>
+            <td>~7</td>
+            <td>Portfólio tábuas</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Lembrancinhas</strong></td>
+            <td>~7</td>
+            <td>Portfólio lembrancinhas</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Personalizados</strong></td>
+            <td>~7</td>
+            <td>Portfólio de personalizados</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Consistente</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Feedbacks</strong></td>
+            <td>~7</td>
+            <td>Depoimentos de clientes</td>
+            <td><span class="tag tag-danger" style="margin:0;padding:2px 8px;font-size:10px;">Ausente</span></td>
+            <td>Irregular</td>
+            <td><span class="chip-desatualizado">Desatualizado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:20px;">
+      <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--dourado);margin-bottom:10px;">Avaliação rápida</p>
+      <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.75;">O perfil tem <strong>15 destaques bem categorizados</strong> — positivo em termos de organização — mas <strong>nenhum deles tem CTA visível</strong> (nenhum "Peça o seu", "Clique no link", "Mande DM") e <strong>todos estão desatualizados</strong> (o mais recente tem 20 semanas). Para uma conta focada em vendas, os destaques deveriam ser o catálogo ao vivo — e hoje estão sendo um arquivo estático.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       RANKING DE ENGAJAMENTO
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">05 · Engajamento</div>
+    <h2 class="section-title">Ranking de Engajamento</h2>
+
+    <p style="font-size:0.82rem;color:var(--text-light);margin-bottom:20px;"><em>Score = curtidas + (comentários × 3)</em></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Formato</th>
+            <th>Score</th>
+            <th>Curtidas</th>
+            <th>Comentários</th>
+            <th>Tema</th>
+            <th>Publicado por</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-num">1</span></td>
+            <td>Reel (collab)</td>
+            <td><span class="score-badge">2.115</span></td>
+            <td>1.800</td>
+            <td>105</td>
+            <td>Chá revelação Anthoni — emoção da revelação do sexo</td>
+            <td>@eukadurorodrigues</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">2</span></td>
+            <td>Reel (collab)</td>
+            <td><span class="score-badge">435</span></td>
+            <td>375</td>
+            <td>20</td>
+            <td>Chá revelação — decoração branca e confete azul</td>
+            <td>@vivodesejo</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">3</span></td>
+            <td>Reel (collab)</td>
+            <td><span class="score-badge">160</span></td>
+            <td>115</td>
+            <td>15</td>
+            <td>Balão bubble rosa para Dia das Mães</td>
+            <td>@scrapbrasil</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">4</span></td>
+            <td>Reel (collab)</td>
+            <td><span class="score-badge">118</span></td>
+            <td>88</td>
+            <td>10</td>
+            <td>Buquê de velas personalizado para Dia das Mães</td>
+            <td>@htvrontbrasil</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">5</span></td>
+            <td>Reel (collab)</td>
+            <td><span class="score-badge">78</span></td>
+            <td>66</td>
+            <td>4</td>
+            <td>Evento Celebra Show 2026 — palestra</td>
+            <td>@scrapbrasil</td>
+          </tr>
+          <tr style="background:rgba(245,230,211,0.35);">
+            <td><span class="rank-num" style="border-color:var(--rosa);color:var(--rosa);">6</span></td>
+            <td>Carrossel <strong style="font-size:10px;color:var(--dourado);">(próprio)</strong></td>
+            <td><span class="score-badge" style="background:var(--champagne);color:var(--rosa);font-size:0.8rem;">52</span></td>
+            <td>49</td>
+            <td>1</td>
+            <td>Novos equipamentos — prensa de bonés</td>
+            <td style="font-weight:700;color:var(--rosa);">@ateliebyneidebarbosa</td>
+          </tr>
+          <tr>
+            <td><span class="rank-num">7</span></td>
+            <td>Reel (collab)</td>
+            <td><span class="score-badge" style="background:rgba(180,180,180,0.4);color:var(--text-mid);">14</span></td>
+            <td>14</td>
+            <td>0</td>
+            <td>Demonstração na loja Rizzo</td>
+            <td>@htvrontbrasil</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       O QUE ESTÁ FUNCIONANDO
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">06 · Padrões</div>
+    <h2 class="section-title">O Que Está Funcionando — Top 2 Padrões</h2>
+
+    <div class="post-card">
+      <div class="post-card-header">
+        <div>
+          <div class="post-card-title">Post #1 · Score 2.115</div>
+          <div class="post-card-meta">Chá revelação Anthoni · @eukadurorodrigues</div>
+        </div>
+        <span class="score-badge">2.115</span>
+      </div>
+      <div class="post-card-body">
+        O que fez esse post explodir não foi o trabalho da Neide — foi a audiência fiel do casal <strong>@eukadurorodrigues / @dr.rafaelrafaldini</strong>, que tem seguidores engajados emocionalmente. A Neide aparece como fornecedora das lembrancinhas numa lista de créditos no final. O conteúdo é emocional, pessoal e narrativo (<em>"do dia que mudou nossas vidas para sempre"</em>) — o que maximiza comentários.<br><br>
+        A lição: <strong>conteúdo emocional ligado a eventos reais de vida</strong> (nascimento, revelação, bodas) tem performance muito superior a conteúdo de produto.
+      </div>
+    </div>
+
+    <div class="post-card">
+      <div class="post-card-header">
+        <div>
+          <div class="post-card-title">Post #2 · Score 435</div>
+          <div class="post-card-meta">Chá revelação — decoração branca e confete azul · @vivodesejo</div>
+        </div>
+        <span class="score-badge">435</span>
+      </div>
+      <div class="post-card-body">
+        Mesmo padrão do primeiro — conteúdo altamente emocional sobre um momento de vida real, publicado por uma conta com audiência própria. A Neide como decoradora/fornecedora aparece creditada.<br><br>
+        A consistência entre os dois top posts é clara: <strong>festas de alto impacto emocional + collabs com contas que têm audiência própria</strong> geram os melhores resultados quantitativos. No entanto, isso não é necessariamente conversão em venda para o ateliê.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       O QUE A AUDIÊNCIA ESTÁ DIZENDO
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">07 · Audiência</div>
+    <h2 class="section-title">O Que a Audiência Está Dizendo</h2>
+
+    <div class="card" style="margin-bottom:20px;">
+      <p style="font-size:0.82rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-light);margin-bottom:6px;">Post analisado</p>
+      <p style="font-size:1rem;font-weight:700;color:var(--text-dark);margin-bottom:4px;">Chá revelação Anthoni (@eukadurorodrigues) — 105 comentários</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:0;">
+      <div class="status-row">
+        <div class="status-icon status-warn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div class="status-label"><strong>Tipos predominantes:</strong> Elogios emocionais ao casal, mensagens de parabéns, emojis de coração e afeto. Praticamente <strong>nenhum comentário é direcionado à Neide ou ao trabalho do ateliê</strong> — o engajamento é da audiência pessoal do casal.</div>
+      </div>
+      <div class="status-row">
+        <div class="status-icon status-bad">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="status-label"><strong>Perguntas da audiência:</strong> Não foram identificadas perguntas relevantes direcionadas ao ateliê neste post.</div>
+      </div>
+      <div class="status-row">
+        <div class="status-icon status-ok">
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="status-label"><strong>O perfil responde:</strong> A Neide respondeu 1 comentário neste post específico, com mensagem emocional sobre o evento.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:20px;border-left:4px solid var(--dourado);border-radius:0 14px 14px 0;">
+      <p style="font-size:0.88rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--dourado);margin-bottom:10px;">Insight</p>
+      <p style="font-size:0.9rem;color:var(--text-mid);line-height:1.75;">O alto engajamento deste post não representa a audiência do ateliê — representa a audiência pessoal de um casal de influenciadores. Usar esse score como referência do perfil do ateliê seria uma leitura equivocada: <strong>o algoritmo trouxe alcance, mas não necessariamente compradores</strong>.</p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       O QUE NÃO ESTÁ FUNCIONANDO
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">08 · Gaps</div>
+    <h2 class="section-title">O Que Não Está Funcionando — Bottom 2 Padrões</h2>
+
+    <div class="post-card" style="border-left:3px solid var(--rosa);">
+      <div class="post-card-header">
+        <div>
+          <div class="post-card-title">Post #6 · Score 52</div>
+          <div class="post-card-meta">Novos equipamentos — prensa de bonés · @ateliebyneidebarbosa (único post próprio)</div>
+        </div>
+        <span class="score-badge" style="background:rgba(196,120,138,0.15);color:var(--rosa);">52</span>
+      </div>
+      <div class="post-card-body">
+        É o único post publicado diretamente pelo perfil @ateliebyneidebarbosa nos 7 analisados. A legenda fala de novos equipamentos (prensas), mas não tem CTA, não tem pergunta, não tem urgência, e o visual é um carrossel de produto sem texto explicativo. <strong>O post fala do processo interno do ateliê, não do benefício para o cliente.</strong>
+      </div>
+    </div>
+
+    <div class="post-card" style="border-left:3px solid var(--rose-light);">
+      <div class="post-card-header">
+        <div>
+          <div class="post-card-title">Post #7 · Score 14</div>
+          <div class="post-card-meta">Demo loja Rizzo · @htvrontbrasil</div>
+        </div>
+        <span class="score-badge" style="background:rgba(180,180,180,0.25);color:var(--text-mid);">14</span>
+      </div>
+      <div class="post-card-body">
+        É um Reel collab publicado por @htvrontbrasil onde a Neide aparece como "queridinha do momento" — mas o post fala de equipamentos (Plotter de Recorte LOKLIK), não de lembrancinhas. A audiência não entende por que aquele conteúdo aparece no grid dela, o texto é corporativo demais, e o resultado é o pior do período.<br><br>
+        <strong>Posts de parceria comercial com foco em equipamentos/marcas, sem conexão clara com o produto final que o cliente compra, não engajam.</strong>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       PRINCIPAIS INSIGHTS
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">09 · Síntese</div>
+    <h2 class="section-title">Principais Insights</h2>
+
+    <ul class="insight-list">
+      <li class="insight-item">
+        <div class="insight-dot"></div>
+        <div class="insight-text">
+          <strong>O perfil vive de collabs, não de conteúdo próprio:</strong> 6 dos 7 posts analisados foram publicados por outras contas (ScrapBrasil, HTVRONT, Vivo Desejo). Isso significa que o calendário de conteúdo da Neide está terceirizado e fora do seu controle editorial — os posts que mais engajam são de outras marcas, não do ateliê.
+        </div>
+      </li>
+      <li class="insight-item">
+        <div class="insight-dot"></div>
+        <div class="insight-text">
+          <strong>Há um abismo entre alcance e intenção de compra:</strong> O score altíssimo dos posts de chá revelação (1.800+ likes) vem de audiências emocionais de influenciadores, não de potenciais clientes pesquisando lembrancinhas personalizadas em SP. A conta tem visibilidade, mas não há um funil claro que transforme esse alcance em pedidos.
+        </div>
+      </li>
+      <li class="insight-item">
+        <div class="insight-dot"></div>
+        <div class="insight-text">
+          <strong>Ausência total de conteúdo de vendas:</strong> Nos 7 posts, não há um único post publicado pela própria Neide com CTA direto para compra ("Solicite seu orçamento", "Atendo em SP e região", preço ou faixa de valor). O bio.site tem apenas o botão de WhatsApp — sem portfólio atualizado, sem catálogo de produtos, sem prova social recente.
+        </div>
+      </li>
+    </ul>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       RECOMENDAÇÕES PRÁTICAS
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">10 · Ações</div>
+    <h2 class="section-title">Recomendações Práticas</h2>
+
+    <div class="rec-card">
+      <div class="rec-number">1</div>
+      <div class="rec-title">Publicar pelo menos 2 posts próprios por semana com foco explícito em produto + CTA de vendas</div>
+      <div class="rec-body">
+        Os posts do perfil próprio (@ateliebyneidebarbosa) somam apenas 1 nos últimos 7 analisados. Para vendas, ela precisa de posts que mostrem o produto finalizado (lembrancinhas, convites, balões), com legenda que inclua: o que é, para qual festa serve, como pedir, e um CTA direto <strong>("Mande uma DM com sua data e quantidade")</strong>. Antes de tráfego pago, é necessário ter esse conteúdo no ar.
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-number">2</div>
+      <div class="rec-title">Adicionar CTA ativo na bio e corrigir o link quebrado no bio.site imediatamente</div>
+      <div class="rec-body">
+        A bio não tem nenhuma frase de ação. Corrigir para algo como <strong>"🎁 Lembrancinhas e convites personalizados | Peça seu orçamento: [link]"</strong>. O bio.site tem um link inválido registrado — isso precisa ser consertado hoje. O ideal é criar uma página no bio.site com seções: Catálogo por tipo de festa, Depoimentos, Contato/WhatsApp.
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-number">3</div>
+      <div class="rec-title">Antes de tráfego pago, criar uma página de destino funcional ou ativar o WhatsApp Business com catálogo</div>
+      <div class="rec-body">
+        Hoje, quem clica no link vai para uma página com dois botões genéricos. Para tráfego pago funcionar, o destino precisa ser uma landing page ou catálogo com produtos, preços estimados (ou "a partir de"), fotos reais e botão de orçamento. <strong>Sem isso, o investimento em anúncios vai gerar cliques que não convertem.</strong>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-number">4</div>
+      <div class="rec-title">Ativar destaques de stories como vitrine de vendas ativa — não arquivo</div>
+      <div class="rec-body">
+        Os 15 destaques estão desatualizados (o mais recente tem 20 semanas). Para uma conta que quer vender, os destaques mais importantes são: <strong>"Lembrancinhas"</strong> (com fotos atuais + preço mínimo + CTA), <strong>"Convites"</strong> (idem), <strong>"Como funciona"</strong> (processo do pedido) e <strong>"Feedbacks"</strong> (depoimentos recentes). Cada destaque deve terminar com um slide de CTA.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════
+       QUICK WINS
+  ═══════════════════════════════════════ -->
+  <section class="section">
+    <div class="section-label">11 · Quick Wins</div>
+    <h2 class="section-title">Duas Ações nos Próximos 5 Dias</h2>
+
+    <div class="qw-card">
+      <div class="qw-number">01</div>
+      <div class="qw-title">Consertar o link quebrado no bio.site e adicionar CTA na bio</div>
+      <div class="qw-body">
+        Isso é <strong>15 minutos de trabalho</strong> e garante que qualquer visita ao perfil (orgânica ou paga) tenha um caminho claro. Colocar na bio: <strong>"🎁 Peça seu orçamento ↓"</strong> apontando para o WhatsApp.
+      </div>
+    </div>
+
+    <div class="qw-card">
+      <div class="qw-number">02</div>
+      <div class="qw-title">Publicar um Reel próprio mostrando um produto finalizado com processo e preço</div>
+      <div class="qw-body">
+        Um vídeo de <strong>30–60 segundos</strong> mostrando lembrancinhas sendo produzidas + o resultado final + legenda com CTA <strong>("Quer para sua festa? Mande uma DM com a data e quantidade")</strong>. Esse é o tipo de conteúdo que o algoritmo favorece E que tem potencial direto de gerar pedidos — sem custo de mídia.
+      </div>
+    </div>
+
+    <div class="ornament"><div class="ornament-line"></div><div class="ornament-dot"></div><div class="ornament-line"></div></div>
+
+    <div class="nota-final">
+      <p><strong>Nota para o cliente:</strong> Antes de investir em tráfego pago, o funil orgânico precisa estar minimamente estruturado. Hoje, alguém que chega no perfil via anúncio não encontra produto claro, preço, nem caminho fácil para pedir. O retorno sobre o investimento em mídia tende a ser baixo nesse cenário. As ações acima podem ser feitas em <strong>5–7 dias</strong> e mudarão significativamente a eficiência de qualquer campanha futura.</p>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <p>Auditoria gerada em <strong>09/06/2026</strong> · Baseada em <strong>7 posts analisados</strong></p>
+  <p style="margin-top:6px;">@ateliebyneidebarbosa · Ateliê by Neide Barbosa · Consolação, SP</p>
+</footer>
+
+</body>
+</html>

@@ -64,6 +64,46 @@
   }
   .skip-link:focus { top: 8px; }
 
+  /* ─── ANIMATIONS ─── */
+  @keyframes floatY {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+  @keyframes pulseRing {
+    0%, 100% { box-shadow: 0 0 0 8px rgba(8,145,178,0.08), 0 4px 24px rgba(8,145,178,0.12); }
+    50%       { box-shadow: 0 0 0 14px rgba(8,145,178,0.14), 0 8px 40px rgba(8,145,178,0.22); }
+  }
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes shimmer {
+    0%   { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(54px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(54px) rotate(-360deg); }
+  }
+  @keyframes barFill {
+    from { width: 0% !important; }
+  }
+  @keyframes countUp { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes bgFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.06; }
+    33%       { transform: translate(30px, -20px) scale(1.1); opacity: 0.1; }
+    66%       { transform: translate(-20px, 15px) scale(0.95); opacity: 0.07; }
+  }
+
   /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
@@ -80,6 +120,19 @@
     position: relative;
     overflow: hidden;
   }
+
+  /* Floating blobs in hero background */
+  .hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--primary);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-blob-1 { width: 320px; height: 320px; top: -60px; left: -60px; animation: bgFloat 9s ease-in-out infinite; }
+  .hero-blob-2 { width: 240px; height: 240px; bottom: -40px; right: -40px; animation: bgFloat 12s ease-in-out infinite reverse; }
+  .hero-blob-3 { width: 180px; height: 180px; top: 40%; right: 10%; animation: bgFloat 15s ease-in-out infinite 3s; }
 
   .hero::after {
     content: '';
@@ -156,7 +209,10 @@
     font-weight: 900;
     letter-spacing: -0.03em;
     line-height: 1.05;
-    color: var(--primary);
+    background: linear-gradient(90deg, var(--primary), var(--primary-lt), #0369A1, var(--primary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 16px;
   }
 
@@ -180,16 +236,57 @@
     margin-bottom: 40px;
   }
 
-  /* Score */
-  .score-wrap {
+  /* Score + Photo row */
+  .score-photo-wrap {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 28px;
     margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  /* Doctor photo */
+  .doctor-photo-wrap {
+    position: relative;
+    flex-shrink: 0;
+    animation: floatY 4s ease-in-out infinite;
+  }
+
+  .doctor-photo {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    border: 4px solid var(--primary);
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 0 0 6px rgba(8,145,178,0.12), var(--shadow-lg);
+  }
+
+  /* Orbiting dot around photo */
+  .orbit-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 12px; height: 12px;
+    margin: -6px 0 0 -6px;
+    animation: orbit 4s linear infinite;
+  }
+  .orbit-dot::after {
+    content: '';
+    display: block;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--primary-lt);
+    box-shadow: 0 0 6px var(--primary);
+  }
+
+  .score-divider {
+    width: 1.5px; height: 80px;
+    background: linear-gradient(to bottom, transparent, var(--border-dk), transparent);
+    flex-shrink: 0;
   }
 
   .score-circle {
-    width: 96px; height: 96px;
+    width: 110px; height: 110px;
     border-radius: 50%;
     border: 4px solid var(--primary);
     background: var(--surface);
@@ -197,12 +294,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 0 8px rgba(8,145,178,0.08), var(--shadow-lg);
+    animation: pulseRing 3s ease-in-out infinite;
+    flex-shrink: 0;
   }
 
   .score-circle .sc-num {
     font-family: 'Figtree', sans-serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 900;
     color: var(--primary);
     line-height: 1;
@@ -217,10 +315,47 @@
     margin-top: 2px;
   }
 
+  /* Animated title */
+  .hero-title {
+    background-size: 200% 200% !important;
+    animation: gradientShift 4s ease-in-out infinite;
+  }
+
+  /* Shimmer on cred badges */
+  .cred-badge {
+    position: relative;
+    overflow: hidden;
+  }
+  .cred-badge::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
+    background-size: 400px 100%;
+    animation: shimmer 3s ease-in-out infinite;
+    border-radius: inherit;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Animated score bars */
+  .score-bar-fill {
+    animation: barFill 1.2s ease-out forwards;
+  }
+
   /* Metric cards */
   .metrics-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     max-width: 660px;
     margin: 0 auto;
@@ -716,6 +851,9 @@
      HERO
 ══════════════════════════════ -->
 <header class="hero" role="banner">
+  <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-3" aria-hidden="true"></div>
   <div class="hero-inner">
 
     <div class="badge-pill">
@@ -743,7 +881,19 @@
       </span>
     </div>
 
-    <div class="score-wrap">
+    <div class="score-photo-wrap">
+      <div class="doctor-photo-wrap">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="Dr. Olívio César — Cirurgião Bucomaxilofacial"
+          class="doctor-photo"
+          width="110" height="110"
+        >
+        <div class="orbit-dot" aria-hidden="true"></div>
+      </div>
+
+      <div class="score-divider" aria-hidden="true"></div>
+
       <div class="score-circle" role="img" aria-label="Nota geral do perfil: 4 de 10">
         <span class="sc-num">4</span>
         <span class="sc-lbl">/ 10</span>
@@ -762,10 +912,6 @@
       <div class="metric-card" role="listitem">
         <span class="mc-val">1</span>
         <span class="mc-lbl">Post Profissional</span>
-      </div>
-      <div class="metric-card" role="listitem">
-        <span class="mc-val">0</span>
-        <span class="mc-lbl">Hashtags Usadas</span>
       </div>
     </div>
 
@@ -792,7 +938,7 @@
 
   <div class="card">
     <p>O perfil de <strong>@dr.oliviocesar</strong> é o de um dentista experiente (cirurgião bucomaxilofacial e implantodontista) que usa o Instagram predominantemente como um diário pessoal/lifestyle, com raríssimas aparições de conteúdo profissional. Em 7 posts, apenas <strong>1 tem tema odontológico direto</strong> — o que cria uma desconexão severa entre a bio técnica e o que de fato é publicado.</p>
-    <p>O perfil tem 1.056 seguidores, <strong>sem hashtags em nenhum post</strong>, sem estratégia de conteúdo aparente e sem voz editorial definida.</p>
+    <p>O perfil tem 1.056 seguidores, sem estratégia de conteúdo aparente e sem voz editorial definida.</p>
   </div>
 
   <div class="row-grid">
@@ -803,15 +949,6 @@
       <div>
         <div class="ri-title">Sem estratégia de conteúdo</div>
         <div class="ri-desc">Nenhuma regularidade temática ou voz editorial nos posts recentes</div>
-      </div>
-    </div>
-    <div class="row-item">
-      <div class="row-icon icon-bad" aria-hidden="true">
-        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-      </div>
-      <div>
-        <div class="ri-title">Zero hashtags</div>
-        <div class="ri-desc">Nenhum post utiliza hashtags — mecanismo básico de alcance orgânico</div>
       </div>
     </div>
     <div class="row-item">
@@ -1258,7 +1395,7 @@
     </div>
     <div class="insight-item">
       <div class="insight-num" aria-hidden="true">3</div>
-      <p><strong>A audiência existente é fiel mas fechada.</strong> Os comentários são quase sempre de um círculo próximo — colegas dentistas, amigos, familiares. Não há sinais de alcance orgânico para novos potenciais pacientes. Sem hashtags, sem conteúdo de valor educativo e sem CTA, o perfil não tem mecanismo de aquisição de audiência nova.</p>
+      <p><strong>A audiência existente é fiel mas fechada.</strong> Os comentários são quase sempre de um círculo próximo — colegas dentistas, amigos, familiares. Não há sinais de alcance orgânico para novos potenciais pacientes. Sem conteúdo de valor educativo e sem CTA, o perfil não tem mecanismo de aquisição de audiência nova.</p>
     </div>
   </div>
 </section>
@@ -1338,5 +1475,69 @@
   <span style="font-size:0.76rem;margin-top:6px;display:block">@dr.oliviocesar &nbsp;·&nbsp; Amostra: 7 posts &nbsp;·&nbsp; Dados coletados em junho de 2026</span>
 </footer>
 
+<script>
+// Count-up animation
+function countUp(el, target, duration) {
+  const isFloat = String(target).includes('.');
+  const end = parseFloat(String(target).replace('.', ''));
+  let start = 0;
+  const step = end / (duration / 16);
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= end) { start = end; clearInterval(timer); }
+    let val = Math.round(start);
+    if (isFloat) {
+      const str = String(val);
+      el.textContent = str.slice(0, -3) + '.' + str.slice(-3);
+    } else {
+      el.textContent = val;
+    }
+  }, 16);
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.card, .row-item, .post-card, .insight-item, .rec-item, .qw-card, .comment-item, .table-wrap').forEach(el => {
+  el.classList.add('reveal');
+  revealObserver.observe(el);
+});
+
+// Count-up on metrics when hero visible
+const mcVals = document.querySelectorAll('.mc-val');
+let counted = false;
+const heroObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !counted) {
+      counted = true;
+      const targets = ['1.056', '7', '1', '0'];
+      mcVals.forEach((el, i) => countUp(el, targets[i], 1400));
+    }
+  });
+}, { threshold: 0.3 });
+if (mcVals.length) heroObs.observe(mcVals[0].closest('.metrics-row'));
+
+// Animate score bars when table visible
+const tableObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.score-bar-fill').forEach(bar => {
+        bar.style.animation = 'none';
+        void bar.offsetWidth;
+        bar.style.animation = '';
+      });
+      tableObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.table-wrap').forEach(t => tableObs.observe(t));
+</script>
 </body>
 </html>

@@ -393,6 +393,96 @@ code{
 }
 .check-item code{background:#DCFCE7;color:#166534}
 .check-item.wide{grid-column:1/-1}
+.check-item.warn{background:var(--medium-bg);border-color:var(--medium-border);color:#854D0E}
+.check-item.warn svg{color:var(--medium)}
+.check-item.warn code{background:#FEF3C7;color:#854D0E}
+
+/* ===== REVISÃO COMPLEMENTAR ===== */
+.source-note{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:var(--blue-soft);
+  border:1px solid #BAE6FD;
+  border-radius:12px;
+  padding:14px 18px;
+  font-size:.9rem;
+  color:#075985;
+  margin-bottom:28px;
+}
+.source-note svg{width:18px;height:18px;flex-shrink:0;margin-top:2px;color:var(--blue)}
+.source-note a{color:var(--blue);font-weight:700}
+.page-block{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:24px 26px;
+  margin-bottom:16px;
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
+}
+.page-block-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+.page-block h3{font-size:1.08rem;font-weight:800}
+.page-block .counts{display:flex;gap:8px;flex-wrap:wrap}
+.tag-problem,.tag-suggestion,.tag-ok{
+  font-size:.74rem;font-weight:700;border-radius:999px;padding:3px 12px;white-space:nowrap;
+}
+.tag-problem{background:var(--critical-bg);color:var(--critical);border:1px solid var(--critical-border)}
+.tag-suggestion{background:var(--low-bg);color:var(--low);border:1px solid var(--low-border)}
+.tag-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
+.plist{list-style:none;margin:0 0 6px 0}
+.plist li{
+  position:relative;
+  padding:5px 0 5px 22px;
+  font-size:.92rem;
+  color:var(--slate);
+}
+.plist li::before{
+  content:'';
+  position:absolute;
+  left:4px;top:13px;
+  width:8px;height:8px;
+  border-radius:50%;
+}
+.plist.problems li::before{background:var(--critical)}
+.plist.suggestions li::before{background:var(--low)}
+.plist.working li::before{background:var(--ok)}
+.plist li ul{list-style:none;margin-top:4px}
+.plist li ul li{padding-left:18px}
+.plist li ul li::before{width:6px;height:6px;background:#94A3B8;top:12px}
+.plist-label{
+  font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+  margin:14px 0 4px;
+}
+.plist-label.l-problem{color:var(--critical)}
+.plist-label.l-suggestion{color:var(--low)}
+.plist-label.l-ok{color:var(--ok)}
+.drive-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:.82rem;font-weight:700;color:var(--blue);text-decoration:none;
+}
+.drive-link:hover{text-decoration:underline}
+.drive-link svg{width:15px;height:15px}
+.pending-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pending-tag{
+  background:var(--bg);color:var(--muted);border:1px dashed #CBD5E1;
+  border-radius:999px;padding:4px 13px;font-size:.78rem;font-weight:600;
+}
+.std-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:5px solid var(--blue);
+  border-radius:16px;
+  padding:26px 28px;
+  margin-bottom:28px;
+}
+.std-card h3{font-size:1.08rem;font-weight:800;margin-bottom:12px}
 
 /* ===== FOOTER ===== */
 footer{
@@ -431,12 +521,13 @@ footer strong{color:#F8FAFC}
     </div>
 
     <div class="metrics">
-      <div class="metric-card m-total"><span class="num">22</span><span class="label">Achados no total</span></div>
+      <div class="metric-card m-total"><span class="num">22</span><span class="label">Achados QA</span></div>
       <div class="metric-card m-critical"><span class="num">7</span><span class="label">Críticos</span></div>
       <div class="metric-card m-high"><span class="num">3</span><span class="label">Altos</span></div>
       <div class="metric-card m-medium"><span class="num">7</span><span class="label">Médios</span></div>
       <div class="metric-card m-low"><span class="num">5</span><span class="label">Baixos</span></div>
       <div class="metric-card m-ok"><span class="num">16</span><span class="label">Verificações OK</span></div>
+      <div class="metric-card m-total"><span class="num">36</span><span class="label">Achados redesign</span></div>
     </div>
   </div>
 </section>
@@ -648,13 +739,263 @@ footer strong{color:#F8FAFC}
   </div>
 </section>
 
-<!-- ============ VERIFICAÇÕES OK ============ -->
+<!-- ============ REVISÃO COMPLEMENTAR (REDESIGN) ============ -->
 <section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
   <div class="container">
     <div class="section-header">
-      <div class="section-num">03 — Aprovados</div>
+      <div class="section-num">03 — Revisão Complementar</div>
+      <h2 class="section-title">Revisão de Redesign — página a página</h2>
+      <p class="section-desc">Análise complementar do redesign do novo site, feita página a página, com foco em: funcionamento de botões e links, imagens (faltando, erradas ou para substituir), conteúdo incorreto e sugestões de redesign de seções. <strong>36 problemas e 14 sugestões</strong> em 9 de 17 páginas analisadas (~53%).</p>
+    </div>
+
+    <div class="source-note">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
+      <span>A análise completa está registrada no FigJam: <a href="https://www.figma.com/board/tCGNg6H3PuuEj9x9Ypmie2/Analisar-nova-homepage-MyDNA?node-id=0-1" target="_blank" rel="noopener">Analisar nova homepage MyDNA</a>. Cada página tem pasta no Google Drive com as imagens corretas para substituição. O escopo total do novo site contempla 17 páginas.</span>
+    </div>
+
+    <!-- PADRONIZAÇÃO -->
+    <div class="std-card">
+      <h3>Observações gerais — padronização para todas as páginas de produto</h3>
+      <ul class="plist problems">
+        <li><strong>Heros das product pages:</strong> os números de stats vêm abaixo da linha de CTAs; todos os CTAs com o mesmo label; cor do título: uma parte em branco, a outra seguindo a cor padrão da marca (<code>#7A6BE8</code>) — no máximo um gradiente, mas com as cores da marca: <code>#AAADF7</code> → <code>#7A6BE8</code> (60º).</li>
+        <li>Ajustar o botão dos FAQs para WhatsApp, e-mail ou formulário de contato.</li>
+        <li>Alterar todos os emojis utilizados para ícones (Lucide) que os representem. Cor: <code>#7A6BE8</code>.</li>
+        <li>Padronizar a seção de stats (eyebrow, título, stat e descrição) em todas as páginas de produto — ela vem antes do "Para quem é".</li>
+        <li>Padronizar espaçamento entre seções, para haver respiro.</li>
+        <li>Padronizar design dos blocos da seção "Para quem é".</li>
+        <li>Padronizar design da seção "Comece hoje" / "Demo gratuita" das páginas de produto.</li>
+      </ul>
+    </div>
+
+    <!-- HOME -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Home</h3>
+        <div class="counts"><span class="tag-problem">12 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1iqhuHn5KggvNcE30SqP-PQxVAcbXJPL0?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working">
+        <li>Links e botões do menu header; botões da seção "Soluções".</li>
+      </ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Botão primário do hero está levando para a seção Last CTA — poderia levar direto para o form, como é no botão do menu header.</li>
+        <li>Falta a imagem da plataforma que ficaria abaixo do hero. Imagem <strong>employee experience</strong> na pasta Drive.</li>
+        <li>Seção "Ebook" (logo abaixo do hero): ajustar a proporção da imagem do ebook para 16:9.</li>
+        <li>Seção "Inteligência Artificial aplicada a RH": o botão [Conheça todas as capacidades de IA] está levando para o Last CTA.</li>
+        <li>Seção "Employee Experience · 30+ ferramentas": o botão [Ativar os módulos que preciso →] não está funcionando (leva a lugar nenhum).</li>
+        <li>Seção "Planos": o botão [Solicitar cotação] não está funcionando (leva a lugar nenhum).</li>
+        <li>Seção "Integrações": deveria ter uma imagem. Imagem <strong>integrações-v1</strong> na pasta Drive.</li>
+        <li>Seção "Resultados medibles": o botão [Ver como se aplica a minha empresa] não está funcionando (leva a lugar nenhum).</li>
+        <li>Seção "Calculadora de ROI": o botão [Validar com minha equipe] está levando para o Last CTA.</li>
+        <li>Seção "Depoimentos": o botão [Agendar demo ao vivo] não está funcionando; o botão do canal no YouTube está com link errado — link correto: <code>https://www.youtube.com/@mydna7578</code>.</li>
+        <li>Seção "Perguntas frequentes": o botão não está funcionando.</li>
+        <li>Menu footer: a maioria dos botões funciona, mas há exceções — links errados (YouTube, Instagram, LinkedIn), link quebrado (Jobs) e link não funcionando (Contact Demo).</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>As respostas da seção "Perguntas frequentes" podem ser melhor orientadas a SEO (mais longas).</li>
+      </ul>
+    </div>
+
+    <!-- ONBOARDING -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Onboarding &amp; Offboarding</h3>
+        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">2 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1_-K1BFQp3owCkG3qczAtyeufa_h5fRuw?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working"><li>Botões do hero section.</li></ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Seção "Onboarding Ranking" está com a imagem errada. Seriam as imagens 3 ou 4 do Drive (2 versões do ranking).</li>
+        <li>Seção "Offboarding" está com a imagem errada. Seria a imagem 2 do Drive (trocou com a seção Onboarding).</li>
+        <li>Botão do FAQ não está funcionando.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "Onboarding Integrativo com IA" está ok com imagens. Sugestão: retirar dessa seção os 8 mini-cards que representam as 8 categorias, pois elas já vêm abaixo, com seção própria.</li>
+        <li>Seção "Offboarding": retirar o card "Principais razões de saída — Q4 2024", pois é um gráfico que já aparece na imagem.</li>
+      </ul>
+    </div>
+
+    <!-- DESEMPENHO -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Desempenho &amp; Potencial</h3>
+        <div class="counts"><span class="tag-problem">4 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1OTEGH3QHfxbNlsh7iTgPqyVpwWXu6Ogi?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working"><li>Botões do hero section.</li></ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Imagens erradas na seção "Como funciona". Imagens corretas (grid 2x2): 1 e 7 / 6 e 10.</li>
+        <li>Seção "Funcionalidades" com conteúdo incorreto:
+          <ul>
+            <li>OKRs: não temos definição de objetivo individual nem acompanhamento por time.</li>
+            <li>Lembretes: não temos um painel de progresso das avaliações.</li>
+          </ul>
+        </li>
+        <li>Seção "Módulos em detalhe" está sem imagens. Imagens que devem ir, na ordem, em cada bloco: 9, 3, 2, 8.</li>
+        <li>Seção "Plataforma en detalle" está após o Last CTA — parece deslocada.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Ilustração do hero: ajustar o contraste dos blocos da matriz "Mapa de Potencial" ao fundo escuro.</li>
+      </ul>
+    </div>
+
+    <!-- CAPACITAÇÃO -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Capacitação &amp; Desenvolvimento</h3>
+        <div class="counts"><span class="tag-problem">1 problema</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1Wmpb58kuEeU_uryKFceBnHDJxkTEMX_v?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working"><li>Botões do hero section.</li></ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Falta a imagem na seção "E-learning &amp; Conteúdos". Adicionar a imagem 4 no lugar dos chips, no card "Plataformas disponíveis no diretório".</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "Guia de Desenvolvimento": retirar o bloco de chips, deixar apenas o bloco "Como é gerado?".</li>
+      </ul>
+    </div>
+
+    <!-- TALENTO -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Talento &amp; Sucessão</h3>
+        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1jkLeJxE45s5ITGsTGxLP59niUXky_TRy?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working"><li>Botões do hero section.</li></ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Alteração na imagem da seção "Plano de Carreira": imagem 3 (pasta Drive).</li>
+        <li>Alteração na imagem da seção "Plano de Sucessão": imagem 4 (pasta Drive).</li>
+        <li>Retirar a seção "Matriz 9-Box", que parece ter vindo da página de Desempeño.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "Plano de Carreira": retirar o bloco de chips "Dados visíveis por colaborador".</li>
+      </ul>
+    </div>
+
+    <!-- CLIMA -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Clima Organizacional</h3>
+        <div class="counts"><span class="tag-problem">1 problema</span><span class="tag-suggestion">2 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1YUTyAHNIEeT698bTD_C_kWKcjdnnt3QZ?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working"><li>Botões do hero section.</li></ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Imagem errada na seção "Net Promoter Score". Alterar para a imagem 6 do Drive.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "Net Promoter Score": remover o bloco de cards.</li>
+        <li>Seções "Cultura &amp; Match Cultural" e "Como usar cada perfil cultural": aumentar o espaçamento entre as duas, para dar respiro.</li>
+      </ul>
+    </div>
+
+    <!-- COMPENSAÇÃO -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Compensação &amp; Benefícios</h3>
+        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1ArOFRN17REX0Pnip6yNAd5vOXA4gcQDb?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-ok">Funcionando</div>
+      <ul class="plist working"><li>Botões do hero section.</li></ul>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Imagens erradas na seção "Como funciona". Imagens corretas (grid 2x2): 1 e 4 / 6 e 7.</li>
+        <li>Blocos errados na seção "Funcionalidades":
+          <ul>
+            <li>Não temos uma funcionalidade própria para "Remuneração Variável".</li>
+            <li>Atualmente estamos sem a funcionalidade "Dashboard Salarial" no módulo — o dashboard que o bloco menciona é o de nómina.</li>
+          </ul>
+        </li>
+        <li>Faltam imagens na seção "Benefícios &amp; Salário Emocional": imagem 2 (benefícios). Problema com Salário Emocional na plataforma: não aparecem as opções no select para poder fazer o printscreen da tela.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "Benefícios &amp; Salário Emocional": retirar os slots de imagens.</li>
+      </ul>
+    </div>
+
+    <!-- GESTÃO DE DOCUMENTOS -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Gestão de Documentos &amp; Conhecimento</h3>
+        <div class="counts"><span class="tag-problem">6 problemas</span><span class="tag-suggestion">2 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1l_iVXRyIxykg78kgdZy4mFVDL0XgSneQ?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Botões do hero section não estão funcionando.</li>
+        <li>Hero sem stats; ilustração do hero com a tag "Screenshot da plataforma" — precisa retirar.</li>
+        <li>Seção "Repositório de Documentos" sem imagem. Colocar a imagem 1 (pasta Drive).</li>
+        <li>Seção "Documentos de Admissão" sem imagem. Colocar a imagem 3 (pasta Drive).</li>
+        <li>Seção "Gestão de Conhecimento" sem imagem. Colocar a imagem 2 (pasta Drive).</li>
+        <li>Página de produto sem footer.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "Documentos de Admissão": retirar o bloco "Você também pode".</li>
+        <li>Seção "Gestão de Conhecimento": transformar o bloco dos cards em bloco de tópicos.</li>
+      </ul>
+    </div>
+
+    <!-- OUTPLACEMENT -->
+    <div class="page-block">
+      <div class="page-block-top">
+        <h3>Outplacement Digital</h3>
+        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">3 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1kjG9MxBKHtyCAFyZjk150afOGa4v65xU?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
+      </div>
+      <div class="plist-label l-problem">Problemas e correções</div>
+      <ul class="plist problems">
+        <li>Botões do hero section não estão funcionando.</li>
+        <li>Alteração na imagem da seção "Plano de Saída": imagem 3 (pasta Drive).</li>
+        <li>Os botões da seção "Conheça o MyDNA Outplacement" — [Solicitar demo] e [Baixar apresentação] — não estão funcionando.</li>
+      </ul>
+      <div class="plist-label l-suggestion">Sugestões</div>
+      <ul class="plist suggestions">
+        <li>Seção "O custo invisível" precisa ser redesenhada: 2 colunas — coluna 1: eyebrow + título + stat; coluna 2: texto + bloco de tópicos.</li>
+        <li>Seção "Plano de Saída": retirar o slot da imagem; o bloco com tópicos vai para a coluna da direita.</li>
+        <li>Redesign da seção "Experiência do colaborador": deixar 2 linhas — linha 1 com 2 colunas (coluna 1: eyebrow + título + texto; coluna 2: imagem); linha 2 com 4 colunas (cada tópico em 1 coluna).</li>
+      </ul>
+    </div>
+
+    <!-- PENDENTES -->
+    <div class="page-block" style="border-style:dashed">
+      <div class="page-block-top">
+        <h3>Páginas ainda não analisadas (8 de 17)</h3>
+        <span class="tag-suggestion" style="background:var(--bg);color:var(--muted);border-color:#CBD5E1">Pendente</span>
+      </div>
+      <div class="pending-tags">
+        <span class="pending-tag">Portal de Candidatos</span>
+        <span class="pending-tag">Talent Acquisition</span>
+        <span class="pending-tag">HR Maturity</span>
+        <span class="pending-tag">Market Salary</span>
+        <span class="pending-tag">Assessment Center</span>
+        <span class="pending-tag">Intranet</span>
+        <span class="pending-tag">Administrativo RH</span>
+        <span class="pending-tag">People analytics</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERIFICAÇÕES OK ============ -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04 — Aprovados</div>
       <h2 class="section-title">Verificações sem problemas encontrados</h2>
-      <p class="section-desc">16 verificações funcionais passaram em todos os testes realizados.</p>
+      <p class="section-desc">15 verificações funcionais passaram em todos os testes realizados — e 1 item está em reverificação por divergência entre as duas análises.</p>
     </div>
     <div class="checklist">
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todos os 12 links do mega-menu "Produtos" funcionam corretamente</span></div>
@@ -667,7 +1008,7 @@ footer strong{color:#F8FAFC}
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/privacy/</code> — carrega corretamente</span></div>
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/ebooks/</code> — carrega e exibe ebooks reais</span></div>
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/hr-maturity/</code> e <code>/hr-maturity/questionnaire/</code> — funcionam</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Links de redes sociais (LinkedIn, YouTube, Instagram) têm URLs corretas</span></div>
+      <div class="check-item warn wide"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg><span><strong>Divergência a reverificar:</strong> o teste de QA registrou os links de redes sociais (LinkedIn, YouTube, Instagram) com URLs corretas, mas a revisão de redesign aponta links errados de YouTube, Instagram e LinkedIn no menu footer (YouTube correto: <code>youtube.com/@mydna7578</code>). Conferir os dois pontos do site antes do deploy.</span></div>
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Link "Iniciar sesión" aponta para <code>ee.mydnadigital.com</code></span></div>
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Calculadora de ROI funciona (slider interativo)</span></div>
       <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Sem erros de JavaScript detectados no console</span></div>
@@ -682,7 +1023,7 @@ footer strong{color:#F8FAFC}
   <div class="container">
     <div><strong>Relatório de QA Funcional — MyDNA Digital</strong></div>
     <div>URL testada: https://site.develop.mydnadigital.com/ · Ambiente de desenvolvimento</div>
-    <div>Gerado em 12/06/2026 · Ferramenta: Claude Sonnet 4.6</div>
+    <div>Gerado em 12/06/2026 · QA funcional: Claude Sonnet 4.6 · Inclui revisão complementar de redesign (FigJam, página a página)</div>
   </div>
 </footer>
 

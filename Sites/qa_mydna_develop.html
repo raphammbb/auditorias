@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de QA Funcional — MyDNA Digital</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+  --bg:#F8FAFC;
+  --surface:#FFFFFF;
+  --navy:#0F172A;
+  --slate:#334155;
+  --muted:#475569;
+  --border:#E2E8F0;
+  --blue:#0369A1;
+  --blue-soft:#E0F2FE;
+  --critical:#DC2626;
+  --critical-bg:#FEF2F2;
+  --critical-border:#FECACA;
+  --high:#EA580C;
+  --high-bg:#FFF7ED;
+  --high-border:#FED7AA;
+  --medium:#CA8A04;
+  --medium-bg:#FEFCE8;
+  --medium-border:#FDE68A;
+  --low:#0284C7;
+  --low-bg:#F0F9FF;
+  --low-border:#BAE6FD;
+  --ok:#16A34A;
+  --ok-bg:#F0FDF4;
+  --ok-border:#BBF7D0;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{
+  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  background:var(--bg);
+  color:var(--navy);
+  line-height:1.6;
+  font-size:16px;
+}
+code{
+  font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+  font-size:.86em;
+  background:#EFF6FF;
+  color:#1E40AF;
+  padding:.1em .4em;
+  border-radius:5px;
+  word-break:break-word;
+}
+.container{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* ===== COVER ===== */
+.cover{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(165deg,#0F172A 0%,#1E293B 55%,#0C4A6E 100%);
+  color:#F8FAFC;
+  padding:80px 0;
+}
+.cover::before{
+  content:'';
+  position:absolute;
+  width:680px;height:680px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(3,105,161,.35) 0%,transparent 70%);
+  top:-200px;right:-180px;
+  pointer-events:none;
+}
+.cover::after{
+  content:'';
+  position:absolute;
+  width:480px;height:480px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(220,38,38,.14) 0%,transparent 70%);
+  bottom:-160px;left:-120px;
+  pointer-events:none;
+}
+.cover .container{position:relative;z-index:1}
+.badge-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  padding:8px 18px;
+  font-size:.85rem;
+  font-weight:600;
+  letter-spacing:.03em;
+  margin-bottom:28px;
+}
+.badge-pill .dot{
+  width:9px;height:9px;
+  border-radius:50%;
+  background:#38BDF8;
+  box-shadow:0 0 10px #38BDF8;
+}
+.cover h1{
+  font-size:clamp(2.4rem,6vw,4.2rem);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-.02em;
+  background:linear-gradient(92deg,#F8FAFC 10%,#7DD3FC 55%,#38BDF8 95%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:18px;
+  max-width:820px;
+}
+.cover .subtitle{
+  font-size:clamp(1rem,2vw,1.18rem);
+  color:#CBD5E1;
+  font-weight:400;
+  max-width:720px;
+  margin-bottom:14px;
+}
+.cover .subtitle strong{color:#F8FAFC;font-weight:600}
+.cover .meta-line{
+  font-size:.88rem;
+  color:#94A3B8;
+  margin-bottom:42px;
+}
+.verdict{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  background:rgba(220,38,38,.14);
+  border:1px solid rgba(248,113,113,.4);
+  border-radius:14px;
+  padding:14px 22px;
+  margin-bottom:42px;
+}
+.verdict .icon{
+  width:26px;height:26px;
+  flex-shrink:0;
+  color:#F87171;
+}
+.verdict span{
+  font-weight:700;
+  font-size:1.02rem;
+  color:#FECACA;
+}
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:14px;
+  max-width:920px;
+}
+.metric-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:16px;
+  padding:20px 18px;
+  text-align:center;
+}
+.metric-card .num{
+  font-size:2.2rem;
+  font-weight:800;
+  line-height:1.1;
+  display:block;
+}
+.metric-card .label{
+  font-size:.78rem;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  color:#94A3B8;
+  margin-top:6px;
+  display:block;
+}
+.metric-card.m-total .num{color:#F8FAFC}
+.metric-card.m-critical .num{color:#F87171}
+.metric-card.m-high .num{color:#FB923C}
+.metric-card.m-medium .num{color:#FACC15}
+.metric-card.m-low .num{color:#7DD3FC}
+.metric-card.m-ok .num{color:#4ADE80}
+
+/* ===== SCOPE ===== */
+.scope{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:56px 0;
+}
+.scope-flex{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  flex-wrap:wrap;
+}
+.scope-number{
+  font-size:3.4rem;
+  font-weight:800;
+  color:var(--blue);
+  line-height:1;
+  white-space:nowrap;
+}
+.scope-text h2{
+  font-size:1.2rem;
+  font-weight:700;
+  margin-bottom:6px;
+}
+.scope-text p{
+  color:var(--muted);
+  font-size:.95rem;
+  max-width:720px;
+}
+.scope-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px;
+}
+.scope-tag{
+  background:var(--blue-soft);
+  color:var(--blue);
+  border:1px solid #BAE6FD;
+  border-radius:999px;
+  padding:5px 14px;
+  font-size:.8rem;
+  font-weight:600;
+}
+
+/* ===== SECTIONS ===== */
+.section{padding:72px 0}
+.section-header{margin-bottom:36px}
+.section-num{
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:8px;
+}
+.section-title{
+  font-size:clamp(1.6rem,3.4vw,2.2rem);
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+.section-desc{
+  color:var(--muted);
+  margin-top:10px;
+  max-width:760px;
+}
+
+/* ===== RESUMO EXECUTIVO ===== */
+.exec-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:5px solid var(--critical);
+  border-radius:16px;
+  padding:34px 36px;
+  box-shadow:0 1px 3px rgba(15,23,42,.06);
+}
+.exec-card p{
+  color:var(--slate);
+  margin-bottom:16px;
+  font-size:1.02rem;
+}
+.exec-card p:last-child{margin-bottom:0}
+.exec-card strong{color:var(--navy)}
+.exec-highlight{
+  background:var(--critical-bg);
+  border:1px solid var(--critical-border);
+  border-radius:12px;
+  padding:16px 20px;
+  font-weight:700;
+  color:var(--critical);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:22px;
+}
+.exec-highlight svg{width:22px;height:22px;flex-shrink:0}
+
+/* ===== SEVERITY BADGES ===== */
+.sev{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border-radius:999px;
+  padding:3px 12px;
+  font-size:.76rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+.sev::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+.sev-critical{background:var(--critical-bg);color:var(--critical);border:1px solid var(--critical-border)}
+.sev-high{background:var(--high-bg);color:var(--high);border:1px solid var(--high-border)}
+.sev-medium{background:var(--medium-bg);color:var(--medium);border:1px solid var(--medium-border)}
+.sev-low{background:var(--low-bg);color:var(--low);border:1px solid var(--low-border)}
+
+/* ===== FINDINGS ===== */
+.sev-group{margin-bottom:44px}
+.sev-group:last-child{margin-bottom:0}
+.sev-group-title{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:1.1rem;
+  font-weight:800;
+  margin-bottom:18px;
+}
+.sev-group-title .count{
+  font-size:.82rem;
+  font-weight:700;
+  color:var(--muted);
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:2px 12px;
+}
+.finding{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:22px 24px;
+  margin-bottom:14px;
+  box-shadow:0 1px 2px rgba(15,23,42,.04);
+  transition:box-shadow .2s ease,border-color .2s ease;
+}
+.finding:hover{box-shadow:0 4px 14px rgba(15,23,42,.08);border-color:#CBD5E1}
+.finding-critical{border-left:4px solid var(--critical)}
+.finding-high{border-left:4px solid var(--high)}
+.finding-medium{border-left:4px solid var(--medium)}
+.finding-low{border-left:4px solid var(--low)}
+.finding-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+.finding-where{
+  font-weight:800;
+  font-size:1rem;
+}
+.finding-problem{
+  color:var(--slate);
+  font-size:.95rem;
+  margin-bottom:14px;
+}
+.finding-problem strong{color:var(--navy)}
+.finding-rec{
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+  background:var(--bg);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:12px 16px;
+  font-size:.9rem;
+  color:var(--slate);
+}
+.finding-rec svg{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--blue)}
+.finding-rec strong{color:var(--blue);font-weight:700}
+
+/* ===== CHECKLIST ===== */
+.checklist{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:12px;
+}
+.check-item{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  background:var(--ok-bg);
+  border:1px solid var(--ok-border);
+  border-radius:12px;
+  padding:14px 16px;
+  font-size:.9rem;
+  color:#166534;
+}
+.check-item svg{
+  width:19px;height:19px;
+  flex-shrink:0;
+  color:var(--ok);
+  margin-top:1px;
+}
+.check-item code{background:#DCFCE7;color:#166534}
+.check-item.wide{grid-column:1/-1}
+
+/* ===== FOOTER ===== */
+footer{
+  background:var(--navy);
+  color:#94A3B8;
+  padding:44px 0;
+  text-align:center;
+  font-size:.86rem;
+}
+footer .container{display:flex;flex-direction:column;gap:8px}
+footer strong{color:#F8FAFC}
+
+@media (max-width:640px){
+  .cover{padding:60px 0}
+  .metrics{grid-template-columns:repeat(2,1fr)}
+  .exec-card{padding:24px 20px}
+  .finding{padding:18px 16px}
+  .scope-flex{gap:16px}
+  .scope-number{font-size:2.6rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <div class="container">
+    <div class="badge-pill"><span class="dot"></span>Auditoria de Site · 12/06/2026</div>
+    <h1>Relatório de QA Funcional</h1>
+    <p class="subtitle">Análise completa para <strong>site.develop.mydnadigital.com</strong> · <strong>MyDNA Digital</strong> (ambiente de desenvolvimento)</p>
+    <p class="meta-line">URL testada: https://site.develop.mydnadigital.com/ · Ferramenta: Claude Sonnet 4.6</p>
+
+    <div class="verdict">
+      <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
+      <span>Veredito: o site NÃO está pronto para ir a produção</span>
+    </div>
+
+    <div class="metrics">
+      <div class="metric-card m-total"><span class="num">22</span><span class="label">Achados no total</span></div>
+      <div class="metric-card m-critical"><span class="num">7</span><span class="label">Críticos</span></div>
+      <div class="metric-card m-high"><span class="num">3</span><span class="label">Altos</span></div>
+      <div class="metric-card m-medium"><span class="num">7</span><span class="label">Médios</span></div>
+      <div class="metric-card m-low"><span class="num">5</span><span class="label">Baixos</span></div>
+      <div class="metric-card m-ok"><span class="num">16</span><span class="label">Verificações OK</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESCOPO ============ -->
+<section class="scope">
+  <div class="container">
+    <div class="scope-flex">
+      <div class="scope-number">25+</div>
+      <div class="scope-text">
+        <h2>Páginas e rotas testadas</h2>
+        <p>O teste funcional cobriu a home, páginas de conversão, conteúdo e suporte, as 15 páginas de produtos, as versões em inglês e português e o comportamento das rotas de erro.</p>
+      </div>
+    </div>
+    <div class="scope-tags">
+      <span class="scope-tag">Home (/)</span>
+      <span class="scope-tag">/demo/</span>
+      <span class="scope-tag">/contact/</span>
+      <span class="scope-tag">/ebooks/</span>
+      <span class="scope-tag">/privacy/</span>
+      <span class="scope-tag">/hr-maturity/</span>
+      <span class="scope-tag">15 páginas de produtos</span>
+      <span class="scope-tag">Versão /en/</span>
+      <span class="scope-tag">Versão /pt/</span>
+      <span class="scope-tag">Rotas 404</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESUMO EXECUTIVO ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01 — Visão Geral</div>
+      <h2 class="section-title">Resumo Executivo</h2>
+    </div>
+    <div class="exec-card">
+      <div class="exec-highlight">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"/></svg>
+        O site NÃO está pronto para ir a produção.
+      </div>
+      <p>Foram identificados <strong>7 problemas críticos</strong> que precisam ser corrigidos antes do deploy. Os mais urgentes são: <strong>(1)</strong> três páginas do footer retornam 404 — <code>/jobs/</code>, <code>/sobre-nosotros/</code> e <code>/outplacement/</code> — que são links presentes em todas as páginas do site; <strong>(2)</strong> um texto interno de desenvolvimento está exposto ao usuário na página <code>/demo/</code> ("El embed de calendario queda listo para conectar Cal.com o Calendly"); <strong>(3)</strong> a versão em inglês do site (<code>/en/</code>) mantém o menu de navegação em espanhol; <strong>(4)</strong> a página de erro 404 é completamente preta e sem qualquer elemento de navegação ou mensagem útil; e <strong>(5)</strong> o número de WhatsApp é um placeholder fictício (<code>+56 9 0000 0000</code>).</p>
+      <p>Além disso, há problemas de média severidade que devem ser resolvidos antes do lançamento: botão "Descargar Gratis" cortado na viewport, textos sem acentos na página de demo, validação de formulários sem feedback visual, fotos de testemunhais ainda como placeholders e a stat "0 costo" na página de ebooks.</p>
+      <p><strong>Estimativa: o site precisa de ao menos uma rodada adicional de correções antes de estar apto para produção.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TABELA DE ACHADOS ============ -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02 — Diagnóstico</div>
+      <h2 class="section-title">Tabela de Achados</h2>
+      <p class="section-desc">22 problemas identificados durante os testes funcionais, agrupados por severidade. Cada achado inclui a página ou seção afetada, a descrição do problema e a recomendação de correção.</p>
+    </div>
+
+    <!-- CRÍTICOS -->
+    <div class="sev-group">
+      <div class="sev-group-title"><span class="sev sev-critical">Crítico</span><span class="count">7 achados</span></div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">Página <code>/jobs/</code></div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem">Retorna <strong>404 "This page could not be found."</strong> — links "Trabaja con nosotros" (footer) e "Bolsa de Trabajo" (footer) apontam para esta rota.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página <code>/jobs/</code> ou redirecionar para uma página existente antes do deploy.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">Página <code>/sobre-nosotros/</code></div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem">Retorna <strong>404 "This page could not be found."</strong> — link "Sobre Nosotros" do footer está quebrado.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página <code>/sobre-nosotros/</code> ou corrigir a rota no footer.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">Página <code>/outplacement/</code></div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem">Retorna <strong>404 "This page could not be found."</strong> — o link "Outplacement" do footer está quebrado (obs: existe <code>/products/outplacement/</code> que funciona).</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir link do footer de <code>/outplacement/</code> para <code>/products/outplacement/</code>.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">Página 404 (genérica)</div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem">Página de erro 404 completamente <strong>em branco/preta</strong>, sem menu, sem mensagem em português/espanhol, sem link de retorno. Mensagem de sistema em inglês: "This page could not be found."</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar uma página 404 customizada com design do site, menu de navegação e CTA para voltar à home.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">Página <code>/demo/</code></div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem"><strong>Texto placeholder visível ao usuário:</strong> "Al enviar el formulario, el equipo comercial recibe tu solicitud. El embed de calendario queda listo para conectar Cal.com o Calendly." — nota interna de desenvolvimento exposta publicamente.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Remover imediatamente o texto interno de desenvolvimento antes do deploy.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">Versão EN (<code>/en/</code>)</div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem"><strong>Menu principal em espanhol</strong> na versão inglesa — itens "Soluciones, Productos, Blog, Recursos, Contacto" não foram traduzidos para inglês.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Traduzir todos os itens do menu e outros textos do layout para inglês na rota <code>/en/</code>.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top"><div class="finding-where">WhatsApp (global)</div><span class="sev sev-critical">Crítico</span></div>
+        <p class="finding-problem">Número do WhatsApp é <strong>placeholder fictício</strong>: <code>+56 9 0000 0000</code> — em todos os botões do site.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir pelo número real de WhatsApp do time comercial.</span></div>
+      </div>
+    </div>
+
+    <!-- ALTOS -->
+    <div class="sev-group">
+      <div class="sev-group-title"><span class="sev sev-high">Alto</span><span class="count">3 achados</span></div>
+
+      <div class="finding finding-high">
+        <div class="finding-top"><div class="finding-where">Home — Seção Guia LATAM</div><span class="sev sev-high">Alto</span></div>
+        <p class="finding-problem">Botão <strong>"Descargar Gratis →" cortado</strong> à direita da viewport (1054px) — ultrapassa a borda por ~89px. O contêiner pai usa <code>sm:flex-row</code> mas o layout não está quebrando corretamente.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o layout do row de botões da seção da guia para que ambos os CTAs fiquem visíveis em qualquer viewport.</span></div>
+      </div>
+
+      <div class="finding finding-high">
+        <div class="finding-top"><div class="finding-where">Página <code>/demo/</code></div><span class="sev sev-high">Alto</span></div>
+        <p class="finding-problem">Múltiplos <strong>textos sem acentuação</strong>: "accion" (→ acción), "genericas" (→ genéricas), "rapido" (→ rápido), "modulos" (→ módulos), "Pais" (→ País), "paises" (→ países), "Diagnostico" (→ Diagnóstico).</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Revisar e corrigir ortografia de toda a página <code>/demo/</code>.</span></div>
+      </div>
+
+      <div class="finding finding-high">
+        <div class="finding-top"><div class="finding-where">Formulário de Contato (<code>/contact/</code>)</div><span class="sev sev-high">Alto</span></div>
+        <p class="finding-problem"><strong>Sem validação visível:</strong> ao clicar "Enviar mensaje" com todos os campos vazios, nenhuma mensagem de erro aparece para o usuário — o form simplesmente não submete mas não explica por quê.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Implementar mensagens de validação visíveis nos campos obrigatórios (ex: "Este campo é obrigatório").</span></div>
+      </div>
+    </div>
+
+    <!-- MÉDIOS -->
+    <div class="sev-group">
+      <div class="sev-group-title"><span class="sev sev-medium">Médio</span><span class="count">7 achados</span></div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Home — Widget "Alerta IA"</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem">Widget de alerta IA posicionado com <code>absolute -right-20</code>, ficando <strong>parcialmente fora da viewport</strong> à direita, cortando o texto "Alerta IA · Ahora 3 colaboradores em riesgo de rota...".</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Ajustar a posição do widget decorativo para que seja totalmente visível ou intencionalmente oculto via <code>overflow:hidden</code> no contêiner pai.</span></div>
+      </div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Formulários de demo e newsletter</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem"><strong>Mensagem de sucesso usa apenas o primeiro nome:</strong> exibe "¡Gracias Teste!" em vez de "¡Gracias Teste QA!" — o campo <code>name</code> é dividido incorretamente.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Usar o nome completo nas mensagens de confirmação, ou separar campos de nome/sobrenome.</span></div>
+      </div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Página de Ebooks (<code>/ebooks/</code>)</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem">Stat <strong>"0 costo"</strong> no card de informações — campo de dado claramente incompleto/placeholder (deveria exibir "Gratuito" ou "$0").</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o dado/label da stat "costo" na hero da página de ebooks.</span></div>
+      </div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Testemunhais (Home)</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem">As <strong>3 fotos dos testemunhais são imagens placeholder do picsum.photos</strong> (fotos genéricas aleatórias), não fotos reais das pessoas citadas.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir pelas fotos reais dos clientes ou usar avatares com iniciais caso não haja fotos disponíveis.</span></div>
+      </div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Home — Título da página (meta)</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem"><strong>Inconsistência no <code>&lt;title&gt;</code>:</strong> na primeira carga aparece "Plataforma HR con IA para LATAM | Employee Experience y Talent Acquisition"; em visitas subsequentes muda para "Recluta, Desarrolla y retiene el talento | Employee Experience y Talent Acquisition".</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Garantir um único <code>&lt;title&gt;</code> consistente na rota <code>/</code> — verificar se há efeito colateral de router do Next.js.</span></div>
+      </div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Página <code>/diagnostic/</code></div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem">A rota <code>/diagnostic/</code> <strong>redireciona para <code>/hr-maturity/</code></strong> — links no footer e popup de saída apontam para <code>/diagnostic/</code> mas chegam em página diferente.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Atualizar todos os links que referenciam <code>/diagnostic/</code> para apontar diretamente para <code>/hr-maturity/</code>, ou criar um redirect permanente (301).</span></div>
+      </div>
+
+      <div class="finding finding-medium">
+        <div class="finding-top"><div class="finding-where">Footer — Links "Política de Privacidad" e "Términos de Servicio"</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem"><strong>Ambos os links apontam para a mesma URL</strong> (<code>/privacy/</code>) — Termos de Serviço e Política de Privacidade são documentos diferentes.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar página separada <code>/terms/</code> para os Termos de Serviço, ou documentar que estão unificados intencionalmente.</span></div>
+      </div>
+    </div>
+
+    <!-- BAIXOS -->
+    <div class="sev-group">
+      <div class="sev-group-title"><span class="sev sev-low">Baixo</span><span class="count">5 achados</span></div>
+
+      <div class="finding finding-low">
+        <div class="finding-top"><div class="finding-where">Footer — Link "Escríbenos →"</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">O link "Escríbenos →" na seção FAQ da home leva para <code>#demo</code> (formulário de agendamento) em vez de <code>/contact/</code>.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar se o destino é intencional; se não for, corrigir para <code>/contact/</code>.</span></div>
+      </div>
+
+      <div class="finding finding-low">
+        <div class="finding-top"><div class="finding-where">Capa do Ebook (Home)</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">A capa do ebook "Guía EX LATAM 2025" exibe apenas um <strong>ícone genérico</strong> (sem imagem da capa real).</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar se a imagem da capa está configurada corretamente no componente.</span></div>
+      </div>
+
+      <div class="finding finding-low">
+        <div class="finding-top"><div class="finding-where">Página <code>/demo/</code></div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">A página <code>/demo/</code> tem um cabeçalho <strong>minimalista sem menu</strong> completo de navegação — pode ser intencional para evitar distrações, mas é inconsistente com o resto do site.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Definir se a ausência do menu completo é design intencional (landing page de conversão) e documentar.</span></div>
+      </div>
+
+      <div class="finding finding-low">
+        <div class="finding-top"><div class="finding-where">Respostas 503 em HEAD requests</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">Nas requisições de prefetch do Next.js, rotas como <code>/</code>, <code>/en/</code>, <code>/pt/</code>, <code>/contact/</code>, <code>/ebooks/</code> retornam <strong>503 em HEAD requests</strong> (mas 200 em GET).</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar configuração do servidor de desenvolvimento — possivelmente relacionado ao ambiente dev; confirmar que não ocorre em produção.</span></div>
+      </div>
+
+      <div class="finding finding-low">
+        <div class="finding-top"><div class="finding-where">Popup de saída (exit intent)</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">O popup reaparece ao recarregar a página — <strong>falta de persistência do estado</strong> "já fechado" (cookie/localStorage).</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Salvar o estado do popup no localStorage para não exibi-lo novamente na mesma sessão.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERIFICAÇÕES OK ============ -->
+<section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03 — Aprovados</div>
+      <h2 class="section-title">Verificações sem problemas encontrados</h2>
+      <p class="section-desc">16 verificações funcionais passaram em todos os testes realizados.</p>
+    </div>
+    <div class="checklist">
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todos os 12 links do mega-menu "Produtos" funcionam corretamente</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário principal de agendamento de demo (home) — submete e mostra confirmação</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário de download de ebook — submete e mostra confirmação</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>FAQ accordion funciona corretamente</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Logos de clientes renderizam corretamente (SVGs)</span></div>
+      <div class="check-item wide"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Páginas de produtos: <code>/employee-experience/</code>, <code>/talent-acquisition/</code>, <code>/products/people-analytics/</code>, <code>/products/market-salary/</code>, <code>/products/assessment-center/</code>, <code>/products/onboarding/</code>, <code>/products/performance/</code>, <code>/products/training/</code>, <code>/products/talent-succession/</code>, <code>/products/workplace-climate/</code>, <code>/products/compensation-benefits/</code>, <code>/products/document-management/</code>, <code>/products/outplacement/</code>, <code>/products/administrative-hr/</code>, <code>/products/intranet-communications/</code> — todas carregam</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/contact/</code> — carrega corretamente</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/privacy/</code> — carrega corretamente</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/ebooks/</code> — carrega e exibe ebooks reais</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/hr-maturity/</code> e <code>/hr-maturity/questionnaire/</code> — funcionam</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Links de redes sociais (LinkedIn, YouTube, Instagram) têm URLs corretas</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Link "Iniciar sesión" aponta para <code>ee.mydnadigital.com</code></span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Calculadora de ROI funciona (slider interativo)</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Sem erros de JavaScript detectados no console</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todos os recursos da página principal carregam com status 200</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Versão PT (<code>/pt/</code>) carrega corretamente em português</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div><strong>Relatório de QA Funcional — MyDNA Digital</strong></div>
+    <div>URL testada: https://site.develop.mydnadigital.com/ · Ambiente de desenvolvimento</div>
+    <div>Gerado em 12/06/2026 · Ferramenta: Claude Sonnet 4.6</div>
+  </div>
+</footer>
+
+</body>
+</html>

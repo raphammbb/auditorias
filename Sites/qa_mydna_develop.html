@@ -34,468 +34,108 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{animation:none!important;transition:none!important}
-}
-body{
-  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  background:var(--bg);
-  color:var(--navy);
-  line-height:1.6;
-  font-size:16px;
-}
-code{
-  font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
-  font-size:.86em;
-  background:#EFF6FF;
-  color:#1E40AF;
-  padding:.1em .4em;
-  border-radius:5px;
-  word-break:break-word;
-}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--navy);line-height:1.6;font-size:16px;}
+code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:#EFF6FF;color:#1E40AF;padding:.1em .4em;border-radius:5px;word-break:break-word;}
 .container{max-width:1100px;margin:0 auto;padding:0 24px}
 
-/* ===== COVER ===== */
-.cover{
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(165deg,#0F172A 0%,#1E293B 55%,#0C4A6E 100%);
-  color:#F8FAFC;
-  padding:80px 0;
-}
-.cover::before{
-  content:'';
-  position:absolute;
-  width:680px;height:680px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(3,105,161,.35) 0%,transparent 70%);
-  top:-200px;right:-180px;
-  pointer-events:none;
-}
-.cover::after{
-  content:'';
-  position:absolute;
-  width:480px;height:480px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(220,38,38,.14) 0%,transparent 70%);
-  bottom:-160px;left:-120px;
-  pointer-events:none;
-}
+/* COVER */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(165deg,#0F172A 0%,#1E293B 55%,#0C4A6E 100%);color:#F8FAFC;padding:80px 0;}
+.cover::before{content:'';position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(3,105,161,.35) 0%,transparent 70%);top:-200px;right:-180px;pointer-events:none;}
+.cover::after{content:'';position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,.14) 0%,transparent 70%);bottom:-160px;left:-120px;pointer-events:none;}
 .cover .container{position:relative;z-index:1}
-.badge-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:9px;
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.18);
-  border-radius:999px;
-  padding:8px 18px;
-  font-size:.85rem;
-  font-weight:600;
-  letter-spacing:.03em;
-  margin-bottom:28px;
-}
-.badge-pill .dot{
-  width:9px;height:9px;
-  border-radius:50%;
-  background:#38BDF8;
-  box-shadow:0 0 10px #38BDF8;
-}
-.cover h1{
-  font-size:clamp(2.4rem,6vw,4.2rem);
-  font-weight:800;
-  line-height:1.08;
-  letter-spacing:-.02em;
-  background:linear-gradient(92deg,#F8FAFC 10%,#7DD3FC 55%,#38BDF8 95%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin-bottom:18px;
-  max-width:820px;
-}
-.cover .subtitle{
-  font-size:clamp(1rem,2vw,1.18rem);
-  color:#CBD5E1;
-  font-weight:400;
-  max-width:720px;
-  margin-bottom:14px;
-}
+.badge-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 18px;font-size:.85rem;font-weight:600;letter-spacing:.03em;margin-bottom:28px;}
+.badge-pill .dot{width:9px;height:9px;border-radius:50%;background:#38BDF8;box-shadow:0 0 10px #38BDF8;}
+.cover h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;background:linear-gradient(92deg,#F8FAFC 10%,#7DD3FC 55%,#38BDF8 95%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:18px;max-width:820px;}
+.cover .subtitle{font-size:clamp(1rem,2vw,1.18rem);color:#CBD5E1;font-weight:400;max-width:720px;margin-bottom:14px;}
 .cover .subtitle strong{color:#F8FAFC;font-weight:600}
-.cover .meta-line{
-  font-size:.88rem;
-  color:#94A3B8;
-  margin-bottom:42px;
-}
-.verdict{
-  display:inline-flex;
-  align-items:center;
-  gap:12px;
-  background:rgba(220,38,38,.14);
-  border:1px solid rgba(248,113,113,.4);
-  border-radius:14px;
-  padding:14px 22px;
-  margin-bottom:42px;
-}
-.verdict .icon{
-  width:26px;height:26px;
-  flex-shrink:0;
-  color:#F87171;
-}
-.verdict span{
-  font-weight:700;
-  font-size:1.02rem;
-  color:#FECACA;
-}
-.metrics{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:14px;
-  max-width:920px;
-}
-.metric-card{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:16px;
-  padding:20px 18px;
-  text-align:center;
-}
-.metric-card .num{
-  font-size:2.2rem;
-  font-weight:800;
-  line-height:1.1;
-  display:block;
-}
-.metric-card .label{
-  font-size:.78rem;
-  font-weight:600;
-  text-transform:uppercase;
-  letter-spacing:.07em;
-  color:#94A3B8;
-  margin-top:6px;
-  display:block;
-}
+.cover .meta-line{font-size:.88rem;color:#94A3B8;margin-bottom:42px;}
+.verdict{display:inline-flex;align-items:center;gap:12px;background:rgba(220,38,38,.14);border:1px solid rgba(248,113,113,.4);border-radius:14px;padding:14px 22px;margin-bottom:42px;}
+.verdict svg{width:26px;height:26px;flex-shrink:0;color:#F87171;}
+.verdict span{font-weight:700;font-size:1.02rem;color:#FECACA;}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;max-width:920px;}
+.metric-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px 18px;text-align:center;}
+.metric-card .num{font-size:2.2rem;font-weight:800;line-height:1.1;display:block;}
+.metric-card .label{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#94A3B8;margin-top:6px;display:block;}
 .metric-card.m-total .num{color:#F8FAFC}
 .metric-card.m-critical .num{color:#F87171}
-.metric-card.m-high .num{color:#FB923C}
 .metric-card.m-medium .num{color:#FACC15}
 .metric-card.m-low .num{color:#7DD3FC}
 .metric-card.m-ok .num{color:#4ADE80}
 
-/* ===== SCOPE ===== */
-.scope{
-  background:var(--surface);
-  border-bottom:1px solid var(--border);
-  padding:56px 0;
-}
-.scope-flex{
-  display:flex;
-  align-items:center;
-  gap:28px;
-  flex-wrap:wrap;
-}
-.scope-number{
-  font-size:3.4rem;
-  font-weight:800;
-  color:var(--blue);
-  line-height:1;
-  white-space:nowrap;
-}
-.scope-text h2{
-  font-size:1.2rem;
-  font-weight:700;
-  margin-bottom:6px;
-}
-.scope-text p{
-  color:var(--muted);
-  font-size:.95rem;
-  max-width:720px;
-}
-.scope-tags{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:22px;
-}
-.scope-tag{
-  background:var(--blue-soft);
-  color:var(--blue);
-  border:1px solid #BAE6FD;
-  border-radius:999px;
-  padding:5px 14px;
-  font-size:.8rem;
-  font-weight:600;
-}
+/* SCOPE */
+.scope{background:var(--surface);border-bottom:1px solid var(--border);padding:56px 0;}
+.scope-flex{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+.scope-number{font-size:3.4rem;font-weight:800;color:var(--blue);line-height:1;white-space:nowrap;}
+.scope-text h2{font-size:1.2rem;font-weight:700;margin-bottom:6px;}
+.scope-text p{color:var(--muted);font-size:.95rem;max-width:720px;}
+.scope-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
+.scope-tag{background:var(--blue-soft);color:var(--blue);border:1px solid #BAE6FD;border-radius:999px;padding:5px 14px;font-size:.8rem;font-weight:600;}
+.scope-tag.fixed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border);}
 
-/* ===== SECTIONS ===== */
+/* SECTIONS */
 .section{padding:72px 0}
 .section-header{margin-bottom:36px}
-.section-num{
-  font-size:.8rem;
-  font-weight:700;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--blue);
-  margin-bottom:8px;
-}
-.section-title{
-  font-size:clamp(1.6rem,3.4vw,2.2rem);
-  font-weight:800;
-  letter-spacing:-.01em;
-}
-.section-desc{
-  color:var(--muted);
-  margin-top:10px;
-  max-width:760px;
-}
+.section-num{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
+.section-title{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:800;letter-spacing:-.01em;}
+.section-desc{color:var(--muted);margin-top:10px;max-width:760px;}
 
-/* ===== RESUMO EXECUTIVO ===== */
-.exec-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-left:5px solid var(--critical);
-  border-radius:16px;
-  padding:34px 36px;
-  box-shadow:0 1px 3px rgba(15,23,42,.06);
-}
-.exec-card p{
-  color:var(--slate);
-  margin-bottom:16px;
-  font-size:1.02rem;
-}
+/* EXEC */
+.exec-card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--critical);border-radius:16px;padding:34px 36px;box-shadow:0 1px 3px rgba(15,23,42,.06);}
+.exec-card p{color:var(--slate);margin-bottom:16px;font-size:1.02rem;}
 .exec-card p:last-child{margin-bottom:0}
 .exec-card strong{color:var(--navy)}
-.exec-highlight{
-  background:var(--critical-bg);
-  border:1px solid var(--critical-border);
-  border-radius:12px;
-  padding:16px 20px;
-  font-weight:700;
-  color:var(--critical);
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:22px;
-}
+.exec-highlight{background:var(--critical-bg);border:1px solid var(--critical-border);border-radius:12px;padding:16px 20px;font-weight:700;color:var(--critical);display:flex;align-items:center;gap:12px;margin-bottom:22px;}
 .exec-highlight svg{width:22px;height:22px;flex-shrink:0}
 
-/* ===== SEVERITY BADGES ===== */
-.sev{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  border-radius:999px;
-  padding:3px 12px;
-  font-size:.76rem;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.05em;
-  white-space:nowrap;
-}
+/* BADGES */
+.sev{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
 .sev::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
 .sev-critical{background:var(--critical-bg);color:var(--critical);border:1px solid var(--critical-border)}
-.sev-high{background:var(--high-bg);color:var(--high);border:1px solid var(--high-border)}
 .sev-medium{background:var(--medium-bg);color:var(--medium);border:1px solid var(--medium-border)}
 .sev-low{background:var(--low-bg);color:var(--low);border:1px solid var(--low-border)}
 
-/* ===== FINDINGS ===== */
+/* FINDINGS */
 .sev-group{margin-bottom:44px}
 .sev-group:last-child{margin-bottom:0}
-.sev-group-title{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  font-size:1.1rem;
-  font-weight:800;
-  margin-bottom:18px;
-}
-.sev-group-title .count{
-  font-size:.82rem;
-  font-weight:700;
-  color:var(--muted);
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:999px;
-  padding:2px 12px;
-}
-.finding{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:22px 24px;
-  margin-bottom:14px;
-  box-shadow:0 1px 2px rgba(15,23,42,.04);
-  transition:box-shadow .2s ease,border-color .2s ease;
-}
+.sev-group-title{display:flex;align-items:center;gap:12px;font-size:1.1rem;font-weight:800;margin-bottom:18px;}
+.sev-group-title .count{font-size:.82rem;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:2px 12px;}
+.finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:14px;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:box-shadow .2s ease,border-color .2s ease;}
 .finding:hover{box-shadow:0 4px 14px rgba(15,23,42,.08);border-color:#CBD5E1}
 .finding-critical{border-left:4px solid var(--critical)}
-.finding-high{border-left:4px solid var(--high)}
 .finding-medium{border-left:4px solid var(--medium)}
 .finding-low{border-left:4px solid var(--low)}
-.finding-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:16px;
-  flex-wrap:wrap;
-  margin-bottom:10px;
-}
-.finding-where{
-  font-weight:800;
-  font-size:1rem;
-}
-.finding-problem{
-  color:var(--slate);
-  font-size:.95rem;
-  margin-bottom:14px;
-}
+.finding-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
+.finding-where{font-weight:800;font-size:1rem;}
+.finding-num{font-size:.78rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:2px 10px;margin-right:6px;}
+.finding-problem{color:var(--slate);font-size:.95rem;margin-bottom:14px;}
 .finding-problem strong{color:var(--navy)}
-.finding-rec{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  background:var(--bg);
-  border:1px solid var(--border);
-  border-radius:10px;
-  padding:12px 16px;
-  font-size:.9rem;
-  color:var(--slate);
-}
+.finding-rec{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:.9rem;color:var(--slate);}
 .finding-rec svg{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--blue)}
 .finding-rec strong{color:var(--blue);font-weight:700}
+.finding-ref{font-size:.82rem;color:var(--muted);margin-top:8px;font-style:italic;}
 
-/* ===== CHECKLIST ===== */
-.checklist{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:12px;
-}
-.check-item{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  background:var(--ok-bg);
-  border:1px solid var(--ok-border);
-  border-radius:12px;
-  padding:14px 16px;
-  font-size:.9rem;
-  color:#166534;
-}
-.check-item svg{
-  width:19px;height:19px;
-  flex-shrink:0;
-  color:var(--ok);
-  margin-top:1px;
-}
+/* CHECKLIST */
+.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
+.check-item{display:flex;gap:12px;align-items:flex-start;background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:12px;padding:14px 16px;font-size:.9rem;color:#166534;}
+.check-item svg{width:19px;height:19px;flex-shrink:0;color:var(--ok);margin-top:1px;}
 .check-item code{background:#DCFCE7;color:#166534}
 .check-item.wide{grid-column:1/-1}
-.check-item.warn{background:var(--medium-bg);border-color:var(--medium-border);color:#854D0E}
-.check-item.warn svg{color:var(--medium)}
-.check-item.warn code{background:#FEF3C7;color:#854D0E}
 
-/* ===== REVISÃO COMPLEMENTAR ===== */
-.source-note{
-  display:flex;
-  gap:10px;
-  align-items:flex-start;
-  background:var(--blue-soft);
-  border:1px solid #BAE6FD;
-  border-radius:12px;
-  padding:14px 18px;
-  font-size:.9rem;
-  color:#075985;
-  margin-bottom:28px;
-}
-.source-note svg{width:18px;height:18px;flex-shrink:0;margin-top:2px;color:var(--blue)}
-.source-note a{color:var(--blue);font-weight:700}
-.page-block{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:24px 26px;
-  margin-bottom:16px;
-  box-shadow:0 1px 2px rgba(15,23,42,.04);
-}
-.page-block-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-bottom:14px;
-}
-.page-block h3{font-size:1.08rem;font-weight:800}
-.page-block .counts{display:flex;gap:8px;flex-wrap:wrap}
-.tag-problem,.tag-suggestion,.tag-ok{
-  font-size:.74rem;font-weight:700;border-radius:999px;padding:3px 12px;white-space:nowrap;
-}
-.tag-problem{background:var(--critical-bg);color:var(--critical);border:1px solid var(--critical-border)}
-.tag-suggestion{background:var(--low-bg);color:var(--low);border:1px solid var(--low-border)}
-.tag-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
-.plist{list-style:none;margin:0 0 6px 0}
-.plist li{
-  position:relative;
-  padding:5px 0 5px 22px;
-  font-size:.92rem;
-  color:var(--slate);
-}
-.plist li::before{
-  content:'';
-  position:absolute;
-  left:4px;top:13px;
-  width:8px;height:8px;
-  border-radius:50%;
-}
-.plist.problems li::before{background:var(--critical)}
-.plist.suggestions li::before{background:var(--low)}
-.plist.working li::before{background:var(--ok)}
-.plist li ul{list-style:none;margin-top:4px}
-.plist li ul li{padding-left:18px}
-.plist li ul li::before{width:6px;height:6px;background:#94A3B8;top:12px}
-.plist-label{
-  font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
-  margin:14px 0 4px;
-}
-.plist-label.l-problem{color:var(--critical)}
-.plist-label.l-suggestion{color:var(--low)}
-.plist-label.l-ok{color:var(--ok)}
-.drive-link{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:.82rem;font-weight:700;color:var(--blue);text-decoration:none;
-}
-.drive-link:hover{text-decoration:underline}
-.drive-link svg{width:15px;height:15px}
-.pending-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.pending-tag{
-  background:var(--bg);color:var(--muted);border:1px dashed #CBD5E1;
-  border-radius:999px;padding:4px 13px;font-size:.78rem;font-weight:600;
-}
-.std-card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-left:5px solid var(--blue);
-  border-radius:16px;
-  padding:26px 28px;
-  margin-bottom:28px;
-}
-.std-card h3{font-size:1.08rem;font-weight:800;margin-bottom:12px}
+/* IMPROVEMENTS BOX */
+.improvements{background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:14px;padding:22px 24px;margin-bottom:32px;}
+.improvements h3{font-size:.95rem;font-weight:800;color:#166534;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.improvements h3 svg{width:18px;height:18px}
+.improvements ul{list-style:none;}
+.improvements ul li{font-size:.9rem;color:#166534;padding:3px 0 3px 20px;position:relative;}
+.improvements ul li::before{content:'';position:absolute;left:4px;top:11px;width:8px;height:8px;border-radius:50%;background:var(--ok);}
 
-/* ===== FOOTER ===== */
-footer{
-  background:var(--navy);
-  color:#94A3B8;
-  padding:44px 0;
-  text-align:center;
-  font-size:.86rem;
-}
+/* FOOTER */
+footer{background:var(--navy);color:#94A3B8;padding:44px 0;text-align:center;font-size:.86rem;}
 footer .container{display:flex;flex-direction:column;gap:8px}
 footer strong{color:#F8FAFC}
 
-@media (max-width:640px){
+@media(max-width:640px){
   .cover{padding:60px 0}
   .metrics{grid-template-columns:repeat(2,1fr)}
   .exec-card{padding:24px 20px}
@@ -503,43 +143,44 @@ footer strong{color:#F8FAFC}
   .scope-flex{gap:16px}
   .scope-number{font-size:2.6rem}
 }
+
+/* REC ICON */
+.rec-icon{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--blue)}
 </style>
 </head>
 <body>
 
-<!-- ============ COVER ============ -->
+<!-- COVER -->
 <section class="cover">
   <div class="container">
-    <div class="badge-pill"><span class="dot"></span>Auditoria de Site · 12/06/2026</div>
+    <div class="badge-pill"><span class="dot"></span>Auditoria de Site · 15/06/2026</div>
     <h1>Relatório de QA Funcional</h1>
     <p class="subtitle">Análise completa para <strong>site.develop.mydnadigital.com</strong> · <strong>MyDNA Digital</strong> (ambiente de desenvolvimento)</p>
-    <p class="meta-line">URL testada: https://site.develop.mydnadigital.com/ · Ferramenta: Claude Sonnet 4.6</p>
+    <p class="meta-line">URL testada: https://site.develop.mydnadigital.com/ · Revisão em 15/06/2026</p>
 
     <div class="verdict">
-      <svg class="icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
       <span>Veredito: o site NÃO está pronto para ir a produção</span>
     </div>
 
     <div class="metrics">
-      <div class="metric-card m-total"><span class="num">22</span><span class="label">Achados QA</span></div>
-      <div class="metric-card m-critical"><span class="num">7</span><span class="label">Críticos</span></div>
-      <div class="metric-card m-high"><span class="num">3</span><span class="label">Altos</span></div>
-      <div class="metric-card m-medium"><span class="num">7</span><span class="label">Médios</span></div>
+      <div class="metric-card m-total"><span class="num">15</span><span class="label">Achados totais</span></div>
+      <div class="metric-card m-critical"><span class="num">5</span><span class="label">Críticos</span></div>
+      <div class="metric-card m-medium"><span class="num">5</span><span class="label">Médios</span></div>
       <div class="metric-card m-low"><span class="num">5</span><span class="label">Baixos</span></div>
-      <div class="metric-card m-ok"><span class="num">15</span><span class="label">Verificações OK</span></div>
-      <div class="metric-card m-total"><span class="num">36</span><span class="label">Achados redesign</span></div>
+      <div class="metric-card m-ok"><span class="num">8</span><span class="label">Verificações OK</span></div>
     </div>
   </div>
 </section>
 
-<!-- ============ ESCOPO ============ -->
+<!-- ESCOPO -->
 <section class="scope">
   <div class="container">
     <div class="scope-flex">
-      <div class="scope-number">25+</div>
+      <div class="scope-number">20+</div>
       <div class="scope-text">
         <h2>Páginas e rotas testadas</h2>
-        <p>O teste funcional cobriu a home, páginas de conversão, conteúdo e suporte, as 15 páginas de produtos, as versões em inglês e português e o comportamento das rotas de erro.</p>
+        <p>O teste funcional cobriu a home, páginas de conversão, conteúdo, suporte e as páginas de produtos, além das versões em espanhol, português e inglês, formulários e comportamento de rotas de erro.</p>
       </div>
     </div>
     <div class="scope-tags">
@@ -548,16 +189,21 @@ footer strong{color:#F8FAFC}
       <span class="scope-tag">/contact/</span>
       <span class="scope-tag">/ebooks/</span>
       <span class="scope-tag">/privacy/</span>
+      <span class="scope-tag">/terms/</span>
       <span class="scope-tag">/hr-maturity/</span>
-      <span class="scope-tag">15 páginas de produtos</span>
+      <span class="scope-tag">/candidate-portal/</span>
+      <span class="scope-tag">Produtos (/products/...)</span>
       <span class="scope-tag">Versão /en/</span>
       <span class="scope-tag">Versão /pt/</span>
       <span class="scope-tag">Rotas 404</span>
+      <span class="scope-tag fixed">✓ /jobs/ — corrigido</span>
+      <span class="scope-tag fixed">✓ /terms/ — página criada</span>
+      <span class="scope-tag fixed">✓ WhatsApp real configurado</span>
     </div>
   </div>
 </section>
 
-<!-- ============ RESUMO EXECUTIVO ============ -->
+<!-- RESUMO EXECUTIVO -->
 <section class="section">
   <div class="container">
     <div class="section-header">
@@ -567,138 +213,123 @@ footer strong{color:#F8FAFC}
     <div class="exec-card">
       <div class="exec-highlight">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"/></svg>
-        O site NÃO está pronto para ir a produção.
+        O site NÃO está pronto para produção no estado atual.
       </div>
-      <p>Foram identificados <strong>7 problemas críticos</strong> que precisam ser corrigidos antes do deploy. Os mais urgentes são: <strong>(1)</strong> três páginas do footer retornam 404 — <code>/jobs/</code>, <code>/sobre-nosotros/</code> e <code>/outplacement/</code> — que são links presentes em todas as páginas do site; <strong>(2)</strong> um texto interno de desenvolvimento está exposto ao usuário na página <code>/demo/</code> ("El embed de calendario queda listo para conectar Cal.com o Calendly"); <strong>(3)</strong> a versão em inglês do site (<code>/en/</code>) mantém o menu de navegação em espanhol; <strong>(4)</strong> a página de erro 404 é completamente preta e sem qualquer elemento de navegação ou mensagem útil; e <strong>(5)</strong> o número de WhatsApp é um placeholder fictício (<code>+56 9 0000 0000</code>).</p>
-      <p>Além disso, há problemas de média severidade que devem ser resolvidos antes do lançamento: botão "Descargar Gratis" cortado na viewport, textos sem acentos na página de demo, validação de formulários sem feedback visual, fotos de testemunhais ainda como placeholders e a stat "0 costo" na página de ebooks.</p>
-      <p><strong>Estimativa: o site precisa de ao menos uma rodada adicional de correções antes de estar apto para produção.</strong></p>
+      <p>Foram identificados <strong>4 bugs críticos únicos</strong> que impactam diretamente conversão e experiência do usuário: <strong>(1)</strong> o mega-menu de Produtos tem um problema grave de layout onde a coluna esquerda fica completamente cortada, impossibilitando o acesso a itens como Talent Acquisition e Assessment Center; <strong>(2)</strong> dois links de navegação importantes — <code>/sobre-nosotros/</code> (footer + menu mobile) e <code>/outplacement/</code> (footer) — retornam 404; <strong>(3)</strong> o formulário de Contato está completamente quebrado e não envia mesmo com todos os campos preenchidos e o checkbox marcado; <strong>(4)</strong> a página de erro 404 exibe texto em <strong>português</strong> para usuários da versão em espanhol, revelando um problema de internacionalização.</p>
+      <p>Além disso, há <strong>3 problemas de severidade média</strong> que devem ser corrigidos antes do deploy: as mensagens de validação de formulários estão em inglês, as fotos dos testimonials são placeholders do picsum.photos (imagens aleatórias de paisagens), e a capa do ebook no formulário hero da home não exibe imagem real. O menu mobile também tem um problema de overlay transparente que torna a navegação difícil em dispositivos móveis.</p>
+      <p><strong>Ação recomendada:</strong> corrigir os 4 bugs críticos e os 3 bugs médios antes de qualquer deploy em produção. Os 4 itens de severidade baixa podem ser endereçados em ciclos posteriores.</p>
+      <p>Em relação à última revisão, vários itens foram corrigidos: a página <code>/jobs/</code> foi criada, a página <code>/terms/</code> passou a existir, o número de WhatsApp foi configurado com número real (<code>wa.me/56957084251</code>), o texto placeholder na <code>/demo/</code> foi removido e o formulário de demo passou a exibir o nome completo corretamente.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ TABELA DE ACHADOS ============ -->
+<!-- ACHADOS -->
 <section class="section" style="padding-top:0">
   <div class="container">
     <div class="section-header">
       <div class="section-num">02 — Diagnóstico</div>
       <h2 class="section-title">Tabela de Achados</h2>
-      <p class="section-desc">22 problemas identificados durante os testes funcionais, agrupados por severidade. Cada achado inclui a página ou seção afetada, a descrição do problema e a recomendação de correção.</p>
+      <p class="section-desc">15 problemas identificados, agrupados por severidade. Os achados #2 e #12 estão relacionados ao mesmo bug (<code>/sobre-nosotros/</code> ausente) — listados separadamente por terem pontos de entrada distintos (footer e menu mobile).</p>
     </div>
 
     <!-- CRÍTICOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-critical">Crítico</span><span class="count">7 achados</span></div>
+      <div class="sev-group-title"><span class="sev sev-critical">Crítico</span><span class="count">5 achados (4 bugs únicos)</span></div>
 
       <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">Página <code>/jobs/</code></div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem">Retorna <strong>404 "This page could not be found."</strong> — links "Trabaja con nosotros" (footer) e "Bolsa de Trabajo" (footer) apontam para esta rota.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página <code>/jobs/</code> ou redirecionar para uma página existente antes do deploy.</span></div>
-      </div>
-
-      <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">Página <code>/sobre-nosotros/</code></div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem">Retorna <strong>404 "This page could not be found."</strong> — link "Sobre Nosotros" do footer está quebrado.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página <code>/sobre-nosotros/</code> ou corrigir a rota no footer.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#1</span>Navegação — Dropdown "Productos"</div>
+          <span class="sev sev-critical">Crítico</span>
+        </div>
+        <p class="finding-problem">O mega-menu de produtos <strong>extravasa pelo lado esquerdo da tela</strong> em todas as resoluções testadas (1054px e 1280px). A coluna esquerda "Adquisición de Talento" fica cortada, mostrando apenas fragmentos como "nt Acquisition", "ssment Center", "al de Candidatos".</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o posicionamento do dropdown (usar <code>left: 0</code> em vez de valor negativo, ou ajustar para que fique alinhado à esquerda da viewport).</span></div>
       </div>
 
       <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">Página <code>/outplacement/</code></div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem">Retorna <strong>404 "This page could not be found."</strong> — o link "Outplacement" do footer está quebrado (obs: existe <code>/products/outplacement/</code> que funciona).</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir link do footer de <code>/outplacement/</code> para <code>/products/outplacement/</code>.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#2</span>Footer / Menu mobile → <code>/sobre-nosotros/</code></div>
+          <span class="sev sev-critical">Crítico</span>
+        </div>
+        <p class="finding-problem">Página retorna <strong>404</strong>. O link está presente no footer (coluna "Empresa") e no menu mobile, mas a página não existe.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página <code>/sobre-nosotros/</code> ou corrigir o link para a URL correta.</span></div>
       </div>
 
       <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">Página 404 (genérica)</div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem">Página de erro 404 completamente <strong>em branco/preta</strong>, sem menu, sem mensagem em português/espanhol, sem link de retorno. Mensagem de sistema em inglês: "This page could not be found."</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar uma página 404 customizada com design do site, menu de navegação e CTA para voltar à home.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#3</span>Footer → <code>/outplacement/</code></div>
+          <span class="sev sev-critical">Crítico</span>
+        </div>
+        <p class="finding-problem">Página retorna <strong>404</strong>. O link "Outplacement" no footer (coluna "Recursos") aponta para <code>/outplacement/</code>, mas a página está em <code>/products/outplacement/</code>.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o link do footer para <code>/products/outplacement/</code> ou criar um redirect 301.</span></div>
       </div>
 
       <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">Página <code>/demo/</code></div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem"><strong>Texto placeholder visível ao usuário:</strong> "Al enviar el formulario, el equipo comercial recibe tu solicitud. El embed de calendario queda listo para conectar Cal.com o Calendly." — nota interna de desenvolvimento exposta publicamente.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Remover imediatamente o texto interno de desenvolvimento antes do deploy.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#4</span>Formulário de Contato — <code>/contact/</code></div>
+          <span class="sev sev-critical">Crítico</span>
+        </div>
+        <p class="finding-problem">Formulário completamente <strong>quebrado</strong>: ao clicar em "Enviar mensaje" com o checkbox de consentimento marcado, a mensagem de erro "Acepta el contacto para continuar." persiste e o formulário <strong>nunca envia</strong>. Confirmado via JavaScript: <code>checkbox.checked === true</code> mas o erro não some.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir a lógica de validação do checkbox no JavaScript do formulário de contato.</span></div>
       </div>
 
       <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">Versão EN (<code>/en/</code>)</div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem"><strong>Menu principal em espanhol</strong> na versão inglesa — itens "Soluciones, Productos, Blog, Recursos, Contacto" não foram traduzidos para inglês.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Traduzir todos os itens do menu e outros textos do layout para inglês na rota <code>/en/</code>.</span></div>
-      </div>
-
-      <div class="finding finding-critical">
-        <div class="finding-top"><div class="finding-where">WhatsApp (global)</div><span class="sev sev-critical">Crítico</span></div>
-        <p class="finding-problem">Número do WhatsApp é <strong>placeholder fictício</strong>: <code>+56 9 0000 0000</code> — em todos os botões do site.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir pelo número real de WhatsApp do time comercial.</span></div>
-      </div>
-    </div>
-
-    <!-- ALTOS -->
-    <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-high">Alto</span><span class="count">3 achados</span></div>
-
-      <div class="finding finding-high">
-        <div class="finding-top"><div class="finding-where">Home — Seção Guia LATAM</div><span class="sev sev-high">Alto</span></div>
-        <p class="finding-problem">Botão <strong>"Descargar Gratis →" cortado</strong> à direita da viewport (1054px) — ultrapassa a borda por ~89px. O contêiner pai usa <code>sm:flex-row</code> mas o layout não está quebrando corretamente.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o layout do row de botões da seção da guia para que ambos os CTAs fiquem visíveis em qualquer viewport.</span></div>
-      </div>
-
-      <div class="finding finding-high">
-        <div class="finding-top"><div class="finding-where">Página <code>/demo/</code></div><span class="sev sev-high">Alto</span></div>
-        <p class="finding-problem">Múltiplos <strong>textos sem acentuação</strong>: "accion" (→ acción), "genericas" (→ genéricas), "rapido" (→ rápido), "modulos" (→ módulos), "Pais" (→ País), "paises" (→ países), "Diagnostico" (→ Diagnóstico).</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Revisar e corrigir ortografia de toda a página <code>/demo/</code>.</span></div>
-      </div>
-
-      <div class="finding finding-high">
-        <div class="finding-top"><div class="finding-where">Formulário de Contato (<code>/contact/</code>)</div><span class="sev sev-high">Alto</span></div>
-        <p class="finding-problem"><strong>Sem validação visível:</strong> ao clicar "Enviar mensaje" com todos os campos vazios, nenhuma mensagem de erro aparece para o usuário — o form simplesmente não submete mas não explica por quê.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Implementar mensagens de validação visíveis nos campos obrigatórios (ex: "Este campo é obrigatório").</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#12</span>Menu mobile — "Sobre Nosotros"</div>
+          <span class="sev sev-critical">Crítico</span>
+        </div>
+        <p class="finding-problem">O item "Sobre Nosotros" aparece no menu mobile como item dedicado, mas leva à mesma página 404 do bug <strong>#2</strong>. Listado separadamente por ser um ponto de entrada adicional, distinto do footer.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Mesma correção do bug #2 — criar a página <code>/sobre-nosotros/</code> ou corrigir o link.</span></div>
+        <p class="finding-ref">Relacionado ao achado #2.</p>
       </div>
     </div>
 
     <!-- MÉDIOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-medium">Médio</span><span class="count">7 achados</span></div>
+      <div class="sev-group-title"><span class="sev sev-medium">Médio</span><span class="count">5 achados</span></div>
 
       <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Home — Widget "Alerta IA"</div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem">Widget de alerta IA posicionado com <code>absolute -right-20</code>, ficando <strong>parcialmente fora da viewport</strong> à direita, cortando o texto "Alerta IA · Ahora 3 colaboradores em riesgo de rota...".</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Ajustar a posição do widget decorativo para que seja totalmente visível ou intencionalmente oculto via <code>overflow:hidden</code> no contêiner pai.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#5</span>Todos os formulários — Validação HTML5</div>
+          <span class="sev sev-medium">Médio</span>
+        </div>
+        <p class="finding-problem">As mensagens de validação nativas do browser estão em <strong>inglês</strong> ("Please fill out this field.") em vez de espanhol. Afeta: formulário de Ebook (Home), Demo Form (Home), Market Salary, e potencialmente todos os formulários do site.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Adicionar o atributo <code>lang="es"</code> no elemento <code>&lt;html&gt;</code> e/ou usar <code>setCustomValidity()</code> em JavaScript para traduzir as mensagens de validação.</span></div>
       </div>
 
       <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Formulários de demo e newsletter</div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem"><strong>Mensagem de sucesso usa apenas o primeiro nome:</strong> exibe "¡Gracias Teste!" em vez de "¡Gracias Teste QA!" — o campo <code>name</code> é dividido incorretamente.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Usar o nome completo nas mensagens de confirmação, ou separar campos de nome/sobrenome.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#6</span>Página de Erro 404 — idioma incorreto</div>
+          <span class="sev sev-medium">Médio</span>
+        </div>
+        <p class="finding-problem">A página 404 está em <strong>português</strong> ("Página não encontrada", "A página que você procura não existe ou foi movida.") para usuários acessando a versão em espanhol do site.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar uma versão em espanhol da página 404 para <code>/</code> e versões localizadas para <code>/pt/</code> e <code>/en/</code>.</span></div>
       </div>
 
       <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Página de Ebooks (<code>/ebooks/</code>)</div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem">Stat <strong>"0 costo"</strong> no card de informações — campo de dado claramente incompleto/placeholder (deveria exibir "Gratuito" ou "$0").</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o dado/label da stat "costo" na hero da página de ebooks.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#7</span>Home — Seção Hero Ebook / Guia LATAM</div>
+          <span class="sev sev-medium">Médio</span>
+        </div>
+        <p class="finding-problem">A capa do ebook "Guía de Employee Experience LATAM 2025" <strong>não carrega imagem</strong> — aparece apenas um ícone genérico de camadas (Layers icon), sem imagem real da capa do guia.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir o ícone placeholder por uma imagem real da capa do ebook.</span></div>
       </div>
 
       <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Testemunhais (Home)</div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem">As <strong>3 fotos dos testemunhais são imagens placeholder do picsum.photos</strong> (fotos genéricas aleatórias), não fotos reais das pessoas citadas.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir pelas fotos reais dos clientes ou usar avatares com iniciais caso não haja fotos disponíveis.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#8</span>Home — Seção de Testimonials</div>
+          <span class="sev sev-medium">Médio</span>
+        </div>
+        <p class="finding-problem">As fotos dos três depoentes (María González, Carlos Pérez, Ana Silva) são <strong>imagens placeholder do picsum.photos</strong> (fotos aleatórias de paisagens/natureza), não fotos reais de profissionais.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir as URLs <code>https://picsum.photos/seed/...</code> por fotos reais (ou imagens profissionais aprovadas) antes de ir para produção.</span></div>
       </div>
 
       <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Home — Título da página (meta)</div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem"><strong>Inconsistência no <code>&lt;title&gt;</code>:</strong> na primeira carga aparece "Plataforma HR con IA para LATAM | Employee Experience y Talent Acquisition"; em visitas subsequentes muda para "Recluta, Desarrolla y retiene el talento | Employee Experience y Talent Acquisition".</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Garantir um único <code>&lt;title&gt;</code> consistente na rota <code>/</code> — verificar se há efeito colateral de router do Next.js.</span></div>
-      </div>
-
-      <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Página <code>/diagnostic/</code></div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem">A rota <code>/diagnostic/</code> <strong>redireciona para <code>/hr-maturity/</code></strong> — links no footer e popup de saída apontam para <code>/diagnostic/</code> mas chegam em página diferente.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Atualizar todos os links que referenciam <code>/diagnostic/</code> para apontar diretamente para <code>/hr-maturity/</code>, ou criar um redirect permanente (301).</span></div>
-      </div>
-
-      <div class="finding finding-medium">
-        <div class="finding-top"><div class="finding-where">Footer — Links "Política de Privacidad" e "Términos de Servicio"</div><span class="sev sev-medium">Médio</span></div>
-        <p class="finding-problem"><strong>Ambos os links apontam para a mesma URL</strong> (<code>/privacy/</code>) — Termos de Serviço e Política de Privacidade são documentos diferentes.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar página separada <code>/terms/</code> para os Termos de Serviço, ou documentar que estão unificados intencionalmente.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#9</span>Menu Mobile — Overlay transparente</div>
+          <span class="sev sev-medium">Médio</span>
+        </div>
+        <p class="finding-problem">Ao abrir o menu hamburger no mobile (≤768px), o conteúdo da página atrás do menu <strong>fica visível e sobreposto</strong> ao menu. O overlay não tem opacidade/fundo sólido adequado, tornando o texto do menu ilegível. Notavelmente, a barra "¿Listo para transformar tu área de RH?" também aparece sobre o menu aberto.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Aplicar um background sólido ou overlay com <code>background-color</code> e/ou <code>backdrop-filter</code> no componente de menu mobile; garantir <code>z-index</code> correto e <code>overflow: hidden</code> no body quando o menu estiver aberto.</span></div>
       </div>
     </div>
 
@@ -707,323 +338,92 @@ footer strong{color:#F8FAFC}
       <div class="sev-group-title"><span class="sev sev-low">Baixo</span><span class="count">5 achados</span></div>
 
       <div class="finding finding-low">
-        <div class="finding-top"><div class="finding-where">Footer — Link "Escríbenos →"</div><span class="sev sev-low">Baixo</span></div>
-        <p class="finding-problem">O link "Escríbenos →" na seção FAQ da home leva para <code>#demo</code> (formulário de agendamento) em vez de <code>/contact/</code>.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar se o destino é intencional; se não for, corrigir para <code>/contact/</code>.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#10</span>Home — Tabela de Comparação</div>
+          <span class="sev sev-low">Baixo</span>
+        </div>
+        <p class="finding-problem">Textos das linhas da tabela de comparação estão <strong>truncados</strong> na coluna esquerda em resoluções intermediárias (ex: "Reportes ejecutivos automáti..." e "Datos salariales de merca...").</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Ajustar o <code>min-width</code> da coluna ou usar <code>white-space: normal</code> para garantir que os textos não sejam cortados.</span></div>
       </div>
 
       <div class="finding finding-low">
-        <div class="finding-top"><div class="finding-where">Capa do Ebook (Home)</div><span class="sev sev-low">Baixo</span></div>
-        <p class="finding-problem">A capa do ebook "Guía EX LATAM 2025" exibe apenas um <strong>ícone genérico</strong> (sem imagem da capa real).</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar se a imagem da capa está configurada corretamente no componente.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#11</span>Home — Título da página (meta <code>&lt;title&gt;</code>)</div>
+          <span class="sev sev-low">Baixo</span>
+        </div>
+        <p class="finding-problem">O título da aba diz <strong>"Recluta</strong>, Desarrolla y retiene el talento" mas o headline da hero diz apenas "Desarrolla y retiene el talento que ya tienes" — não há referência a "Recluta". Inconsistência de mensagem.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Revisar e alinhar o <code>&lt;title&gt;</code> com a proposta de valor principal do site, ou atualizar o headline se "Recluta" é parte do posicionamento.</span></div>
       </div>
 
       <div class="finding finding-low">
-        <div class="finding-top"><div class="finding-where">Página <code>/demo/</code></div><span class="sev sev-low">Baixo</span></div>
-        <p class="finding-problem">A página <code>/demo/</code> tem um cabeçalho <strong>minimalista sem menu</strong> completo de navegação — pode ser intencional para evitar distrações, mas é inconsistente com o resto do site.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Definir se a ausência do menu completo é design intencional (landing page de conversão) e documentar.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#13</span>Página de Ebooks — Cards duplicados</div>
+          <span class="sev sev-low">Baixo</span>
+        </div>
+        <p class="finding-problem">Na biblioteca de ebooks, aparecem <strong>dois cards idênticos</strong> de "Guía Salarial 2026" lado a lado, com o mesmo título, imagem e descrição. Pode ser um dado duplicado no backend.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar e eliminar registros duplicados na fonte de dados dos ebooks.</span></div>
       </div>
 
       <div class="finding finding-low">
-        <div class="finding-top"><div class="finding-where">Respostas 503 em HEAD requests</div><span class="sev sev-low">Baixo</span></div>
-        <p class="finding-problem">Nas requisições de prefetch do Next.js, rotas como <code>/</code>, <code>/en/</code>, <code>/pt/</code>, <code>/contact/</code>, <code>/ebooks/</code> retornam <strong>503 em HEAD requests</strong> (mas 200 em GET).</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar configuração do servidor de desenvolvimento — possivelmente relacionado ao ambiente dev; confirmar que não ocorre em produção.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#14</span>Home — Espaço em branco excessivo antes dos Testimonials</div>
+          <span class="sev sev-low">Baixo</span>
+        </div>
+        <p class="finding-problem">Ao rolar a página, existe um <strong>espaço em branco excessivo</strong> logo acima da seção de testimonials (aproximadamente 150–200px), sugerindo um problema de timing de animação ou elemento com altura mínima desnecessária.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Inspecionar o CSS e animações de entrada da seção de testimonials para remover o whitespace excessivo.</span></div>
       </div>
 
       <div class="finding finding-low">
-        <div class="finding-top"><div class="finding-where">Popup de saída (exit intent)</div><span class="sev sev-low">Baixo</span></div>
-        <p class="finding-problem">O popup reaparece ao recarregar a página — <strong>falta de persistência do estado</strong> "já fechado" (cookie/localStorage).</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Salvar o estado do popup no localStorage para não exibi-lo novamente na mesma sessão.</span></div>
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#15</span>Links externos — Verificação pendente</div>
+          <span class="sev sev-low">Baixo</span>
+        </div>
+        <p class="finding-problem">Links do LinkedIn (<code>/company/mydnahrtech/</code>), YouTube (<code>/@My_DNA</code>) e Instagram (<code>@mydna_digital</code>) foram identificados; o WhatsApp (<code>wa.me/56957084251</code>) também aponta para número configurado. Esses links <strong>não foram testados até o destino final</strong> por serem externos, mas as URLs parecem sintaticamente corretas.</p>
+        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Testar manualmente cada link externo para confirmar que os perfis estão ativos e apontam para os canais corretos da marca.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ REVISÃO COMPLEMENTAR (REDESIGN) ============ -->
+<!-- VERIFICAÇÕES OK -->
 <section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
   <div class="container">
     <div class="section-header">
-      <div class="section-num">03 — Revisão Complementar</div>
-      <h2 class="section-title">Revisão de Redesign — página a página</h2>
-      <p class="section-desc">Análise complementar do redesign do novo site, feita página a página, com foco em: funcionamento de botões e links, imagens (faltando, erradas ou para substituir), conteúdo incorreto e sugestões de redesign de seções. <strong>36 problemas e 14 sugestões</strong> em 9 de 17 páginas analisadas (~53%).</p>
+      <div class="section-num">03 — Aprovados</div>
+      <h2 class="section-title">O que está funcionando corretamente</h2>
+      <p class="section-desc">8 verificações funcionais passaram em todos os testes realizados.</p>
     </div>
 
-    <div class="source-note">
-      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"/></svg>
-      <span>A análise completa está registrada no FigJam: <a href="https://www.figma.com/board/tCGNg6H3PuuEj9x9Ypmie2/Analisar-nova-homepage-MyDNA?node-id=0-1" target="_blank" rel="noopener">Analisar nova homepage MyDNA</a>. Cada página tem pasta no Google Drive com as imagens corretas para substituição. O escopo total do novo site contempla 17 páginas.</span>
-    </div>
-
-    <!-- PADRONIZAÇÃO -->
-    <div class="std-card">
-      <h3>Observações gerais — padronização para todas as páginas de produto</h3>
-      <ul class="plist problems">
-        <li><strong>Heros das product pages:</strong> os números de stats vêm abaixo da linha de CTAs; todos os CTAs com o mesmo label; cor do título: uma parte em branco, a outra seguindo a cor padrão da marca (<code>#7A6BE8</code>) — no máximo um gradiente, mas com as cores da marca: <code>#AAADF7</code> → <code>#7A6BE8</code> (60º).</li>
-        <li>Ajustar o botão dos FAQs para WhatsApp, e-mail ou formulário de contato.</li>
-        <li>Alterar todos os emojis utilizados para ícones (Lucide) que os representem. Cor: <code>#7A6BE8</code>.</li>
-        <li>Padronizar a seção de stats (eyebrow, título, stat e descrição) em todas as páginas de produto — ela vem antes do "Para quem é".</li>
-        <li>Padronizar espaçamento entre seções, para haver respiro.</li>
-        <li>Padronizar design dos blocos da seção "Para quem é".</li>
-        <li>Padronizar design da seção "Comece hoje" / "Demo gratuita" das páginas de produto.</li>
+    <div class="improvements">
+      <h3><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg>Melhorias desde a revisão anterior</h3>
+      <ul>
+        <li>Página <code>/jobs/</code> criada — link do footer não retorna mais 404.</li>
+        <li>Página <code>/terms/</code> criada e acessível.</li>
+        <li>WhatsApp configurado com número real: <code>wa.me/56957084251</code>.</li>
+        <li>Texto placeholder interno removido da página <code>/demo/</code>.</li>
+        <li>Formulário de demo exibe nome completo corretamente na mensagem de sucesso.</li>
       </ul>
     </div>
 
-    <!-- HOME -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Home</h3>
-        <div class="counts"><span class="tag-problem">12 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1iqhuHn5KggvNcE30SqP-PQxVAcbXJPL0?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working">
-        <li>Links e botões do menu header; botões da seção "Soluções".</li>
-      </ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Botão primário do hero está levando para a seção Last CTA — poderia levar direto para o form, como é no botão do menu header.</li>
-        <li>Falta a imagem da plataforma que ficaria abaixo do hero. Imagem <strong>employee experience</strong> na pasta Drive.</li>
-        <li>Seção "Ebook" (logo abaixo do hero): ajustar a proporção da imagem do ebook para 16:9.</li>
-        <li>Seção "Inteligência Artificial aplicada a RH": o botão [Conheça todas as capacidades de IA] está levando para o Last CTA.</li>
-        <li>Seção "Employee Experience · 30+ ferramentas": o botão [Ativar os módulos que preciso →] não está funcionando (leva a lugar nenhum).</li>
-        <li>Seção "Planos": o botão [Solicitar cotação] não está funcionando (leva a lugar nenhum).</li>
-        <li>Seção "Integrações": deveria ter uma imagem. Imagem <strong>integrações-v1</strong> na pasta Drive.</li>
-        <li>Seção "Resultados medibles": o botão [Ver como se aplica a minha empresa] não está funcionando (leva a lugar nenhum).</li>
-        <li>Seção "Calculadora de ROI": o botão [Validar com minha equipe] está levando para o Last CTA.</li>
-        <li>Seção "Depoimentos": o botão [Agendar demo ao vivo] não está funcionando; o botão do canal no YouTube está com link errado — link correto: <code>https://www.youtube.com/@mydna7578</code>.</li>
-        <li>Seção "Perguntas frequentes": o botão não está funcionando.</li>
-        <li>Menu footer: a maioria dos botões funciona, mas há exceções — links errados (YouTube, Instagram, LinkedIn), link quebrado (Jobs) e link não funcionando (Contact Demo).</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>As respostas da seção "Perguntas frequentes" podem ser melhor orientadas a SEO (mais longas).</li>
-      </ul>
-    </div>
-
-    <!-- ONBOARDING -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Onboarding &amp; Offboarding</h3>
-        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">2 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1_-K1BFQp3owCkG3qczAtyeufa_h5fRuw?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working"><li>Botões do hero section.</li></ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Seção "Onboarding Ranking" está com a imagem errada. Seriam as imagens 3 ou 4 do Drive (2 versões do ranking).</li>
-        <li>Seção "Offboarding" está com a imagem errada. Seria a imagem 2 do Drive (trocou com a seção Onboarding).</li>
-        <li>Botão do FAQ não está funcionando.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "Onboarding Integrativo com IA" está ok com imagens. Sugestão: retirar dessa seção os 8 mini-cards que representam as 8 categorias, pois elas já vêm abaixo, com seção própria.</li>
-        <li>Seção "Offboarding": retirar o card "Principais razões de saída — Q4 2024", pois é um gráfico que já aparece na imagem.</li>
-      </ul>
-    </div>
-
-    <!-- DESEMPENHO -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Desempenho &amp; Potencial</h3>
-        <div class="counts"><span class="tag-problem">4 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1OTEGH3QHfxbNlsh7iTgPqyVpwWXu6Ogi?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working"><li>Botões do hero section.</li></ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Imagens erradas na seção "Como funciona". Imagens corretas (grid 2x2): 1 e 7 / 6 e 10.</li>
-        <li>Seção "Funcionalidades" com conteúdo incorreto:
-          <ul>
-            <li>OKRs: não temos definição de objetivo individual nem acompanhamento por time.</li>
-            <li>Lembretes: não temos um painel de progresso das avaliações.</li>
-          </ul>
-        </li>
-        <li>Seção "Módulos em detalhe" está sem imagens. Imagens que devem ir, na ordem, em cada bloco: 9, 3, 2, 8.</li>
-        <li>Seção "Plataforma en detalle" está após o Last CTA — parece deslocada.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Ilustração do hero: ajustar o contraste dos blocos da matriz "Mapa de Potencial" ao fundo escuro.</li>
-      </ul>
-    </div>
-
-    <!-- CAPACITAÇÃO -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Capacitação &amp; Desenvolvimento</h3>
-        <div class="counts"><span class="tag-problem">1 problema</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1Wmpb58kuEeU_uryKFceBnHDJxkTEMX_v?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working"><li>Botões do hero section.</li></ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Falta a imagem na seção "E-learning &amp; Conteúdos". Adicionar a imagem 4 no lugar dos chips, no card "Plataformas disponíveis no diretório".</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "Guia de Desenvolvimento": retirar o bloco de chips, deixar apenas o bloco "Como é gerado?".</li>
-      </ul>
-    </div>
-
-    <!-- TALENTO -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Talento &amp; Sucessão</h3>
-        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1jkLeJxE45s5ITGsTGxLP59niUXky_TRy?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working"><li>Botões do hero section.</li></ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Alteração na imagem da seção "Plano de Carreira": imagem 3 (pasta Drive).</li>
-        <li>Alteração na imagem da seção "Plano de Sucessão": imagem 4 (pasta Drive).</li>
-        <li>Retirar a seção "Matriz 9-Box", que parece ter vindo da página de Desempeño.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "Plano de Carreira": retirar o bloco de chips "Dados visíveis por colaborador".</li>
-      </ul>
-    </div>
-
-    <!-- CLIMA -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Clima Organizacional</h3>
-        <div class="counts"><span class="tag-problem">1 problema</span><span class="tag-suggestion">2 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1YUTyAHNIEeT698bTD_C_kWKcjdnnt3QZ?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working"><li>Botões do hero section.</li></ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Imagem errada na seção "Net Promoter Score". Alterar para a imagem 6 do Drive.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "Net Promoter Score": remover o bloco de cards.</li>
-        <li>Seções "Cultura &amp; Match Cultural" e "Como usar cada perfil cultural": aumentar o espaçamento entre as duas, para dar respiro.</li>
-      </ul>
-    </div>
-
-    <!-- COMPENSAÇÃO -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Compensação &amp; Benefícios</h3>
-        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">1 sugestão</span><a class="drive-link" href="https://drive.google.com/drive/folders/1ArOFRN17REX0Pnip6yNAd5vOXA4gcQDb?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-ok">Funcionando</div>
-      <ul class="plist working"><li>Botões do hero section.</li></ul>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Imagens erradas na seção "Como funciona". Imagens corretas (grid 2x2): 1 e 4 / 6 e 7.</li>
-        <li>Blocos errados na seção "Funcionalidades":
-          <ul>
-            <li>Não temos uma funcionalidade própria para "Remuneração Variável".</li>
-            <li>Atualmente estamos sem a funcionalidade "Dashboard Salarial" no módulo — o dashboard que o bloco menciona é o de nómina.</li>
-          </ul>
-        </li>
-        <li>Faltam imagens na seção "Benefícios &amp; Salário Emocional": imagem 2 (benefícios). Problema com Salário Emocional na plataforma: não aparecem as opções no select para poder fazer o printscreen da tela.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "Benefícios &amp; Salário Emocional": retirar os slots de imagens.</li>
-      </ul>
-    </div>
-
-    <!-- GESTÃO DE DOCUMENTOS -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Gestão de Documentos &amp; Conhecimento</h3>
-        <div class="counts"><span class="tag-problem">6 problemas</span><span class="tag-suggestion">2 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1l_iVXRyIxykg78kgdZy4mFVDL0XgSneQ?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Botões do hero section não estão funcionando.</li>
-        <li>Hero sem stats; ilustração do hero com a tag "Screenshot da plataforma" — precisa retirar.</li>
-        <li>Seção "Repositório de Documentos" sem imagem. Colocar a imagem 1 (pasta Drive).</li>
-        <li>Seção "Documentos de Admissão" sem imagem. Colocar a imagem 3 (pasta Drive).</li>
-        <li>Seção "Gestão de Conhecimento" sem imagem. Colocar a imagem 2 (pasta Drive).</li>
-        <li>Página de produto sem footer.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "Documentos de Admissão": retirar o bloco "Você também pode".</li>
-        <li>Seção "Gestão de Conhecimento": transformar o bloco dos cards em bloco de tópicos.</li>
-      </ul>
-    </div>
-
-    <!-- OUTPLACEMENT -->
-    <div class="page-block">
-      <div class="page-block-top">
-        <h3>Outplacement Digital</h3>
-        <div class="counts"><span class="tag-problem">3 problemas</span><span class="tag-suggestion">3 sugestões</span><a class="drive-link" href="https://drive.google.com/drive/folders/1kjG9MxBKHtyCAFyZjk150afOGa4v65xU?usp=drive_link" target="_blank" rel="noopener"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z"/></svg>Pasta Drive</a></div>
-      </div>
-      <div class="plist-label l-problem">Problemas e correções</div>
-      <ul class="plist problems">
-        <li>Botões do hero section não estão funcionando.</li>
-        <li>Alteração na imagem da seção "Plano de Saída": imagem 3 (pasta Drive).</li>
-        <li>Os botões da seção "Conheça o MyDNA Outplacement" — [Solicitar demo] e [Baixar apresentação] — não estão funcionando.</li>
-      </ul>
-      <div class="plist-label l-suggestion">Sugestões</div>
-      <ul class="plist suggestions">
-        <li>Seção "O custo invisível" precisa ser redesenhada: 2 colunas — coluna 1: eyebrow + título + stat; coluna 2: texto + bloco de tópicos.</li>
-        <li>Seção "Plano de Saída": retirar o slot da imagem; o bloco com tópicos vai para a coluna da direita.</li>
-        <li>Redesign da seção "Experiência do colaborador": deixar 2 linhas — linha 1 com 2 colunas (coluna 1: eyebrow + título + texto; coluna 2: imagem); linha 2 com 4 colunas (cada tópico em 1 coluna).</li>
-      </ul>
-    </div>
-
-    <!-- PENDENTES -->
-    <div class="page-block" style="border-style:dashed">
-      <div class="page-block-top">
-        <h3>Páginas ainda não analisadas (8 de 17)</h3>
-        <span class="tag-suggestion" style="background:var(--bg);color:var(--muted);border-color:#CBD5E1">Pendente</span>
-      </div>
-      <div class="pending-tags">
-        <span class="pending-tag">Portal de Candidatos</span>
-        <span class="pending-tag">Talent Acquisition</span>
-        <span class="pending-tag">HR Maturity</span>
-        <span class="pending-tag">Market Salary</span>
-        <span class="pending-tag">Assessment Center</span>
-        <span class="pending-tag">Intranet</span>
-        <span class="pending-tag">Administrativo RH</span>
-        <span class="pending-tag">People analytics</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ VERIFICAÇÕES OK ============ -->
-<section class="section" style="border-top:1px solid var(--border)">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-num">04 — Aprovados</div>
-      <h2 class="section-title">Verificações sem problemas encontrados</h2>
-      <p class="section-desc">15 verificações funcionais passaram em todos os testes realizados — e 1 item está em reverificação por divergência entre as duas análises.</p>
-    </div>
     <div class="checklist">
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todos os 12 links do mega-menu "Produtos" funcionam corretamente</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário principal de agendamento de demo (home) — submete e mostra confirmação</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário de download de ebook — submete e mostra confirmação</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>FAQ accordion funciona corretamente</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Logos de clientes renderizam corretamente (SVGs)</span></div>
-      <div class="check-item wide"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Páginas de produtos: <code>/employee-experience/</code>, <code>/talent-acquisition/</code>, <code>/products/people-analytics/</code>, <code>/products/market-salary/</code>, <code>/products/assessment-center/</code>, <code>/products/onboarding/</code>, <code>/products/performance/</code>, <code>/products/training/</code>, <code>/products/talent-succession/</code>, <code>/products/workplace-climate/</code>, <code>/products/compensation-benefits/</code>, <code>/products/document-management/</code>, <code>/products/outplacement/</code>, <code>/products/administrative-hr/</code>, <code>/products/intranet-communications/</code> — todas carregam</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/contact/</code> — carrega corretamente</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/privacy/</code> — carrega corretamente</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/ebooks/</code> — carrega e exibe ebooks reais</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Página <code>/hr-maturity/</code> e <code>/hr-maturity/questionnaire/</code> — funcionam</span></div>
-      <div class="check-item warn wide"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg><span><strong>Divergência a reverificar:</strong> o teste de QA registrou os links de redes sociais (LinkedIn, YouTube, Instagram) com URLs corretas, mas a revisão de redesign aponta links errados de YouTube, Instagram e LinkedIn no menu footer (YouTube correto: <code>youtube.com/@mydna7578</code>). Conferir os dois pontos do site antes do deploy.</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Link "Iniciar sesión" aponta para <code>ee.mydnadigital.com</code></span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Calculadora de ROI funciona (slider interativo)</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Sem erros de JavaScript detectados no console</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todos os recursos da página principal carregam com status 200</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Versão PT (<code>/pt/</code>) carrega corretamente em português</span></div>
+      <div class="check-item wide"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todas as páginas de produto carregam sem erros 404: <code>/employee-experience/</code>, <code>/talent-acquisition/</code>, <code>/products/people-analytics/</code>, <code>/products/market-salary/</code>, <code>/candidate-portal/</code>, <code>/hr-maturity/</code>, <code>/demo/</code>, <code>/ebooks/</code>, <code>/contact/</code>, <code>/privacy/</code>, <code>/terms/</code> e todos os <code>/products/...</code></span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário de Ebook (Home) — submissão funciona, exibe mensagem de sucesso "¡Listo, Test!"</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário de Demo (Home) — submissão funciona, exibe mensagem de sucesso "¡Gracias, Test!"</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Versões <code>/pt/</code> e <code>/en/</code> do site carregam e exibem o idioma correto</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>FAQ accordion na Home funciona corretamente</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Calculadora de ROI (slider de colaboradores) responde ao input corretamente</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Nenhuma imagem quebrada detectada — todas as <code>&lt;img&gt;</code> têm <code>naturalWidth &gt; 0</code> (verificado via JavaScript)</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Breadcrumbs e headers das páginas de produto são consistentes com o conteúdo</span></div>
     </div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+<!-- FOOTER -->
 <footer>
   <div class="container">
     <div><strong>Relatório de QA Funcional — MyDNA Digital</strong></div>
     <div>URL testada: https://site.develop.mydnadigital.com/ · Ambiente de desenvolvimento</div>
-    <div>Gerado em 12/06/2026 · QA funcional: Claude Sonnet 4.6 · Inclui revisão complementar de redesign (FigJam, página a página)</div>
+    <div>Gerado em 15/06/2026</div>
   </div>
 </footer>
 

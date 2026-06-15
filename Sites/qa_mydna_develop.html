@@ -3,187 +3,532 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Relatório de QA Funcional — MyDNA Digital</title>
+<title>QA Report — MyDNA Digital</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+/* ── TOKENS ──────────────────────────────────────── */
 :root{
-  --bg:#F8FAFC;--surface:#FFFFFF;--navy:#0F172A;--slate:#334155;--muted:#475569;--border:#E2E8F0;
-  --blue:#0369A1;--blue-soft:#E0F2FE;
-  --critical:#DC2626;--critical-bg:#FEF2F2;--critical-border:#FECACA;
-  --medium:#C2410C;--medium-bg:#FFF7ED;--medium-border:#FED7AA;
-  --low:#CA8A04;--low-bg:#FEFCE8;--low-border:#FDE68A;
-  --ok:#16A34A;--ok-bg:#F0FDF4;--ok-border:#BBF7D0;
+  --bg:        #030617;
+  --surface:   #0D0B1E;
+  --surface2:  #131029;
+  --border:    rgba(122,107,232,.18);
+  --border-hi: rgba(122,107,232,.45);
+  --brand:     #7A6BE8;
+  --brand-dk:  #473C97;
+  --brand-lt:  #BDB5F4;
+  --teal:      #27E6C4;
+  --blue:      #41C8FF;
+  --critical:  #EC6376;
+  --medium:    #F59E0B;
+  --low:       #41C8FF;
+  --ok:        #27E6C4;
+  --text:      #F2F2F7;
+  --muted:     #9391A1;
+  --muted2:    #6B6882;
 }
+
+/* ── RESET ───────────────────────────────────────── */
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
-body{font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--navy);line-height:1.6;font-size:16px;}
-code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:.86em;background:#EFF6FF;color:#1E40AF;padding:.1em .4em;border-radius:5px;word-break:break-word;}
-.container{max-width:1100px;margin:0 auto;padding:0 24px}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+}
+body{
+  font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.65;
+  font-size:16px;
+  overflow-x:hidden;
+}
+code{
+  font-family:'SF Mono',ui-monospace,Menlo,monospace;
+  font-size:.83em;
+  background:rgba(122,107,232,.14);
+  color:var(--brand-lt);
+  padding:.1em .45em;
+  border-radius:5px;
+  word-break:break-all;
+}
+a{color:var(--brand-lt);text-decoration:none}
+.container{max-width:1080px;margin:0 auto;padding:0 28px}
 
-/* COVER */
-.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(165deg,#0F172A 0%,#1E293B 55%,#0C4A6E 100%);color:#F8FAFC;padding:80px 0;}
-.cover::before{content:'';position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(3,105,161,.35) 0%,transparent 70%);top:-200px;right:-180px;pointer-events:none;}
-.cover::after{content:'';position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(220,38,38,.14) 0%,transparent 70%);bottom:-160px;left:-120px;pointer-events:none;}
-.cover .container{position:relative;z-index:1}
-.badge-pill{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 18px;font-size:.85rem;font-weight:600;letter-spacing:.03em;margin-bottom:28px;}
-.badge-pill .dot{width:9px;height:9px;border-radius:50%;background:#38BDF8;box-shadow:0 0 10px #38BDF8;}
-.cover h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;line-height:1.08;letter-spacing:-.02em;background:linear-gradient(92deg,#F8FAFC 10%,#7DD3FC 55%,#38BDF8 95%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:18px;max-width:820px;}
-.cover .subtitle{font-size:clamp(1rem,2vw,1.18rem);color:#CBD5E1;font-weight:400;max-width:720px;margin-bottom:14px;}
-.cover .subtitle strong{color:#F8FAFC;font-weight:600}
-.cover .meta-line{font-size:.88rem;color:#94A3B8;margin-bottom:42px;}
-.verdict{display:inline-flex;align-items:center;gap:12px;background:rgba(220,38,38,.14);border:1px solid rgba(248,113,113,.4);border-radius:14px;padding:14px 22px;margin-bottom:42px;}
-.verdict svg{width:26px;height:26px;flex-shrink:0;color:#F87171;}
-.verdict span{font-weight:700;font-size:1.02rem;color:#FECACA;}
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;max-width:960px;}
-.metric-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px 18px;text-align:center;}
-.metric-card .num{font-size:2.2rem;font-weight:800;line-height:1.1;display:block;}
-.metric-card .label{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#94A3B8;margin-top:6px;display:block;}
-.m-total .num{color:#F8FAFC}
-.m-critical .num{color:#F87171}
-.m-medium .num{color:#FB923C}
-.m-low .num{color:#FACC15}
-.m-ok .num{color:#4ADE80}
+/* ── SCROLLBAR ───────────────────────────────────── */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--brand-dk);border-radius:999px}
 
-/* SCOPE */
-.scope{background:var(--surface);border-bottom:1px solid var(--border);padding:56px 0;}
-.scope-flex{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
-.scope-number{font-size:3.4rem;font-weight:800;color:var(--blue);line-height:1;white-space:nowrap;}
-.scope-text h2{font-size:1.2rem;font-weight:700;margin-bottom:6px;}
-.scope-text p{color:var(--muted);font-size:.95rem;max-width:720px;}
-.scope-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
-.scope-tag{background:var(--blue-soft);color:var(--blue);border:1px solid #BAE6FD;border-radius:999px;padding:5px 14px;font-size:.8rem;font-weight:600;}
+/* ── AURORA HERO ─────────────────────────────────── */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  overflow:hidden;
+  padding:100px 0 80px;
+  isolation:isolate;
+}
 
-/* SECTIONS */
-.section{padding:72px 0}
-.section-alt{background:var(--surface);border-top:1px solid var(--border)}
-.section-header{margin-bottom:36px}
-.section-num{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
-.section-title{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:800;letter-spacing:-.01em;}
-.section-desc{color:var(--muted);margin-top:10px;max-width:760px;}
+/* animated aurora mesh */
+.hero-aurora{
+  position:absolute;inset:0;z-index:0;
+  background:var(--bg);
+}
+.hero-aurora::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 70% 20%, rgba(122,107,232,.28) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 20% 70%, rgba(39,230,196,.14) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 80% 80%, rgba(65,200,255,.1) 0%, transparent 50%);
+  animation:aurora 12s ease-in-out infinite alternate;
+}
+.hero-aurora::after{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 40% at 30% 20%, rgba(71,60,151,.3) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 50% at 75% 65%, rgba(236,99,118,.12) 0%, transparent 50%);
+  animation:aurora2 15s ease-in-out infinite alternate;
+}
+@keyframes aurora{
+  0%  {transform:translate(0,0) scale(1)}
+  50% {transform:translate(40px,-20px) scale(1.05)}
+  100%{transform:translate(-20px,30px) scale(.97)}
+}
+@keyframes aurora2{
+  0%  {transform:translate(0,0) scale(1.02)}
+  50% {transform:translate(-30px,20px) scale(.96)}
+  100%{transform:translate(20px,-15px) scale(1.04)}
+}
 
-/* EXEC */
-.exec-card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--critical);border-radius:16px;padding:34px 36px;box-shadow:0 1px 3px rgba(15,23,42,.06);}
-.exec-highlight{background:var(--critical-bg);border:1px solid var(--critical-border);border-radius:12px;padding:16px 20px;font-weight:700;color:var(--critical);display:flex;align-items:center;gap:12px;margin-bottom:22px;}
-.exec-highlight svg{width:22px;height:22px;flex-shrink:0}
-.exec-card p{color:var(--slate);margin-bottom:16px;font-size:1.02rem;}
-.exec-card p:last-child{margin-bottom:0}
-.exec-card strong{color:var(--navy)}
-.exec-card ol{margin:16px 0 16px 20px;color:var(--slate);}
-.exec-card ol li{margin-bottom:10px;font-size:1rem;}
-.exec-card ol li strong{color:var(--navy)}
+/* grid overlay */
+.hero-grid{
+  position:absolute;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(122,107,232,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122,107,232,.05) 1px, transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+}
 
-/* SEVERITY BADGES */
-.sev{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
+/* floating orbs */
+.orb{position:absolute;border-radius:50%;filter:blur(60px);z-index:0;pointer-events:none}
+.orb-1{width:420px;height:420px;background:rgba(122,107,232,.15);top:-80px;right:-100px;animation:float1 20s ease-in-out infinite}
+.orb-2{width:300px;height:300px;background:rgba(39,230,196,.1);bottom:-60px;left:-80px;animation:float2 25s ease-in-out infinite}
+.orb-3{width:250px;height:250px;background:rgba(65,200,255,.08);top:40%;left:60%;animation:float3 18s ease-in-out infinite}
+@keyframes float1{0%,100%{transform:translate(0,0)}50%{transform:translate(-40px,30px)}}
+@keyframes float2{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
+@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,40px)}}
+
+.hero .container{position:relative;z-index:1}
+
+/* hero badge */
+.h-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(122,107,232,.12);
+  border:1px solid rgba(122,107,232,.35);
+  border-radius:999px;padding:8px 20px;
+  font-size:.82rem;font-weight:700;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--brand-lt);
+  margin-bottom:32px;
+  animation:fadein .8s ease both;
+}
+.h-badge .pulse{
+  width:8px;height:8px;border-radius:50%;background:var(--teal);
+  box-shadow:0 0 8px var(--teal);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+/* hero title */
+.h-title{
+  font-size:clamp(2.6rem,6vw,4.8rem);
+  font-weight:800;line-height:1.04;letter-spacing:-.025em;
+  margin-bottom:20px;
+  animation:fadein .8s .1s ease both;
+}
+.h-title .grad{
+  background:linear-gradient(125deg, #F2F2F7 0%, #BDB5F4 35%, #7A6BE8 60%, #27E6C4 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+/* hero sub */
+.h-sub{
+  font-size:1.08rem;color:var(--muted);max-width:680px;margin-bottom:10px;
+  animation:fadein .8s .2s ease both;
+}
+.h-sub strong{color:var(--text);font-weight:600}
+.h-meta{font-size:.84rem;color:var(--muted2);margin-bottom:48px;animation:fadein .8s .25s ease both;}
+
+/* verdict */
+.verdict{
+  display:inline-flex;align-items:center;gap:14px;
+  background:rgba(236,99,118,.08);
+  border:1px solid rgba(236,99,118,.35);
+  border-radius:14px;padding:14px 24px;margin-bottom:52px;
+  animation:fadein .8s .3s ease both;
+}
+.verdict svg{width:22px;height:22px;color:var(--critical);flex-shrink:0}
+.verdict span{font-weight:700;color:#FCA5A5;font-size:.98rem}
+
+/* metrics grid */
+.metrics{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:14px;
+  animation:fadein .8s .4s ease both;
+}
+.metric{
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px 16px;text-align:center;
+  backdrop-filter:blur(12px);
+  position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s,box-shadow .3s;
+  cursor:default;
+}
+.metric::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg, rgba(255,255,255,.04) 0%, transparent 60%);
+  pointer-events:none;
+}
+.metric:hover{
+  transform:translateY(-4px);
+  box-shadow:0 16px 40px rgba(0,0,0,.4);
+}
+.metric.m-total{border-color:rgba(189,181,244,.3)}
+.metric.m-total:hover{border-color:rgba(189,181,244,.7);box-shadow:0 16px 40px rgba(122,107,232,.15)}
+.metric.m-critical{border-color:rgba(236,99,118,.3)}
+.metric.m-critical:hover{border-color:rgba(236,99,118,.7);box-shadow:0 16px 40px rgba(236,99,118,.15)}
+.metric.m-medium{border-color:rgba(245,158,11,.3)}
+.metric.m-medium:hover{border-color:rgba(245,158,11,.7);box-shadow:0 16px 40px rgba(245,158,11,.12)}
+.metric.m-low{border-color:rgba(65,200,255,.3)}
+.metric.m-low:hover{border-color:rgba(65,200,255,.7);box-shadow:0 16px 40px rgba(65,200,255,.12)}
+.metric.m-ok{border-color:rgba(39,230,196,.3)}
+.metric.m-ok:hover{border-color:rgba(39,230,196,.7);box-shadow:0 16px 40px rgba(39,230,196,.12)}
+.metric .num{
+  font-size:2.6rem;font-weight:800;line-height:1;display:block;margin-bottom:8px;
+  font-variant-numeric:tabular-nums;
+}
+.m-total .num{color:var(--brand-lt)}
+.m-critical .num{color:var(--critical)}
+.m-medium .num{color:var(--medium)}
+.m-low .num{color:var(--low)}
+.m-ok .num{color:var(--teal)}
+.metric .label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2)}
+
+@keyframes fadein{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ── SCOPE BAR ───────────────────────────────────── */
+.scope{
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  padding:52px 0;
+}
+.scope-flex{display:flex;align-items:center;gap:32px;flex-wrap:wrap;margin-bottom:28px}
+.scope-num{
+  font-size:4rem;font-weight:800;line-height:1;
+  background:linear-gradient(135deg,var(--brand),var(--teal));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  white-space:nowrap;
+}
+.scope-info h2{font-size:1.15rem;font-weight:800;margin-bottom:6px}
+.scope-info p{color:var(--muted);font-size:.92rem;max-width:680px}
+.scope-tags{display:flex;flex-wrap:wrap;gap:8px}
+.stag{
+  background:rgba(122,107,232,.1);border:1px solid rgba(122,107,232,.25);
+  border-radius:999px;padding:5px 15px;font-size:.78rem;font-weight:600;
+  color:var(--brand-lt);
+  transition:background .2s,border-color .2s;cursor:default;
+}
+.stag:hover{background:rgba(122,107,232,.2);border-color:rgba(122,107,232,.5)}
+
+/* ── SECTIONS ────────────────────────────────────── */
+.section{padding:80px 0}
+.section-alt{background:var(--surface)}
+.section-header{margin-bottom:44px}
+.sec-eyebrow{
+  font-size:.75rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brand);margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.sec-eyebrow::after{content:'';flex:1;height:1px;background:linear-gradient(to right,var(--border),transparent)}
+.sec-title{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.015em;margin-bottom:10px}
+.sec-desc{color:var(--muted);max-width:720px;font-size:.97rem}
+
+/* ── EXEC CARD ───────────────────────────────────── */
+.exec-wrap{
+  background:rgba(236,99,118,.05);
+  border:1px solid rgba(236,99,118,.25);
+  border-radius:20px;padding:36px 40px;
+  position:relative;overflow:hidden;
+}
+.exec-wrap::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--critical),transparent);
+}
+.exec-alert{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(236,99,118,.1);border:1px solid rgba(236,99,118,.3);
+  border-radius:12px;padding:14px 18px;margin-bottom:24px;
+  font-weight:700;color:#FCA5A5;font-size:.98rem;
+}
+.exec-alert svg{width:20px;height:20px;color:var(--critical);flex-shrink:0}
+.exec-wrap p,.exec-wrap ol{color:rgba(242,242,247,.75);margin-bottom:16px;font-size:.97rem}
+.exec-wrap p:last-child,.exec-wrap ol:last-child{margin-bottom:0}
+.exec-wrap strong{color:var(--text)}
+.exec-wrap ol{margin-left:20px}
+.exec-wrap ol li{margin-bottom:12px}
+.exec-wrap code{background:rgba(122,107,232,.18);color:var(--brand-lt)}
+
+/* ── SEVERITY BADGES ─────────────────────────────── */
+.sev{
+  display:inline-flex;align-items:center;gap:7px;
+  border-radius:999px;padding:4px 13px;
+  font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+  white-space:nowrap;
+}
 .sev::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
-.sev-critical{background:var(--critical-bg);color:var(--critical);border:1px solid var(--critical-border)}
-.sev-medium{background:var(--medium-bg);color:var(--medium);border:1px solid var(--medium-border)}
-.sev-low{background:var(--low-bg);color:var(--low);border:1px solid var(--low-border)}
+.sev-critical{background:rgba(236,99,118,.12);color:var(--critical);border:1px solid rgba(236,99,118,.35)}
+.sev-medium{background:rgba(245,158,11,.1);color:var(--medium);border:1px solid rgba(245,158,11,.3)}
+.sev-low{background:rgba(65,200,255,.08);color:var(--low);border:1px solid rgba(65,200,255,.25)}
 
-/* FINDINGS */
-.sev-group{margin-bottom:44px}
+/* ── GROUP TITLES ────────────────────────────────── */
+.grp-title{
+  display:flex;align-items:center;gap:14px;
+  font-size:1.1rem;font-weight:800;margin-bottom:20px;
+}
+.grp-count{
+  font-size:.78rem;font-weight:700;color:var(--muted);
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:999px;padding:3px 13px;
+}
+.sev-group{margin-bottom:52px}
 .sev-group:last-child{margin-bottom:0}
-.sev-group-title{display:flex;align-items:center;gap:12px;font-size:1.1rem;font-weight:800;margin-bottom:18px;}
-.sev-group-title .count{font-size:.82rem;font-weight:700;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:2px 12px;}
-.finding{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:14px;box-shadow:0 1px 2px rgba(15,23,42,.04);transition:box-shadow .2s ease,border-color .2s ease;}
-.finding:hover{box-shadow:0 4px 14px rgba(15,23,42,.08);border-color:#CBD5E1}
-.finding-critical{border-left:4px solid var(--critical)}
-.finding-medium{border-left:4px solid var(--medium)}
-.finding-low{border-left:4px solid var(--low)}
-.finding-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
-.finding-where{font-weight:800;font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-.finding-num{font-size:.78rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:2px 10px;flex-shrink:0;}
-.finding-problem{color:var(--slate);font-size:.95rem;margin-bottom:14px;}
-.finding-problem strong{color:var(--navy)}
-.finding-problem em{font-style:italic;background:rgba(15,23,42,.04);padding:.1em .3em;border-radius:4px;}
-.finding-rec{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:.9rem;color:var(--slate);}
-.finding-rec svg{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--blue)}
-.finding-rec strong{color:var(--blue);font-weight:700}
 
-/* CHECKLIST */
-.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
-.check-item{display:flex;gap:12px;align-items:flex-start;background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:12px;padding:14px 16px;font-size:.9rem;color:#166534;}
-.check-item svg{width:19px;height:19px;flex-shrink:0;color:var(--ok);margin-top:1px;}
-.check-item code{background:#DCFCE7;color:#166534}
+/* ── FINDING CARDS ───────────────────────────────── */
+.finding{
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:24px 26px;
+  margin-bottom:14px;
+  position:relative;overflow:hidden;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s,border-color .3s;
+  will-change:transform;
+}
+.finding::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;
+}
+.finding-critical::before{background:var(--critical)}
+.finding-medium::before{background:var(--medium)}
+.finding-low::before{background:var(--low)}
+
+.finding:hover{
+  transform:translateX(4px) translateY(-2px);
+  border-color:var(--border-hi);
+}
+.finding-critical:hover{border-color:rgba(236,99,118,.45);box-shadow:0 8px 30px rgba(236,99,118,.1),-4px 0 16px rgba(236,99,118,.1)}
+.finding-medium:hover{border-color:rgba(245,158,11,.35);box-shadow:0 8px 30px rgba(245,158,11,.08),-4px 0 16px rgba(245,158,11,.08)}
+.finding-low:hover{border-color:rgba(65,200,255,.3);box-shadow:0 8px 30px rgba(65,200,255,.08),-4px 0 16px rgba(65,200,255,.08)}
+
+.finding-top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
+  flex-wrap:wrap;margin-bottom:12px;
+}
+.finding-where{
+  font-weight:800;font-size:1rem;
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.finding-num{
+  font-size:.73rem;font-weight:800;
+  background:rgba(122,107,232,.15);color:var(--brand-lt);
+  border:1px solid rgba(122,107,232,.2);border-radius:999px;padding:2px 10px;flex-shrink:0;
+}
+.finding-problem{color:rgba(242,242,247,.72);font-size:.95rem;margin-bottom:16px;line-height:1.7}
+.finding-problem strong{color:var(--text)}
+.finding-problem em{
+  font-style:italic;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  padding:.15em .4em;border-radius:5px;color:rgba(242,242,247,.85);
+}
+.finding-rec{
+  display:flex;gap:11px;align-items:flex-start;
+  background:rgba(122,107,232,.07);border:1px solid rgba(122,107,232,.18);
+  border-radius:10px;padding:12px 16px;font-size:.9rem;
+  color:rgba(242,242,247,.7);
+}
+.finding-rec svg{width:16px;height:16px;flex-shrink:0;margin-top:2px;color:var(--brand)}
+.finding-rec strong{color:var(--brand-lt);font-weight:700}
+
+/* ── CHECKLIST (OK) ──────────────────────────────── */
+.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.check-item{
+  display:flex;gap:13px;align-items:flex-start;
+  background:rgba(39,230,196,.05);border:1px solid rgba(39,230,196,.2);
+  border-radius:14px;padding:16px 18px;font-size:.9rem;color:rgba(242,242,247,.75);
+  transition:border-color .25s,background .25s,transform .25s;
+}
+.check-item:hover{
+  border-color:rgba(39,230,196,.45);background:rgba(39,230,196,.09);
+  transform:translateY(-2px);
+}
+.check-item svg{width:19px;height:19px;flex-shrink:0;color:var(--teal);margin-top:1px}
+.check-item code{background:rgba(39,230,196,.12);color:var(--teal)}
 .check-item.wide{grid-column:1/-1}
-.check-num{font-size:.76rem;font-weight:700;background:rgba(22,163,74,.15);color:#166534;border-radius:999px;padding:1px 8px;margin-right:4px;flex-shrink:0;}
+.check-num{
+  font-size:.73rem;font-weight:800;background:rgba(39,230,196,.12);color:var(--teal);
+  border-radius:999px;padding:1px 9px;margin-right:3px;flex-shrink:0;
+}
 
-/* FOOTER */
-footer{background:var(--navy);color:#94A3B8;padding:44px 0;text-align:center;font-size:.86rem;}
+/* ── SCROLL REVEAL ───────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.08s}
+.reveal-delay-2{transition-delay:.16s}
+.reveal-delay-3{transition-delay:.24s}
+.reveal-delay-4{transition-delay:.32s}
+.reveal-delay-5{transition-delay:.40s}
+
+/* ── PROGRESS BAR ────────────────────────────────── */
+.severity-bar{
+  display:flex;height:6px;border-radius:999px;overflow:hidden;
+  gap:2px;margin-top:36px;background:var(--surface2);
+}
+.sb-seg{height:100%;border-radius:999px;transform-origin:left;transform:scaleX(0);transition:transform 1s .6s cubic-bezier(.16,1,.3,1)}
+.sb-critical{background:var(--critical);flex:6}
+.sb-medium{background:var(--medium);flex:4}
+.sb-low{background:var(--low);flex:6}
+.sb-ok{background:var(--teal);flex:4}
+.sb-labels{display:flex;gap:18px;margin-top:10px;flex-wrap:wrap}
+.sb-label{font-size:.74rem;font-weight:700;display:flex;align-items:center;gap:5px;color:var(--muted)}
+.sb-label::before{content:'';width:10px;height:10px;border-radius:50%}
+.sb-label.l-c::before{background:var(--critical)} .sb-label.l-c{color:var(--critical)}
+.sb-label.l-m::before{background:var(--medium)}  .sb-label.l-m{color:var(--medium)}
+.sb-label.l-l::before{background:var(--low)}     .sb-label.l-l{color:var(--low)}
+.sb-label.l-o::before{background:var(--teal)}    .sb-label.l-o{color:var(--teal)}
+
+/* ── DIVIDER ─────────────────────────────────────── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer{
+  background:var(--surface);border-top:1px solid var(--border);
+  padding:44px 0;text-align:center;
+}
 footer .container{display:flex;flex-direction:column;gap:8px}
-footer strong{color:#F8FAFC}
+.foot-brand{
+  font-size:1.05rem;font-weight:800;letter-spacing:-.01em;
+  background:linear-gradient(90deg,var(--brand-lt),var(--teal));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.foot-meta{font-size:.84rem;color:var(--muted2)}
 
-@media(max-width:640px){
-  .cover{padding:60px 0}
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:700px){
   .metrics{grid-template-columns:repeat(2,1fr)}
-  .exec-card{padding:24px 20px}
-  .finding{padding:18px 16px}
-  .scope-flex{gap:16px}
-  .scope-number{font-size:2.6rem}
+  .m-total{grid-column:1/-1}
+  .exec-wrap{padding:24px 20px}
+  .finding{padding:18px 18px}
+  .h-title{font-size:clamp(2rem,8vw,3.2rem)}
+}
+@media(max-width:500px){
+  .metrics{grid-template-columns:1fr 1fr}
 }
 </style>
 </head>
 <body>
 
-<!-- COVER -->
-<section class="cover">
+<!-- ── HERO ───────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-aurora"></div>
+  <div class="hero-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
   <div class="container">
-    <div class="badge-pill"><span class="dot"></span>Relatório de QA · 15/06/2026</div>
-    <h1>Relatório de QA Funcional</h1>
-    <p class="subtitle">Análise completa para <strong>site.develop.mydnadigital.com</strong> · <strong>MyDNA Digital</strong> (ambiente de desenvolvimento)</p>
-    <p class="meta-line">URL testada: https://site.develop.mydnadigital.com/ · Data: 15/06/2026</p>
+    <div class="h-badge"><span class="pulse"></span>Relatório de QA · 15/06/2026</div>
+
+    <h1 class="h-title">
+      <span class="grad">Relatório de QA<br>Funcional</span>
+    </h1>
+    <p class="h-sub">Análise completa para <strong>site.develop.mydnadigital.com</strong> · <strong>MyDNA Digital</strong> (ambiente de desenvolvimento)</p>
+    <p class="h-meta">URL testada: https://site.develop.mydnadigital.com/ &nbsp;·&nbsp; Data: 15/06/2026</p>
 
     <div class="verdict">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
       <span>Veredito: o site NÃO está pronto para ir a produção</span>
     </div>
 
-    <div class="metrics">
-      <div class="metric-card m-total"><span class="num">20</span><span class="label">Itens avaliados</span></div>
-      <div class="metric-card m-critical"><span class="num">6</span><span class="label">Críticos</span></div>
-      <div class="metric-card m-medium"><span class="num">4</span><span class="label">Médios</span></div>
-      <div class="metric-card m-low"><span class="num">6</span><span class="label">Baixos</span></div>
-      <div class="metric-card m-ok"><span class="num">4</span><span class="label">Aprovados</span></div>
+    <div class="metrics" id="metrics">
+      <div class="metric m-total"><span class="num" data-target="20">0</span><span class="label">Itens avaliados</span></div>
+      <div class="metric m-critical"><span class="num" data-target="6">0</span><span class="label">Críticos</span></div>
+      <div class="metric m-medium"><span class="num" data-target="4">0</span><span class="label">Médios</span></div>
+      <div class="metric m-low"><span class="num" data-target="6">0</span><span class="label">Baixos</span></div>
+      <div class="metric m-ok"><span class="num" data-target="4">0</span><span class="label">Aprovados</span></div>
+    </div>
+
+    <div class="severity-bar" id="sbar">
+      <div class="sb-seg sb-critical"></div>
+      <div class="sb-seg sb-medium"></div>
+      <div class="sb-seg sb-low"></div>
+      <div class="sb-seg sb-ok"></div>
+    </div>
+    <div class="sb-labels">
+      <span class="sb-label l-c">6 Críticos</span>
+      <span class="sb-label l-m">4 Médios</span>
+      <span class="sb-label l-l">6 Baixos</span>
+      <span class="sb-label l-o">4 Aprovados</span>
     </div>
   </div>
 </section>
 
-<!-- ESCOPO -->
+<!-- ── ESCOPO ──────────────────────────────────────── -->
 <section class="scope">
   <div class="container">
-    <div class="scope-flex">
-      <div class="scope-number">20+</div>
-      <div class="scope-text">
+    <div class="scope-flex reveal">
+      <div class="scope-num">20+</div>
+      <div class="scope-info">
         <h2>Páginas e rotas testadas</h2>
-        <p>O teste funcional cobriu a home, todas as páginas de produto, formulários de conversão, ebooks, contato, rotas de erro e as versões em espanhol, português e inglês do site.</p>
+        <p>O teste cobriu a home, todas as páginas de produto, formulários de conversão, ebooks, contato, rotas de erro e as versões em espanhol, português e inglês.</p>
       </div>
     </div>
-    <div class="scope-tags">
-      <span class="scope-tag">Home (/)</span>
-      <span class="scope-tag">/contact/</span>
-      <span class="scope-tag">/demo/</span>
-      <span class="scope-tag">/ebooks/</span>
-      <span class="scope-tag">/about/</span>
-      <span class="scope-tag">/privacy/</span>
-      <span class="scope-tag">/employee-experience/</span>
-      <span class="scope-tag">Produtos (/products/...)</span>
-      <span class="scope-tag">Versão /en/</span>
-      <span class="scope-tag">Versão /pt/</span>
-      <span class="scope-tag">Rotas 404</span>
-      <span class="scope-tag">Formulários (Contact, Demo, Market Salary)</span>
+    <div class="scope-tags reveal reveal-delay-1">
+      <span class="stag">Home (/)</span>
+      <span class="stag">/contact/</span>
+      <span class="stag">/demo/</span>
+      <span class="stag">/ebooks/</span>
+      <span class="stag">/about/</span>
+      <span class="stag">/privacy/</span>
+      <span class="stag">/employee-experience/</span>
+      <span class="stag">Produtos (/products/...)</span>
+      <span class="stag">Versão /en/</span>
+      <span class="stag">Versão /pt/</span>
+      <span class="stag">Rotas 404</span>
+      <span class="stag">Formulários (Contact, Demo, Market Salary)</span>
     </div>
   </div>
 </section>
 
-<!-- RESUMO EXECUTIVO -->
+<div class="divider"></div>
+
+<!-- ── RESUMO EXECUTIVO ────────────────────────────── -->
 <section class="section">
   <div class="container">
-    <div class="section-header">
-      <div class="section-num">01 — Visão Geral</div>
-      <h2 class="section-title">Resumo Executivo</h2>
+    <div class="section-header reveal">
+      <div class="sec-eyebrow">01 — Visão Geral</div>
+      <h2 class="sec-title">Resumo Executivo</h2>
     </div>
-    <div class="exec-card">
-      <div class="exec-highlight">
+    <div class="exec-wrap reveal reveal-delay-1">
+      <div class="exec-alert">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"/></svg>
         O site NÃO está pronto para produção no estado atual.
       </div>
@@ -191,76 +536,60 @@ footer strong{color:#F8FAFC}
       <ol>
         <li><strong>Todos os formulários principais estão quebrados</strong> — A variável de ambiente <code>NEXT_PUBLIC_API_URL</code> não está configurada, tornando impossível capturar qualquer lead via formulário de contato ou agendamento de demo. Como todo o funil de conversão do site depende desses formulários, este é o bug de maior impacto de negócio.</li>
         <li><strong>Página <code>/ebooks/</code> com conteúdo duplicado</strong> — Todos os ebooks aparecem duas vezes na listagem (bug de fetch/renderização de dados), o que prejudica a credibilidade e usabilidade da página.</li>
-        <li><strong>Links quebrados no footer e menu</strong> — Dois links levam a páginas 404: "Sobre Nosotros" (<code>/sobre-nosotros/</code> → deveria ser <code>/about/</code>) e "Outplacement" (<code>/outplacement/</code> → não existe, o correto seria <code>/products/outplacement/</code>). Além disso, a página de 404 exibe texto em Português independente do idioma do contexto.</li>
-        <li><strong>Imagens placeholder em produção</strong> — As fotos dos testimonials são imagens de <code>picsum.photos</code> (banco de imagens aleatório), que não podem ser usadas em ambiente de produção por questões de direitos de imagem e credibilidade.</li>
+        <li><strong>Links quebrados no footer e menu</strong> — Dois links levam a páginas 404: "Sobre Nosotros" (<code>/sobre-nosotros/</code> → deveria ser <code>/about/</code>) e "Outplacement" (<code>/outplacement/</code> → não existe, o correto seria <code>/products/outplacement/</code>). A página de 404 também exibe texto em Português independente do idioma do contexto.</li>
+        <li><strong>Imagens placeholder em produção</strong> — As fotos dos testimonials são imagens de <code>picsum.photos</code> (banco de imagens aleatório), que não podem ser usadas em produção por questões de direitos de imagem e credibilidade.</li>
       </ol>
     </div>
   </div>
 </section>
 
-<!-- ACHADOS -->
-<section class="section" style="padding-top:0">
+<div class="divider"></div>
+
+<!-- ── ACHADOS ─────────────────────────────────────── -->
+<section class="section section-alt">
   <div class="container">
-    <div class="section-header">
-      <div class="section-num">02 — Diagnóstico</div>
-      <h2 class="section-title">Tabela de Achados</h2>
-      <p class="section-desc">16 problemas identificados durante os testes funcionais, agrupados por severidade.</p>
+    <div class="section-header reveal">
+      <div class="sec-eyebrow">02 — Diagnóstico</div>
+      <h2 class="sec-title">Tabela de Achados</h2>
+      <p class="sec-desc">16 problemas identificados durante os testes funcionais, agrupados por severidade.</p>
     </div>
 
     <!-- CRÍTICOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-critical">Crítico</span><span class="count">6 achados</span></div>
+      <div class="grp-title reveal"><span class="sev sev-critical">Crítico</span><span class="grp-count">6 achados</span></div>
 
-      <div class="finding finding-critical">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#1</span>Formulário de Contato (<code>/contact/</code>)</div>
-          <span class="sev sev-critical">Crítico</span>
-        </div>
+      <div class="finding finding-critical reveal reveal-delay-1">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#1</span>Formulário de Contato (<code>/contact/</code>)</div><span class="sev sev-critical">Crítico</span></div>
         <p class="finding-problem"><strong>ERRO CRÍTICO:</strong> Ao submeter o formulário com todos os campos preenchidos e checkbox aceito, exibe a mensagem: <em>"El servicio de envío no está configurado. Configure NEXT_PUBLIC_API_URL."</em> O formulário <strong>não envia</strong> os dados.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Configurar a variável de ambiente <code>NEXT_PUBLIC_API_URL</code> no servidor de desenvolvimento (e produção). Verificar se o backend/API de envio está ativo e acessível.</span></div>
       </div>
 
-      <div class="finding finding-critical">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#2</span>Formulário de Demo (<code>/demo/</code>)</div>
-          <span class="sev sev-critical">Crítico</span>
-        </div>
+      <div class="finding finding-critical reveal reveal-delay-2">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#2</span>Formulário de Demo (<code>/demo/</code>)</div><span class="sev sev-critical">Crítico</span></div>
         <p class="finding-problem"><strong>MESMO ERRO CRÍTICO:</strong> O formulário de agendamento de demo também falha com a mensagem <em>"El servicio de envío no está configurado. Configure NEXT_PUBLIC_API_URL."</em> Todos os CTAs principais do site (Agendar Demo, Solicitar Cotización) apontam para <code>#demo</code> — ou seja, <strong>nenhum lead pode ser capturado.</strong></p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Mesma correção: configurar <code>NEXT_PUBLIC_API_URL</code>. Este é o CTA principal do site inteiro e está completamente quebrado.</span></div>
       </div>
 
-      <div class="finding finding-critical">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#3</span>Página <code>/outplacement/</code> (link no footer)</div>
-          <span class="sev sev-critical">Crítico</span>
-        </div>
+      <div class="finding finding-critical reveal reveal-delay-3">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#3</span>Página <code>/outplacement/</code> — 404</div><span class="sev sev-critical">Crítico</span></div>
         <p class="finding-problem"><strong>404 — Página não encontrada.</strong> A página de Outplacement é listada no menu Produtos ("Outplacement — Transición de carrera asistida") e no footer, mas a URL <code>/outplacement/</code> retorna erro 404. A página de produto <code>/products/outplacement/</code> existe, mas não há redirecionamento.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página em <code>/outplacement/</code> ou corrigir os links no footer/menu para apontarem para <code>/products/outplacement/</code>.</span></div>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página em <code>/outplacement/</code> ou corrigir os links no footer/menu para <code>/products/outplacement/</code>.</span></div>
       </div>
 
-      <div class="finding finding-critical">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#4</span>Footer — Link "Sobre Nosotros"</div>
-          <span class="sev sev-critical">Crítico</span>
-        </div>
+      <div class="finding finding-critical reveal reveal-delay-4">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#4</span>Footer — Link "Sobre Nosotros" → 404</div><span class="sev sev-critical">Crítico</span></div>
         <p class="finding-problem">O footer linka para <code>/sobre-nosotros/</code> que retorna <strong>404</strong>. A página real está em <code>/about/</code>.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o href no footer de <code>/sobre-nosotros/</code> para <code>/about/</code>, ou criar um redirect 301 de <code>/sobre-nosotros/</code> → <code>/about/</code>.</span></div>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o href no footer de <code>/sobre-nosotros/</code> para <code>/about/</code>, ou criar um redirect 301.</span></div>
       </div>
 
-      <div class="finding finding-critical">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#5</span>Página <code>/ebooks/</code> — Listagem duplicada</div>
-          <span class="sev sev-critical">Crítico</span>
-        </div>
+      <div class="finding finding-critical reveal reveal-delay-5">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#5</span>Página <code>/ebooks/</code> — Cards duplicados (79 cards)</div><span class="sev sev-critical">Crítico</span></div>
         <p class="finding-problem"><strong>TODOS os cards de ebooks aparecem DUPLICADOS.</strong> A listagem exibe 79 cards no total sendo que cada ebook aparece exatamente 2 vezes. Isso indica um bug de renderização/fetch de dados que duplica o array retornado pela API/CMS.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Investigar a fonte de dados (CMS/API) que alimenta a listagem. Provável bug de concatenação dupla do array no fetch ou renderização React com estado inconsistente.</span></div>
       </div>
 
-      <div class="finding finding-critical">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#13</span>Formulário Market Salary (<code>/products/market-salary/</code>)</div>
-          <span class="sev sev-critical">Crítico</span>
-        </div>
+      <div class="finding finding-critical reveal">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#13</span>Formulário Market Salary (<code>/products/market-salary/</code>)</div><span class="sev sev-critical">Crítico</span></div>
         <p class="finding-problem">O formulário do Market Salary possui campo "Área" com dropdown — provavelmente também usa <code>NEXT_PUBLIC_API_URL</code> e estará quebrado com o mesmo erro dos bugs <strong>#1</strong> e <strong>#2</strong>. Não confirmado visualmente pois é o mesmo padrão de implementação.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar e corrigir junto com os outros formulários após configurar a variável de ambiente <code>NEXT_PUBLIC_API_URL</code>.</span></div>
       </div>
@@ -268,131 +597,167 @@ footer strong{color:#F8FAFC}
 
     <!-- MÉDIOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-medium">Médio</span><span class="count">4 achados</span></div>
+      <div class="grp-title reveal"><span class="sev sev-medium">Médio</span><span class="grp-count">4 achados</span></div>
 
-      <div class="finding finding-medium">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#6</span>Página de Erro 404 — Idioma errado</div>
-          <span class="sev sev-medium">Médio</span>
-        </div>
+      <div class="finding finding-medium reveal reveal-delay-1">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#6</span>Página de Erro 404 — Idioma errado</div><span class="sev sev-medium">Médio</span></div>
         <p class="finding-problem">A página de erro 404 exibe texto em <strong>Português</strong> ("Página não encontrada", "A página que você procura não existe ou foi movida") mesmo quando acessada por usuário em contexto Espanhol (<code>/sobre-nosotros/</code>, <code>/outplacement/</code>). O footer da 404 também é a versão PT reduzida.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Implementar lógica de idioma na página 404: detectar a rota (<code>/pt/</code> → PT, demais → ES). Criar versões ES/EN da página de erro.</span></div>
       </div>
 
-      <div class="finding finding-medium">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#7</span>Home — Seção "Demo em Vídeo"</div>
-          <span class="sev sev-medium">Médio</span>
-        </div>
+      <div class="finding finding-medium reveal reveal-delay-2">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#7</span>Home — Seção "Demo em Vídeo" invisível</div><span class="sev sev-medium">Médio</span></div>
         <p class="finding-problem">A seção de vídeo (entre Testimonios e FAQ) renderiza como um <strong>bloco completamente branco/invisível</strong> durante o scroll. O conteúdo existe no DOM mas não é visível — aparenta ser um problema de camadas CSS (z-index), fundo escuro com texto escuro, ou dependência de um embed de vídeo que não carrega.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Inspecionar o CSS da seção. Verificar se havia um <code>&lt;iframe&gt;</code> do YouTube que foi removido deixando o espaço sem conteúdo visível.</span></div>
       </div>
 
-      <div class="finding finding-medium">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#8</span>Home — Imagens dos Testimoniantes</div>
-          <span class="sev sev-medium">Médio</span>
-        </div>
-        <p class="finding-problem">As fotos dos 3 testimoniantes (María González, Carlos Pérez, Ana Silva) são <strong>imagens placeholder de picsum.photos</strong> (imagens aleatórias de banco público), não fotografias reais ou de banco licenciado. As imagens carregam, mas são imagens de pessoas aleatórias.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir as URLs <code>picsum.photos/seed/maria-rh-chile/...</code> por fotos reais dos clientes (com autorização) ou por avatares/ícones genéricos neutros antes do deploy.</span></div>
+      <div class="finding finding-medium reveal reveal-delay-3">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#8</span>Home — Fotos dos Testimoniantes são placeholders</div><span class="sev sev-medium">Médio</span></div>
+        <p class="finding-problem">As fotos dos 3 testimoniantes (María González, Carlos Pérez, Ana Silva) são <strong>imagens placeholder de picsum.photos</strong> (imagens aleatórias de banco público), não fotografias reais ou de banco licenciado.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir as URLs <code>picsum.photos/seed/maria-rh-chile/...</code> por fotos reais dos clientes (com autorização) ou avatares/ícones genéricos neutros antes do deploy.</span></div>
       </div>
 
-      <div class="finding finding-medium">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#11</span>Formulário de Contato — Validação visual ausente</div>
-          <span class="sev sev-medium">Médio</span>
-        </div>
+      <div class="finding finding-medium reveal reveal-delay-4">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#11</span>Formulário de Contato — Validação visual ausente</div><span class="sev sev-medium">Médio</span></div>
         <p class="finding-problem">Ao clicar em "Enviar mensaje" com todos os campos vazios, o campo "Nombre completo" fica em foco mas <strong>não exibe mensagens de erro visuais</strong> nos campos obrigatórios — sem borda vermelha, sem texto de erro. O feedback visual de validação está ausente.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Adicionar estilo de erro nos campos required (border-red, mensagem "Este campo es obligatorio") para melhorar UX e conformidade com boas práticas de formulários.</span></div>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Adicionar estilo de erro nos campos required (border-red, mensagem "Este campo es obligatorio") para melhorar UX.</span></div>
       </div>
     </div>
 
     <!-- BAIXOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-low">Baixo</span><span class="count">6 achados</span></div>
+      <div class="grp-title reveal"><span class="sev sev-low">Baixo</span><span class="grp-count">6 achados</span></div>
 
-      <div class="finding finding-low">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#10</span>Home — Seção "Testimonios"</div>
-          <span class="sev sev-low">Baixo</span>
-        </div>
+      <div class="finding finding-low reveal reveal-delay-1">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#10</span>Home — Seção "Testimonios" parece vazia</div><span class="sev sev-low">Baixo</span></div>
         <p class="finding-problem">A seção Testimonios tem fundo <code>#F9F5FF</code> (roxo muito claro, quase branco) que na captura de scroll aparece como uma página em branco. O conteúdo existe no DOM e é acessível, mas <strong>visualmente parece um bloco vazio</strong> em algumas configurações de renderização/captura.</p>
-        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Avaliar aumentar levemente o contraste do fundo da seção (ex: <code>#F3EEFF</code>) para evitar que pareça um erro de carregamento.</span></div>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Avaliar aumentar o contraste do fundo da seção (ex: <code>#F3EEFF</code>) para evitar que pareça um erro de carregamento.</span></div>
       </div>
 
-      <div class="finding finding-low">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#12</span>Footer — Link "Guía Salarial LATAM 2025"</div>
-          <span class="sev sev-low">Baixo</span>
-        </div>
+      <div class="finding finding-low reveal reveal-delay-2">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#12</span>Footer — Link "Guía Salarial LATAM 2025" genérico</div><span class="sev sev-low">Baixo</span></div>
         <p class="finding-problem">O link "Guía Salarial LATAM 2025" no footer aponta para <code>/ebooks/</code> (a listagem geral), não para a guia específica. Pode ser intencional, mas reduz a conversão.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Se existir uma landing page específica para a Guía Salarial, corrigir o link. Se não, manter como está.</span></div>
       </div>
 
-      <div class="finding finding-low">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#14</span>Navegação — Dropdown "Productos" via clique</div>
-          <span class="sev sev-low">Baixo</span>
-        </div>
-        <p class="finding-problem">O dropdown abre apenas via <strong>clique</strong> (não via hover). Comportamento atípico em desktop e pode confundir usuários que esperem hover. Funcionou corretamente após o segundo clique.</p>
+      <div class="finding finding-low reveal reveal-delay-3">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#14</span>Dropdown "Productos" — Abre só via clique</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">O dropdown abre apenas via <strong>clique</strong> (não via hover). Comportamento atípico em desktop e pode confundir usuários. Funcionou corretamente após o segundo clique.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Avaliar se hover é o comportamento desejado. Se sim, adicionar <code>onMouseEnter/onMouseLeave</code>. Se clique é intencional, manter.</span></div>
       </div>
 
-      <div class="finding finding-low">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#15</span>SEO — Inconsistência entre <code>&lt;title&gt;</code> e H1</div>
-          <span class="sev sev-low">Baixo</span>
-        </div>
-        <p class="finding-problem">O título da página home em ES é "Recluta, Desarrolla y retiene el talento | Employee Experience y Talent Acquisition" — o hero diz "Desarrolla y retiene el talento que ya tienes" (sem "Recluta"). Há inconsistência entre <code>&lt;title&gt;</code> e o H1.</p>
+      <div class="finding finding-low reveal reveal-delay-4">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#15</span>SEO — Inconsistência entre <code>&lt;title&gt;</code> e H1</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">O título da página home em ES é "Recluta, Desarrolla y retiene el talento | Employee Experience y Talent Acquisition" — o hero diz "Desarrolla y retiene el talento que ya tienes" (sem "Recluta"). Inconsistência entre <code>&lt;title&gt;</code> e o H1.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Alinhar o <code>&lt;title&gt;</code> com o H1 principal para consistência de SEO e mensagem.</span></div>
       </div>
 
-      <div class="finding finding-low">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#16</span>Página <code>/employee-experience/</code> — Hero sem imagem</div>
-          <span class="sev sev-low">Baixo</span>
-        </div>
-        <p class="finding-problem">Na página <code>/employee-experience/</code> o hero tem fundo escuro mas <strong>nenhuma imagem no lado direito</strong> — o espaço está vazio (diferente da home que tem a foto da profissional). Pode ser intencional (design only-text no dark mode), mas parece incompleto.</p>
+      <div class="finding finding-low reveal reveal-delay-5">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#16</span>Página <code>/employee-experience/</code> — Hero sem imagem</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">Na página <code>/employee-experience/</code> o hero tem fundo escuro mas <strong>nenhuma imagem no lado direito</strong> — o espaço está vazio, diferente da home que tem foto da profissional. Pode ser intencional, mas parece incompleto.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Confirmar se a ausência de imagem é intencional no hero escuro. Se não, adicionar a imagem de produto correspondente.</span></div>
       </div>
 
-      <div class="finding finding-low">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#17</span>Todas as páginas — Respostas 503 em prefetch (HEAD)</div>
-          <span class="sev sev-low">Baixo</span>
-        </div>
-        <p class="finding-problem">Nos logs de rede, múltiplas requisições HEAD retornam <strong>503</strong> (<code>/hr-maturity/</code>, <code>/ebooks/</code>, <code>/en/</code>, <code>/pt/</code>, <code>/demo/</code>, todas as páginas de produto). Trata-se de prefetch do Next.js — as páginas carregam via GET sem problema, mas indica que o servidor de dev não suporta o método HEAD adequadamente.</p>
+      <div class="finding finding-low reveal">
+        <div class="finding-top"><div class="finding-where"><span class="finding-num">#17</span>Todas as páginas — Respostas 503 em prefetch (HEAD)</div><span class="sev sev-low">Baixo</span></div>
+        <p class="finding-problem">Nos logs de rede, múltiplas requisições HEAD retornam <strong>503</strong> (<code>/hr-maturity/</code>, <code>/ebooks/</code>, <code>/en/</code>, <code>/pt/</code>, <code>/demo/</code>, todas as páginas de produto). Trata-se de prefetch do Next.js — as páginas carregam via GET sem problema, mas o servidor de dev não suporta o método HEAD adequadamente.</p>
         <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar a configuração do servidor Next.js em develop para responder corretamente a requisições HEAD. Não bloqueia produção mas pode afetar métricas de monitoramento.</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- VERIFICAÇÕES OK -->
-<section class="section section-alt">
+<div class="divider"></div>
+
+<!-- ── APROVADOS ────────────────────────────────────── -->
+<section class="section">
   <div class="container">
-    <div class="section-header">
-      <div class="section-num">03 — Aprovados</div>
-      <h2 class="section-title">O que está funcionando corretamente</h2>
-      <p class="section-desc">4 verificações funcionais passaram em todos os testes realizados.</p>
+    <div class="section-header reveal">
+      <div class="sec-eyebrow">03 — Aprovados</div>
+      <h2 class="sec-title">O que está funcionando corretamente</h2>
+      <p class="sec-desc">4 verificações funcionais passaram em todos os testes realizados.</p>
     </div>
     <div class="checklist">
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#9</span><strong>Formulário de Ebook (Home):</strong> funciona corretamente — ao submeter com nome + email, exibe "Revisa tu email — enviamos el acceso en menos de 5 minutos." Único formulário funcional do site.</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#18</span><strong>Nenhum Lorem Ipsum encontrado</strong> — zero ocorrências de texto placeholder em todas as páginas verificadas.</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#19</span><strong>Nenhuma imagem quebrada</strong> — todos os assets carregam corretamente (200 OK): logo, hero, product screenshots, logos de clientes.</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#20</span><strong>Links externos (WhatsApp, LinkedIn, YouTube, Instagram)</strong> — todos com href corretos e <code>target="_blank"</code> + <code>rel="noopener noreferrer"</code>. WhatsApp linkado com mensagem pré-preenchida.</span></div>
+      <div class="check-item reveal reveal-delay-1">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        <span><span class="check-num">#9</span><strong>Formulário de Ebook (Home):</strong> funciona corretamente — ao submeter com nome + email, exibe "Revisa tu email — enviamos el acceso en menos de 5 minutos." Único formulário funcional do site.</span>
+      </div>
+      <div class="check-item reveal reveal-delay-2">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        <span><span class="check-num">#18</span><strong>Nenhum Lorem Ipsum encontrado</strong> — zero ocorrências de texto placeholder em todas as páginas verificadas.</span>
+      </div>
+      <div class="check-item reveal reveal-delay-3">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        <span><span class="check-num">#19</span><strong>Nenhuma imagem quebrada</strong> — todos os assets carregam (200 OK): logo, hero, product screenshots, logos de clientes. Verificado via <code>naturalWidth &gt; 0</code> no JavaScript.</span>
+      </div>
+      <div class="check-item reveal reveal-delay-4">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+        <span><span class="check-num">#20</span><strong>Links externos corretos</strong> — WhatsApp, LinkedIn, YouTube e Instagram com href corretos, <code>target="_blank"</code> e <code>rel="noopener noreferrer"</code>. WhatsApp com mensagem pré-preenchida.</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── FOOTER ──────────────────────────────────────── -->
 <footer>
   <div class="container">
-    <div><strong>Relatório de QA Funcional — MyDNA Digital</strong></div>
-    <div>URL testada: https://site.develop.mydnadigital.com/ · Ambiente de desenvolvimento</div>
-    <div>Gerado em 15/06/2026</div>
+    <div class="foot-brand">MyDNA Digital — Relatório de QA Funcional</div>
+    <div class="foot-meta">URL testada: https://site.develop.mydnadigital.com/ · Ambiente de desenvolvimento · 15/06/2026</div>
   </div>
 </footer>
 
+<!-- ── SCRIPTS ─────────────────────────────────────── -->
+<script>
+// count-up animation
+function countUp(el, target, duration) {
+  const start = performance.now();
+  function step(now) {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 4);
+    el.textContent = Math.round(ease * target);
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Start counters immediately (hero is visible on load)
+document.querySelectorAll('.metric .num[data-target]').forEach((el, i) => {
+  setTimeout(() => {
+    countUp(el, +el.dataset.target, 1200);
+  }, 300 + i * 80);
+});
+
+// Animate severity bar segments
+setTimeout(() => {
+  document.querySelectorAll('.sb-seg').forEach(seg => {
+    seg.style.transform = 'scaleX(1)';
+  });
+}, 700);
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Subtle card tilt on mouse move
+document.querySelectorAll('.finding').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    card.style.transform = `translateX(4px) translateY(-2px) rotateX(${-y * 3}deg) rotateY(${x * 3}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+</script>
 </body>
 </html>

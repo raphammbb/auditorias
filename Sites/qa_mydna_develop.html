@@ -6,31 +6,13 @@
 <title>Relatório de QA Funcional — MyDNA Digital</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
 :root{
-  --bg:#F8FAFC;
-  --surface:#FFFFFF;
-  --navy:#0F172A;
-  --slate:#334155;
-  --muted:#475569;
-  --border:#E2E8F0;
-  --blue:#0369A1;
-  --blue-soft:#E0F2FE;
-  --critical:#DC2626;
-  --critical-bg:#FEF2F2;
-  --critical-border:#FECACA;
-  --high:#EA580C;
-  --high-bg:#FFF7ED;
-  --high-border:#FED7AA;
-  --medium:#CA8A04;
-  --medium-bg:#FEFCE8;
-  --medium-border:#FDE68A;
-  --low:#0284C7;
-  --low-bg:#F0F9FF;
-  --low-border:#BAE6FD;
-  --ok:#16A34A;
-  --ok-bg:#F0FDF4;
-  --ok-border:#BBF7D0;
+  --bg:#F8FAFC;--surface:#FFFFFF;--navy:#0F172A;--slate:#334155;--muted:#475569;--border:#E2E8F0;
+  --blue:#0369A1;--blue-soft:#E0F2FE;
+  --critical:#DC2626;--critical-bg:#FEF2F2;--critical-border:#FECACA;
+  --medium:#C2410C;--medium-bg:#FFF7ED;--medium-border:#FED7AA;
+  --low:#CA8A04;--low-bg:#FEFCE8;--low-border:#FDE68A;
+  --ok:#16A34A;--ok-bg:#F0FDF4;--ok-border:#BBF7D0;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -53,15 +35,15 @@ code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:.86em
 .verdict{display:inline-flex;align-items:center;gap:12px;background:rgba(220,38,38,.14);border:1px solid rgba(248,113,113,.4);border-radius:14px;padding:14px 22px;margin-bottom:42px;}
 .verdict svg{width:26px;height:26px;flex-shrink:0;color:#F87171;}
 .verdict span{font-weight:700;font-size:1.02rem;color:#FECACA;}
-.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;max-width:920px;}
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;max-width:960px;}
 .metric-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px 18px;text-align:center;}
 .metric-card .num{font-size:2.2rem;font-weight:800;line-height:1.1;display:block;}
 .metric-card .label{font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#94A3B8;margin-top:6px;display:block;}
-.metric-card.m-total .num{color:#F8FAFC}
-.metric-card.m-critical .num{color:#F87171}
-.metric-card.m-medium .num{color:#FACC15}
-.metric-card.m-low .num{color:#7DD3FC}
-.metric-card.m-ok .num{color:#4ADE80}
+.m-total .num{color:#F8FAFC}
+.m-critical .num{color:#F87171}
+.m-medium .num{color:#FB923C}
+.m-low .num{color:#FACC15}
+.m-ok .num{color:#4ADE80}
 
 /* SCOPE */
 .scope{background:var(--surface);border-bottom:1px solid var(--border);padding:56px 0;}
@@ -71,10 +53,10 @@ code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:.86em
 .scope-text p{color:var(--muted);font-size:.95rem;max-width:720px;}
 .scope-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
 .scope-tag{background:var(--blue-soft);color:var(--blue);border:1px solid #BAE6FD;border-radius:999px;padding:5px 14px;font-size:.8rem;font-weight:600;}
-.scope-tag.fixed{background:var(--ok-bg);color:var(--ok);border-color:var(--ok-border);}
 
 /* SECTIONS */
 .section{padding:72px 0}
+.section-alt{background:var(--surface);border-top:1px solid var(--border)}
 .section-header{margin-bottom:36px}
 .section-num{font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px;}
 .section-title{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:800;letter-spacing:-.01em;}
@@ -82,13 +64,16 @@ code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:.86em
 
 /* EXEC */
 .exec-card{background:var(--surface);border:1px solid var(--border);border-left:5px solid var(--critical);border-radius:16px;padding:34px 36px;box-shadow:0 1px 3px rgba(15,23,42,.06);}
+.exec-highlight{background:var(--critical-bg);border:1px solid var(--critical-border);border-radius:12px;padding:16px 20px;font-weight:700;color:var(--critical);display:flex;align-items:center;gap:12px;margin-bottom:22px;}
+.exec-highlight svg{width:22px;height:22px;flex-shrink:0}
 .exec-card p{color:var(--slate);margin-bottom:16px;font-size:1.02rem;}
 .exec-card p:last-child{margin-bottom:0}
 .exec-card strong{color:var(--navy)}
-.exec-highlight{background:var(--critical-bg);border:1px solid var(--critical-border);border-radius:12px;padding:16px 20px;font-weight:700;color:var(--critical);display:flex;align-items:center;gap:12px;margin-bottom:22px;}
-.exec-highlight svg{width:22px;height:22px;flex-shrink:0}
+.exec-card ol{margin:16px 0 16px 20px;color:var(--slate);}
+.exec-card ol li{margin-bottom:10px;font-size:1rem;}
+.exec-card ol li strong{color:var(--navy)}
 
-/* BADGES */
+/* SEVERITY BADGES */
 .sev{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:3px 12px;font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap;}
 .sev::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
 .sev-critical{background:var(--critical-bg);color:var(--critical);border:1px solid var(--critical-border)}
@@ -106,29 +91,22 @@ code{font-family:'SF Mono',ui-monospace,Menlo,Consolas,monospace;font-size:.86em
 .finding-medium{border-left:4px solid var(--medium)}
 .finding-low{border-left:4px solid var(--low)}
 .finding-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:10px;}
-.finding-where{font-weight:800;font-size:1rem;}
-.finding-num{font-size:.78rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:2px 10px;margin-right:6px;}
+.finding-where{font-weight:800;font-size:1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.finding-num{font-size:.78rem;font-weight:700;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:2px 10px;flex-shrink:0;}
 .finding-problem{color:var(--slate);font-size:.95rem;margin-bottom:14px;}
 .finding-problem strong{color:var(--navy)}
+.finding-problem em{font-style:italic;background:rgba(15,23,42,.04);padding:.1em .3em;border-radius:4px;}
 .finding-rec{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 16px;font-size:.9rem;color:var(--slate);}
 .finding-rec svg{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--blue)}
 .finding-rec strong{color:var(--blue);font-weight:700}
-.finding-ref{font-size:.82rem;color:var(--muted);margin-top:8px;font-style:italic;}
 
 /* CHECKLIST */
-.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
+.checklist{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
 .check-item{display:flex;gap:12px;align-items:flex-start;background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:12px;padding:14px 16px;font-size:.9rem;color:#166534;}
 .check-item svg{width:19px;height:19px;flex-shrink:0;color:var(--ok);margin-top:1px;}
 .check-item code{background:#DCFCE7;color:#166534}
 .check-item.wide{grid-column:1/-1}
-
-/* IMPROVEMENTS BOX */
-.improvements{background:var(--ok-bg);border:1px solid var(--ok-border);border-radius:14px;padding:22px 24px;margin-bottom:32px;}
-.improvements h3{font-size:.95rem;font-weight:800;color:#166534;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
-.improvements h3 svg{width:18px;height:18px}
-.improvements ul{list-style:none;}
-.improvements ul li{font-size:.9rem;color:#166534;padding:3px 0 3px 20px;position:relative;}
-.improvements ul li::before{content:'';position:absolute;left:4px;top:11px;width:8px;height:8px;border-radius:50%;background:var(--ok);}
+.check-num{font-size:.76rem;font-weight:700;background:rgba(22,163,74,.15);color:#166534;border-radius:999px;padding:1px 8px;margin-right:4px;flex-shrink:0;}
 
 /* FOOTER */
 footer{background:var(--navy);color:#94A3B8;padding:44px 0;text-align:center;font-size:.86rem;}
@@ -143,9 +121,6 @@ footer strong{color:#F8FAFC}
   .scope-flex{gap:16px}
   .scope-number{font-size:2.6rem}
 }
-
-/* REC ICON */
-.rec-icon{width:17px;height:17px;flex-shrink:0;margin-top:2px;color:var(--blue)}
 </style>
 </head>
 <body>
@@ -153,10 +128,10 @@ footer strong{color:#F8FAFC}
 <!-- COVER -->
 <section class="cover">
   <div class="container">
-    <div class="badge-pill"><span class="dot"></span>Auditoria de Site · 15/06/2026</div>
+    <div class="badge-pill"><span class="dot"></span>Relatório de QA · 15/06/2026</div>
     <h1>Relatório de QA Funcional</h1>
     <p class="subtitle">Análise completa para <strong>site.develop.mydnadigital.com</strong> · <strong>MyDNA Digital</strong> (ambiente de desenvolvimento)</p>
-    <p class="meta-line">URL testada: https://site.develop.mydnadigital.com/ · Revisão em 15/06/2026</p>
+    <p class="meta-line">URL testada: https://site.develop.mydnadigital.com/ · Data: 15/06/2026</p>
 
     <div class="verdict">
       <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z"/></svg>
@@ -164,11 +139,11 @@ footer strong{color:#F8FAFC}
     </div>
 
     <div class="metrics">
-      <div class="metric-card m-total"><span class="num">15</span><span class="label">Achados totais</span></div>
-      <div class="metric-card m-critical"><span class="num">5</span><span class="label">Críticos</span></div>
-      <div class="metric-card m-medium"><span class="num">5</span><span class="label">Médios</span></div>
-      <div class="metric-card m-low"><span class="num">5</span><span class="label">Baixos</span></div>
-      <div class="metric-card m-ok"><span class="num">8</span><span class="label">Verificações OK</span></div>
+      <div class="metric-card m-total"><span class="num">20</span><span class="label">Itens avaliados</span></div>
+      <div class="metric-card m-critical"><span class="num">6</span><span class="label">Críticos</span></div>
+      <div class="metric-card m-medium"><span class="num">4</span><span class="label">Médios</span></div>
+      <div class="metric-card m-low"><span class="num">6</span><span class="label">Baixos</span></div>
+      <div class="metric-card m-ok"><span class="num">4</span><span class="label">Aprovados</span></div>
     </div>
   </div>
 </section>
@@ -180,25 +155,22 @@ footer strong{color:#F8FAFC}
       <div class="scope-number">20+</div>
       <div class="scope-text">
         <h2>Páginas e rotas testadas</h2>
-        <p>O teste funcional cobriu a home, páginas de conversão, conteúdo, suporte e as páginas de produtos, além das versões em espanhol, português e inglês, formulários e comportamento de rotas de erro.</p>
+        <p>O teste funcional cobriu a home, todas as páginas de produto, formulários de conversão, ebooks, contato, rotas de erro e as versões em espanhol, português e inglês do site.</p>
       </div>
     </div>
     <div class="scope-tags">
       <span class="scope-tag">Home (/)</span>
-      <span class="scope-tag">/demo/</span>
       <span class="scope-tag">/contact/</span>
+      <span class="scope-tag">/demo/</span>
       <span class="scope-tag">/ebooks/</span>
+      <span class="scope-tag">/about/</span>
       <span class="scope-tag">/privacy/</span>
-      <span class="scope-tag">/terms/</span>
-      <span class="scope-tag">/hr-maturity/</span>
-      <span class="scope-tag">/candidate-portal/</span>
+      <span class="scope-tag">/employee-experience/</span>
       <span class="scope-tag">Produtos (/products/...)</span>
       <span class="scope-tag">Versão /en/</span>
       <span class="scope-tag">Versão /pt/</span>
       <span class="scope-tag">Rotas 404</span>
-      <span class="scope-tag fixed">✓ /jobs/ — corrigido</span>
-      <span class="scope-tag fixed">✓ /terms/ — página criada</span>
-      <span class="scope-tag fixed">✓ WhatsApp real configurado</span>
+      <span class="scope-tag">Formulários (Contact, Demo, Market Salary)</span>
     </div>
   </div>
 </section>
@@ -215,10 +187,13 @@ footer strong{color:#F8FAFC}
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 18.364A9 9 0 0 0 5.636 5.636m12.728 12.728A9 9 0 0 1 5.636 5.636m12.728 12.728L5.636 5.636"/></svg>
         O site NÃO está pronto para produção no estado atual.
       </div>
-      <p>Foram identificados <strong>4 bugs críticos únicos</strong> que impactam diretamente conversão e experiência do usuário: <strong>(1)</strong> o mega-menu de Produtos tem um problema grave de layout onde a coluna esquerda fica completamente cortada, impossibilitando o acesso a itens como Talent Acquisition e Assessment Center; <strong>(2)</strong> dois links de navegação importantes — <code>/sobre-nosotros/</code> (footer + menu mobile) e <code>/outplacement/</code> (footer) — retornam 404; <strong>(3)</strong> o formulário de Contato está completamente quebrado e não envia mesmo com todos os campos preenchidos e o checkbox marcado; <strong>(4)</strong> a página de erro 404 exibe texto em <strong>português</strong> para usuários da versão em espanhol, revelando um problema de internacionalização.</p>
-      <p>Além disso, há <strong>3 problemas de severidade média</strong> que devem ser corrigidos antes do deploy: as mensagens de validação de formulários estão em inglês, as fotos dos testimonials são placeholders do picsum.photos (imagens aleatórias de paisagens), e a capa do ebook no formulário hero da home não exibe imagem real. O menu mobile também tem um problema de overlay transparente que torna a navegação difícil em dispositivos móveis.</p>
-      <p><strong>Ação recomendada:</strong> corrigir os 4 bugs críticos e os 3 bugs médios antes de qualquer deploy em produção. Os 4 itens de severidade baixa podem ser endereçados em ciclos posteriores.</p>
-      <p>Em relação à última revisão, vários itens foram corrigidos: a página <code>/jobs/</code> foi criada, a página <code>/terms/</code> passou a existir, o número de WhatsApp foi configurado com número real (<code>wa.me/56957084251</code>), o texto placeholder na <code>/demo/</code> foi removido e o formulário de demo passou a exibir o nome completo corretamente.</p>
+      <p>Existem pelo menos <strong>4 bugs críticos</strong> que precisam ser resolvidos obrigatoriamente antes do deploy:</p>
+      <ol>
+        <li><strong>Todos os formulários principais estão quebrados</strong> — A variável de ambiente <code>NEXT_PUBLIC_API_URL</code> não está configurada, tornando impossível capturar qualquer lead via formulário de contato ou agendamento de demo. Como todo o funil de conversão do site depende desses formulários, este é o bug de maior impacto de negócio.</li>
+        <li><strong>Página <code>/ebooks/</code> com conteúdo duplicado</strong> — Todos os ebooks aparecem duas vezes na listagem (bug de fetch/renderização de dados), o que prejudica a credibilidade e usabilidade da página.</li>
+        <li><strong>Links quebrados no footer e menu</strong> — Dois links levam a páginas 404: "Sobre Nosotros" (<code>/sobre-nosotros/</code> → deveria ser <code>/about/</code>) e "Outplacement" (<code>/outplacement/</code> → não existe, o correto seria <code>/products/outplacement/</code>). Além disso, a página de 404 exibe texto em Português independente do idioma do contexto.</li>
+        <li><strong>Imagens placeholder em produção</strong> — As fotos dos testimonials são imagens de <code>picsum.photos</code> (banco de imagens aleatório), que não podem ser usadas em ambiente de produção por questões de direitos de imagem e credibilidade.</li>
+      </ol>
     </div>
   </div>
 </section>
@@ -229,191 +204,183 @@ footer strong{color:#F8FAFC}
     <div class="section-header">
       <div class="section-num">02 — Diagnóstico</div>
       <h2 class="section-title">Tabela de Achados</h2>
-      <p class="section-desc">15 problemas identificados, agrupados por severidade. Os achados #2 e #12 estão relacionados ao mesmo bug (<code>/sobre-nosotros/</code> ausente) — listados separadamente por terem pontos de entrada distintos (footer e menu mobile).</p>
+      <p class="section-desc">16 problemas identificados durante os testes funcionais, agrupados por severidade.</p>
     </div>
 
     <!-- CRÍTICOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-critical">Crítico</span><span class="count">5 achados (4 bugs únicos)</span></div>
+      <div class="sev-group-title"><span class="sev sev-critical">Crítico</span><span class="count">6 achados</span></div>
 
       <div class="finding finding-critical">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#1</span>Navegação — Dropdown "Productos"</div>
+          <div class="finding-where"><span class="finding-num">#1</span>Formulário de Contato (<code>/contact/</code>)</div>
           <span class="sev sev-critical">Crítico</span>
         </div>
-        <p class="finding-problem">O mega-menu de produtos <strong>extravasa pelo lado esquerdo da tela</strong> em todas as resoluções testadas (1054px e 1280px). A coluna esquerda "Adquisición de Talento" fica cortada, mostrando apenas fragmentos como "nt Acquisition", "ssment Center", "al de Candidatos".</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o posicionamento do dropdown (usar <code>left: 0</code> em vez de valor negativo, ou ajustar para que fique alinhado à esquerda da viewport).</span></div>
+        <p class="finding-problem"><strong>ERRO CRÍTICO:</strong> Ao submeter o formulário com todos os campos preenchidos e checkbox aceito, exibe a mensagem: <em>"El servicio de envío no está configurado. Configure NEXT_PUBLIC_API_URL."</em> O formulário <strong>não envia</strong> os dados.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Configurar a variável de ambiente <code>NEXT_PUBLIC_API_URL</code> no servidor de desenvolvimento (e produção). Verificar se o backend/API de envio está ativo e acessível.</span></div>
       </div>
 
       <div class="finding finding-critical">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#2</span>Footer / Menu mobile → <code>/sobre-nosotros/</code></div>
+          <div class="finding-where"><span class="finding-num">#2</span>Formulário de Demo (<code>/demo/</code>)</div>
           <span class="sev sev-critical">Crítico</span>
         </div>
-        <p class="finding-problem">Página retorna <strong>404</strong>. O link está presente no footer (coluna "Empresa") e no menu mobile, mas a página não existe.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página <code>/sobre-nosotros/</code> ou corrigir o link para a URL correta.</span></div>
+        <p class="finding-problem"><strong>MESMO ERRO CRÍTICO:</strong> O formulário de agendamento de demo também falha com a mensagem <em>"El servicio de envío no está configurado. Configure NEXT_PUBLIC_API_URL."</em> Todos os CTAs principais do site (Agendar Demo, Solicitar Cotización) apontam para <code>#demo</code> — ou seja, <strong>nenhum lead pode ser capturado.</strong></p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Mesma correção: configurar <code>NEXT_PUBLIC_API_URL</code>. Este é o CTA principal do site inteiro e está completamente quebrado.</span></div>
       </div>
 
       <div class="finding finding-critical">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#3</span>Footer → <code>/outplacement/</code></div>
+          <div class="finding-where"><span class="finding-num">#3</span>Página <code>/outplacement/</code> (link no footer)</div>
           <span class="sev sev-critical">Crítico</span>
         </div>
-        <p class="finding-problem">Página retorna <strong>404</strong>. O link "Outplacement" no footer (coluna "Recursos") aponta para <code>/outplacement/</code>, mas a página está em <code>/products/outplacement/</code>.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o link do footer para <code>/products/outplacement/</code> ou criar um redirect 301.</span></div>
+        <p class="finding-problem"><strong>404 — Página não encontrada.</strong> A página de Outplacement é listada no menu Produtos ("Outplacement — Transición de carrera asistida") e no footer, mas a URL <code>/outplacement/</code> retorna erro 404. A página de produto <code>/products/outplacement/</code> existe, mas não há redirecionamento.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar a página em <code>/outplacement/</code> ou corrigir os links no footer/menu para apontarem para <code>/products/outplacement/</code>.</span></div>
       </div>
 
       <div class="finding finding-critical">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#4</span>Formulário de Contato — <code>/contact/</code></div>
+          <div class="finding-where"><span class="finding-num">#4</span>Footer — Link "Sobre Nosotros"</div>
           <span class="sev sev-critical">Crítico</span>
         </div>
-        <p class="finding-problem">Formulário completamente <strong>quebrado</strong>: ao clicar em "Enviar mensaje" com o checkbox de consentimento marcado, a mensagem de erro "Acepta el contacto para continuar." persiste e o formulário <strong>nunca envia</strong>. Confirmado via JavaScript: <code>checkbox.checked === true</code> mas o erro não some.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir a lógica de validação do checkbox no JavaScript do formulário de contato.</span></div>
+        <p class="finding-problem">O footer linka para <code>/sobre-nosotros/</code> que retorna <strong>404</strong>. A página real está em <code>/about/</code>.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Corrigir o href no footer de <code>/sobre-nosotros/</code> para <code>/about/</code>, ou criar um redirect 301 de <code>/sobre-nosotros/</code> → <code>/about/</code>.</span></div>
       </div>
 
       <div class="finding finding-critical">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#12</span>Menu mobile — "Sobre Nosotros"</div>
+          <div class="finding-where"><span class="finding-num">#5</span>Página <code>/ebooks/</code> — Listagem duplicada</div>
           <span class="sev sev-critical">Crítico</span>
         </div>
-        <p class="finding-problem">O item "Sobre Nosotros" aparece no menu mobile como item dedicado, mas leva à mesma página 404 do bug <strong>#2</strong>. Listado separadamente por ser um ponto de entrada adicional, distinto do footer.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Mesma correção do bug #2 — criar a página <code>/sobre-nosotros/</code> ou corrigir o link.</span></div>
-        <p class="finding-ref">Relacionado ao achado #2.</p>
+        <p class="finding-problem"><strong>TODOS os cards de ebooks aparecem DUPLICADOS.</strong> A listagem exibe 79 cards no total sendo que cada ebook aparece exatamente 2 vezes. Isso indica um bug de renderização/fetch de dados que duplica o array retornado pela API/CMS.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Investigar a fonte de dados (CMS/API) que alimenta a listagem. Provável bug de concatenação dupla do array no fetch ou renderização React com estado inconsistente.</span></div>
+      </div>
+
+      <div class="finding finding-critical">
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#13</span>Formulário Market Salary (<code>/products/market-salary/</code>)</div>
+          <span class="sev sev-critical">Crítico</span>
+        </div>
+        <p class="finding-problem">O formulário do Market Salary possui campo "Área" com dropdown — provavelmente também usa <code>NEXT_PUBLIC_API_URL</code> e estará quebrado com o mesmo erro dos bugs <strong>#1</strong> e <strong>#2</strong>. Não confirmado visualmente pois é o mesmo padrão de implementação.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar e corrigir junto com os outros formulários após configurar a variável de ambiente <code>NEXT_PUBLIC_API_URL</code>.</span></div>
       </div>
     </div>
 
     <!-- MÉDIOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-medium">Médio</span><span class="count">5 achados</span></div>
+      <div class="sev-group-title"><span class="sev sev-medium">Médio</span><span class="count">4 achados</span></div>
 
       <div class="finding finding-medium">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#5</span>Todos os formulários — Validação HTML5</div>
+          <div class="finding-where"><span class="finding-num">#6</span>Página de Erro 404 — Idioma errado</div>
           <span class="sev sev-medium">Médio</span>
         </div>
-        <p class="finding-problem">As mensagens de validação nativas do browser estão em <strong>inglês</strong> ("Please fill out this field.") em vez de espanhol. Afeta: formulário de Ebook (Home), Demo Form (Home), Market Salary, e potencialmente todos os formulários do site.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Adicionar o atributo <code>lang="es"</code> no elemento <code>&lt;html&gt;</code> e/ou usar <code>setCustomValidity()</code> em JavaScript para traduzir as mensagens de validação.</span></div>
+        <p class="finding-problem">A página de erro 404 exibe texto em <strong>Português</strong> ("Página não encontrada", "A página que você procura não existe ou foi movida") mesmo quando acessada por usuário em contexto Espanhol (<code>/sobre-nosotros/</code>, <code>/outplacement/</code>). O footer da 404 também é a versão PT reduzida.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Implementar lógica de idioma na página 404: detectar a rota (<code>/pt/</code> → PT, demais → ES). Criar versões ES/EN da página de erro.</span></div>
       </div>
 
       <div class="finding finding-medium">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#6</span>Página de Erro 404 — idioma incorreto</div>
+          <div class="finding-where"><span class="finding-num">#7</span>Home — Seção "Demo em Vídeo"</div>
           <span class="sev sev-medium">Médio</span>
         </div>
-        <p class="finding-problem">A página 404 está em <strong>português</strong> ("Página não encontrada", "A página que você procura não existe ou foi movida.") para usuários acessando a versão em espanhol do site.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Criar uma versão em espanhol da página 404 para <code>/</code> e versões localizadas para <code>/pt/</code> e <code>/en/</code>.</span></div>
+        <p class="finding-problem">A seção de vídeo (entre Testimonios e FAQ) renderiza como um <strong>bloco completamente branco/invisível</strong> durante o scroll. O conteúdo existe no DOM mas não é visível — aparenta ser um problema de camadas CSS (z-index), fundo escuro com texto escuro, ou dependência de um embed de vídeo que não carrega.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Inspecionar o CSS da seção. Verificar se havia um <code>&lt;iframe&gt;</code> do YouTube que foi removido deixando o espaço sem conteúdo visível.</span></div>
       </div>
 
       <div class="finding finding-medium">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#7</span>Home — Seção Hero Ebook / Guia LATAM</div>
+          <div class="finding-where"><span class="finding-num">#8</span>Home — Imagens dos Testimoniantes</div>
           <span class="sev sev-medium">Médio</span>
         </div>
-        <p class="finding-problem">A capa do ebook "Guía de Employee Experience LATAM 2025" <strong>não carrega imagem</strong> — aparece apenas um ícone genérico de camadas (Layers icon), sem imagem real da capa do guia.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir o ícone placeholder por uma imagem real da capa do ebook.</span></div>
+        <p class="finding-problem">As fotos dos 3 testimoniantes (María González, Carlos Pérez, Ana Silva) são <strong>imagens placeholder de picsum.photos</strong> (imagens aleatórias de banco público), não fotografias reais ou de banco licenciado. As imagens carregam, mas são imagens de pessoas aleatórias.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir as URLs <code>picsum.photos/seed/maria-rh-chile/...</code> por fotos reais dos clientes (com autorização) ou por avatares/ícones genéricos neutros antes do deploy.</span></div>
       </div>
 
       <div class="finding finding-medium">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#8</span>Home — Seção de Testimonials</div>
+          <div class="finding-where"><span class="finding-num">#11</span>Formulário de Contato — Validação visual ausente</div>
           <span class="sev sev-medium">Médio</span>
         </div>
-        <p class="finding-problem">As fotos dos três depoentes (María González, Carlos Pérez, Ana Silva) são <strong>imagens placeholder do picsum.photos</strong> (fotos aleatórias de paisagens/natureza), não fotos reais de profissionais.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Substituir as URLs <code>https://picsum.photos/seed/...</code> por fotos reais (ou imagens profissionais aprovadas) antes de ir para produção.</span></div>
-      </div>
-
-      <div class="finding finding-medium">
-        <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#9</span>Menu Mobile — Overlay transparente</div>
-          <span class="sev sev-medium">Médio</span>
-        </div>
-        <p class="finding-problem">Ao abrir o menu hamburger no mobile (≤768px), o conteúdo da página atrás do menu <strong>fica visível e sobreposto</strong> ao menu. O overlay não tem opacidade/fundo sólido adequado, tornando o texto do menu ilegível. Notavelmente, a barra "¿Listo para transformar tu área de RH?" também aparece sobre o menu aberto.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Aplicar um background sólido ou overlay com <code>background-color</code> e/ou <code>backdrop-filter</code> no componente de menu mobile; garantir <code>z-index</code> correto e <code>overflow: hidden</code> no body quando o menu estiver aberto.</span></div>
+        <p class="finding-problem">Ao clicar em "Enviar mensaje" com todos os campos vazios, o campo "Nombre completo" fica em foco mas <strong>não exibe mensagens de erro visuais</strong> nos campos obrigatórios — sem borda vermelha, sem texto de erro. O feedback visual de validação está ausente.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Adicionar estilo de erro nos campos required (border-red, mensagem "Este campo es obligatorio") para melhorar UX e conformidade com boas práticas de formulários.</span></div>
       </div>
     </div>
 
     <!-- BAIXOS -->
     <div class="sev-group">
-      <div class="sev-group-title"><span class="sev sev-low">Baixo</span><span class="count">5 achados</span></div>
+      <div class="sev-group-title"><span class="sev sev-low">Baixo</span><span class="count">6 achados</span></div>
 
       <div class="finding finding-low">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#10</span>Home — Tabela de Comparação</div>
+          <div class="finding-where"><span class="finding-num">#10</span>Home — Seção "Testimonios"</div>
           <span class="sev sev-low">Baixo</span>
         </div>
-        <p class="finding-problem">Textos das linhas da tabela de comparação estão <strong>truncados</strong> na coluna esquerda em resoluções intermediárias (ex: "Reportes ejecutivos automáti..." e "Datos salariales de merca...").</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Ajustar o <code>min-width</code> da coluna ou usar <code>white-space: normal</code> para garantir que os textos não sejam cortados.</span></div>
+        <p class="finding-problem">A seção Testimonios tem fundo <code>#F9F5FF</code> (roxo muito claro, quase branco) que na captura de scroll aparece como uma página em branco. O conteúdo existe no DOM e é acessível, mas <strong>visualmente parece um bloco vazio</strong> em algumas configurações de renderização/captura.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Avaliar aumentar levemente o contraste do fundo da seção (ex: <code>#F3EEFF</code>) para evitar que pareça um erro de carregamento.</span></div>
       </div>
 
       <div class="finding finding-low">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#11</span>Home — Título da página (meta <code>&lt;title&gt;</code>)</div>
+          <div class="finding-where"><span class="finding-num">#12</span>Footer — Link "Guía Salarial LATAM 2025"</div>
           <span class="sev sev-low">Baixo</span>
         </div>
-        <p class="finding-problem">O título da aba diz <strong>"Recluta</strong>, Desarrolla y retiene el talento" mas o headline da hero diz apenas "Desarrolla y retiene el talento que ya tienes" — não há referência a "Recluta". Inconsistência de mensagem.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Revisar e alinhar o <code>&lt;title&gt;</code> com a proposta de valor principal do site, ou atualizar o headline se "Recluta" é parte do posicionamento.</span></div>
+        <p class="finding-problem">O link "Guía Salarial LATAM 2025" no footer aponta para <code>/ebooks/</code> (a listagem geral), não para a guia específica. Pode ser intencional, mas reduz a conversão.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Se existir uma landing page específica para a Guía Salarial, corrigir o link. Se não, manter como está.</span></div>
       </div>
 
       <div class="finding finding-low">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#13</span>Página de Ebooks — Cards duplicados</div>
+          <div class="finding-where"><span class="finding-num">#14</span>Navegação — Dropdown "Productos" via clique</div>
           <span class="sev sev-low">Baixo</span>
         </div>
-        <p class="finding-problem">Na biblioteca de ebooks, aparecem <strong>dois cards idênticos</strong> de "Guía Salarial 2026" lado a lado, com o mesmo título, imagem e descrição. Pode ser um dado duplicado no backend.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar e eliminar registros duplicados na fonte de dados dos ebooks.</span></div>
+        <p class="finding-problem">O dropdown abre apenas via <strong>clique</strong> (não via hover). Comportamento atípico em desktop e pode confundir usuários que esperem hover. Funcionou corretamente após o segundo clique.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Avaliar se hover é o comportamento desejado. Se sim, adicionar <code>onMouseEnter/onMouseLeave</code>. Se clique é intencional, manter.</span></div>
       </div>
 
       <div class="finding finding-low">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#14</span>Home — Espaço em branco excessivo antes dos Testimonials</div>
+          <div class="finding-where"><span class="finding-num">#15</span>SEO — Inconsistência entre <code>&lt;title&gt;</code> e H1</div>
           <span class="sev sev-low">Baixo</span>
         </div>
-        <p class="finding-problem">Ao rolar a página, existe um <strong>espaço em branco excessivo</strong> logo acima da seção de testimonials (aproximadamente 150–200px), sugerindo um problema de timing de animação ou elemento com altura mínima desnecessária.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Inspecionar o CSS e animações de entrada da seção de testimonials para remover o whitespace excessivo.</span></div>
+        <p class="finding-problem">O título da página home em ES é "Recluta, Desarrolla y retiene el talento | Employee Experience y Talent Acquisition" — o hero diz "Desarrolla y retiene el talento que ya tienes" (sem "Recluta"). Há inconsistência entre <code>&lt;title&gt;</code> e o H1.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Alinhar o <code>&lt;title&gt;</code> com o H1 principal para consistência de SEO e mensagem.</span></div>
       </div>
 
       <div class="finding finding-low">
         <div class="finding-top">
-          <div class="finding-where"><span class="finding-num">#15</span>Links externos — Verificação pendente</div>
+          <div class="finding-where"><span class="finding-num">#16</span>Página <code>/employee-experience/</code> — Hero sem imagem</div>
           <span class="sev sev-low">Baixo</span>
         </div>
-        <p class="finding-problem">Links do LinkedIn (<code>/company/mydnahrtech/</code>), YouTube (<code>/@My_DNA</code>) e Instagram (<code>@mydna_digital</code>) foram identificados; o WhatsApp (<code>wa.me/56957084251</code>) também aponta para número configurado. Esses links <strong>não foram testados até o destino final</strong> por serem externos, mas as URLs parecem sintaticamente corretas.</p>
-        <div class="finding-rec"><svg class="rec-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Testar manualmente cada link externo para confirmar que os perfis estão ativos e apontam para os canais corretos da marca.</span></div>
+        <p class="finding-problem">Na página <code>/employee-experience/</code> o hero tem fundo escuro mas <strong>nenhuma imagem no lado direito</strong> — o espaço está vazio (diferente da home que tem a foto da profissional). Pode ser intencional (design only-text no dark mode), mas parece incompleto.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Confirmar se a ausência de imagem é intencional no hero escuro. Se não, adicionar a imagem de produto correspondente.</span></div>
+      </div>
+
+      <div class="finding finding-low">
+        <div class="finding-top">
+          <div class="finding-where"><span class="finding-num">#17</span>Todas as páginas — Respostas 503 em prefetch (HEAD)</div>
+          <span class="sev sev-low">Baixo</span>
+        </div>
+        <p class="finding-problem">Nos logs de rede, múltiplas requisições HEAD retornam <strong>503</strong> (<code>/hr-maturity/</code>, <code>/ebooks/</code>, <code>/en/</code>, <code>/pt/</code>, <code>/demo/</code>, todas as páginas de produto). Trata-se de prefetch do Next.js — as páginas carregam via GET sem problema, mas indica que o servidor de dev não suporta o método HEAD adequadamente.</p>
+        <div class="finding-rec"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"/></svg><span><strong>Recomendação:</strong> Verificar a configuração do servidor Next.js em develop para responder corretamente a requisições HEAD. Não bloqueia produção mas pode afetar métricas de monitoramento.</span></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- VERIFICAÇÕES OK -->
-<section class="section" style="background:var(--surface);border-top:1px solid var(--border)">
+<section class="section section-alt">
   <div class="container">
     <div class="section-header">
       <div class="section-num">03 — Aprovados</div>
       <h2 class="section-title">O que está funcionando corretamente</h2>
-      <p class="section-desc">8 verificações funcionais passaram em todos os testes realizados.</p>
+      <p class="section-desc">4 verificações funcionais passaram em todos os testes realizados.</p>
     </div>
-
-    <div class="improvements">
-      <h3><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"/></svg>Melhorias desde a revisão anterior</h3>
-      <ul>
-        <li>Página <code>/jobs/</code> criada — link do footer não retorna mais 404.</li>
-        <li>Página <code>/terms/</code> criada e acessível.</li>
-        <li>WhatsApp configurado com número real: <code>wa.me/56957084251</code>.</li>
-        <li>Texto placeholder interno removido da página <code>/demo/</code>.</li>
-        <li>Formulário de demo exibe nome completo corretamente na mensagem de sucesso.</li>
-      </ul>
-    </div>
-
     <div class="checklist">
-      <div class="check-item wide"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Todas as páginas de produto carregam sem erros 404: <code>/employee-experience/</code>, <code>/talent-acquisition/</code>, <code>/products/people-analytics/</code>, <code>/products/market-salary/</code>, <code>/candidate-portal/</code>, <code>/hr-maturity/</code>, <code>/demo/</code>, <code>/ebooks/</code>, <code>/contact/</code>, <code>/privacy/</code>, <code>/terms/</code> e todos os <code>/products/...</code></span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário de Ebook (Home) — submissão funciona, exibe mensagem de sucesso "¡Listo, Test!"</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Formulário de Demo (Home) — submissão funciona, exibe mensagem de sucesso "¡Gracias, Test!"</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Versões <code>/pt/</code> e <code>/en/</code> do site carregam e exibem o idioma correto</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>FAQ accordion na Home funciona corretamente</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Calculadora de ROI (slider de colaboradores) responde ao input corretamente</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Nenhuma imagem quebrada detectada — todas as <code>&lt;img&gt;</code> têm <code>naturalWidth &gt; 0</code> (verificado via JavaScript)</span></div>
-      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span>Breadcrumbs e headers das páginas de produto são consistentes com o conteúdo</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#9</span><strong>Formulário de Ebook (Home):</strong> funciona corretamente — ao submeter com nome + email, exibe "Revisa tu email — enviamos el acceso en menos de 5 minutos." Único formulário funcional do site.</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#18</span><strong>Nenhum Lorem Ipsum encontrado</strong> — zero ocorrências de texto placeholder em todas as páginas verificadas.</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#19</span><strong>Nenhuma imagem quebrada</strong> — todos os assets carregam corretamente (200 OK): logo, hero, product screenshots, logos de clientes.</span></div>
+      <div class="check-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg><span><span class="check-num">#20</span><strong>Links externos (WhatsApp, LinkedIn, YouTube, Instagram)</strong> — todos com href corretos e <code>target="_blank"</code> + <code>rel="noopener noreferrer"</code>. WhatsApp linkado com mensagem pré-preenchida.</span></div>
     </div>
   </div>
 </section>

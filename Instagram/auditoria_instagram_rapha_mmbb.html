@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Bio & Destaques — @rapha_mmbb</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0f0f5;
+    --muted: #8a8a9e;
+    --accent: #e1306c;
+    --accent2: #833ab4;
+    --accent3: #fd1d1d;
+    --gradient: linear-gradient(135deg, #833ab4, #e1306c, #fcaf45);
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --blue: #3b82f6;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  /* ── Hero ──────────────────────────────────────────────── */
+  .hero {
+    position: relative;
+    padding: 72px 24px 56px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(131,58,180,0.25) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 80% 50%, rgba(225,48,108,0.12) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(225,48,108,0.1);
+    border: 1px solid rgba(225,48,108,0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: #e1306c;
+    margin-bottom: 24px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #e1306c;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 .handle {
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-meta {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    max-width: 480px;
+    margin: 0 auto;
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+  }
+
+  .stat-item {
+    flex: 1;
+    padding: 20px 16px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    margin-top: 2px;
+  }
+
+  /* ── Layout ─────────────────────────────────────────────── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ── Section heading ────────────────────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 52px 0 24px;
+  }
+
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .icon-blue { background: rgba(59,130,246,0.15); }
+  .icon-purple { background: rgba(131,58,180,0.15); }
+  .icon-red { background: rgba(239,68,68,0.15); }
+  .icon-green { background: rgba(34,197,94,0.15); }
+  .icon-yellow { background: rgba(245,158,11,0.15); }
+  .icon-pink { background: rgba(225,48,108,0.15); }
+
+  .section-header h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+  }
+
+  .section-header span.phase {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+  }
+
+  /* ── Cards ──────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* ── Bio block ──────────────────────────────────────────── */
+  .bio-block {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin: 16px 0;
+    position: relative;
+  }
+
+  .bio-block .bio-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  .bio-empty {
+    font-style: italic;
+    color: var(--muted);
+    opacity: .7;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+
+  .avatar-ring {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .profile-info .handle { font-weight: 700; font-size: 15px; }
+  .profile-info .cat { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Grid 2-col ─────────────────────────────────────────── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .info-item { }
+  .info-item .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+  .info-item .value { font-size: 15px; font-weight: 600; margin-top: 3px; }
+
+  /* ── Table ──────────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; margin: 0 -4px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  th {
+    background: var(--surface2);
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border2);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* ── Badges ─────────────────────────────────────────────── */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .badge-red { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .badge-green { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+  .badge-yellow { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); }
+  .badge-muted { background: rgba(255,255,255,0.06); color: var(--muted); border: 1px solid var(--border); }
+
+  /* ── Diagnosis items ────────────────────────────────────── */
+  .diag-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .diag-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+  }
+
+  .diag-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .diag-fail { background: rgba(239,68,68,0.12); }
+  .diag-warn { background: rgba(245,158,11,0.12); }
+
+  .diag-q { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+  .diag-a { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .diag-a strong { color: var(--text); }
+
+  /* ── Journey grid ───────────────────────────────────────── */
+  .journey-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+
+  .journey-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .journey-item.missing { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.15); color: #f87171; }
+  .journey-item.present { background: rgba(34,197,94,0.06); border-color: rgba(34,197,94,0.15); color: #4ade80; }
+
+  /* ── Bio versions ───────────────────────────────────────── */
+  .bio-version {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: border-color .2s;
+  }
+
+  .bio-version:hover { border-color: rgba(131,58,180,0.4); }
+
+  .bio-version-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bio-version-title { font-weight: 700; font-size: 14px; }
+
+  .bio-version-body { padding: 20px; }
+
+  .bio-copy {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    font-family: 'Inter', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    margin-bottom: 16px;
+  }
+
+  .bio-context {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── Reorg table status ─────────────────────────────────── */
+  .status-keep { color: #4ade80; }
+  .status-rename { color: #fbbf24; }
+  .status-merge { color: #60a5fa; }
+  .status-delete { color: #f87171; }
+  .status-create { color: #a78bfa; }
+
+  /* ── Order visual ───────────────────────────────────────── */
+  .order-list {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border2);
+    background: var(--surface2);
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .order-pos {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .order-name { font-weight: 700; font-size: 14px; }
+  .order-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Critical alert ─────────────────────────────────────── */
+  .alert {
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .alert-red { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); }
+  .alert-yellow { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); }
+  .alert-purple { background: rgba(131,58,180,0.1); border: 1px solid rgba(131,58,180,0.3); }
+
+  .alert-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .alert-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .alert-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .alert-text strong { color: var(--text); }
+
+  /* ── Priority list ──────────────────────────────────────── */
+  .priority-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .priority-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface2);
+  }
+
+  .priority-num {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .priority-text { font-weight: 600; font-size: 14px; }
+
+  /* ── Score card ─────────────────────────────────────────── */
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .score-item {
+    padding: 18px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  .score-val {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .score-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+
+  .score-red { color: var(--red); }
+  .score-yellow { color: var(--yellow); }
+  .score-green { color: var(--green); }
+
+  /* ── Divider ─────────────────────────────────────────────── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── Footer ─────────────────────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  /* ── Scrollbar ───────────────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">Auditoria · Bio & Destaques</div>
+  <h1>
+    <span class="handle">@rapha_mmbb</span><br>
+    Instagram Audit
+  </h1>
+  <div class="hero-meta">17 de junho de 2026 · Análise completa de bio e destaques</div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">1.309</span>
+      <span class="stat-label">Seguidores</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">25</span>
+      <span class="stat-label">Posts</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">7</span>
+      <span class="stat-label">Destaques</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" style="color:var(--red)">0/10</span>
+      <span class="stat-label">Score Bio</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ─────────────────────────────────────────────────────────
+       FASE 1 — LEITURA DO PERFIL
+  ───────────────────────────────────────────────────────────── -->
+  <div class="section-header">
+    <div class="section-icon icon-blue">🔍</div>
+    <div>
+      <span class="phase">Fase 1</span>
+      <h2>Leitura do Perfil</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Perfil atual</div>
+    <div class="profile-header">
+      <div class="avatar-ring">R</div>
+      <div class="profile-info">
+        <div class="handle">Raphael Batista · @rapha_mmbb</div>
+        <div class="cat">Automação &amp; Marketing Digital</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="info-item">
+        <div class="label">Seguidores</div>
+        <div class="value">1.309</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Seguindo</div>
+        <div class="value">2.889</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Posts</div>
+        <div class="value">25</div>
+      </div>
+      <div class="info-item">
+        <div class="label">Categoria</div>
+        <div class="value">Automação &amp; Marketing Digital</div>
+      </div>
+    </div>
+
+    <div class="bio-block">
+      <div class="bio-label">Texto da bio</div>
+      <div class="bio-empty">(campo vazio — nenhum texto escrito)</div>
+      <div style="margin-top: 10px; font-size: 14px;">@aagencia.logos</div>
+    </div>
+
+    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
+      <span class="badge badge-red">❌ Bio vazia</span>
+      <span class="badge badge-red">❌ Sem link externo</span>
+      <span class="badge badge-muted">↗ Menção @aagencia.logos</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Destaques — inventário</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Slides</th>
+            <th>Tema</th>
+            <th>CTA</th>
+            <th>Capa</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>2026</strong></td>
+            <td>~23</td>
+            <td>Vida pessoal — passeios, amigos</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-green">Recente</span></td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>2025</strong></td>
+            <td>~75</td>
+            <td>Vida pessoal — viagens, comunidade religiosa</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-green">Sim</span></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>2024</strong></td>
+            <td>~127</td>
+            <td>Eventos religiosos, church</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-yellow">+1 ano</span></td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>2023</strong></td>
+            <td>~179</td>
+            <td>Vida pessoal — amigos, cotidiano</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-red">+2 anos</span></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>2022</strong></td>
+            <td>~232</td>
+            <td>Eventos church, cotidiano</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-red">+3 anos</span></td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>2021</strong></td>
+            <td>~275</td>
+            <td>Paisagens, cotidiano</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-red">+4 anos</span></td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>2020</strong></td>
+            <td>~312</td>
+            <td>Família, churrasco, cotidiano</td>
+            <td><span class="badge badge-red">Não</span></td>
+            <td><span class="badge badge-yellow">Genérica</span></td>
+            <td><span class="badge badge-red">+5 anos ⚠️</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────
+       FASE 2 — DIAGNÓSTICO DA BIO
+  ───────────────────────────────────────────────────────────── -->
+  <div class="section-header">
+    <div class="section-icon icon-red">⚠️</div>
+    <div>
+      <span class="phase">Fase 2</span>
+      <h2>Diagnóstico da Bio</h2>
+    </div>
+  </div>
+
+  <div class="alert alert-red">
+    <div class="alert-icon">🚨</div>
+    <div>
+      <div class="alert-title">Bio inexistente</div>
+      <div class="alert-text">A bio do @rapha_mmbb está praticamente vazia. O campo de texto foi deixado em branco — o único elemento que aparece é a categoria automática do Instagram e uma menção a outro perfil sem contexto. É o equivalente digital de distribuir um cartão de visita com apenas o nome impresso.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Clareza de identidade &amp; proposta de valor</div>
+    <div class="diag-list">
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">A bio deixa claro quem é a conta?</div>
+          <div class="diag-a"><strong>Não.</strong> O único texto é a categoria automática "Automação &amp; Marketing Digital" e uma menção a outro perfil. Não há nenhuma frase escrita pelo usuário.</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">A bio deixa claro para quem serve?</div>
+          <div class="diag-a"><strong>Não.</strong> Nenhum público-alvo é mencionado em lugar nenhum.</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">Há uma proposta de valor clara?</div>
+          <div class="diag-a"><strong>Não.</strong> Não há descrição de serviço, resultado ou entrega. Não há diferenciação. Não há prova social, número, resultado ou credencial.</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">Há CTA e link externo?</div>
+          <div class="diag-a"><strong>Não.</strong> Nenhum CTA. Sem URL, Linktree ou link próprio. A menção @aagencia.logos aparece sem contexto algum para o visitante.</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">Contém palavras-chave de SEO para o nicho?</div>
+          <div class="diag-a"><strong>Não.</strong> "Raphael Batista" é apenas nome próprio — sem qualificadores de nicho. A bio está vazia, logo não há termos que o público buscaria.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────
+       FASE 3 — DIAGNÓSTICO DOS DESTAQUES
+  ───────────────────────────────────────────────────────────── -->
+  <div class="section-header">
+    <div class="section-icon icon-yellow">📋</div>
+    <div>
+      <span class="phase">Fase 3</span>
+      <h2>Diagnóstico dos Destaques</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Jornada do cliente — cobertura</div>
+    <div class="journey-grid">
+      <div class="journey-item missing">❌ Apresentação / Quem sou</div>
+      <div class="journey-item missing">❌ Serviços / O que faço</div>
+      <div class="journey-item missing">❌ Resultados / Portfolio</div>
+      <div class="journey-item missing">❌ Depoimentos / Prova social</div>
+      <div class="journey-item missing">❌ Processo de trabalho</div>
+      <div class="journey-item missing">❌ FAQ</div>
+      <div class="journey-item missing">❌ Contato / Como contratar</div>
+      <div class="journey-item present">✅ Humanização (indireta)</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Pontos críticos dos destaques</div>
+    <div class="diag-list">
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">Organização estratégica</div>
+          <div class="diag-a">Todos os 7 destaques seguem a mesma lógica: <strong>arquivo cronológico da vida pessoal.</strong> Não há jornada do visitante, não há destaque profissional, não há serviços, depoimentos ou portfólio.</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail">❌</div>
+        <div>
+          <div class="diag-q">Nomenclatura (nomes por ano)</div>
+          <div class="diag-a">Claros para amigos e família. <strong>Completamente opacos para um cliente potencial.</strong> Um prospecto não vai abrir "2022" esperando encontrar algo relevante para sua decisão de contratação.</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-warn">⚠️</div>
+        <div>
+          <div class="diag-q">Identidade visual das capas</div>
+          <div class="diag-a">Fotos pessoais aleatórias dos stories. <strong>Sem design, ícones, paleta ou tratamento visual.</strong> Não há coerência entre si nem com a identidade de "Automação &amp; Marketing Digital".</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-warn">⚠️</div>
+        <div>
+          <div class="diag-q">Desatualização (2020–2022)</div>
+          <div class="diag-a">Destaques de 3 a 6 anos visíveis na primeira linha. Transmite <strong>sensação de abandono.</strong> O destaque de 2020 tem 312 slides — o maior e o mais irrelevante.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────
+       FASE 4 — PROPOSTAS DE BIO
+  ───────────────────────────────────────────────────────────── -->
+  <div class="section-header">
+    <div class="section-icon icon-purple">✏️</div>
+    <div>
+      <span class="phase">Fase 4</span>
+      <h2>Propostas de Reescrita da Bio</h2>
+    </div>
+  </div>
+
+  <div class="bio-version">
+    <div class="bio-version-header">
+      <div class="bio-version-title">Versão 1 — Autoridade e credencial</div>
+      <span class="badge badge-muted">~112 caracteres</span>
+    </div>
+    <div class="bio-version-body">
+      <div class="bio-copy">Raphael Batista | Automação &amp; Marketing Digital
+🚀 Estratégias que vendem enquanto você dorme
+Fundador @aagencia.logos
+📩 Projetos e parcerias 👇</div>
+      <div class="bio-context">Ideal quando Raphael quer ser reconhecido como referência no nicho de automação — especialmente se já tiver casos de sucesso. Posiciona como criador de algo (a agência) e não apenas como prestador de serviço.</div>
+    </div>
+  </div>
+
+  <div class="bio-version">
+    <div class="bio-version-header">
+      <div class="bio-version-title">Versão 2 — Conexão e identificação</div>
+      <span class="badge badge-muted">~130 caracteres</span>
+    </div>
+    <div class="bio-version-body">
+      <div class="bio-copy">Ajudo negócios a crescer com automação e marketing digital
+Sem complicação, sem enrolação 🎯
+Parceiro da @aagencia.logos
+Fala comigo 👇</div>
+      <div class="bio-context">Funciona melhor para PMEs e empreendedores que se sentem intimidados por tecnologia. O tom direto cria identificação imediata com quem quer resultado sem precisar entender de tudo.</div>
+    </div>
+  </div>
+
+  <div class="bio-version" style="border-color: rgba(131,58,180,0.4);">
+    <div class="bio-version-header">
+      <div class="bio-version-title">Versão 3 — Conversão direta</div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span class="badge badge-muted">~148 caracteres</span>
+        <span class="badge" style="background:rgba(131,58,180,0.15); color:#a78bfa; border-color:rgba(131,58,180,0.3);">⭐ Recomendada</span>
+      </div>
+    </div>
+    <div class="bio-version-body">
+      <div class="bio-copy" style="border-color: rgba(131,58,180,0.3);">Marketing digital + automação que geram resultado real
+✅ Mais leads. Mais vendas. Menos esforço manual.
+👇 Veja como posso ajudar o seu negócio</div>
+      <div class="bio-context">Pensada para visitantes vindos de anúncios ou busca ativa — pessoas que já têm um problema e estão avaliando profissionais. O foco em resultado concreto responde diretamente à pergunta "por que te contratar?" antes que ela seja feita. <strong>Recomendada se o objetivo principal for geração de leads.</strong></div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────
+       FASE 5 — REORGANIZAÇÃO DOS DESTAQUES
+  ───────────────────────────────────────────────────────────── -->
+  <div class="section-header">
+    <div class="section-icon icon-green">🗂️</div>
+    <div>
+      <span class="phase">Fase 5</span>
+      <h2>Proposta de Reorganização dos Destaques</h2>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Mapa de ações por destaque</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Destaque</th>
+            <th>Ação</th>
+            <th>Novo nome / Destino</th>
+            <th>Motivo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>2026 + 2025</strong></td>
+            <td><span class="status-merge">↗ Fundir</span></td>
+            <td><strong>"Vida"</strong> ou <strong>"Bastidores"</strong></td>
+            <td>Conteúdo idêntico — humanização em um único destaque curado (max 20–30 slides)</td>
+          </tr>
+          <tr>
+            <td><strong>2024</strong></td>
+            <td><span class="status-delete">✕ Excluir</span></td>
+            <td>—</td>
+            <td>+1 ano, dominado por eventos de organizações externas. Não agrega valor profissional.</td>
+          </tr>
+          <tr>
+            <td><strong>2023</strong></td>
+            <td><span class="status-delete">✕ Excluir</span></td>
+            <td>—</td>
+            <td>+2 anos de cotidiano sem relação com posicionamento profissional.</td>
+          </tr>
+          <tr>
+            <td><strong>2022</strong></td>
+            <td><span class="status-delete">✕ Excluir (urgente)</span></td>
+            <td>—</td>
+            <td>+3 anos. Passa sensação de abandono e desatualização.</td>
+          </tr>
+          <tr>
+            <td><strong>2021</strong></td>
+            <td><span class="status-delete">✕ Excluir</span></td>
+            <td>—</td>
+            <td>+4 anos. Problema grave de percepção de conta ativa.</td>
+          </tr>
+          <tr>
+            <td><strong>2020</strong></td>
+            <td><span class="status-delete">✕ Excluir (imediato)</span></td>
+            <td>—</td>
+            <td>+5 anos, 312 slides — o maior e o mais irrelevante. Exclusão imediata.</td>
+          </tr>
+          <tr>
+            <td><em>Novo</em></td>
+            <td><span class="status-create">+ Criar</span></td>
+            <td><strong>"Quem sou"</strong></td>
+            <td>5–8 slides apresentando trajetória, especialidades, ferramentas e diferencial.</td>
+          </tr>
+          <tr>
+            <td><em>Novo</em></td>
+            <td><span class="status-create">+ Criar</span></td>
+            <td><strong>"Serviços"</strong></td>
+            <td>6–10 slides descrevendo serviços, resultados esperados e CTA de contato.</td>
+          </tr>
+          <tr>
+            <td><em>Novo</em></td>
+            <td><span class="status-create">+ Criar</span></td>
+            <td><strong>"Resultados"</strong></td>
+            <td>Cases, prints de métricas, depoimentos. Prova social que converte interesse em confiança.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Ordem ideal dos destaques (esq → dir)</div>
+    <div class="order-list">
+      <div class="order-item">
+        <div class="order-pos">1</div>
+        <div>
+          <div class="order-name">Quem sou</div>
+          <div class="order-desc">Contextualiza quem é o profissional</div>
+        </div>
+      </div>
+      <div class="order-item">
+        <div class="order-pos">2</div>
+        <div>
+          <div class="order-name">Serviços</div>
+          <div class="order-desc">O que pode ser contratado</div>
+        </div>
+      </div>
+      <div class="order-item">
+        <div class="order-pos">3</div>
+        <div>
+          <div class="order-name">Resultados</div>
+          <div class="order-desc">Prova social, cases, depoimentos</div>
+        </div>
+      </div>
+      <div class="order-item">
+        <div class="order-pos">4</div>
+        <div>
+          <div class="order-name">Vida</div>
+          <div class="order-desc">Humanização — lado pessoal</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────────────────────
+       SÍNTESE EXECUTIVA
+  ───────────────────────────────────────────────────────────── -->
+  <div class="divider"></div>
+
+  <div class="section-header">
+    <div class="section-icon icon-pink">🎯</div>
+    <div>
+      <h2>Síntese Executiva</h2>
+    </div>
+  </div>
+
+  <div class="alert alert-purple">
+    <div class="alert-icon">💡</div>
+    <div>
+      <div class="alert-title">O sapateiro que anda descalço</div>
+      <div class="alert-text">Raphael tem o conhecimento técnico de automação e marketing declarado na categoria da conta — mas seu próprio perfil está desprovido de qualquer estratégia. <strong>É o contraste mais comum em profissionais de marketing digital que gerenciam outras marcas mas negligenciam a própria.</strong></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Três problemas críticos</div>
+    <div class="diag-list">
+      <div class="diag-item">
+        <div class="diag-icon diag-fail" style="font-size:18px;">①</div>
+        <div>
+          <div class="diag-q">Bio inexistente</div>
+          <div class="diag-a">O campo de bio está vazio. Um visitante novo não consegue entender quem é Raphael, o que ele faz, para quem serve ou como contratá-lo. <strong>Deve ser corrigido antes de qualquer outra ação.</strong></div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail" style="font-size:18px;">②</div>
+        <div>
+          <div class="diag-q">Destaques sem função profissional</div>
+          <div class="diag-a">7 destaques de arquivo cronológico da vida pessoal. Nenhum serve a um cliente potencial. Nenhum tem CTA, design ou lógica de jornada. São úteis como álbum pessoal, <strong>invisíveis como ferramenta de negócio.</strong></div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon diag-fail" style="font-size:18px;">③</div>
+        <div>
+          <div class="diag-q">Ausência total de prova social e serviços</div>
+          <div class="diag-a">Um profissional de marketing digital sem destaques de portfólio, resultados ou depoimentos passa uma mensagem preocupante involuntariamente — é como um médico sem diplomas na parede.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Prioridade de ação (em ordem)</div>
+    <div class="priority-list">
+      <div class="priority-item">
+        <div class="priority-num">1</div>
+        <div class="priority-text">Escrever a bio (Versão 3 recomendada)</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">2</div>
+        <div class="priority-text">Criar os destaques "Quem sou", "Serviços" e "Resultados"</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">3</div>
+        <div class="priority-text">Excluir os destaques de 2020, 2021, 2022, 2023 e 2024</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">4</div>
+        <div class="priority-text">Fundir 2025 + 2026 em um único destaque "Vida"</div>
+      </div>
+      <div class="priority-item">
+        <div class="priority-num">5</div>
+        <div class="priority-text">Atualizar o nome de exibição com palavra-chave do nicho</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Auditoria realizada em 17 de junho de 2026 · @rapha_mmbb · Bio &amp; Destaques
+</div>
+
+</body>
+</html>

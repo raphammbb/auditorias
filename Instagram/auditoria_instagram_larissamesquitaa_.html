@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria Instagram — @larissamesquitaa_</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0B0914;
+      --bg2:      #110E1F;
+      --bg3:      #171327;
+      --card:     #1C1832;
+      --border:   rgba(255,255,255,0.07);
+      --gold:     #C8923A;
+      --gold-l:   #F0C060;
+      --violet:   #7C3AED;
+      --violet-l: #A78BFA;
+      --rose:     #D4657A;
+      --text:     #F0E8D8;
+      --muted:    #8B7EA8;
+      --green:    #22C55E;
+      --red:      #EF4444;
+      --amber:    #F59E0B;
+      --grad:     linear-gradient(135deg, #C8923A 0%, #A78BFA 50%, #D4657A 100%);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ── ANIMATED GRADIENT TEXT ── */
+    .grad-text {
+      background: linear-gradient(270deg, #C8923A, #A78BFA, #F0C060, #D4657A, #C8923A);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradShift 6s ease infinite;
+    }
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+    .hero-blob:nth-child(1) { width: 500px; height: 500px; background: #7C3AED; top: -10%; left: -10%; animation-delay: 0s; }
+    .hero-blob:nth-child(2) { width: 400px; height: 400px; background: #C8923A; bottom: -5%; right: -5%; animation-delay: 3s; }
+    .hero-blob:nth-child(3) { width: 300px; height: 300px; background: #D4657A; top: 40%; left: 30%; animation-delay: 1.5s; }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(20px, -20px) scale(1.05); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
+
+    /* pill badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 100px;
+      padding: 8px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 32px;
+      backdrop-filter: blur(8px);
+    }
+    .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--grad);
+      flex-shrink: 0;
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 48px;
+    }
+    .hero-subtitle strong { color: var(--text); }
+
+    /* profile + score row */
+    .hero-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    /* profile photo */
+    .profile-wrap {
+      position: relative;
+      width: 130px;
+      height: 130px;
+      flex-shrink: 0;
+    }
+    .profile-orbit {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 2px dashed rgba(200,146,58,0.4);
+      animation: orbit 6s linear infinite;
+    }
+    @keyframes orbit { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .orbit-dot {
+      position: absolute;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px var(--gold);
+    }
+    .profile-img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      animation: profileFloat 4s ease-in-out infinite;
+    }
+    @keyframes profileFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* score circle */
+    .score-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(var(--gold) 0% 62%, rgba(255,255,255,0.06) 62%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      animation: scoreGlow 3s ease-in-out infinite;
+    }
+    .score-circle::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+    @keyframes scoreGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(200,146,58,0.3); }
+      50% { box-shadow: 0 0 40px rgba(200,146,58,0.6); }
+    }
+    .score-num {
+      position: relative;
+      z-index: 1;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    .score-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+    /* metric cards */
+    .metrics-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 28px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .metric-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold-l);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .metric-label { font-size: 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── SECTION LAYOUT ── */
+    .section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .section.visible { opacity: 1; transform: translateY(0); }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .section-tag::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 32px;
+      color: var(--text);
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+    }
+    .card + .card { margin-top: 16px; }
+
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold-l);
+      margin-bottom: 12px;
+    }
+
+    .card p { color: rgba(240,232,216,0.8); line-height: 1.7; font-size: 15px; }
+    .card p + p { margin-top: 12px; }
+
+    /* eval tag */
+    .eval {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .eval.ok { background: rgba(34,197,94,0.12); color: #22C55E; border: 1px solid rgba(34,197,94,0.2); }
+    .eval.warn { background: rgba(245,158,11,0.12); color: #F59E0B; border: 1px solid rgba(245,158,11,0.2); }
+    .eval.bad { background: rgba(239,68,68,0.12); color: #EF4444; border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ── BIO GRID ── */
+    .bio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width:600px){ .bio-grid { grid-template-columns: 1fr; } }
+
+    .bio-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+    .bio-item-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+    .bio-item-val { font-size: 14px; color: var(--text); font-weight: 500; }
+    .bio-item-val.present { color: var(--green); }
+    .bio-item-val.absent { color: var(--red); }
+    .bio-item-val.partial { color: var(--amber); }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--bg3);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    tbody tr { border-top: 1px solid var(--border); }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td { padding: 12px 16px; font-size: 13px; color: rgba(240,232,216,0.85); vertical-align: top; }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .rank-1 { background: rgba(245,200,66,0.2); color: #F5C842; border: 1px solid rgba(245,200,66,0.4); }
+    .rank-2 { background: rgba(168,178,192,0.2); color: #A8B2C0; border: 1px solid rgba(168,178,192,0.3); }
+    .rank-3 { background: rgba(205,124,66,0.2); color: #CD7C42; border: 1px solid rgba(205,124,66,0.3); }
+    .rank-other { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+    .score-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(200,146,58,0.15);
+      color: var(--gold);
+      border: 1px solid rgba(200,146,58,0.3);
+    }
+
+    /* ── HIGHLIGHT BAR ── */
+    .bar-wrap { margin-top: 12px; }
+    .bar-label { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .bar-track { height: 6px; background: rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 10px; background: var(--grad); width: 0; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
+
+    /* ── INSIGHTS ── */
+    .insight-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .insight-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .insight-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: rgba(200,146,58,0.12);
+      border: 1px solid rgba(200,146,58,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .insight-text { font-size: 14px; line-height: 1.7; color: rgba(240,232,216,0.85); }
+
+    /* ── RECOMENDAÇÕES ── */
+    .rec-list { display: flex; flex-direction: column; gap: 16px; }
+    .rec-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .rec-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: rgba(200,146,58,0.3);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 44px;
+    }
+    .rec-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--gold-l);
+      margin-bottom: 8px;
+    }
+    .rec-body p { font-size: 14px; color: rgba(240,232,216,0.8); line-height: 1.7; }
+
+    /* ── BLUR TEASER ── */
+    .blur-section-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .blur-inner {
+      filter: blur(5px);
+      user-select: none;
+      pointer-events: none;
+    }
+    .blur-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(11,9,20,0.5) 30%,
+        rgba(11,9,20,0.88) 65%,
+        #0B0914 100%
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 40px 24px;
+      z-index: 2;
+    }
+    .blur-lock-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: rgba(200,146,58,0.12);
+      border: 1px solid rgba(200,146,58,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      animation: lockPulse 2.5s ease-in-out infinite;
+    }
+    @keyframes lockPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,58,0.3); }
+      50% { box-shadow: 0 0 0 12px rgba(200,146,58,0); }
+    }
+    .blur-cta-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+      text-align: center;
+    }
+    .blur-cta-sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .blur-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--grad);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 100px;
+      text-decoration: none;
+      cursor: default;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── QUICK WINS TAG ── */
+    .qw-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34,197,94,0.1);
+      color: var(--green);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .qw-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 12px;
+    }
+    .qw-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: rgba(34,197,94,0.4);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .qw-body h3 { font-size: 14px; font-weight: 600; color: var(--green); margin-bottom: 6px; }
+    .qw-body p { font-size: 13px; color: rgba(240,232,216,0.75); line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 60px 24px 40px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    footer p { font-size: 13px; color: var(--muted); }
+
+    /* ── DESTAQUES TABLE SMALL TEXT ── */
+    .hl-status-ok  { color: var(--green); font-weight: 600; }
+    .hl-status-bad { color: var(--red); font-weight: 600; }
+    .hl-status-mid { color: var(--amber); font-weight: 600; }
+    .hl-cta-sim  { color: var(--green); }
+    .hl-cta-nao  { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-blob"></div>
+  <div class="hero-blob"></div>
+  <div class="hero-blob"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Auditoria de Conteúdo · Instagram · 19/06/2026
+    </div>
+
+    <h1 class="grad-text">Manual de Boas Práticas</h1>
+
+    <p class="hero-subtitle">
+      Análise de desempenho para <strong>@larissamesquitaa_</strong> · Larissa Mesquita
+    </p>
+
+    <div class="hero-row">
+      <!-- profile photo -->
+      <div class="profile-wrap">
+        <div class="profile-orbit"><div class="orbit-dot"></div></div>
+        <img
+          class="profile-img"
+          src="data:image/jpeg;base64,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"
+          alt="Foto de perfil @larissamesquitaa_"
+        />
+      </div>
+
+      <!-- score -->
+      <div class="score-wrap">
+        <div class="score-circle">
+          <span class="score-num" data-countup="6.2" data-decimals="1">0</span>
+        </div>
+        <span class="score-label">Score Geral /10</span>
+      </div>
+    </div>
+
+    <!-- metric cards -->
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-val" data-countup="14" data-suffix="K">0</div>
+        <div class="metric-label">Seguidores</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" data-countup="7">0</div>
+        <div class="metric-label">Posts Analisados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" data-countup="327">0</div>
+        <div class="metric-label">Score Médio</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" data-countup="141">0</div>
+        <div class="metric-label">Salvamentos Top Post</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ AVISO AMOSTRA ═══ -->
+<div class="section visible" style="padding-top:32px;padding-bottom:32px;">
+  <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:14px;padding:16px 20px;display:flex;gap:12px;align-items:flex-start;">
+    <span style="font-size:20px;flex-shrink:0;">⚠️</span>
+    <p style="font-size:13px;color:rgba(245,158,11,0.9);line-height:1.6;margin:0;">
+      <strong style="color:#F59E0B;">Amostra reduzida</strong> — análise baseada nos 7 posts mais recentes. Use como primeira impressão, não como diagnóstico definitivo.
+    </p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ VISÃO GERAL ═══ -->
+<section class="section">
+  <div class="section-tag">Diagnóstico</div>
+  <h2 class="section-title">Visão Geral do Perfil</h2>
+  <div class="card">
+    <p>
+      Larissa Mesquita é pastora com 14 mil seguidores e uma identidade temática clara — fé, família e liderança —, mas o perfil opera num território híbrido entre perfil pessoal e conta ministerial <strong style="color:var(--amber);">sem ter decidido o que quer ser</strong>.
+    </p>
+    <p>
+      O Reel com maior engajamento (<strong style="color:var(--gold-l);">971 curtidas, 141 salvamentos</strong>) prova que a conta tem potência quando dispara conteúdo com tensão e verdade. O problema é que essa potência aparece de forma irregular, intercalada com posts colaborativos que fragmentam a voz autoral e posts de baixíssimo engajamento que indicam ausência de estratégia de distribuição.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ BIO & LINK ═══ -->
+<section class="section">
+  <div class="section-tag">Identidade</div>
+  <h2 class="section-title">Bio & Link</h2>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Bio atual</div>
+    <p style="font-style:italic;color:rgba(240,232,216,0.6);margin-bottom:12px;">
+      "Dele, por Ele e para Ele! ✝️ | 🖊️ @danilomesquita_ | Mãe de 3 • Pastora @igrejavoeonline | Família | Liderança | Inclusão | Adoção"
+    </p>
+    <span class="eval warn">⚡ Parcial — comunica quem é, mas não diz para quem fala nem o que o seguidor ganha</span>
+  </div>
+
+  <div class="bio-grid" style="margin-bottom:16px;">
+    <div class="bio-item">
+      <div class="bio-item-label">CTA na Bio</div>
+      <div class="bio-item-val absent">Não — sem frase de ação</div>
+    </div>
+    <div class="bio-item">
+      <div class="bio-item-label">Palavras-chave</div>
+      <div class="bio-item-val present">Sim — Família, Liderança, Inclusão, Adoção</div>
+    </div>
+    <div class="bio-item">
+      <div class="bio-item-label">Link</div>
+      <div class="bio-item-val present">Presente — Linktree ativo</div>
+    </div>
+    <div class="bio-item">
+      <div class="bio-item-label">Linktree</div>
+      <div class="bio-item-val partial">3 destinos: Canal, Podcast, Agendas</div>
+    </div>
+    <div class="bio-item">
+      <div class="bio-item-label">Coerência com perfil</div>
+      <div class="bio-item-val partial">Sim — mas sem contexto para preparar o clique</div>
+    </div>
+    <div class="bio-item">
+      <div class="bio-item-label">Posicionamento</div>
+      <div class="bio-item-val absent">Vago — não define audiência nem proposta de valor</div>
+    </div>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--gold);">
+    <div class="card-title">💡 O que melhorar</div>
+    <p>Adicionar uma frase de posicionamento mais clara — ex.: <em style="color:var(--gold-l);">"Fé, família e liderança para mulheres que constroem algo com Deus"</em> — e um CTA direto, como <em style="color:var(--gold-l);">"Ouça meu podcast ↓"</em>.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ GRID VISUAL ═══ -->
+<section class="section">
+  <div class="section-tag">Presença Visual</div>
+  <h2 class="section-title">Grid Visual</h2>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Identidade visual</div>
+    <span class="eval warn">⚡ Irregular — momentos de elegância, falta consistência</span>
+    <p style="margin-top:12px;">
+      Há posts com tratamento gráfico cuidadoso (tipografia serifada branca sobre fundo editorial), outros com vídeos caseiros sem nenhum elemento visual unificador, e posts colaborativos da Conferência Refloresça com identidade completamente distinta.
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Convida a seguir?</div>
+    <span class="eval warn">⚡ Parcialmente</span>
+    <p style="margin-top:12px;">
+      Quem chega pelo Reel de Família vê um grid que não confirma visualmente a qualidade do conteúdo. A mistura de posts de alta produção com vídeos caseiros e posts de terceiros (colaborativos) cria uma <strong style="color:var(--amber);">primeira impressão fragmentada</strong> para novos visitantes.
+    </p>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:12px;">
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">
+        <span>Consistência visual</span><span style="color:var(--amber);">4/10</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" data-width="40%"></div></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">
+        <span>Qualidade de produção (melhor post)</span><span style="color:var(--green);">8/10</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" data-width="80%"></div></div>
+    </div>
+    <div>
+      <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;">
+        <span>Identidade de marca</span><span style="color:var(--amber);">5/10</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill" data-width="50%"></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ DESTAQUES ═══ -->
+<section class="section">
+  <div class="section-tag">Stories</div>
+  <h2 class="section-title">Destaques de Stories</h2>
+
+  <div class="card" style="margin-bottom:24px;">
+    <span class="eval bad">✗ Lacuna estratégica crítica</span>
+    <p style="margin-top:12px;">
+      Mais de 20 destaques, a maioria álbuns de viagem desatualizados que ocupam espaço estratégico sem entregar valor ao seguidor. O único destaque com CTA de produto é o <strong style="color:var(--gold-l);">"Dicas da Lari"</strong>, que aponta para uma oportunidade de monetização subutilizada. A <strong style="color:var(--red);">ausência de destaques sobre Fé, Família, Liderança ou Adoção</strong> — temas declarados na bio — é a principal lacuna estratégica.
+    </p>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tema</th>
+          <th>CTA</th>
+          <th>Qualidade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Dicas da Lari</strong></td><td>Dicas de produtos</td><td class="hl-cta-sim">✓ Link de produto</td><td class="hl-status-mid">Razoável</td><td class="hl-status-ok">Recente (~18 sem)</td></tr>
+        <tr><td>Madrid</td><td>Viagem a Madri</td><td class="hl-cta-nao">—</td><td class="hl-status-mid">Razoável</td><td class="hl-status-ok">~5 sem</td></tr>
+        <tr><td>RFLWR 25</td><td>Conferência Refloresça</td><td class="hl-cta-nao">—</td><td class="hl-status-mid">Razoável</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Bethel Church</td><td>Visita à Bethel</td><td class="hl-cta-nao">—</td><td class="hl-status-mid">Razoável</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Rick Warren</td><td>Visita a Rick Warren</td><td class="hl-cta-nao">—</td><td class="hl-status-mid">Razoável</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Israel</td><td>Viagem a Israel</td><td class="hl-cta-nao">—</td><td class="hl-status-mid">Razoável</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Grécia</td><td>Viagem à Grécia</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Boston</td><td>Viagem a Boston</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">~16 sem</td></tr>
+        <tr><td>NYC ❤️</td><td>Nova York</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">~17 sem</td></tr>
+        <tr><td>Paris</td><td>Viagem a Paris</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Los Angeles</td><td>Viagem a LA</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Dubai</td><td>Viagem a Dubai</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">Desatualizado</td></tr>
+        <tr><td>Igreja Voe</td><td>Ministério</td><td class="hl-cta-nao">—</td><td class="hl-status-mid">Razoável</td><td class="hl-status-bad">~444 sem</td></tr>
+        <tr><td>Viagens</td><td>Diversas</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">~444 sem</td></tr>
+        <tr><td>My team!</td><td>Equipe/bastidores</td><td class="hl-cta-nao">—</td><td class="hl-status-bad">Irregular</td><td class="hl-status-bad">~438 sem</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ RANKING ═══ -->
+<section class="section">
+  <div class="section-tag">Desempenho</div>
+  <h2 class="section-title">Ranking de Engajamento</h2>
+  <p style="color:var(--muted);font-size:14px;margin-bottom:24px;">Score = curtidas + (comentários × 4) + (salvamentos × 2) — pesos aproximados.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Formato</th>
+          <th>Score</th>
+          <th>Curtidas</th>
+          <th>Coment.</th>
+          <th>Tema</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="rank-badge rank-1">1</span></td>
+          <td>Reel próprio</td>
+          <td><span class="score-pill">1.052</span></td>
+          <td>971</td>
+          <td>27</td>
+          <td>Família como prioridade no ministério</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-2">2</span></td>
+          <td>Reel colaborativo</td>
+          <td><span class="score-pill">322</span></td>
+          <td>265</td>
+          <td>19</td>
+          <td>Dia dos Namorados / fases do amor</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-3">3</span></td>
+          <td>Reel próprio</td>
+          <td><span class="score-pill">271</span></td>
+          <td>253</td>
+          <td>6</td>
+          <td>Vida leve a dois</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-other">4</span></td>
+          <td>Reel colaborativo (Refloresça)</td>
+          <td><span class="score-pill">232</span></td>
+          <td>154</td>
+          <td>26</td>
+          <td>Conferência Refloresça / Midian Lima</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-other">5</span></td>
+          <td>Carrossel próprio</td>
+          <td><span class="score-pill">200</span></td>
+          <td>173</td>
+          <td>9</td>
+          <td>Desobediência que nasce de boa vontade</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-other">6</span></td>
+          <td>Reel próprio</td>
+          <td><span class="score-pill">116</span></td>
+          <td>104</td>
+          <td>4</td>
+          <td>Tribulação / Perseverança</td>
+        </tr>
+        <tr>
+          <td><span class="rank-badge rank-other">7</span></td>
+          <td>Reel colaborativo (Refloresça)</td>
+          <td><span class="score-pill">98</span></td>
+          <td>83</td>
+          <td>5</td>
+          <td>Permita-se ser encontrada</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ O QUE FUNCIONA ═══ -->
+<section class="section">
+  <div class="section-tag">Boas Práticas</div>
+  <h2 class="section-title">O que está funcionando</h2>
+
+  <div class="card" style="margin-bottom:16px;border-left:3px solid var(--gold);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div class="card-title" style="margin:0;">Reel "Família é Prioridade"</div>
+      <span class="score-pill" style="font-size:14px;">Score: 1.052 · 141 salvamentos</span>
+    </div>
+    <p>
+      Este é o post que revela o <strong style="color:var(--gold-l);">ativo real do perfil</strong>. O tema tem tensão real para o público-alvo (líderes e pastoras que vivem o dilema de servir no ministério enquanto negligenciam o lar). A frase de abertura <em>"Antes de servir fora, cuide do que Deus confiou dentro"</em> é direta e cria identificação imediata.
+    </p>
+    <p>
+      Os <strong style="color:var(--gold-l);">141 salvamentos</strong> são o dado mais revelador da análise — significa que a audiência quer reler esse conteúdo, o que indica uma palavra que toca um ponto de dor real. A produção visual também contribui: Larissa pregando em palco, com autoridade visual.
+    </p>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--violet-l);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div class="card-title" style="margin:0;">Reel "Dia dos Namorados" com marido</div>
+      <span class="score-pill" style="font-size:14px;">Score: 322</span>
+    </div>
+    <p>
+      O formato colaborativo com o marido (@danilomesquita_) funcionou bem pelo conteúdo prático segmentado (<em>"se você está solteiro… se você está namorando…"</em>) e pela presença do casal, que gera identificação.
+    </p>
+    <p>
+      A CTA com pergunta (<em>"Qual dessas fases você está vivendo hoje?"</em>) é o <strong style="color:var(--violet-l);">único exemplo nos 7 posts de uma pergunta direta que convida a comentar</strong> — e funcionou, com 19 comentários.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ AUDIÊNCIA ═══ -->
+<section class="section">
+  <div class="section-tag">Voz da Audiência</div>
+  <h2 class="section-title">O que a audiência está dizendo</h2>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Comentários do Post #1 — "Família é Prioridade"</div>
+    <p>
+      Predominam <strong style="color:var(--gold-l);">elogios e confirmações emocionais</strong> ("Transborda minha Pastora 🔥", "Vdd, muito estão trocando essa prioridade") com presença de depoimentos pessoais (fernandanakaima conta mudança de vida real) e marcações afetivas (o marido @danilomesquita_ comentou apenas "Minha ❤️").
+    </p>
+  </div>
+
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">Desejo latente da audiência</div>
+    <p>
+      Não há perguntas explícitas nos comentários, mas o depoimento de fernandanakaima revela um desejo claro: <strong style="color:var(--gold-l);">a audiência busca transformação real no lar</strong>, não só inspiração momentânea. Isso abre espaço para produtos e serviços práticos (curso, mentoria, evento).
+    </p>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--red);">
+    <div class="card-title" style="color:var(--red);">Atenção: sem respostas</div>
+    <p>
+      <strong style="color:var(--red);">Nenhuma resposta</strong> de @larissamesquitaa_ foi encontrada nos comentários do post de maior engajamento. A audiência já identificou Larissa como voz de autoridade sobre família e fé — o silêncio deixa conexão e alcance na mesa.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ O QUE NÃO FUNCIONA ═══ -->
+<section class="section">
+  <div class="section-tag">Gaps</div>
+  <h2 class="section-title">O que não está funcionando</h2>
+
+  <div class="card" style="margin-bottom:16px;border-left:3px solid var(--red);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div class="card-title" style="margin:0;">Reel colaborativo Refloresça — "Permita-se ser encontrada"</div>
+      <span class="score-pill" style="font-size:14px;color:var(--red);border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.1);">Score: 98</span>
+    </div>
+    <p>
+      Post excelente em intenção, mas falhou em distribuição: foi publicado pela conta @conferenciarefloresca com co-autoria de Larissa, o que fragmenta a percepção de autoria. A audiência não sabe se é ela falando ou a conferência. O visual de terceiros dilui a voz da Larissa no grid.
+    </p>
+    <p style="margin-top:12px;color:var(--muted);font-size:13px;">
+      Posts colaborativos de marcas/eventos tendem a performar menos no perfil da pessoa marcada.
+    </p>
+  </div>
+
+  <div class="card" style="border-left:3px solid var(--red);">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+      <div class="card-title" style="margin:0;">Reel "Tribulação / Perseverança"</div>
+      <span class="score-pill" style="font-size:14px;color:var(--red);border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.1);">Score: 116</span>
+    </div>
+    <p>
+      O tema é relevante, mas o post falha na execução: Reel caseiro sem produção visual, abertura genérica ("Tribulação não é o fim da sua história"), sem elemento de tensão ou especificidade que prenda a audiência.
+    </p>
+    <p style="margin-top:12px;">
+      Comparado ao Post #1 — mesmo nicho espiritual, mas com frase de abertura com tensão real — o Post #6 não entrega o <strong style="color:var(--amber);">gancho inicial necessário</strong> para o algoritmo de Reels.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ INSIGHTS ═══ -->
+<section class="section">
+  <div class="section-tag">Análise Estratégica</div>
+  <h2 class="section-title">Principais Insights</h2>
+
+  <ul class="insight-list">
+    <li class="insight-item">
+      <div class="insight-icon">🔥</div>
+      <p class="insight-text">
+        <strong>A audiência reage fortemente a conteúdo que combina verdade espiritual com aplicação prática no cotidiano familiar.</strong> O Post #1 não é só o mais curtido — tem 141 salvamentos, sinal inequívoco de que o tema família/ministério ressoa profundamente. Os outros posts espirituais genéricos performam significativamente abaixo.
+      </p>
+    </li>
+    <li class="insight-item">
+      <div class="insight-icon">🎬</div>
+      <p class="insight-text">
+        <strong>O Reel é o formato dominante (6 dos 7 posts), mas a diferença de performance entre eles é enorme</strong> (de 83 a 971 curtidas). Isso indica que o problema não é o formato — é a qualidade do gancho inicial e a especificidade do tema.
+      </p>
+    </li>
+    <li class="insight-item">
+      <div class="insight-icon">📣</div>
+      <p class="insight-text">
+        <strong>Posts colaborativos com a Conferência Refloresça trazem visibilidade para o evento, mas não para Larissa como criadora de conteúdo.</strong> O Post #3 gerou 26 comentários mas quase todos sobre a convidada Midian Lima, não sobre a anfitriã Larissa.
+      </p>
+    </li>
+  </ul>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ RECOMENDAÇÕES — 1 visível + blur ═══ -->
+<section class="section">
+  <div class="section-tag">Plano de Ação</div>
+  <h2 class="section-title">Recomendações Práticas</h2>
+
+  <!-- 1ª recomendação — visível -->
+  <div class="rec-list" style="margin-bottom:16px;">
+    <div class="rec-item">
+      <div class="rec-num">1</div>
+      <div class="rec-body">
+        <h3>Transformar o tema família/ministério em série de Reels</h3>
+        <p>
+          O Post #1 provou que existe um ponto de dor real e subexplorado nesse nicho. Uma série de 4 a 6 Reels com dilemas específicos da vida de líderes e mães (<em>"Quando você ama mais o palco do que a mesa"</em>, <em>"O que ninguém fala sobre ser pastora e mãe ao mesmo tempo"</em>) tem alto potencial de replicar e superar aquele resultado. Não fazer isso é deixar o ativo mais valioso do perfil dormindo.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2, 3, 4 — blur teaser -->
+  <div class="blur-section-wrap">
+    <div class="blur-inner">
+      <div class="rec-list">
+        <div class="rec-item">
+          <div class="rec-num">2</div>
+          <div class="rec-body">
+            <h3>Criar pelo menos 3 destaques estratégicos e arquivar os álbuns de viagem</h3>
+            <p>A seção de destaques atual é uma sala de troféus pessoais, não uma vitrine de valor para o seguidor. Destaques prioritários a criar: Fé, Família e Refloresça 2026. Os álbuns de viagem devem ser arquivados ou consolidados em um único destaque "Viagens".</p>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-num">3</div>
+          <div class="rec-body">
+            <h3>Responder comentários sistematicamente nos primeiros 30 minutos após publicação</h3>
+            <p>Nenhuma resposta foi encontrada nos comentários do post de maior engajamento. Além do sinal de cuidado com a comunidade, responder nas primeiras horas é um dos principais sinais para o algoritmo de que o post merece distribuição orgânica adicional.</p>
+          </div>
+        </div>
+        <div class="rec-item">
+          <div class="rec-num">4</div>
+          <div class="rec-body">
+            <h3>Parar de publicar posts colaborativos de terceiros no próprio grid sem estratégia</h3>
+            <p>Os Posts #3 e #4 são da conta @conferenciarefloresca e aparecem no grid como co-autora. Resultado: menor engajamento, identidade visual fragmentada. O evento deve ser comunicado em posts próprios, com a voz e o rosto dela.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="blur-overlay">
+      <div class="blur-lock-icon">🔒</div>
+      <div class="blur-cta-title">3 recomendações adicionais</div>
+      <div class="blur-cta-sub">Disponível no relatório completo de auditoria</div>
+      <span class="blur-cta-btn">Ver relatório completo</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ QUICK WINS — blur total ═══ -->
+<section class="section">
+  <div class="section-tag">Ação Imediata</div>
+  <h2 class="section-title">Quick Wins — Próximos 5 Dias</h2>
+
+  <div class="blur-section-wrap">
+    <div class="blur-inner">
+      <div class="qw-tag">⚡ Ação imediata</div>
+      <div class="qw-item">
+        <div class="qw-num">1</div>
+        <div class="qw-body">
+          <h3>Publicar Reel com tema de alta tensão</h3>
+          <p>Aproveitar a onda do Post #2, que ainda tem impulso algorítmico, com um conteúdo de mesma tensão e especificidade. Não precisa de produção elaborada — câmera boa ou celular horizontal já resolve.</p>
+        </div>
+      </div>
+      <div class="qw-item">
+        <div class="qw-num">2</div>
+        <div class="qw-body">
+          <h3>Responder comentários + criar destaque "Família"</h3>
+          <p>Responder todos os comentários não respondidos do Post #1 e transformar o melhor conteúdo já existente em ativo sempre visível para novos seguidores.</p>
+        </div>
+      </div>
+    </div>
+    <div class="blur-overlay" style="background:linear-gradient(to bottom,transparent 0%,rgba(11,9,20,0.6) 20%,rgba(11,9,20,0.9) 55%,#0B0914 100%);">
+      <div class="blur-lock-icon">🔒</div>
+      <div class="blur-cta-title">Quick Wins detalhados</div>
+      <div class="blur-cta-sub">Acesse o plano de ação completo com passos, exemplos e roteiros prontos</div>
+      <span class="blur-cta-btn">Quero o plano completo</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Agência Logos</div>
+  <p>Auditoria gerada em 19/06/2026 · @larissamesquitaa_ · Uso interno</p>
+  <p style="margin-top:8px;font-size:11px;opacity:0.5;">Análise baseada em amostra de 7 posts — não representa o histórico completo do perfil.</p>
+</footer>
+
+<script>
+  /* ── FADE-IN ON SCROLL ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.section').forEach(s => observer.observe(s));
+
+  /* ── COUNT-UP ── */
+  function countUp(el) {
+    const target = parseFloat(el.dataset.countup);
+    const decimals = parseInt(el.dataset.decimals || 0);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - elapsed, 3);
+      const val = eased * target;
+      el.textContent = val.toFixed(decimals) + suffix;
+      if (elapsed < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        countUp(e.target);
+        countObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-countup]').forEach(el => countObserver.observe(el));
+
+  /* ── BARS ── */
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.width = e.target.dataset.width;
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.bar-fill').forEach(b => barObserver.observe(b));
+</script>
+</body>
+</html>

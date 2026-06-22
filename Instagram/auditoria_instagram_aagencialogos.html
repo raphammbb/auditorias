@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria Instagram — @aagencia.logos · Agência Logos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #5B3FF8;
+      --purple-light: #8B5CF6;
+      --purple-pale: #A78BFA;
+      --grad: linear-gradient(135deg, #5B3FF8, #8B5CF6, #A78BFA);
+      --bg: #0C0B14;
+      --bg2: #110F1E;
+      --bg3: #16132A;
+      --card: #1A1730;
+      --card2: #1F1C38;
+      --border: rgba(91,63,248,0.18);
+      --border2: rgba(255,255,255,0.06);
+      --text: #F0EFF8;
+      --muted: #8884AA;
+      --gold: #F5C842;
+      --silver: #A8B2C0;
+      --bronze: #CD7C42;
+      --green: #22C55E;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* ── GRAD TEXT ── */
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── ANIMATED GRADIENT ── */
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .grad-anim {
+      background: linear-gradient(270deg, #5B3FF8, #8B5CF6, #A78BFA, #5B3FF8);
+      background-size: 400% 400%;
+      animation: gradShift 6s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 90% 70% at 50% 40%, rgba(91,63,248,0.22) 0%, rgba(139,92,246,0.08) 55%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ── BLOBS ── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 520px; height: 520px;
+      background: #5B3FF8;
+      top: -120px; left: -120px;
+      animation: blobFloat1 14s ease-in-out infinite;
+    }
+    .blob-2 {
+      width: 380px; height: 380px;
+      background: #A78BFA;
+      bottom: -80px; right: -80px;
+      animation: blobFloat2 18s ease-in-out infinite;
+    }
+    .blob-3 {
+      width: 260px; height: 260px;
+      background: #8B5CF6;
+      top: 50%; left: 60%;
+      animation: blobFloat3 11s ease-in-out infinite;
+    }
+
+    @keyframes blobFloat1 {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      50%       { transform: translate(60px, 40px) scale(1.1); }
+    }
+    @keyframes blobFloat2 {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      50%       { transform: translate(-50px, -30px) scale(1.08); }
+    }
+    @keyframes blobFloat3 {
+      0%, 100% { transform: translate(-50%,-50%) scale(1); }
+      50%       { transform: translate(-50%,-50%) scale(1.15) rotate(20deg); }
+    }
+
+    /* ── BADGE PILL ── */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(91,63,248,0.15);
+      border: 1px solid rgba(91,63,248,0.35);
+      border-radius: 999px;
+      padding: 7px 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--purple-pale);
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+    .badge-dot {
+      width: 7px; height: 7px;
+      background: var(--purple-light);
+      border-radius: 50%;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.5); }
+    }
+
+    /* ── COVER TITLE ── */
+    .cover-title {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .cover-sub {
+      font-size: clamp(1rem, 2.5vw, 1.22rem);
+      color: var(--muted);
+      font-weight: 400;
+      margin-bottom: 44px;
+      position: relative;
+    }
+    .cover-sub strong { color: var(--purple-pale); font-weight: 600; }
+
+    /* ── SCORE CIRCLE ── */
+    .score-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .score-circle {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: var(--bg3);
+      border: 3px solid var(--purple);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 40px rgba(91,63,248,0.5), 0 0 80px rgba(91,63,248,0.2);
+      animation: scorePulse 3s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes scorePulse {
+      0%, 100% { box-shadow: 0 0 40px rgba(91,63,248,0.5), 0 0 80px rgba(91,63,248,0.2); }
+      50%       { box-shadow: 0 0 60px rgba(91,63,248,0.8), 0 0 120px rgba(91,63,248,0.35); }
+    }
+    .score-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .score-den {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .score-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+
+    /* ── METRICS ROW ── */
+    .metrics-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 22px;
+      min-width: 130px;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .metric-card:hover {
+      border-color: rgba(91,63,248,0.5);
+      box-shadow: 0 0 20px rgba(91,63,248,0.15);
+    }
+    .metric-val {
+      font-size: 1.55rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    .metric-lbl {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    /* ── COVER FOOTNOTE ── */
+    .cover-footnote {
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border2);
+      padding-top: 18px;
+      max-width: 480px;
+      position: relative;
+    }
+
+    /* ── METODOLOGIA NOTE ── */
+    .method-note {
+      background: rgba(91,63,248,0.07);
+      border-left: 3px solid var(--purple);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 20px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+    .method-note strong { color: var(--purple-pale); }
+
+    /* ── SECTION ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 24px;
+      border-bottom: 1px solid var(--border2);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── SECTION HEADER ── */
+    .sec-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 8px;
+    }
+    .sec-title {
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── PROSE ── */
+    .prose {
+      font-size: 1rem;
+      color: #C8C5E0;
+      line-height: 1.75;
+      max-width: 72ch;
+    }
+    .prose strong { color: var(--text); }
+    .prose em { color: var(--purple-pale); font-style: normal; font-weight: 600; }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 16px 18px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .info-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 0 16px rgba(91,63,248,0.1);
+    }
+    .info-card-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .info-card-val {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tag-yes { color: var(--green); }
+    .tag-no  { color: var(--red); }
+    .tag-mid { color: var(--yellow); }
+    .tag-purple { color: var(--purple-pale); }
+
+    /* ── TABLE ── */
+    .tbl-wrap { overflow-x: auto; margin-top: 24px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    thead tr { background: rgba(91,63,248,0.15); }
+    thead th {
+      padding: 12px 14px;
+      text-align: left;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+      color: var(--purple-pale);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+    tbody tr {
+      border-bottom: 1px solid var(--border2);
+      transition: background 0.15s;
+    }
+    tbody tr:hover { background: rgba(91,63,248,0.06); }
+    tbody td {
+      padding: 11px 14px;
+      color: #C8C5E0;
+      vertical-align: middle;
+    }
+    .rank-gold   { color: var(--gold); font-weight: 700; }
+    .rank-silver { color: var(--silver); font-weight: 700; }
+    .rank-bronze { color: var(--bronze); font-weight: 700; }
+    .rank-num    { color: var(--muted); }
+
+    /* ── FORMAT BARS ── */
+    .format-grid { display: flex; flex-direction: column; gap: 18px; margin-top: 24px; }
+    .format-row { }
+    .format-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .format-name { font-weight: 600; font-size: 0.9rem; }
+    .format-pct  { font-size: 0.82rem; color: var(--muted); }
+    .bar-bg {
+      height: 8px;
+      background: var(--card2);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--grad);
+      width: 0%;
+      transition: width 1.2s ease;
+    }
+    .format-meta { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+
+    /* ── INSIGHT LIST ── */
+    .insight-list { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .insight-item {
+      display: flex;
+      gap: 14px;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 16px 18px;
+      align-items: flex-start;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .insight-item:hover {
+      border-color: var(--border);
+      box-shadow: 0 0 18px rgba(91,63,248,0.1);
+    }
+    .insight-num {
+      min-width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(91,63,248,0.2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--purple-pale);
+      flex-shrink: 0;
+    }
+    .insight-text { font-size: 0.92rem; color: #C8C5E0; line-height: 1.6; }
+    .insight-text strong { color: var(--text); }
+
+    /* ── WIN LIST ── */
+    .win-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .win-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: default;
+      transition: border-color 0.2s;
+    }
+    .win-item:hover { border-color: var(--border); }
+    .win-icon {
+      width: 28px; height: 28px;
+      border-radius: 8px;
+      background: rgba(91,63,248,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .win-text { font-size: 0.9rem; color: #C8C5E0; line-height: 1.55; }
+
+    /* ── BULLET LIST ── */
+    .bullet-list { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .bullet-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.92rem; color: #C8C5E0; line-height: 1.6;
+    }
+    .bullet-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--purple);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    /* ── PHASE CARDS ── */
+    .phase-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 24px; }
+    .phase-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+    }
+    .phase-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 0 20px rgba(91,63,248,0.1);
+    }
+    .phase-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .phase-badge.old { background: rgba(239,68,68,0.12); color: #F87171; border: 1px solid rgba(239,68,68,0.2); }
+    .phase-badge.hiato { background: rgba(245,158,11,0.12); color: #FCD34D; border: 1px solid rgba(245,158,11,0.2); }
+    .phase-badge.new { background: rgba(34,197,94,0.12); color: #4ADE80; border: 1px solid rgba(34,197,94,0.2); }
+    .phase-period { font-size: 0.78rem; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+    .phase-text { font-size: 0.88rem; color: #C8C5E0; line-height: 1.6; }
+
+    /* ── RECOM TABS ── */
+    .recom-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 24px; }
+    .recom-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 20px;
+      cursor: default;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .recom-card:hover {
+      border-color: var(--border);
+      box-shadow: 0 0 18px rgba(91,63,248,0.1);
+    }
+    .recom-header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 14px;
+    }
+    .recom-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(91,63,248,0.18);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .recom-card-title { font-size: 0.88rem; font-weight: 700; color: var(--purple-pale); }
+    .recom-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .recom-list li {
+      display: flex; gap: 8px; align-items: flex-start;
+      font-size: 0.84rem; color: #C0BCDA; line-height: 1.55;
+    }
+    .recom-list li::before {
+      content: '›';
+      color: var(--purple-light);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── QUOTE CARD ── */
+    .quote-card {
+      background: linear-gradient(135deg, rgba(91,63,248,0.12), rgba(139,92,246,0.06));
+      border: 1px solid rgba(91,63,248,0.3);
+      border-radius: 16px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-card::before {
+      content: '"';
+      position: absolute;
+      top: -20px; left: 20px;
+      font-size: 8rem;
+      font-weight: 900;
+      color: rgba(91,63,248,0.1);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-text {
+      font-size: 1.05rem;
+      color: #D8D5F0;
+      line-height: 1.75;
+      font-style: italic;
+      position: relative;
+    }
+    .quote-text strong { color: var(--purple-pale); font-style: normal; }
+
+    /* ── COMMENT CARDS ── */
+    .comment-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 20px; }
+    .comment-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: default;
+      transition: border-color 0.2s;
+    }
+    .comment-card:hover { border-color: var(--border); }
+    .comment-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .tag-buy { background: rgba(34,197,94,0.12); color: #4ADE80; border: 1px solid rgba(34,197,94,0.2); }
+    .tag-info { background: rgba(91,63,248,0.12); color: var(--purple-pale); border: 1px solid var(--border); }
+    .tag-warn { background: rgba(245,158,11,0.12); color: #FCD34D; border: 1px solid rgba(245,158,11,0.2); }
+    .comment-quote { font-size: 0.9rem; color: #C8C5E0; line-height: 1.6; font-style: italic; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border2);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer span { color: var(--purple-pale); font-weight: 600; }
+
+    /* ── SCROLL NAV ── */
+    .scroll-nav {
+      position: fixed;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--border2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-dot.active { background: var(--purple); transform: scale(1.6); }
+    @media (max-width: 768px) { .scroll-nav { display: none; } }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight-box {
+      background: rgba(91,63,248,0.08);
+      border: 1px solid rgba(91,63,248,0.22);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      font-size: 0.92rem;
+      color: #C8C5E0;
+      line-height: 1.7;
+    }
+    .highlight-box strong { color: var(--purple-pale); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 48px; height: 3px;
+      background: var(--grad);
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .cover { padding: 100px 20px 60px; }
+      .metrics-row { gap: 10px; }
+      .metric-card { min-width: 110px; padding: 12px 16px; }
+      .metric-val { font-size: 1.3rem; }
+      table { font-size: 0.78rem; }
+      thead th, tbody td { padding: 9px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="scroll-nav" aria-label="Navegação por seções">
+  <div class="nav-dot active" data-target="s0" title="Capa" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s1" title="Visão Geral" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s2" title="Bio e Link" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s3" title="Grid Visual" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s4" title="Destaques" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s5" title="Engajamento" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s6" title="Ranking Top 10" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s7" title="Mix de Formatos" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s8" title="Tendências" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s9" title="Evolução Editorial" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s10" title="Funcionando" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s11" title="Audiência" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s12" title="Não Funciona" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s13" title="Insights" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s14" title="Recomendações" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s15" title="Quick Wins" role="button" tabindex="0"></div>
+  <div class="nav-dot" data-target="s16" title="Resumo" role="button" tabindex="0"></div>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<section class="cover" id="s0">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="badge-pill">
+    <span class="badge-dot"></span>
+    Auditoria de Conteúdo &middot; Instagram &middot; 22/06/2026
+  </div>
+
+  <h1 class="cover-title grad-anim">Auditoria Histórica Instagram</h1>
+  <p class="cover-sub">Análise de desempenho para <strong>@aagencia.logos</strong> &middot; Agência Logos</p>
+
+  <div class="score-wrap">
+    <div class="score-circle" aria-label="Score geral 7,2 de 10">
+      <span class="score-num" id="scoreNum">7,2</span>
+      <span class="score-den">/ 10</span>
+    </div>
+    <span class="score-label">Score Geral</span>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-card">
+      <div class="metric-val" data-count="29">29</div>
+      <div class="metric-lbl">Posts Analisados</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val" data-count="3678">3.678</div>
+      <div class="metric-lbl">Seguidores</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">Set/25–Jun/26</div>
+      <div class="metric-lbl">Período</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-val">~0,5%</div>
+      <div class="metric-lbl">Taxa de Engajamento</div>
+    </div>
+  </div>
+
+  <p class="cover-footnote">Esta análise é baseada em 29 posts — histórico completo do grid da conta</p>
+</section>
+
+<!-- NOTA METODOLÓGICA -->
+<div style="max-width:960px;margin:0 auto;padding:32px 24px 0;">
+  <div class="method-note">
+    <strong>Notas metodológicas:</strong> (1) O perfil tem <strong>29 posts publicados</strong> no grid, não 90 — o histórico completo disponível foi auditado, representando 100% da conta. (2) Os blocos temporais foram ajustados para ~10 posts cada, adequando-se ao volume real. (3) Os <strong>Destaques não foram abertos internamente</strong> para preservar a privacidade do perfil — avaliados por sinais observáveis (capas, número de segmentos, título e recência).
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ S1: VISÃO GERAL ═══════════════════════════════════════ -->
+<section class="section" id="s1">
+  <p class="sec-label">Seção 01</p>
+  <h2 class="sec-title">Visão Geral Estratégica</h2>
+  <div class="divider"></div>
+  <p class="prose">
+    A Agência Logos passou por uma <strong>virada estratégica clara e bem-sucedida</strong>. A conta nasceu como um perfil de agência genérico, focado em vender sites com linguagem corporativa ("Fale conosco!", "Chame no Direct"), publicou de set/2025 a dez/2025, entrou em silêncio por mais de quatro meses, e retornou em abril/2026 reposicionada como um perfil de <strong>autoridade em presença digital para PMEs</strong>, com identidade visual coesa, copy provocativa e conteúdo educativo.
+  </p>
+  <p class="prose" style="margin-top:16px;">
+    Essa reformulação coincidiu com dois picos extraordinários de engajamento (<strong>123 e 126 curtidas</strong>) que destoam completamente da média histórica de ~17 curtidas. O perfil hoje tem fundamentos sólidos — visual maduro, linha editorial definida e voz consistente — mas o engajamento é estruturalmente baixo para uma base de 3.678 seguidores (média de menos de 1% de curtidas por post), o que sugere uma <strong>audiência pouco ativa ou mal segmentada</strong>. A trajetória é de um perfil que descobriu sua identidade, mas ainda não converteu maturidade editorial em tração de comunidade.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════ S2: BIO E LINK ═══════════════════════════════════════ -->
+<section class="section" id="s2">
+  <p class="sec-label">Seção 02</p>
+  <h2 class="sec-title">Bio e Link</h2>
+  <div class="divider"></div>
+
+  <div class="highlight-box" style="margin-bottom:24px;">
+    <strong>"Agência Logos | Tecnologia e Marketing Digital / Estratégias que geram clientes / Para empresas que querem crescer online / Diagnóstico gratuito em 48h"</strong>
+  </div>
+  <p class="prose" style="margin-bottom:20px;">Avaliação: <strong>clara e estratégica</strong> — comunica quem é, para quem (empresas que querem crescer) e oferece uma isca de conversão concreta (diagnóstico gratuito em 48h).</p>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-label">CTA na Bio</div>
+      <div class="info-card-val tag-yes">SIM — "Diagnóstico gratuito em 48h" + link</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Palavras-chave</div>
+      <div class="info-card-val tag-yes">SIM — marketing digital, estratégias, crescer online, clientes</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Link</div>
+      <div class="info-card-val tag-yes">PRESENTE — direto (agencialogos.com.br)</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Destino Coerente</div>
+      <div class="info-card-val tag-yes">SIM — link com UTM (link_in_bio), sinal profissional</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Agregador de Links</div>
+      <div class="info-card-val tag-mid">Não se aplica — link direto</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Alinhamento com Estratégia</div>
+      <div class="info-card-val tag-yes">FORTE — coerência total entre promessa e entrega</div>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    <strong>O que melhorar:</strong> O "Diagnóstico gratuito em 48h" é a melhor isca da conta, mas aparece pouco nas legendas — deveria ser o CTA recorrente, não apenas da bio. A bio poderia quantificar autoridade (ex: "+X negócios diagnosticados"). E vale testar uma frase de nicho mais específica do que "empresas que querem crescer", que ainda soa amplo.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S3: GRID VISUAL ═══════════════════════════════════════ -->
+<section class="section" id="s3">
+  <p class="sec-label">Seção 03</p>
+  <h2 class="sec-title">Grid Visual</h2>
+  <div class="divider"></div>
+
+  <div class="info-grid" style="margin-bottom:24px;">
+    <div class="info-card">
+      <div class="info-card-label">Identidade Visual</div>
+      <div class="info-card-val tag-yes">COESA</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Convida a Seguir</div>
+      <div class="info-card-val tag-yes">SIM</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Comunica o Nicho</div>
+      <div class="info-card-val tag-yes">SIM — à primeira vista</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Padrão de Layout</div>
+      <div class="info-card-val tag-yes">INTENCIONAL — paleta roxo/preto, etiquetas INSIGHT/DADO/MITO</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Evolução Visual</div>
+      <div class="info-card-val tag-yes">MELHOROU SIGNIFICATIVAMENTE</div>
+    </div>
+  </div>
+
+  <p class="prose">
+    A evolução é a história mais visível do perfil. Os posts mais antigos (set–dez/2025) usavam imagens de banco genéricas e layout sem assinatura. A partir de <strong>abril/2026</strong>, o grid ganhou uma identidade reconhecível: fundo escuro, roxo de marca, tipografia editorial e rótulos categóricos que funcionam como "selo" da conta.
+  </p>
+  <p class="prose" style="margin-top:12px;">
+    Isso revela amadurecimento estratégico real — o perfil deixou de parecer "mais uma agência" para parecer <strong>uma marca com ponto de vista</strong>. É o tipo de evolução que normalmente acompanha contratação de design ou definição de manual de marca.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════ S4: DESTAQUES ═══════════════════════════════════════ -->
+<section class="section" id="s4">
+  <p class="sec-label">Seção 04</p>
+  <h2 class="sec-title">Destaques de Stories</h2>
+  <div class="divider"></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Slides</th>
+          <th>Tema</th>
+          <th>Capas</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Tendências</strong></td>
+          <td>~7</td>
+          <td>Conteúdo educativo / tendências de marketing digital</td>
+          <td><span class="tag-yes">Personalizadas</span> (capa roxa de marca)</td>
+          <td><span class="tag-mid">Atualizado ~9 sem</span></td>
+        </tr>
+        <tr>
+          <td><strong>Resultados</strong></td>
+          <td>~3</td>
+          <td>Prova social / resultados de clientes</td>
+          <td><span class="tag-yes">Personalizadas</span> (capa roxa de marca)</td>
+          <td><span class="tag-mid">Atualizado ~10 sem</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    <strong>Diagnóstico estratégico:</strong> Apenas dois destaques é pouco para uma conta que quer converter visitantes em leads. Faltam destaques óbvios para <strong>"Quem somos / O método"</strong>, <strong>"Diagnóstico gratuito"</strong> (a principal isca da conta não tem destaque dedicado!), <strong>"Depoimentos"</strong> e <strong>"FAQ / Como contratar"</strong>.<br><br>
+    O destaque "Resultados" com apenas ~3 slides sugere pouca prova social acumulada — uma fraqueza crítica para uma agência. Os destaques parecem acumulados com curadoria mínima, não construídos como funil. <strong>Recomendo criar um destaque "Diagnóstico 48h" e um "Antes/Depois" de clientes imediatamente.</strong>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S5: ENGAJAMENTO ═══════════════════════════════════════ -->
+<section class="section" id="s5">
+  <p class="sec-label">Seção 05</p>
+  <h2 class="sec-title">Evolução do Engajamento — Blocos Temporais</h2>
+  <div class="divider"></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Bloco</th>
+          <th>Período</th>
+          <th>Posts</th>
+          <th>Score Médio</th>
+          <th>Formato</th>
+          <th>Posts/Semana</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:#4ADE80;">A (recentes)</strong></td>
+          <td>26 mai – 19 jun</td>
+          <td>10 (posts 1–10)</td>
+          <td><strong>~29,4</strong></td>
+          <td>Carrossel/misto</td>
+          <td>~2,5</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--gold);">B (intermediários)</strong></td>
+          <td>16 abr – 19 mai</td>
+          <td>10 (posts 11–20)</td>
+          <td><strong>~40,8</strong></td>
+          <td>Carrossel</td>
+          <td>~2,2</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--muted);">C (mais antigos)</strong></td>
+          <td>1 set 2025 – 13 abr 2026</td>
+          <td>9 (posts 21–29)</td>
+          <td><strong>~19,9</strong></td>
+          <td>Carrossel</td>
+          <td>~0,5 (com hiato)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    <strong>Interpretação:</strong> O bloco B carrega os dois posts virais (135 e 126), inflando sua média — sem eles, B cairia para ~20. O bloco A (mais recente) tem média de 29 sustentada por mais comentários, não curtidas, o que é qualitativamente melhor (<strong>conversa &gt; vaidade</strong>). O quadro real: o engajamento por curtidas é baixo e estável (~12–20), pontuado por dois picos isolados; o que melhorou de forma consistente foi a <strong>taxa de comentários</strong>, indicando que a nova linha editorial provoca mais conversa, mesmo sem escalar alcance.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S6: RANKING TOP 10 ═══════════════════════════════════════ -->
+<section class="section" id="s6">
+  <p class="sec-label">Seção 06</p>
+  <h2 class="sec-title">Ranking de Engajamento — Top 10 Histórico</h2>
+  <div class="divider"></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Post</th>
+          <th>Formato</th>
+          <th>Score</th>
+          <th>Curtidas</th>
+          <th>Comentários</th>
+          <th>Tema</th>
+          <th>Bloco</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="rank-gold">🥇 1</td>
+          <td>13</td>
+          <td>Carrossel</td>
+          <td><strong>135</strong></td>
+          <td>123</td>
+          <td>4</td>
+          <td>Algoritmo / 3 razões técnicas</td>
+          <td>B</td>
+        </tr>
+        <tr>
+          <td class="rank-silver">🥈 2</td>
+          <td>14</td>
+          <td>Carrossel</td>
+          <td><strong>126</strong></td>
+          <td>126</td>
+          <td>0</td>
+          <td>Calendário de conteúdo 30 dias</td>
+          <td>B</td>
+        </tr>
+        <tr>
+          <td class="rank-bronze">🥉 3</td>
+          <td>1</td>
+          <td>Carrossel</td>
+          <td><strong>52</strong></td>
+          <td>37</td>
+          <td>5</td>
+          <td>Jornada PME (do invisível à referência)</td>
+          <td>A</td>
+        </tr>
+        <tr>
+          <td class="rank-num">4</td>
+          <td>8</td>
+          <td>Reel</td>
+          <td><strong>48</strong></td>
+          <td>21</td>
+          <td>9</td>
+          <td>Hábito / consistência</td>
+          <td>A</td>
+        </tr>
+        <tr>
+          <td class="rank-num">5</td>
+          <td>12</td>
+          <td>Carrossel</td>
+          <td><strong>48</strong></td>
+          <td>24</td>
+          <td>8</td>
+          <td>Método de crescimento</td>
+          <td>B</td>
+        </tr>
+        <tr>
+          <td class="rank-num">6</td>
+          <td>5</td>
+          <td>Foto/texto</td>
+          <td><strong>39</strong></td>
+          <td>15</td>
+          <td>8</td>
+          <td>Urgência presença digital</td>
+          <td>A</td>
+        </tr>
+        <tr>
+          <td class="rank-num">7</td>
+          <td>9</td>
+          <td>Foto/texto</td>
+          <td><strong>34</strong></td>
+          <td>16</td>
+          <td>6</td>
+          <td>Engajamento real vs seguidores</td>
+          <td>A</td>
+        </tr>
+        <tr>
+          <td class="rank-num">8</td>
+          <td>6</td>
+          <td>Reel</td>
+          <td><strong>29</strong></td>
+          <td>11</td>
+          <td>6</td>
+          <td>Reels para negócio (não influencer)</td>
+          <td>A</td>
+        </tr>
+        <tr>
+          <td class="rank-num">9</td>
+          <td>22</td>
+          <td>Carrossel</td>
+          <td><strong>29</strong></td>
+          <td>23</td>
+          <td>2</td>
+          <td>3 erros no Instagram</td>
+          <td>C</td>
+        </tr>
+        <tr>
+          <td class="rank-num">10</td>
+          <td>25</td>
+          <td>Carrossel</td>
+          <td><strong>27</strong></td>
+          <td>27</td>
+          <td>0</td>
+          <td>Site não é luxo</td>
+          <td>C</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S7: MIX DE FORMATOS ═══════════════════════════════════════ -->
+<section class="section" id="s7">
+  <p class="sec-label">Seção 07</p>
+  <h2 class="sec-title">Mix de Formatos — Histórico Completo</h2>
+  <div class="divider"></div>
+
+  <div class="format-grid" id="formatGrid">
+    <div class="format-row">
+      <div class="format-header">
+        <span class="format-name">Carrossel</span>
+        <span class="format-pct">18 posts &middot; 62% &middot; Score médio: ~37,5</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-pct="62"></div></div>
+      <p class="format-meta">Formato campeão — domina em volume e score médio. Puxado pelos dois virais, mas consistente mesmo sem eles.</p>
+    </div>
+    <div class="format-row">
+      <div class="format-header">
+        <span class="format-name">Foto/Texto</span>
+        <span class="format-pct">8 posts &middot; 28% &middot; Score médio: ~20,1</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-pct="28"></div></div>
+      <p class="format-meta">Segundo mais usado, mas rendimento abaixo — especialmente quando não inclui framework ou pergunta de fechamento.</p>
+    </div>
+    <div class="format-row">
+      <div class="format-header">
+        <span class="format-name">Reel</span>
+        <span class="format-pct">3 posts &middot; 10% &middot; Score médio: ~32,3</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-pct="10"></div></div>
+      <p class="format-meta">Segundo melhor score médio e melhor índice de comentários por post — formato subexplorado com alto potencial.</p>
+    </div>
+    <div class="format-row">
+      <div class="format-header">
+        <span class="format-name">Texto Puro</span>
+        <span class="format-pct">0 posts &middot; 0% &middot; Score médio: —</span>
+      </div>
+      <div class="bar-bg"><div class="bar-fill" data-pct="0"></div></div>
+      <p class="format-meta">Nunca utilizado — pode ser testado como formato de autoridade/opinião.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:28px;">
+    Os Reels, apesar de pouquíssimos (apenas 3), têm o <strong>segundo melhor score médio</strong> e o melhor desempenho em comentários por post — um sinal forte e subexplorado. A relação esforço/retorno do Reel é favorável e deve ser explorada.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S8: TENDÊNCIAS ═══════════════════════════════════════ -->
+<section class="section" id="s8">
+  <p class="sec-label">Seção 08</p>
+  <h2 class="sec-title">Tendência e Sazonalidade</h2>
+  <div class="divider"></div>
+
+  <p class="prose">
+    Os três maiores picos históricos foram o post 13 (<strong>algoritmo, 123 curtidas</strong>), o post 14 (<strong>calendário de 30 dias, 126 curtidas</strong>) e o post 1 fixado (52). O que tornou os dois primeiros excepcionais: ambos são carrosséis <strong>"salváveis"</strong> — entregam um framework prático e acionável que o público guarda para aplicar. São conteúdos de utilidade pura, sem fricção promocional, publicados na mesma janela (5–13 maio/2026), provavelmente quando um deles teve impulso de alcance.
+  </p>
+
+  <div class="highlight-box" style="margin-top:24px; border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.06);">
+    <strong style="color:#F87171;">Ponto crítico — O Hiato:</strong> O período de silêncio mais grave foi entre <strong>2 de dezembro de 2025 e 10 de abril de 2026</strong> — mais de quatro meses sem publicar, exatamente o intervalo da reformulação da marca. Esse hiato explica por que a base de 3.678 seguidores está "fria": a audiência foi treinada, durante meses, a <strong>não esperar conteúdo</strong>.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S9: EVOLUÇÃO EDITORIAL ═══════════════════════════════════════ -->
+<section class="section" id="s9">
+  <p class="sec-label">Seção 09</p>
+  <h2 class="sec-title">Evolução Editorial</h2>
+  <div class="divider"></div>
+
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="phase-badge old">Fase 1</div>
+      <div class="phase-period">Set–Dez/2025</div>
+      <p class="phase-text">Voz de agência tradicional, foco em vender sites/landing pages, CTAs diretos de venda ("Fale conosco", "Chame no Direct"), legendas com emojis decorativos e zero comentários na maioria.</p>
+    </div>
+    <div class="phase-card">
+      <div class="phase-badge hiato">Hiato</div>
+      <div class="phase-period">Dez/2025 – Abr/2026</div>
+      <p class="phase-text">Mais de quatro meses sem publicar — período de reformulação da marca. A audiência foi treinada a não esperar conteúdo, esfriando a base de seguidores.</p>
+    </div>
+    <div class="phase-card">
+      <div class="phase-badge new">Fase 2 (Atual)</div>
+      <div class="phase-period">Abr/2026 – Hoje</div>
+      <p class="phase-text">Reposicionamento completo: de "vendedor de sites" para <strong>autoridade em presença digital para PMEs</strong>. Voz provocativa e consultiva, temas expandidos, perguntas no final de toda legenda.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    A mudança de <strong>"o que vendemos"</strong> para <strong>"o que ensinamos"</strong> é a decisão estratégica mais importante da conta — e foi acertada.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S10: O QUE FUNCIONA ═══════════════════════════════════════ -->
+<section class="section" id="s10">
+  <p class="sec-label">Seção 10</p>
+  <h2 class="sec-title">O que Está Funcionando</h2>
+  <div class="divider"></div>
+  <p class="prose" style="margin-bottom:20px;">Padrões consistentes identificados em todos os blocos temporais:</p>
+
+  <div class="win-list">
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="win-text"><strong>Carrossel educativo com framework acionável</strong> — formato campeão estrutural, aparece no topo em todos os blocos temporais.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="win-text"><strong>Fórmula de capa "rótulo + frase de impacto"</strong> — etiquetas INSIGHT/DADO/MITO/PARA PENSAR criam reconhecimento de marca e funcionam como "selo" da conta.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="win-text"><strong>Pergunta aberta no final da legenda</strong> — o gatilho de comentário mais confiável da conta. Posts com pergunta clara quase sempre têm mais comentários.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="win-text"><strong>Reels</strong> — embora raros (apenas 3), geram conversa acima da média e têm o melhor índice de comentários por post.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="win-text"><strong>Temas de consistência/posicionamento</strong> — "postar todo dia" e "posicionamento vs estética" repetem bem em todos os blocos.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <p class="win-text"><strong>Identidade visual consistente</strong> — é um ativo já consolidado desde abril/2026. O grid transmite autoridade ao primeiro olhar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S11: AUDIÊNCIA ═══════════════════════════════════════ -->
+<section class="section" id="s11">
+  <p class="sec-label">Seção 11</p>
+  <h2 class="sec-title">O que a Audiência Está Dizendo</h2>
+  <div class="divider"></div>
+
+  <div class="info-grid" style="margin-bottom:24px;">
+    <div class="info-card">
+      <div class="info-card-label">Tipos predominantes</div>
+      <div class="info-card-val">Elogios e reações em emoji (🔥👏) — massivamente</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Perguntas recorrentes</div>
+      <div class="info-card-val">Quase nenhuma — audiência responde às perguntas do perfil</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Críticas ou objeções</div>
+      <div class="info-card-val tag-yes">NENHUMA registrada</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">O perfil responde</div>
+      <div class="info-card-val tag-mid">ÀS VEZES — não de forma sistemática</div>
+    </div>
+  </div>
+
+  <p class="prose" style="margin-bottom:20px;">Comentários de maior valor estratégico identificados:</p>
+
+  <div class="comment-grid">
+    <div class="comment-card">
+      <span class="comment-tag tag-buy">Intenção de Compra</span>
+      <p class="comment-quote">"Ahh preciso te contratar logo!"</p>
+    </div>
+    <div class="comment-card">
+      <span class="comment-tag tag-buy">Validação de Produto</span>
+      <p class="comment-quote">"A sua análise sobre o meu Instagram foi perfeita! Vale muito a pena fazer."</p>
+    </div>
+    <div class="comment-card">
+      <span class="comment-tag tag-info">Padrão de Resposta</span>
+      <p class="comment-quote">"Três a quatro vezes por semana" — audiência respondendo à pergunta sobre frequência de posts.</p>
+    </div>
+    <div class="comment-card">
+      <span class="comment-tag tag-warn">Risco de Eco</span>
+      <p class="comment-quote">Comentários recorrentes de mesmos perfis: <em>givisconti, sosowhitaker_, rapha_mmbb, fernandobrisolabatista</em> — núcleo de apoiadores, não comunidade ampla.</p>
+    </div>
+  </div>
+
+  <div class="highlight-box" style="margin-top:24px;">
+    <strong>Insight estratégico:</strong> A dor latente da audiência é clara — eles sabem que precisam de presença digital mas não sabem por onde começar. O conteúdo deve atacar essa paralisia com passos ainda menores e mais concretos. Os dois comentários de intenção de compra provam que o <strong>conteúdo educativo converte interesse comercial</strong>.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S12: NÃO FUNCIONA ═══════════════════════════════════════ -->
+<section class="section" id="s12">
+  <p class="sec-label">Seção 12</p>
+  <h2 class="sec-title">O que Não Está Funcionando</h2>
+  <div class="divider"></div>
+
+  <ul class="bullet-list">
+    <li>Posts da <strong>fase antiga (set–dez/2025)</strong> com linguagem de venda direta, CTAs corporativos ("Fale conosco!") — zero engajamento orgânico.</li>
+    <li><strong>Excesso de hashtags genéricas grudadas</strong> sem espaço ("#landingpages#marketingdigital") — não contribuem para alcance.</li>
+    <li><strong>Posts sem pergunta no final</strong> consistentemente geram zero comentários (posts 15, 17–20, 23, 26–29).</li>
+    <li><strong>Fotos/textos avulsos sem framework</strong> rendem menos que carrosséis — formato sozinho não gera engajamento.</li>
+    <li><strong>Teto de alcance crônico</strong>: mesmo os melhores posts raramente passam de 20–30 curtidas, indicando problema de distribuição — não só de conteúdo.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════ S13: INSIGHTS ═══════════════════════════════════════ -->
+<section class="section" id="s13">
+  <p class="sec-label">Seção 13</p>
+  <h2 class="sec-title">Principais Insights Estratégicos</h2>
+  <div class="divider"></div>
+
+  <div class="insight-list">
+    <div class="insight-item">
+      <div class="insight-num">01</div>
+      <p class="insight-text">O <strong>carrossel com framework salvável</strong> é o formato de maior retorno comprovado — padrão estrutural em todos os blocos temporais.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">02</div>
+      <p class="insight-text"><strong>Teto de engajamento crônico:</strong> ~17 curtidas médias para 3.678 seguidores indica audiência inflada ou inativa (taxa de engajamento ~0,5%).</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">03</div>
+      <p class="insight-text">A <strong>reformulação de marca (abr/2026) foi a decisão certa</strong>: melhorou visual, voz e taxa de comentários simultaneamente.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">04</div>
+      <p class="insight-text">O <strong>hiato de 4+ meses</strong> esfriou a base e quebrou o hábito de consumo da audiência — recuperação custa tempo.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">05</div>
+      <p class="insight-text"><strong>Terminar legenda com pergunta</strong> é o gatilho de comentário mais confiável e barato da conta.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">06</div>
+      <p class="insight-text"><strong>Reels são o formato mais subexplorado</strong> com melhor potencial: só 3 publicados, mas alto índice de conversa.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">07</div>
+      <p class="insight-text">Os <strong>dois picos virais foram conteúdo de utilidade pura</strong> (algoritmo + calendário) — não conteúdo promocional.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">08</div>
+      <p class="insight-text">O <strong>"Diagnóstico gratuito 48h"</strong> é a melhor isca de conversão, mas está subutilizado nas legendas e ausente dos destaques.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">09</div>
+      <p class="insight-text">O <strong>núcleo de engajamento são ~4–5 perfis recorrentes</strong>, não uma comunidade ampla — risco de eco entre conhecidos.</p>
+    </div>
+    <div class="insight-item">
+      <div class="insight-num">10</div>
+      <p class="insight-text">Há <strong>prova de intenção de compra real</strong> nos comentários, validando que conteúdo educativo gera leads comerciais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S14: RECOMENDAÇÕES ═══════════════════════════════════════ -->
+<section class="section" id="s14">
+  <p class="sec-label">Seção 14</p>
+  <h2 class="sec-title">Recomendações Estratégicas</h2>
+  <div class="divider"></div>
+
+  <div class="recom-grid">
+    <div class="recom-card">
+      <div class="recom-header">
+        <div class="recom-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <span class="recom-card-title">Curto Prazo — Próximas 4 semanas</span>
+      </div>
+      <ul class="recom-list">
+        <li>Padronizar pergunta de fechamento em 100% das legendas — gatilho de comentário mais barato e comprovado.</li>
+        <li>Replicar a fórmula dos dois virais: publicar mais carrosséis "framework salvável" com rótulo na capa.</li>
+        <li>Inserir CTA "Diagnóstico gratuito 48h" de forma recorrente nas legendas — converter público educado em leads.</li>
+        <li>Estabelecer cadência fixa (3x/semana) e nunca mais repetir hiatos longos.</li>
+      </ul>
+    </div>
+    <div class="recom-card">
+      <div class="recom-header">
+        <div class="recom-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <span class="recom-card-title">Médio Prazo — Próximos 3 meses</span>
+      </div>
+      <ul class="recom-list">
+        <li>Auditar base de seguidores: taxa de ~0,5% sugere seguidores inativos; limpar e atrair audiência qualificada.</li>
+        <li>Criar estrutura de Destaques cobrindo jornada completa: "Quem somos", "Diagnóstico 48h", "Depoimentos", "Antes e Depois", "FAQ".</li>
+        <li>Construir prova social sistemática: transformar cada resultado de cliente em post + destaque.</li>
+        <li>Investir em Reels com rosto e fala para expandir alcance além do núcleo atual.</li>
+      </ul>
+    </div>
+    <div class="recom-card">
+      <div class="recom-header">
+        <div class="recom-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--purple-pale)" viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/><path d="M9 12l2 2 4-4"/></svg>
+        </div>
+        <span class="recom-card-title">Experimentos a Testar</span>
+      </div>
+      <ul class="recom-list">
+        <li>Série fixa semanal de Reel curto "diagnóstico relâmpago" comentando um perfil/erro real.</li>
+        <li>Carrossel com mini estudo de caso (problema → ação → número) usando dados das legendas (ex: "25% do faturamento", "2,8x crescimento") como capa-isca.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S15: QUICK WINS ═══════════════════════════════════════ -->
+<section class="section" id="s15">
+  <p class="sec-label">Seção 15</p>
+  <h2 class="sec-title">Quick Wins</h2>
+  <div class="divider"></div>
+  <p class="prose" style="margin-bottom:20px;">Ações de alto impacto que podem ser executadas imediatamente:</p>
+
+  <div class="win-list">
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#F5C842" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <p class="win-text"><strong>Fixar/republicar os dois carrosséis virais</strong> (algoritmo e calendário de 30 dias) como conteúdo de entrada — eles já provaram que funcionam.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#F5C842" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <p class="win-text"><strong>Adicionar pergunta no final dos posts recentes</strong> e responder ativamente todos os comentários nas primeiras 2 horas para alimentar o alcance orgânico.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#F5C842" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <p class="win-text"><strong>Criar imediatamente um Destaque "Diagnóstico 48h"</strong> explicando como funciona a principal isca de conversão da conta.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#F5C842" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <p class="win-text"><strong>Reduzir e organizar hashtags:</strong> usar 5–8 específicas do nicho PME, eliminando as genéricas coladas sem espaço.</p>
+    </div>
+    <div class="win-item">
+      <div class="win-icon">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#F5C842" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <p class="win-text"><strong>Transformar os comentários de intenção de compra em prova social</strong> ("preciso te contratar", "vale a pena o diagnóstico") — printar e postar nos stories/destaques, fechando o ciclo de conversão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ S16: RESUMO EXECUTIVO ═══════════════════════════════════════ -->
+<section class="section" id="s16" style="border-bottom:none;">
+  <p class="sec-label">Resumo Executivo</p>
+  <h2 class="sec-title">As Três Alavancas de Maior Impacto</h2>
+  <div class="divider"></div>
+
+  <div class="quote-card">
+    <p class="quote-text">
+      O perfil já fez o trabalho mais difícil — encontrou sua identidade visual e editorial. O desafio agora não é <em>"o que postar"</em>, e sim <strong>distribuição e ativação de comunidade</strong>: a base é grande no papel mas fria na prática, e o conteúdo é bom demais para o alcance que está recebendo.
+      <br><br>
+      <strong>Consistência sem hiatos</strong> + <strong>replicar a fórmula viral</strong> + <strong>ativar a isca do diagnóstico</strong> são as três alavancas de maior impacto.
+    </p>
+  </div>
+
+  <div class="info-grid" style="margin-top:28px;">
+    <div class="info-card" style="border-color:rgba(91,63,248,0.3); background:rgba(91,63,248,0.07);">
+      <div class="info-card-label" style="color:var(--purple-pale);">Alavanca 1</div>
+      <div class="info-card-val">Consistência sem hiatos — 3x/semana, sem parar</div>
+    </div>
+    <div class="info-card" style="border-color:rgba(91,63,248,0.3); background:rgba(91,63,248,0.07);">
+      <div class="info-card-label" style="color:var(--purple-pale);">Alavanca 2</div>
+      <div class="info-card-val">Replicar a fórmula viral — carrosséis "salváveis" com framework</div>
+    </div>
+    <div class="info-card" style="border-color:rgba(91,63,248,0.3); background:rgba(91,63,248,0.07);">
+      <div class="info-card-label" style="color:var(--purple-pale);">Alavanca 3</div>
+      <div class="info-card-val">Ativar a isca do diagnóstico — em legendas e em destaque dedicado</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Auditoria gerada por <span>Agência Logos</span> &middot; 22/06/2026 &middot; @aagencia.logos
+</footer>
+
+<script>
+  // ── INTERSECTION OBSERVER — fade-in ──
+  const sections = document.querySelectorAll('.section');
+  const dots = document.querySelectorAll('.nav-dot');
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        // update nav dot
+        const id = entry.target.id;
+        dots.forEach(d => {
+          d.classList.toggle('active', d.dataset.target === id);
+        });
+        // trigger bars if format section
+        if (id === 's7') {
+          document.querySelectorAll('.bar-fill').forEach(bar => {
+            bar.style.width = bar.dataset.pct + '%';
+          });
+        }
+      }
+    });
+  }, { threshold: 0.15 });
+
+  sections.forEach(s => obs.observe(s));
+
+  // first section observer for hero dot
+  const heroObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        dots.forEach(d => d.classList.toggle('active', d.dataset.target === 's0'));
+      }
+    });
+  }, { threshold: 0.4 });
+  heroObs.observe(document.getElementById('s0'));
+
+  // ── NAV DOT CLICK ──
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    dot.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const target = document.getElementById(dot.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ── COUNT-UP ──
+  function countUp(el, target, duration = 1400) {
+    const start = Date.now();
+    const isFloat = !Number.isInteger(target);
+    const update = () => {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = target * ease;
+      el.textContent = isFloat
+        ? current.toFixed(1).replace('.', ',')
+        : Math.round(current).toLocaleString('pt-BR');
+      if (progress < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+
+  const countEls = document.querySelectorAll('[data-count]');
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const val = parseFloat(el.dataset.count);
+        countUp(el, val);
+        countObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  countEls.forEach(el => countObs.observe(el));
+</script>
+</body>
+</html>

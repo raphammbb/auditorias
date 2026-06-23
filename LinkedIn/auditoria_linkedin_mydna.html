@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auditoria LinkedIn — MyDNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #06090F; --bg2: #0B1220; --bg3: #0F1A2E;
+      --card: #111D33; --card2: #162040;
+      --border: rgba(255,255,255,0.07); --border-li: rgba(10,102,194,0.25);
+      --text: #F1F5F9; --muted: #94A3B8; --dim: #64748B;
+      --li: #0A66C2; --li-light: #378FE9; --li-soft: rgba(10,102,194,0.12);
+      --success: #22C55E; --warning: #F59E0B; --danger: #EF4444;
+      --s-bg: rgba(34,197,94,0.1); --w-bg: rgba(245,158,11,0.1); --d-bg: rgba(239,68,68,0.1);
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; font-size: 16px; }
+    a { color: var(--li-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* layout */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 64px 0; border-top: 1px solid var(--border); }
+
+    /* hero */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(10,102,194,0.16) 0%, rgba(6,182,212,0.07) 55%, transparent 100%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 120px; background: linear-gradient(to bottom, transparent, var(--bg)); pointer-events: none; }
+    .hero-glow { position: absolute; width: 560px; height: 560px; border-radius: 50%; background: radial-gradient(circle, rgba(10,102,194,0.1) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
+
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border: 1px solid var(--border-li); border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; color: var(--li-light); background: var(--li-soft); margin-bottom: 28px; position: relative; z-index: 1; }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--li-light); animation: pdot 2s ease-in-out infinite; }
+    @keyframes pdot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.45; transform:scale(.8); } }
+
+    .hero-title { font-size: clamp(34px,5vw,62px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 14px; position: relative; z-index: 1; }
+    .grad-li { background: linear-gradient(135deg, #0A66C2, #06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .grad-warn { background: linear-gradient(135deg, #EF4444, #F97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .hero-sub { font-size: 18px; font-weight: 400; color: var(--muted); margin-bottom: 44px; position: relative; z-index: 1; }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+
+    /* score ring */
+    .score-wrap { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; margin-bottom: 44px; }
+    .score-ring { position: relative; width: 160px; height: 160px; }
+    .score-ring svg { width: 160px; height: 160px; transform: rotate(-90deg); }
+    .ring-track { fill: none; stroke: rgba(255,255,255,0.06); stroke-width: 10; }
+    .ring-fill { fill: none; stroke-width: 10; stroke-linecap: round; stroke: url(#rg); stroke-dasharray: 408.41; stroke-dashoffset: 269.55; }
+    .ring-inner { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .ring-num { font-size: 42px; font-weight: 800; line-height: 1; background: linear-gradient(135deg,#EF4444,#F97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .ring-total { font-size: 14px; color: var(--muted); font-weight: 500; }
+    .score-label { margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--danger); }
+
+    .dim-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 28px; position: relative; z-index: 1; }
+    .dim-tag { padding: 5px 14px; border: 1px solid var(--border); border-radius: 999px; font-size: 12px; font-weight: 500; color: var(--muted); background: rgba(255,255,255,0.03); }
+    .hero-prep { font-size: 12px; color: var(--dim); position: relative; z-index: 1; }
+    .hero-prep strong { color: var(--muted); }
+
+    /* nav */
+    .nav { position: sticky; top: 0; z-index: 50; background: rgba(6,9,15,0.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); padding: 0 24px; }
+    .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 2px; height: 50px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-link { padding: 6px 12px; border-radius: 6px; font-size: 13px; font-weight: 500; color: var(--dim); text-decoration: none; transition: color .2s, background .2s; cursor: pointer; }
+    .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.05); text-decoration: none; }
+
+    /* section header */
+    .sh { margin-bottom: 36px; }
+    .sh-num { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--li); margin-bottom: 6px; }
+    .sh-title { font-size: 26px; font-weight: 700; letter-spacing: -.01em; }
+    .sh-desc { margin-top: 8px; font-size: 15px; color: var(--muted); max-width: 620px; }
+
+    /* cards */
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    .g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    @media (max-width:640px) { .g2,.g3,.g4 { grid-template-columns: 1fr; } }
+    @media (max-width:768px) { .g3,.g4 { grid-template-columns: repeat(2,1fr); } }
+
+    .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 4px; }
+    .stat-lbl { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+    .stat-val { font-size: 26px; font-weight: 700; line-height: 1.1; }
+    .stat-note { font-size: 12px; color: var(--muted); }
+
+    /* scorecard */
+    .sc-item { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; }
+    .sc-dim { flex: 1; font-size: 14px; font-weight: 500; }
+    .sc-bw { width: 110px; background: rgba(255,255,255,0.06); border-radius: 4px; height: 6px; overflow: hidden; flex-shrink: 0; }
+    .sc-bar { height: 100%; border-radius: 4px; }
+    .sc-num { font-size: 18px; font-weight: 700; min-width: 36px; text-align: right; }
+    .sc-status { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 999px; min-width: 76px; text-align: center; flex-shrink: 0; }
+    .s-ok { background: var(--s-bg); color: var(--success); }
+    .s-w  { background: var(--w-bg); color: var(--warning); }
+    .s-d  { background: var(--d-bg); color: var(--danger); }
+
+    /* callout */
+    .callout { padding: 18px 22px; border-radius: 10px; border-left: 3px solid; margin: 20px 0; }
+    .c-warn { background: var(--w-bg); border-color: var(--warning); }
+    .c-danger { background: var(--d-bg); border-color: var(--danger); }
+    .c-info { background: var(--li-soft); border-color: var(--li); }
+    .c-ok { background: var(--s-bg); border-color: var(--success); }
+    .c-title { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 6px; }
+    .c-warn .c-title { color: var(--warning); }
+    .c-danger .c-title { color: var(--danger); }
+    .c-info .c-title { color: var(--li-light); }
+    .c-ok .c-title { color: var(--success); }
+    .c-body { font-size: 14px; line-height: 1.7; }
+
+    /* status row */
+    .sr { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; flex-wrap: wrap; gap: 8px; }
+    .sr + .sr { margin-top: 8px; }
+    .sr-lbl { font-size: 14px; font-weight: 500; }
+    .tag { display: inline-flex; align-items: center; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+    .t-li { background: var(--li-soft); color: var(--li-light); border: 1px solid var(--border-li); }
+    .t-w { background: var(--w-bg); color: var(--warning); }
+    .t-d { background: var(--d-bg); color: var(--danger); }
+    .t-ok { background: var(--s-bg); color: var(--success); }
+    .t-n { background: rgba(255,255,255,0.06); color: var(--muted); }
+
+    /* prose */
+    .prose p { font-size: 15px; line-height: 1.78; margin-bottom: 14px; }
+    .prose p:last-child { margin-bottom: 0; }
+
+    /* info table */
+    .it { width: 100%; border-collapse: collapse; }
+    .it tr { border-bottom: 1px solid var(--border); }
+    .it tr:last-child { border-bottom: none; }
+    .it td { padding: 11px 14px; font-size: 14px; }
+    .it td:first-child { color: var(--muted); font-weight: 500; width: 38%; }
+
+    /* content mix */
+    .mix { display: flex; flex-direction: column; gap: 10px; }
+    .mx-row { display: flex; align-items: center; gap: 12px; }
+    .mx-lbl { font-size: 13px; font-weight: 500; width: 240px; flex-shrink: 0; }
+    .mx-bw { flex: 1; background: rgba(255,255,255,0.06); border-radius: 4px; height: 8px; overflow: hidden; }
+    .mx-bar { height: 100%; border-radius: 4px; }
+    .mx-pct { font-size: 13px; font-weight: 700; width: 38px; text-align: right; }
+
+    /* posts table */
+    .dt { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .dt th { text-align: left; padding: 9px 14px; background: rgba(255,255,255,0.04); border-bottom: 1px solid var(--border); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .dt td { padding: 9px 14px; border-bottom: 1px solid var(--border); }
+    .dt tr:last-child td { border-bottom: none; }
+
+    /* opp items */
+    .opp { display: flex; gap: 14px; padding: 18px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; }
+    .opp-n { width: 30px; height: 30px; border-radius: 50%; background: var(--li-soft); border: 1px solid var(--border-li); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--li-light); flex-shrink: 0; }
+    .opp h4 { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
+    .opp p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* journey */
+    .jcard { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-bottom: 14px; }
+    .j-type { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .j-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; }
+    .j-barrier { margin-top: 14px; padding: 10px 14px; background: var(--d-bg); border: 1px solid rgba(239,68,68,.2); border-radius: 8px; font-size: 13px; }
+    .j-barrier strong { color: var(--danger); display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+
+    /* rec */
+    .rec { padding: 18px 22px; background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--li); border-radius: 0 10px 10px 0; margin-bottom: 10px; }
+    .rec-p { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 5px; }
+    .rec-p.h { color: var(--danger); }
+    .rec-p.m { color: var(--warning); }
+    .rec-t { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+    .rec-d { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* pos compare */
+    .pc { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width:640px) { .pc { grid-template-columns: 1fr; } }
+    .pa { padding: 18px; background: var(--d-bg); border: 1px solid rgba(239,68,68,.2); border-radius: 10px; }
+    .pi { padding: 18px; background: var(--s-bg); border: 1px solid rgba(34,197,94,.2); border-radius: 10px; }
+    .pc-lbl { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 8px; }
+    .pa .pc-lbl { color: var(--danger); }
+    .pi .pc-lbl { color: var(--success); }
+    .pc-txt { font-size: 14px; line-height: 1.65; }
+
+    /* step list */
+    .step { display: flex; gap: 12px; padding: 12px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; }
+    .step-n { color: var(--li-light); font-weight: 700; flex-shrink: 0; }
+    .step p { font-size: 14px; }
+
+    /* ldr */
+    .ldr { padding: 14px 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+    .ldr-name { font-weight: 600; font-size: 14px; }
+    .ldr-role { font-size: 12px; color: var(--muted); }
+
+    /* footer */
+    .footer { padding: 40px 24px; border-top: 1px solid var(--border); text-align: center; }
+    .footer-logo { font-size: 18px; font-weight: 700; margin-bottom: 6px; background: linear-gradient(135deg,#0A66C2,#06B6D4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .footer-sub { font-size: 13px; color: var(--dim); }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="inicio">
+  <div class="hero-glow"></div>
+  <div class="badge"><div class="badge-dot"></div>Auditoria de LinkedIn · Página de Empresa · 23/06/2026</div>
+  <h1 class="hero-title">Análise de Página<br><span class="grad-li">LinkedIn</span></h1>
+  <p class="hero-sub"><strong>MyDNA</strong> · HR Tech / SaaS · Santiago, Las Condes, Chile</p>
+
+  <div class="score-wrap">
+    <div class="score-ring">
+      <svg viewBox="0 0 160 160">
+        <defs>
+          <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#EF4444"/>
+            <stop offset="100%" stop-color="#F97316"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-track" cx="80" cy="80" r="65"/>
+        <circle class="ring-fill" cx="80" cy="80" r="65"/>
+      </svg>
+      <div class="ring-inner">
+        <span class="ring-num">3,4</span>
+        <span class="ring-total">/ 10</span>
+      </div>
+    </div>
+    <div class="score-label">❌ Crítico</div>
+  </div>
+
+  <div class="dim-tags">
+    <span class="dim-tag">Identidade Visual</span>
+    <span class="dim-tag">Posicionamento</span>
+    <span class="dim-tag">Estratégia de Conteúdo</span>
+    <span class="dim-tag">Employer Branding</span>
+    <span class="dim-tag">Employee Advocacy</span>
+    <span class="dim-tag">Produtos &amp; Serviços</span>
+    <span class="dim-tag">Jornada do Visitante</span>
+    <span class="dim-tag">Análise Competitiva</span>
+  </div>
+  <p class="hero-prep">Preparado por <strong>Agência Logos</strong> · Diagnóstico Estratégico Completo</p>
+</section>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#scorecard" class="nav-link">Scorecard</a>
+    <a href="#diagnostico" class="nav-link">Diagnóstico</a>
+    <a href="#reconhecimento" class="nav-link">Reconhecimento</a>
+    <a href="#identidade" class="nav-link">Identidade Visual</a>
+    <a href="#sobre" class="nav-link">Seção Sobre</a>
+    <a href="#conteudo" class="nav-link">Conteúdo</a>
+    <a href="#vagas" class="nav-link">Vagas</a>
+    <a href="#advocacy" class="nav-link">Advocacy</a>
+    <a href="#produtos" class="nav-link">Produtos</a>
+    <a href="#jornada" class="nav-link">Jornada</a>
+    <a href="#competitiva" class="nav-link">Competitiva</a>
+    <a href="#recomendacoes" class="nav-link">Recomendações</a>
+  </div>
+</nav>
+
+<!-- ═══ SCORECARD ═══ -->
+<section class="section" id="scorecard">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 9 — Avaliação Final</div>
+      <h2 class="sh-title">Scorecard Executivo</h2>
+      <p class="sh-desc">8 dimensões estratégicas avaliadas. Escala 1–10.</p>
+    </div>
+
+    <div class="sc-item">
+      <div class="sc-dim">Identidade Visual</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:70%;background:#84CC16"></div></div>
+      <div class="sc-num" style="color:#84CC16">7</div>
+      <div class="sc-status s-w">⚠️ Regular</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Posicionamento e Seção Sobre</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:60%;background:var(--warning)"></div></div>
+      <div class="sc-num" style="color:var(--warning)">6</div>
+      <div class="sc-status s-w">⚠️ Regular</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Estratégia de Conteúdo</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:30%;background:var(--danger)"></div></div>
+      <div class="sc-num" style="color:var(--danger)">3</div>
+      <div class="sc-status s-d">❌ Crítico</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Employer Branding e Vagas</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:20%;background:var(--danger)"></div></div>
+      <div class="sc-num" style="color:var(--danger)">2</div>
+      <div class="sc-status s-d">❌ Crítico</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Employee Advocacy</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:30%;background:var(--danger)"></div></div>
+      <div class="sc-num" style="color:var(--danger)">3</div>
+      <div class="sc-status s-d">❌ Crítico</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Produtos e Serviços</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:10%;background:var(--danger)"></div></div>
+      <div class="sc-num" style="color:var(--danger)">1</div>
+      <div class="sc-status s-d">❌ Crítico</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Jornada do Visitante (Cliente B2B)</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:30%;background:var(--danger)"></div></div>
+      <div class="sc-num" style="color:var(--danger)">3</div>
+      <div class="sc-status s-d">❌ Crítico</div>
+    </div>
+    <div class="sc-item">
+      <div class="sc-dim">Jornada do Visitante (Candidato)</div>
+      <div class="sc-bw"><div class="sc-bar" style="width:20%;background:var(--danger)"></div></div>
+      <div class="sc-num" style="color:var(--danger)">2</div>
+      <div class="sc-status s-d">❌ Crítico</div>
+    </div>
+
+    <div style="margin-top:20px;padding:20px 24px;background:var(--d-bg);border:1px solid rgba(239,68,68,.3);border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--danger);margin-bottom:4px;">Nota Geral</div>
+        <div style="font-size:13px;color:var(--muted);">Média ponderada das 8 dimensões</div>
+      </div>
+      <div style="display:flex;align-items:baseline;gap:5px;">
+        <span style="font-size:48px;font-weight:800;line-height:1;background:linear-gradient(135deg,#EF4444,#F97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">3,4</span>
+        <span style="font-size:20px;color:var(--muted);font-weight:500;">/10</span>
+      </div>
+      <span style="font-size:13px;font-weight:600;color:var(--danger);padding:6px 16px;background:rgba(239,68,68,.15);border-radius:999px;">❌ Crítico — presença abaixo do potencial real</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIAGNÓSTICO ═══ -->
+<section class="section" id="diagnostico">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Diagnóstico Executivo</div>
+      <h2 class="sh-title">O problema central</h2>
+    </div>
+
+    <div class="prose">
+      <p>A MyDNA é uma das HRTechs latino-americanas com maior base de seguidores no LinkedIn — <strong>527 mil</strong> — e tem ativos de credibilidade concretos: 10 anos de operação, 10.000 empresas atendidas, presença em 7 países e uma newsletter com mais de 100 mil assinantes.</p>
+      <p>O problema central é que a página não reflete nada disso de forma estratégica: <strong>comunica como um portal de conteúdo de carreira para candidatos individuais</strong>, quando o produto é uma plataforma B2B vendida para departamentos de RH corporativo. Com posts que acumulam zero a três reações em uma base de meio milhão de seguidores, o LinkedIn da MyDNA é hoje um canal de distribuição de conteúdo genérico — não um ativo de geração de demanda.</p>
+      <p>Todos os ingredientes para uma presença de referência no setor já existem: dados exclusivos, lideranças qualificadas, uma newsletter valiosa e uma base de audiência construída — falta apenas a estratégia para conectar esses ativos ao público e objetivo corretos.</p>
+    </div>
+
+    <div class="g4" style="margin-top:28px;">
+      <div class="stat"><div class="stat-lbl">Seguidores</div><div class="stat-val" style="color:var(--li-light)">527K</div><div class="stat-note">Alta base para 11–50 funcionários</div></div>
+      <div class="stat"><div class="stat-lbl">Engajamento médio</div><div class="stat-val" style="color:var(--danger)">0–3</div><div class="stat-note">reações/post ≈ 0,0006%</div></div>
+      <div class="stat"><div class="stat-lbl">Posts analisados</div><div class="stat-val">21</div><div class="stat-note">Últimas 3 semanas</div></div>
+      <div class="stat"><div class="stat-lbl">Newsletter</div><div class="stat-val" style="color:var(--success)">105K</div><div class="stat-note">assinantes — subutilizada</div></div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;margin:28px 0 14px;">Posicionamento Atual vs. Posicionamento Ideal</h3>
+    <div class="pc">
+      <div class="pa"><div class="pc-lbl">Como se posiciona hoje</div><p class="pc-txt">Uma plataforma de conteúdo sobre salários e carreira para profissionais individuais que busca ter presença no mercado de RH.</p></div>
+      <div class="pi"><div class="pc-lbl">Como deveria se posicionar</div><p class="pc-txt">O ecossistema digital de RH mais completo da América Latina — parceiro estratégico de empresas que tomam decisões de talento com dados.</p></div>
+    </div>
+
+    <div class="callout c-warn">
+      <div class="c-title">Gap Estratégico</div>
+      <div class="c-body">A mudança exige reorientação do mix de conteúdo (B2C → B2B), reescrita da seção Sobre para abrir com o valor corporativo, ativação da aba Produtos, e uso dos dados proprietários da plataforma como diferencial de conteúdo.</div>
+    </div>
+
+    <div class="g2" style="margin-top:16px;">
+      <div class="card"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--danger);margin-bottom:6px;">Público-alvo atual</div><p style="font-size:14px;color:var(--muted);">Profissionais em busca de melhores salários e oportunidades de carreira.</p></div>
+      <div class="card"><div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--success);margin-bottom:6px;">Público-alvo ideal</div><p style="font-size:14px;color:var(--muted);">CHROs, VPs de People, gestores de RH e CEOs de médias e grandes empresas da América Latina que precisam modernizar a operação de RH.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECONHECIMENTO ═══ -->
+<section class="section" id="reconhecimento">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 0</div>
+      <h2 class="sh-title">Reconhecimento e Posicionamento Percebido</h2>
+    </div>
+    <div style="overflow:hidden;border-radius:12px;border:1px solid var(--border);">
+      <table class="it" style="background:var(--card);">
+        <tbody>
+          <tr><td>Nome da empresa</td><td><strong>MyDNA</strong></td></tr>
+          <tr><td>Setor (LinkedIn)</td><td>Produtos de software integrado</td></tr>
+          <tr><td>Seguidores</td><td><strong style="color:var(--li-light)">527.411</strong></td></tr>
+          <tr><td>Funcionários (est.)</td><td>11–50 funcionários · 199 usuários associados</td></tr>
+          <tr><td>Sede</td><td>Santiago, Las Condes, Chile</td></tr>
+          <tr><td>Site linkado</td><td><a href="https://mydnadigital.com/" target="_blank">mydnadigital.com</a></td></tr>
+          <tr><td>Ano de fundação</td><td>2016</td></tr>
+          <tr><td>Tipo</td><td>Privada (startup chilena)</td></tr>
+          <tr><td>Abas visíveis</td><td>Início · Publicações · Sobre · Vagas · Pessoas <span class="tag t-d" style="margin-left:8px;">sem aba Produtos</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout c-warn">
+      <div class="c-title">Diagnóstico de Posicionamento</div>
+      <div class="c-body">A página fala predominantemente com <strong>candidatos e profissionais individuais (B2C)</strong>, quando o produto é B2B. Este é o gap central de toda a auditoria.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ IDENTIDADE VISUAL ═══ -->
+<section class="section" id="identidade">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 1</div>
+      <h2 class="sh-title">Identidade Visual</h2>
+      <p class="sh-desc">Logo, banner, CTA e coerência de marca. Nota: 7/10.</p>
+    </div>
+
+    <div class="sr"><div class="sr-lbl">Logo — qualidade e legibilidade</div><span class="tag t-ok">✅ Profissional e legível</span></div>
+    <div class="sr"><div class="sr-lbl">Banner — qualidade visual</div><span class="tag t-ok">✅ Profissional</span></div>
+    <div class="sr"><div class="sr-lbl">Banner — conteúdo estratégico</div><span class="tag t-w">⚠️ Sem CTA · slogan em inglês</span></div>
+    <div class="sr"><div class="sr-lbl">Botão CTA da página</div><span class="tag t-w">⚠️ "Envie mensagem" — genérico</span></div>
+    <div class="sr"><div class="sr-lbl">Coerência visual geral</div><span class="tag t-ok">✅ Consistente com branding</span></div>
+
+    <div class="callout c-warn">
+      <div class="c-title">Observação Crítica — Banner</div>
+      <div class="c-body">O banner desperdiça o principal espaço de <strong>1.128×191px</strong> da página. O slogan <em>"Better Decisions, Great Careers"</em> está em inglês numa empresa que opera principalmente em espanhol na LATAM e tem público no Brasil. O slogan também é ambíguo — pode referir-se tanto ao serviço corporativo (decisões de negócio) quanto à proposta B2C (carreira do profissional), o que dilui o posicionamento.</div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:20px 0 12px;">O que melhorar</h3>
+    <div class="step"><div class="step-n">01</div><p>Adicionar CTA ou URL no banner — <em>"Solicite seu demo gratuito"</em> com link para mydnadigital.com</p></div>
+    <div class="step"><div class="step-n">02</div><p>Adaptar o slogan para espanhol ou criar versão bilíngue (espanhol + inglês) para cobrir toda a LATAM</p></div>
+    <div class="step"><div class="step-n">03</div><p>Trocar o botão de destaque para <em>"Visitar site"</em> ou criar CTA personalizado de demo — orientado à conversão B2B</p></div>
+  </div>
+</section>
+
+<!-- ═══ SEÇÃO SOBRE ═══ -->
+<section class="section" id="sobre">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 2</div>
+      <h2 class="sh-title">Seção Sobre e Posicionamento Textual</h2>
+      <p class="sh-desc">Nota: 6/10 — dados sólidos, estrutura invertida.</p>
+    </div>
+
+    <div style="padding:18px 20px;background:var(--card2);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;">
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;">Preview — Primeiras 2 linhas visíveis no LinkedIn</div>
+      <p style="font-size:14px;font-style:italic;line-height:1.7;">"En 2016 nace MyDNA como una respuesta a la necesidad de que existiera un epicentro donde las personas pudieran unir y balancear su propósito de vida con su carrera profesional..."</p>
+      <div style="margin-top:10px;padding:8px 12px;background:var(--d-bg);border-radius:6px;font-size:13px;color:var(--danger);">O visitante B2B não entende o produto nas primeiras 2 linhas — lê sobre história, não sobre o que a empresa entrega.</div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:12px;">Avaliação por Componente</h3>
+    <div class="sr"><div class="sr-lbl">O que a empresa faz</div><span class="tag t-ok">✅ Descrito com clareza no meio do texto</span></div>
+    <div class="sr"><div class="sr-lbl">Para quem</div><span class="tag t-w">⚠️ Mistura B2B e B2C sem priorização</span></div>
+    <div class="sr"><div class="sr-lbl">Diferencial</div><span class="tag t-w">⚠️ IA e big data genéricos</span></div>
+    <div class="sr"><div class="sr-lbl">Resultados ou impacto</div><span class="tag t-ok">✅ 5M pessoas · 10.000 empresas · 7 países</span></div>
+    <div class="sr"><div class="sr-lbl">Como contratar / contatar</div><span class="tag t-ok">✅ E-mail e link de demo ao final</span></div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:24px 0 12px;">18 Especialidades Listadas</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+      <span class="tag t-n">RRHH</span><span class="tag t-n">Recursos Humanos</span><span class="tag t-n">Tecnología</span><span class="tag t-n">HR Tech</span><span class="tag t-n">Estudios Salariales</span><span class="tag t-n">Gamificación Empresarial</span><span class="tag t-n">Reclutamiento y Selección</span><span class="tag t-n">Desarrollo Organizacional</span><span class="tag t-n">Encuestas de Clima</span><span class="tag t-n">Talent Acquisition</span><span class="tag t-n">Employer Experience</span><span class="tag t-n">People Analytics</span><span class="tag t-n">Entrenamiento y Desarrollo</span><span class="tag t-n">Clima y Cultura</span><span class="tag t-n">Salarios y Beneficios</span><span class="tag t-n">Outplacement</span><span class="tag t-n">Plan de Carrera</span><span class="tag t-n">Talento Humano</span>
+    </div>
+    <div class="callout c-warn">
+      <div class="c-title">Especialidades: Perda de SEO</div>
+      <div class="c-body">As 18 especialidades estão <strong>100% em espanhol</strong>. Faltam termos de alto volume de busca: <strong>"HR analytics"</strong>, <strong>"people analytics platform"</strong>, <strong>"workforce management"</strong>, <strong>"employee experience platform"</strong>. A ausência prejudica o SEO em buscas em inglês e português — dois mercados estratégicos.</div>
+    </div>
+    <div class="callout c-info">
+      <div class="c-title">Recomendação — Reescrita da Seção Sobre</div>
+      <div class="c-body">Abrir com: <em>"MyDNA é o ecossistema digital de RH mais completo da América Latina — 30+ soluções que ajudam mais de 10.000 empresas em 7 países a tomar melhores decisões sobre pessoas."</em> Mover dados de prova social para o segundo parágrafo. Eliminar o bloco ABSTRACT ou transformá-lo em informação complementar. Adicionar 5–8 especialidades em inglês e português.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTEÚDO ═══ -->
+<section class="section" id="conteudo">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 3</div>
+      <h2 class="sh-title">Estratégia de Conteúdo</h2>
+      <p class="sh-desc">21 publicações analisadas. Frequência: quase diária (1–2 posts/dia). Nota: 3/10.</p>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:14px;">Mix de Temas Atual</h3>
+    <div class="mix" style="margin-bottom:28px;">
+      <div class="mx-row"><div class="mx-lbl">Salários / Negociação Salarial (B2C)</div><div class="mx-bw"><div class="mx-bar" style="width:70%;background:var(--danger)"></div></div><div class="mx-pct" style="color:var(--danger)">70%</div></div>
+      <div class="mx-row"><div class="mx-lbl">Tendências Mercado de Trabalho (B2C)</div><div class="mx-bw"><div class="mx-bar" style="width:15%;background:#F97316"></div></div><div class="mx-pct" style="color:#F97316">15%</div></div>
+      <div class="mx-row"><div class="mx-lbl">Newsletter de RH Corporativo (B2B)</div><div class="mx-bw"><div class="mx-bar" style="width:10%;background:var(--warning)"></div></div><div class="mx-pct" style="color:var(--warning)">10%</div></div>
+      <div class="mx-row"><div class="mx-lbl">Curadoria de Notícias Externas</div><div class="mx-bw"><div class="mx-bar" style="width:5%;background:var(--muted)"></div></div><div class="mx-pct" style="color:var(--muted)">5%</div></div>
+      <div class="mx-row"><div class="mx-lbl">Cultura / Equipe / Produto / Cases</div><div class="mx-bw"><div class="mx-bar" style="width:0%"></div></div><div class="mx-pct" style="color:var(--danger)">0%</div></div>
+    </div>
+
+    <div class="callout c-danger">
+      <div class="c-title">Diagnóstico Crítico</div>
+      <div class="c-body">Com <strong>527 mil seguidores</strong>, obter 0–3 reações por post é uma taxa de engajamento de <strong>~0,0006%</strong>. O problema não é frequência: é relevância para o público certo. A página fala como um <em>portal de carreira</em>, não como uma empresa de tecnologia de RH falando com CHROs e VPs de People. O formato de maior engajamento relativo foi imagem editorial com link para newsletter (Post 18: 5 reações) — indicando que o conteúdo B2B próprio funciona quando existe.</div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:28px 0 12px;">Inventário de Posts Analisados (21)</h3>
+    <div style="overflow-x:auto;">
+      <table class="dt" style="min-width:580px;">
+        <thead>
+          <tr><th>#</th><th>Tempo</th><th>Tema</th><th>Reações</th><th>Público</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>20 min</td><td>Negociação salarial</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>2</td><td>5 d</td><td>Tabela salarial engenheiros LATAM (externo)</td><td style="color:var(--warning)">3</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>3</td><td>4 d</td><td>Profissões emergentes e em declínio</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>4</td><td>5 d</td><td>Diferença salarial home office vs. presencial</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>5</td><td>1 d</td><td>Impacto da IA nos salários de tecnologia</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>6</td><td>1 sem</td><td>Erro ao aceitar primeira oferta</td><td style="color:var(--danger)">1</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>7</td><td>5 d</td><td>Newsletter: La falacia de las encuestas de clima</td><td style="color:var(--warning)">3</td><td><span class="tag t-ok">B2B</span></td></tr>
+          <tr><td>8</td><td>6 d</td><td>Descobrir que ganha abaixo do mercado</td><td style="color:var(--danger)">1</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>9</td><td>1 sem</td><td>Disparidade salarial mesmo cargo</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>10</td><td>1 sem</td><td>Dilema entre bônus e salário fixo</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>11</td><td>1 sem</td><td>Setores com maiores salários sênior LATAM 2026</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>12</td><td>1 sem</td><td>Dados na negociação salarial</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>13</td><td>1 m</td><td>Injustiça salarial</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>14</td><td>2 sem</td><td>Comparar salários fora da empresa</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>15</td><td>2 sem</td><td>Brecha salarial de gênero</td><td style="color:var(--danger)">1</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>16</td><td>2 sem</td><td>Crescimento acelerado em LATAM</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>17</td><td>3 sem</td><td>Comparação salarial limitada</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>18</td><td>3 sem</td><td>Newsletter: Anticípate al Turnover (imagem editorial)</td><td style="color:var(--success);font-weight:700">5 ★</td><td><span class="tag t-ok">B2B</span></td></tr>
+          <tr><td>19</td><td>3 sem</td><td>Diferenças salariais mesmo cargo LATAM</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>20</td><td>3 sem</td><td>Transparência salarial</td><td style="color:var(--danger)">0</td><td><span class="tag t-d">B2C</span></td></tr>
+          <tr><td>21</td><td>3 sem</td><td>Inteligência salarial e negociação</td><td style="color:var(--danger)">1</td><td><span class="tag t-d">B2C</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:28px 0 14px;">3 Oportunidades Não Exploradas</h3>
+    <div class="opp"><div class="opp-n">1</div><div><h4>Dados Proprietários da Plataforma</h4><p>A MyDNA tem dados de 10.000 empresas e 5 milhões de profissionais. Posts com benchmarks exclusivos ("As 3 indústrias com maior rotatividade no Brasil em 2026, segundo dados MyDNA") seriam únicos e impossíveis de replicar pela concorrência.</p></div></div>
+    <div class="opp"><div class="opp-n">2</div><div><h4>Cases de Clientes Corporativos</h4><p>Nenhum post no período analisado menciona clientes reais, resultados de projetos ou depoimentos de CHROs. Um post semanal de case com dado de impacto geraria prova social direta para o tomador de decisão corporativo.</p></div></div>
+    <div class="opp"><div class="opp-n">3</div><div><h4>Lideranças como Porta-vozes</h4><p>O CTO Fernando Brisola tem perfil ativo e robusto sobre IA e ROI — nenhum conteúdo dele foi tageado à empresa no período. Um único post de executivo com audiência relevante supera os 20 posts semanais da página somados.</p></div></div>
+  </div>
+</section>
+
+<!-- ═══ VAGAS ═══ -->
+<section class="section" id="vagas">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 4</div>
+      <h2 class="sh-title">Vagas e Employer Branding</h2>
+      <p class="sh-desc">Nota: 2/10 — Crítico.</p>
+    </div>
+    <div class="g3" style="margin-bottom:20px;">
+      <div class="stat" style="border-color:rgba(239,68,68,.2)"><div class="stat-lbl">Vagas abertas</div><div class="stat-val" style="color:var(--danger)">0</div><div class="stat-note">Aba Vagas vazia</div></div>
+      <div class="stat" style="border-color:rgba(239,68,68,.2)"><div class="stat-lbl">Posts de cultura</div><div class="stat-val" style="color:var(--danger)">0</div><div class="stat-note">Nos 21 posts analisados</div></div>
+      <div class="stat" style="border-color:rgba(239,68,68,.2)"><div class="stat-lbl">Score employer branding</div><div class="stat-val" style="color:var(--danger)">2/10</div><div class="stat-note">Presença insuficiente</div></div>
+    </div>
+    <div class="callout c-danger">
+      <div class="c-title">Ironia Estratégica</div>
+      <div class="c-body">A MyDNA <strong>vende soluções de employer experience e cultura organizacional</strong> para outras empresas, mas não cuida do seu próprio employer branding no LinkedIn. Nos 21 posts analisados não há um único conteúdo sobre equipe, bastidores, conquistas internas ou depoimentos de colaboradores. Uma empresa de RH que não pratica o que prega comunica, involuntariamente, que o produto que oferece não funciona.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ADVOCACY ═══ -->
+<section class="section" id="advocacy">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 5</div>
+      <h2 class="sh-title">Funcionários e Employee Advocacy</h2>
+      <p class="sh-desc">Nota: 3/10 — Lideranças identificadas, mas não ativadas.</p>
+    </div>
+
+    <div class="g2" style="margin-bottom:22px;">
+      <div class="stat"><div class="stat-lbl">Usuários associados</div><div class="stat-val">199</div><div class="stat-note">Dados distorcidos: 43 EUA · 17 China · 13 Índia</div></div>
+      <div class="stat"><div class="stat-lbl">Nível de advocacy</div><div class="stat-val" style="color:var(--danger)">Baixo</div><div class="stat-note">Quase nenhuma amplificação orgânica</div></div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin-bottom:12px;">Lideranças Identificadas</h3>
+    <div class="ldr"><div><div class="ldr-name">Lucas Canevaro</div><div class="ldr-role">Co-founder &amp; CEO Brazil</div></div><span class="tag t-li">Perfil ativo</span></div>
+    <div class="ldr"><div><div class="ldr-name">Fernando Brisola Batista</div><div class="ldr-role">CTO · perfil robusto sobre IA e ROI · 13+ conexões em comum</div></div><span class="tag t-ok">Maior potencial</span></div>
+    <div class="ldr"><div><div class="ldr-name">Paulina Ramirez</div><div class="ldr-role">Global Talent Acquisition &amp; Customer Success Director</div></div><span class="tag t-li">Perfil estratégico</span></div>
+    <div class="ldr"><div><div class="ldr-name">Adriana Barrera Aristizábal</div><div class="ldr-role">IA-driven mindset | Talent Acquisition</div></div><span class="tag t-n">Perfil identificado</span></div>
+
+    <div class="callout c-info" style="margin-top:18px;">
+      <div class="c-title">Potencial Não Explorado</div>
+      <div class="c-body">Se 5 a 10 lideranças publicassem semanalmente sobre RH, IA aplicada a pessoas e tendências de talento na América Latina — tageando a empresa —, o alcance orgânico seria <strong>10 a 20 vezes superior</strong> ao alcance atual da página. Um único post de executivo com 2.000 seguidores relevantes supera em engajamento os 20 posts semanais da empresa somados.</div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:22px 0 12px;">Plano de Advocacy — 3 Etapas</h3>
+    <div class="step"><div class="step-n">Etapa 1</div><p>Selecionar 5 a 8 lideranças dispostas a participar</p></div>
+    <div class="step"><div class="step-n">Etapa 2</div><p>Criar um calendário mensal com temas e rascunhos de posts para cada um — não prescrever, orientar</p></div>
+    <div class="step"><div class="step-n">Etapa 3</div><p>Definir meta de cadência — mínimo 2 posts/mês por pessoa com tag da empresa</p></div>
+  </div>
+</section>
+
+<!-- ═══ PRODUTOS ═══ -->
+<section class="section" id="produtos">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 6</div>
+      <h2 class="sh-title">Produtos e Serviços</h2>
+      <p class="sh-desc">Nota: 1/10 — Aba Produtos completamente ausente.</p>
+    </div>
+
+    <div style="padding:24px;background:var(--d-bg);border:1px solid rgba(239,68,68,.25);border-radius:12px;margin-bottom:20px;">
+      <div style="font-size:28px;font-weight:800;color:var(--danger);margin-bottom:8px;">Aba Produtos: ausente</div>
+      <p style="font-size:15px;line-height:1.7;">A página não possui aba Produtos configurada. As abas disponíveis são exclusivamente Início, Sobre, Publicações, Vagas e Pessoas. A empresa possui um portfólio de <strong>+30 soluções</strong> descrito na seção Sobre, mas nenhuma está listada na aba Produtos do LinkedIn.</p>
+    </div>
+
+    <div class="callout c-info">
+      <div class="c-title">Por que isso é crítico</div>
+      <div class="c-body">A aba Produtos do LinkedIn é <strong>gratuita</strong> e permite descrever cada solução com título, imagem, descrição e link — além de ser indexada pelo algoritmo de busca. No setor de HR Tech, compradores pesquisam ativamente soluções pelo LinkedIn antes de qualquer contato comercial. <strong>A MyDNA é invisível nessa jornada de descoberta.</strong></div>
+    </div>
+
+    <h3 style="font-size:16px;font-weight:600;margin:20px 0 12px;">Como melhorar</h3>
+    <div class="step"><div class="step-n">01</div><p>Configurar a aba Produtos com pelo menos <strong>5 a 8 soluções-chave</strong> (as de maior diferenciação ou receita)</p></div>
+    <div class="step"><div class="step-n">02</div><p>Para cada produto: imagem, descrição orientada a <em>benefício</em> e link direto para a página no site</p></div>
+    <div class="step"><div class="step-n">03</div><p>Solicitar avaliações de clientes satisfeitos — mesmo <strong>10 avaliações</strong> já transformam a percepção de prova social</p></div>
+  </div>
+</section>
+
+<!-- ═══ JORNADA ═══ -->
+<section class="section" id="jornada">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 7</div>
+      <h2 class="sh-title">Jornada do Visitante</h2>
+      <p class="sh-desc">3 perfis de visitante e as barreiras que encontram na página.</p>
+    </div>
+
+    <div class="jcard">
+      <div class="j-type">Jornada 1</div>
+      <div class="j-title">Potencial Cliente B2B (CHRO / VP de People / CEO)</div>
+      <p style="font-size:14px;line-height:1.7;">Em <strong>10 segundos</strong>, vê: banner com slogan "Better Decisions, Great Careers" + 527 mil seguidores + "Produtos de software integrado" + início de texto histórico + feed de posts sobre negociação salarial para candidatos. Ele <strong>não sabe imediatamente</strong> que a MyDNA pode ajudar a empresa dele. A ação mais natural é seguir a página por curiosidade — não entrar em contato nem visitar o site. Não há prova social (cases, logos de clientes, depoimentos) visível no feed imediato.</p>
+      <div class="j-barrier"><strong>Barreira principal</strong>Ausência de mensagem de valor B2B visível em 10 segundos. O conteúdo do feed fala com candidatos individuais, criando confusão sobre o posicionamento.</div>
+    </div>
+
+    <div class="jcard">
+      <div class="j-type">Jornada 2</div>
+      <div class="j-title">Candidato a Vaga</div>
+      <p style="font-size:14px;line-height:1.7;">Chega à aba Vagas, vê que <strong>não há vagas</strong>, e sai. Não há nenhum conteúdo de cultura ou equipe para mantê-lo engajado. A seção Sobre menciona trabalho remoto e flexibilidade, mas esse texto raramente é lido por candidatos que chegam pela aba Vagas.</p>
+      <div class="j-barrier"><strong>Barreira principal</strong>Ausência completa de vagas e de employer branding. Nenhuma razão para permanecer na página.</div>
+    </div>
+
+    <div class="jcard">
+      <div class="j-type">Jornada 3</div>
+      <div class="j-title">Parceiro ou Investidor</div>
+      <p style="font-size:14px;line-height:1.7;">Os pontos positivos — 7 países, 10.000 empresas, newsletter com 105 mil assinantes — estão na seção Sobre. Mas o contraste entre os <strong>527 mil seguidores</strong> e o <strong>engajamento praticamente zero</strong> nos posts pode levantar dúvidas sobre a qualidade e autenticidade da base. A página não comunica crescimento, tração nem direção estratégica — parece estacionada.</p>
+      <div class="j-barrier"><strong>Barreira principal</strong>Gap entre audiência e engajamento pode gerar dúvidas sobre a saúde da base de seguidores.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPETITIVA ═══ -->
+<section class="section" id="competitiva">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Fase 8</div>
+      <h2 class="sh-title">Análise Competitiva Perceptual</h2>
+    </div>
+
+    <div class="g2">
+      <div style="padding:22px;background:var(--d-bg);border:1px solid rgba(239,68,68,.2);border-radius:12px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--danger);margin-bottom:12px;">Abaixo do padrão do setor</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--danger);">Engajamento criticamente baixo — 0,0006% com 527K seguidores</li>
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--danger);">Aba Produtos ausente para empresa com 30+ soluções</li>
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--danger);">Zero vagas — incompatível com empresa de tecnologia em crescimento</li>
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--danger);">Conteúdo 100% voltado ao profissional individual quando o produto é B2B</li>
+        </ul>
+      </div>
+      <div style="padding:22px;background:var(--s-bg);border:1px solid rgba(34,197,94,.2);border-radius:12px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--success);margin-bottom:12px;">Diferenciais positivos</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--success);">527K seguidores — expressivo para empresa de 11–50 funcionários na LATAM</li>
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--success);">Newsletter com 105.454 assinantes — ativo raro e inimitável</li>
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--success);">Dados sólidos na seção Sobre: 10K empresas · 5M pessoas · 7 países</li>
+          <li style="font-size:14px;padding-left:14px;border-left:2px solid var(--success);">Identidade visual profissional e coerente com o branding</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout c-info" style="margin-top:20px;">
+      <div class="c-title">Oportunidade de Diferenciação Não Explorada</div>
+      <div class="c-body">A MyDNA tem dados de comportamento de RH de <strong>10.000 empresas em 7 países da América Latina</strong> — algo que nenhum concorrente consegue replicar. Empresas como Gupy, Kenoby, Totvs RH, Workday, Culture Amp e Deel usam o LinkedIn para posicionar autoridade B2B e divulgar dados proprietários. A MyDNA opera como portal de carreira. Transformar esses dados exclusivos em conteúdo proprietário é a maior alavanca estratégica disponível.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ RECOMENDAÇÕES ═══ -->
+<section class="section" id="recomendacoes">
+  <div class="container">
+    <div class="sh">
+      <div class="sh-num">Recomendações Prioritárias</div>
+      <h2 class="sh-title">Próximos Passos</h2>
+      <p class="sh-desc">Ações ordenadas por impacto esperado no posicionamento B2B.</p>
+    </div>
+
+    <div class="rec"><div class="rec-p h">Alta prioridade · Imediato</div><div class="rec-t">Reorientar o mix de conteúdo para B2B</div><div class="rec-d">Reduzir posts de salário individual de 70% para no máximo 20%. Substituir por: dados proprietários da plataforma, cases de clientes, benchmarks de RH. Meta: 4–5 posts/semana com relevância para CHROs e VPs de People. Frequência atual (1–2/dia) pode ser mantida, desde que o tema mude.</div></div>
+
+    <div class="rec"><div class="rec-p h">Alta prioridade · Imediato</div><div class="rec-t">Configurar a Aba Produtos</div><div class="rec-d">Criar a aba com 5 a 8 soluções-chave do ecossistema MyDNA (estudos salariais, clima laboral, outplacement, People Analytics, gamificação). Cada produto com imagem, descrição orientada a benefício e link para o site. Solicitar avaliações a clientes satisfeitos.</div></div>
+
+    <div class="rec"><div class="rec-p h">Alta prioridade · Imediato</div><div class="rec-t">Reescrever a Seção Sobre</div><div class="rec-d">Abrir com impacto B2B, mover prova social (10K empresas, 5M pessoas) para segundo parágrafo, eliminar bloco ABSTRACT. Adicionar 5–8 especialidades em inglês e português para ampliar SEO nas buscas do LinkedIn.</div></div>
+
+    <div class="rec"><div class="rec-p m">Prioridade média · 30–60 dias</div><div class="rec-t">Ativar o Programa de Employee Advocacy</div><div class="rec-d">Começar com Fernando Brisola (CTO) e Lucas Canevaro (CEO Brazil). Calendário mensal, mínimo 2 posts/mês por executivo com tag da empresa. Foco: IA aplicada a RH, tendências de talento na LATAM, perspectivas de liderança sobre people analytics.</div></div>
+
+    <div class="rec"><div class="rec-p m">Prioridade média · 30–60 dias</div><div class="rec-t">Atualizar o Banner com CTA</div><div class="rec-d">Incluir URL ou chamada para ação — "Solicite seu demo gratuito" com mydnadigital.com. Adaptar slogan para espanhol ou bilíngue. Trocar botão de destaque para "Visitar site" ou CTA de demo.</div></div>
+
+    <div class="rec"><div class="rec-p m">Prioridade média · 60–90 dias</div><div class="rec-t">Iniciar Conteúdo de Employer Branding</div><div class="rec-d">1 post por semana sobre equipe, cultura, bastidores, conquistas internas ou depoimentos de colaboradores. Especialmente importante porque a empresa vende soluções de employer experience — e precisa demonstrar que pratica o que prega.</div></div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-logo">Agência Logos</div>
+  <div class="footer-sub">Auditoria de LinkedIn · MyDNA · 23 de junho de 2026</div>
+  <div class="footer-sub" style="margin-top:4px;">Diagnóstico Estratégico Completo · Nível Profunda</div>
+</footer>
+
+</body>
+</html>

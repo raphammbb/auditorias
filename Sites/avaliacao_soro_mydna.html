@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avaliação — Soro SEO | MyDNA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --bg:       #0D1117;
+  --bg2:      #161B22;
+  --bg3:      #1C2333;
+  --border:   #30363D;
+  --border2:  #21262D;
+  --text:     #E6EDF3;
+  --muted:    #8B949E;
+  --blue:     #2563EB;
+  --blue-dim: #1D3461;
+  --blue-glow:#3B82F6;
+  --red:      #F85149;
+  --red-dim:  #3D1A1A;
+  --red-soft: #5C1A1A;
+  --green:    #3FB950;
+  --green-dim:#1A3D25;
+  --yellow:   #E3B341;
+  --yellow-dim:#3D2F0A;
+  --radius:   12px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── LAYOUT ── */
+.wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 56px;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--blue-dim);
+  border: 1px solid rgba(59,130,246,0.3);
+  color: var(--blue-glow);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow span { opacity: 0.6; }
+
+.hero-title {
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.hero-title em {
+  font-style: normal;
+  color: var(--blue-glow);
+}
+
+.hero-url {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.meta-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.meta-value {
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── VEREDITO BANNER ── */
+.verdict {
+  background: var(--red-dim);
+  border: 1px solid var(--red-soft);
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  margin-bottom: 56px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.verdict-badge {
+  background: var(--red);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.verdict-content strong {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 4px;
+}
+
+.verdict-content p {
+  font-size: 14px;
+  color: #F1AFAD;
+  line-height: 1.6;
+}
+
+/* ── SEÇÃO ── */
+.section {
+  margin-bottom: 48px;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.section-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--blue-dim);
+  border: 1px solid rgba(59,130,246,0.4);
+  color: var(--blue-glow);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.section-body p {
+  color: #C9D1D9;
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+.section-body p:last-child { margin-bottom: 0; }
+
+.section-body strong { color: var(--text); font-weight: 600; }
+.section-body em { color: var(--muted); font-style: normal; }
+
+/* ── DIVISOR ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 48px;
+}
+
+/* ── REQUISITOS GRID ── */
+.req-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 580px) { .req-grid { grid-template-columns: 1fr; } }
+
+.req-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  transition: border-color .2s;
+}
+
+.req-card:hover { border-color: var(--blue-glow); }
+
+.req-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-glow);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+.req-text {
+  font-size: 13px;
+  color: #C9D1D9;
+  line-height: 1.6;
+}
+
+.req-text strong { color: var(--text); }
+
+/* ── ANÁLISE CARDS ── */
+.analysis-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 580px) { .analysis-grid { grid-template-columns: 1fr; } }
+
+.acard {
+  border-radius: var(--radius);
+  padding: 22px;
+  border: 1px solid;
+}
+
+.acard.yes {
+  background: var(--green-dim);
+  border-color: rgba(63,185,80,0.25);
+}
+
+.acard.no {
+  background: var(--red-dim);
+  border-color: rgba(248,81,73,0.25);
+}
+
+.acard-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.acard.yes .acard-title { color: var(--green); }
+.acard.no  .acard-title { color: var(--red); }
+
+.acard-item {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.acard-item:last-child { margin-bottom: 0; }
+.acard.yes .acard-item { color: #9BE9A8; }
+.acard.no  .acard-item { color: #F1AFAD; }
+
+.acard-item strong {
+  font-weight: 600;
+}
+
+.acard.yes .acard-item strong { color: #3FB950; }
+.acard.no  .acard-item strong { color: var(--red); }
+
+.acard-arrow { flex-shrink: 0; opacity: 0.5; }
+
+/* ── RISCOS ── */
+.risks { display: flex; flex-direction: column; gap: 10px; }
+
+.risk {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 18px;
+  transition: border-color .2s;
+}
+
+.risk:hover { border-color: var(--red-soft); }
+
+.risk-tag {
+  background: rgba(248,81,73,0.15);
+  border: 1px solid rgba(248,81,73,0.3);
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.risk-text {
+  font-size: 13px;
+  color: #C9D1D9;
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 80px;
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-brand {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.footer-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.footer-right {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.6;
+}
+
+/* ── PRINT ── */
+@media print {
+  body { background: #0D1117; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .wrapper { padding-bottom: 40px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span>⚙</span> Avaliação de Ferramenta
+    </div>
+    <div class="hero-title"><em>Soro</em> SEO</div>
+    <div class="hero-url">@soro_seo · trysoro.com</div>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Para</span>
+        <span class="meta-value">MyDNA Digital</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Data</span>
+        <span class="meta-value">23 de junho de 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Avaliado por</span>
+        <span class="meta-value">Raphael Brisola, Zane &amp; Claude for Chrome</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VEREDITO -->
+  <div class="verdict">
+    <div class="verdict-badge">Veredito</div>
+    <div class="verdict-content">
+      <strong>Não adotar agora</strong>
+      <p>Produto e audiência incompatíveis. O Soro resolve automação de conteúdo para B2C simples — não o problema da MyDNA.</p>
+    </div>
+  </div>
+
+  <!-- 1. O QUE É -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">1</div>
+      <div class="section-title">O que é o Soro</div>
+    </div>
+    <div class="section-body">
+      <p>Soro é uma plataforma de SEO automatizado que pesquisa palavras-chave, escreve artigos de blog otimizados e os publica diretamente no site do cliente — todos os dias, sem intervenção manual. O produto compete com agências de conteúdo/SEO no posicionamento, prometendo substituir o trabalho humano por automação via IA (Claude, ChatGPT e Gemini).</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- 2. PARA QUEM -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">2</div>
+      <div class="section-title">Para quem foi feito</div>
+    </div>
+    <div class="section-body">
+      <p>O perfil de cliente ideal do Soro é o <strong>pequeno empreendedor ou fundador solo com site próprio que não tem tempo, equipe ou budget para SEO</strong>. Os exemplos de clientes incluem uma loja de xadrez online, uma loja de café especial, um site de camisas e uma ferramenta de invoicing — todos B2C com presença digital simples e audiência ampla no Google.</p>
+      <p>O tom do Instagram confirma: linguagem informal, CTAs para "business owners", hashtags como <em>#SmallBusiness</em> e <em>#Entrepreneur</em>. <strong>Não há menção a B2B, enterprise, RH ou ciclos de venda consultivos.</strong></p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- 3. REQUISITOS -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">3</div>
+      <div class="section-title">O que a MyDNA precisaria para usar</div>
+    </div>
+    <div class="req-grid">
+      <div class="req-card">
+        <div class="req-dot"></div>
+        <div class="req-text"><strong>Blog ativo e público</strong> com CMS compatível (WordPress, Webflow, HubSpot, etc.)</div>
+      </div>
+      <div class="req-card">
+        <div class="req-dot"></div>
+        <div class="req-text"><strong>Estratégia de conteúdo B2B definida</strong> com tópicos relevantes para RH, benchmarking salarial e mercado LATAM</div>
+      </div>
+      <div class="req-card">
+        <div class="req-dot"></div>
+        <div class="req-text"><strong>Revisão editorial humana consistente</strong> — conteúdo automatizado para nichos corporativos tende a ser genérico para audiências C-level</div>
+      </div>
+      <div class="req-card">
+        <div class="req-dot"></div>
+        <div class="req-text"><strong>Capacidade interna de curadoria</strong> para aprovar tom, dados salariais por país e precisão técnica</div>
+      </div>
+      <div class="req-card" style="grid-column: 1 / -1;">
+        <div class="req-dot"></div>
+        <div class="req-text"><strong>Aceitação de exposição pública</strong> — qualquer erro de dados ou posicionamento fica visível para o público-alvo exato da MyDNA</div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- 4. ANÁLISE -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">4</div>
+      <div class="section-title">Onde faz sentido · Onde não faz sentido</div>
+    </div>
+    <div class="analysis-grid">
+      <div class="acard yes">
+        <div class="acard-title">✓ Cenário plausível</div>
+        <div class="acard-item">
+          <span class="acard-arrow">→</span>
+          <span>Conteúdo de <strong>topo de funil amplo</strong> como "o que é benchmarking salarial" ou "como calcular salário competitivo no Chile"</span>
+        </div>
+        <div class="acard-item">
+          <span class="acard-arrow">→</span>
+          <span>Suporte a <strong>+50 idiomas</strong> incluindo espanhol e PT-BR — tecnicamente relevante para operação LATAM</span>
+        </div>
+        <div class="acard-item">
+          <span class="acard-arrow">→</span>
+          <span>Mesmo assim, o benefício seria <strong>marginal</strong> diante dos riscos editoriais</span>
+        </div>
+      </div>
+      <div class="acard no">
+        <div class="acard-title">✗ Incompatibilidades críticas</div>
+        <div class="acard-item">
+          <span class="acard-arrow">→</span>
+          <span>Conteúdo da MyDNA exige <strong>profundidade, dados proprietários e autoridade</strong> — automação genérica destrói credibilidade</span>
+        </div>
+        <div class="acard-item">
+          <span class="acard-arrow">→</span>
+          <span>Venda consultiva e relacional: <strong>SEO de blog raramente fecha negócios</strong> nesse perfil</span>
+        </div>
+        <div class="acard-item">
+          <span class="acard-arrow">→</span>
+          <span><strong>Sem prova social B2B</strong> — todos os casos de uso são DTC/B2C simples</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <!-- 5. RISCOS -->
+  <div class="section">
+    <div class="section-label">
+      <div class="section-num">5</div>
+      <div class="section-title">Sinais de risco identificados</div>
+    </div>
+    <div class="risks">
+      <div class="risk">
+        <div class="risk-tag">Reputação</div>
+        <div class="risk-text">Nos comentários do Instagram aparecem reclamações de atendimento ao cliente ("worst customer service") e cobranças além do anunciado ("bait and switch"). Associar a MyDNA a uma ferramenta com esse histórico público é risco desnecessário para quem vende confiança a RH corporativo.</div>
+      </div>
+      <div class="risk">
+        <div class="risk-tag">Editorial</div>
+        <div class="risk-text">Publicação automatizada de dados salariais e legislação trabalhista por país sem curadoria robusta pode gerar erros factuais indexados no Google — visíveis para o público-alvo exato da MyDNA.</div>
+      </div>
+      <div class="risk">
+        <div class="risk-tag">Posicionamento</div>
+        <div class="risk-text">Um awareness de baixa qualidade pode ser pior do que nenhum. A Guía Salarial LATAM é o ativo central de autoridade da MyDNA — conteúdo genérico automatizado dilui diretamente essa credibilidade.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>
+      <div class="footer-brand">MyDNA Digital</div>
+      <div class="footer-sub">Avaliação interna de ferramentas · Uso confidencial</div>
+    </div>
+    <div class="footer-right">
+      23 de junho de 2026<br>
+      Raphael Brisola, Zane &amp; Claude for Chrome
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

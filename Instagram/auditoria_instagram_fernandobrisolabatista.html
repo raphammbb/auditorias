@@ -165,7 +165,7 @@
       font-size: clamp(1rem, 2.5vw, 1.3rem);
       font-weight: 400;
       color: var(--muted2);
-      margin-bottom: 52px;
+      margin-bottom: 36px;
       position: relative;
       z-index: 1;
       letter-spacing: 0.01em;
@@ -174,6 +174,37 @@
     .cover-handle strong {
       color: var(--text);
       font-weight: 600;
+    }
+
+    /* ── AVATAR ── */
+    .avatar-wrap {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 36px;
+    }
+
+    .avatar-ring {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      background: var(--grad);
+      padding: 3px;
+      display: inline-block;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
 
     .metrics-grid {
@@ -722,6 +753,35 @@
       transform: translateY(0);
     }
 
+    /* ── RESPONSIVIDADE ── */
+    @media (max-width: 768px) {
+      .bio-grid { grid-template-columns: 1fr; }
+      .section-header { gap: 10px; }
+      .section-num { width: 32px; height: 32px; font-size: 12px; }
+      .rec-card { flex-direction: column; gap: 8px; }
+      .rec-num { width: auto; text-align: left; font-size: 18px; }
+      .qw-card { flex-direction: column; gap: 10px; }
+      main { padding: 0 16px 80px; }
+      .warning-banner { padding: 0 16px; }
+      .post-header { flex-wrap: wrap; gap: 8px; }
+      .post-title { font-size: 14px; }
+      .toc a { padding: 11px 10px; font-size: 10px; }
+      .toc-inner { gap: 0; }
+      td, th { padding: 10px 12px; font-size: 13px; }
+    }
+
+    @media (max-width: 480px) {
+      .cover { padding: 60px 16px 48px; }
+      .avatar-ring { width: 80px; height: 80px; }
+      .ig-badge { font-size: 11px; padding: 6px 14px; }
+      .cover h1 { letter-spacing: -0.03em; }
+      .metric-value { font-size: 1.5rem; }
+      .metric-card { padding: 16px 12px; }
+      .card { padding: 18px 16px; }
+      .post-card { padding: 16px; }
+      .rec-card { padding: 16px; }
+    }
+
     /* ── FOOTER ── */
     footer {
       text-align: center;
@@ -751,6 +811,14 @@
   <p class="cover-handle">
     Análise de desempenho para <strong>@fernandobrisolabatista</strong> &middot; Fernando Brisola Batista
   </p>
+
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <div class="avatar-inner">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGFhNjAxMDAwMDZjMDMwMDAwMWIwNTAwMDA4MDA1MDAwMGRjMDUwMDAwZDUwNjAwMDBiMjA5MDAwMDBiMGEwMDAwOGQwYTAwMDBlNzBhMDAwMDEyMGYwMDAwAP/bAIQABQYGCwgLCwsLCw0LCwsNDg4NDQ4ODw0ODg4NDxAQEBEREBAQEA8TEhMPEBETFBQTERMWFhYTFhUVFhkWGRYWEgEFBQUKBwoICQkICwgKCAsKCgkJCgoMCQoJCgkMDQsKCwsKCw0MCwsICwsMDAwNDQwMDQoLCg0MDQ0MExQTExOc/8IAEQgAlgCWAwEiAAIRAQMRAf/EAHEAAAEFAQEAAAAAAAAAAAAAAAIAAQMEBgUHEAABAwEHAQcDAwUAAAAAAAABAAIRAwQQEiAhMDFRBRMiQWFxgTKRsRRi4SNCUqHwEQACAQIFBAIDAQEAAAAAAAAAAREhMRBBUWFxIIGRobHRweHw8TD/2gAMAwEAAgADAAAAAdSbHXNGpE7yvUSucPGZR16NyciKWw33gt529zjymvTQtKDsJM6T4va4pLWSAYkc0dlnXk/pnhpKta7uvjmx1jUnFLheB66ZB4/6zlnmg9SisQlGCd0mxW2xKWvMTEjtV7TPmPMvQs676SucNW4nExN5ANNLzOhWOLbxxyW6QJOk2I3OGS2ZIhI7MFlPgAsWkVWKrmAl05ZCyx64uDUAtRLh7hxen3eJ2JayRJ2HDbrCpbaSOZiko9HKhLzR5+nJYXl6OOduHZu1xcKmt5EMnJvXLMkXXtQd+NugJicQ4Xc4ZLamKYp4JLbP5TsOL1YreeC/zRKCGO0T97nII3U/J67j0thzOnYpALgQNh9tiUtw6dilkgNlV4uszgyZLm3qsVpio9l1Sn6FBMho3BXoPTp2rFIIyAhbFbTFst47kiAyNkfH6OfY8ghOGyKMESdOkp492UHShkhmrABAksXs8Yl6GQ8pH1+ZxuUxFLxbkFilBbJnhcKzvdaraZaLZeb6WSDuxM8sEYECZY3Y45Lq0IUM9ilKmVBugglrDbUMtCW0kqUllM3I79dWIOh1M2nHbR41SQ7DHpJv/9oACAEBAAEFAssLhVLcxqPaBVe2PAs3aZCZVa9RuVa7aStVsLk+rKbUVarKa5fqnTY+0A8bIR0FuMlz5VOzuem2NOsQR7PT7O+mmPVgrlw2ArTIZXqYzZrEsIF0qVAKtNhldmlwOwF2o4inZqMv4ROSVKLA2psBdrP0sjYRN8KFFzhiFJ2JmcLtIYqtNmEKYXeoVFiWJd6LrN9GcK161sOjq8J2qwoS1MqhPqSsJTCQaFUhrXB4ywqtpbSNorsx2suLX6l8puqaVRohwAhMcSQqWNWQVMeULtCnqArQ2RgxAsRaqgwii2A6n4wxQqLfFZh4MoVop94ygJfVK1au9YjWamf1HcK0CE2u0rvKao0zV2Aq1LA96cU9wC5Taoau+lGrK+lNKsv07Fah3ieMKJRQuw3sVk+jYCtjYKc2U2nhQwLBTT2BBjgmlWduFh2bWnZJWK6y0u8fsvqNYrW9FBG6FCAlWah3Tc5MJ9pDUamJ9UynKYWJSsSxKxYcWYuATrQnVJL3y5+hB0KhOCwprSgxE6U65QeHZTUReqegp6mpzTOl4C8ymmXU1MJtbJ//2gAIAQMAAT8B3W013YRpBObGZvKbe8TmZyu9Qqo1Au9RyUmhxgp1ODCNKUGQqlPQJtOE8RkBjVVDJB9EAvlOWH1T+crXcBFYfdR0lBO5OVgUoORcnujJCDUzhQpuqszU8jkRf//aAAgBAgABPwG+FCjOE6p0WMoVSg6cxOiN7DGZw0Qoko0UKaNFDI4wE12ibXGunmnPBVOpqZ1Tqg6JpnIU3ghSpTUSm8ZShe5N4GUm+E1s5ZT1KlFypvzPyDJ//9oACAEBAAY/AtjQLlQ/VabuvOWUIKDXc7gcfPLouLo2jChS7NLOenVfO1A8zssqesH589po+dkhNPUDZaP27Q+fzsn2AUrT7rkm/laLlcr6J9jPPopHGeOSsQa58/AlcYdOJN2iOt0ox1QULw1MPuJCqTGGdY/y9M7HeuFBR6IHIAneviH4N7J8pP2U+byXff8AjP7aj4Wvld+38fwvqC5n21Q00HF0jlvC1lq5C6M8z5n0GyT5z/rLxdF599meCo6bPztT1v6rgrleFc3N+/32hsR5DU7XiMbEBep52pPP42JJ1/tGxoo817I7H/crrn6KdqOmt8HJ/9oACAEBAQE/IcUhIQcJLokUNVfgZbSbUl6qhuXFsilXPPyIFKJydxiOtYJCQsq2IoqcJ/GrJskNd5jgoCENTLFe7j6KQFs6lxrqQhBpHoSAmqk0T2J/4KtFB2Y5A6KmVxyWqKyJEl5J7IaH0oQgzD/CGwOEizWYkYSFgRdyhc6fi+jElVVjnXTkfUhYZ2RS7EW9BwmBJJIsDIM0o8F+HgY+lCEIN+92hWsmwjEQg3wVOcvZqC0+Yr7H0RgsG2cvLFMLjQNBDzFMaoTs0SmWejXw4+pYOxeIpfyKGVKnsRGkic1/H2V5f8OSWr8/sepdZwVlHkbTUO9L0Lzlw7fLK8ZE25VqXQxIfLf3noQkIJDpwS0skPo0R0VCIedkIDSKlnIfHlYBshxxPoWErNVEmuNMLzBF0mpwpEpKrsVttRrSz3Q0UkO4olj3d0JLeDaSVYRPNV0ITGFbuT5X5ETyJpJrH0PeEM/iwnQ5l0XLNnFBAjSux+gRmoI0i4qRqOzsn8FI9w98r4dKYxILPyv0EQtceohro2zmlXK6jPhYf2FPkRt2DE2nCw31fCshVDIXidFbp7NFms3Ta8qUaHamfg1Ww6idC8NXbysRHRGCWFEBEve+w8p7sjoXA1W2Eqq8SJKpK2EqL5Cq2Fo9z8IY+hCExMZQ53T5Kxr3EwkttiLUg1wIcM0aOD5X4GPGMJFg2AvtUeMWzpB5NuglUqooarXyNTXrI/mzrlsVhz2goLcgTu1L2+MD6YEhFSTQoeEEwcCoeZEfSFl3sMY8YIIEhLKV3z4VyW2G0Qg5HMa0Et0S1YmK9Z99FshjHjBAi5lorLhZyQNonCe6vdk+chBNvRtwdhRmWCWYpOrWsDGPouLMtC6JzDFrINO0/JOFEkEthssxi7gWryxVHEarI1vIkq0K5aH2GPFkNsZLpLav+CyCse5W61oUu1PFMJgkkwMR+SXcrfJv/pEwfqbjx//aAAwDAQECAQMBAAAQD2Sub3uFtBt2MK/zB1ZpfqH7spGlJhHWKHujQzRh5igQBQqyxB0t5j8/rFpJWfr8ua6fRLCXAsTy3HXDMQyJHToDfLADySixjiSD/9oACAEDAQE/EOmBrrnubBxOvL4CYMjPqYNVapqoURVdF756EnMTjlKUTeyg6EOKDF1LDR0l9hlzkpt79D3SXTk37FLTnIhZ/giD7ln0Hq26XOR0VtsGprsqV2cmimR55H0tbQgxWY15mSu+hM8BJTag8CJIHeZGoxWF7GQIeWId8f/aAAgBAgEBPxDFS/4iEeC5RcrqgcfGUv8AgMiGPIgsyxdDpEe0UxrOBdLMjbOhMSU1qUYI9CEadjb99UkS8LemJI4OlSTwgfSFhijuIIIJFYmem1dCUQnDx//aAAgBAQEBPxBISEugxWnpCW3QrA87J8VM3pcgH4CDbYbKAXhfsOSQsqBblysNhoggWCQgljdOMu7/AJmQUt219SdMqDq6CfoA3BJzfZCb1S4AukCnqKo9T1KLKtgNYLBYEwNmQli/HJw+Gh082ouAhhC7sUSyIQJA9QmO5ad42bdeSNqE3oEK+AhBGCwLhLcW7b5Hu9i5ayX45FpcA0FhRIZK2GHIUQipGBXnZ/RwycsMKfg9hRogggSEFwJNAW4KX21JOrdWuV+5FJEtcKCqHIclIpi1LVTuswToQJYFwlQcu0dFMmlSc/PMuRyyYp5jwTdFcYmTZq5uUiY5lXkAn5MDxQSFFOSt/eiFJP1VENKF4apvQmXoszKDPEKrJdgURpn9k/REIIwQkLhd2lIrqlVQLs0Ir4IQ0zfklttIvjevoLI8ViqNXM8Z9iA7r2oGmmrWi3ZKrXt+wpqMq09giraz1VqvtJl2a7Wo006pHRp2GiMExZ/II4Uts63sJ6zRNTDLvAb7szGVU9InQElbr8IonuHwWJD2IYKI0bSyfgfw/rlR2VbRODZRS0SnyJzWxGX39E0gQISE/lcSoiTj/JEja9B5NYMbGIio5HYSsT3bMZMFot4CGEuEGX5moibW5/Qaombe8j6VXJHgXkjOy+UKr7uSy9KehxV3FrmpFlFJZ3f0dkKOr6hth/hNoLGMTxGN6uXkI7yRRCrPdL9wXo1fXxbkmE2SWTVmZKq6xoVuh7peIGeLRh6UeycJ+pWvt+AuJQViKiqLsf504YuWuPGls9Dfdv8AhCkUNR8whVtWQ2QQRJJJJJJKySoktkhjY2MJMcPEGVpTkCScHyWqyQglZeWb8DmbUZJ+RLVdVBJFKjTJanoHrPTUvHz2IBq5da4AYbG+hhIYg4TKFol+Gh0+nMmVm0lVTWpKbEZPotiDSSZGBQdCR4VRKV5y1HaqzOz/AArR6+uGFhseCwsSzdHsfQPMg25Q9lyYIyZuPAe5aSgyEQ7tSwl1Hq1XUcEjQ9D/AErWdT5H0hAN2+gbA8EiMLxYOHG/P6R2rsJT3RSidpTdGJ3Whb8iifyt8keQ2FhsYggsArPxwpVbREs9khLKrKKQ4jQerT5TIOWBL+RNwtWgo6toExx9I3Z+SRIbi20fwNyx8Z4IoI5UhYoS1A2cJaCJ3BQHstiO2DCHR9ivRqaiRoNG3/h6Pkg2YrovaqTu+dIKUrVvHYY8Fza1GWZop2WbY3h6nbnJfOiEGpTSVjJCUvih/jwTk6lQaEbK9SaibMlHFfZVm5H9DDvlZzHETRwVysUzXH0a/ar9tRMDwuGShJbtpLtUgMLEv6NpenAlYtf7kTdWElrSbhjq9XJ+XcvQngOBsBqpaEaGvrLN6Hg5DaE6X2qgeUdnK2JiTxX76iDQz//Z" alt="Fernando Brisola Batista" />
+      </div>
+    </div>
+  </div>
 
   <div class="metrics-grid">
     <div class="metric-card">

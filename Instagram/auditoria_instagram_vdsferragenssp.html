@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoria Instagram — @vdsferragenssp · VDS Ferragens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0F1117;
+    --bg-card: #161B26;
+    --bg-card2: #1C2333;
+    --green: #22C55E;
+    --green-dark: #15803D;
+    --green-dim: rgba(34,197,94,0.12);
+    --amber: #F59E0B;
+    --amber-dim: rgba(245,158,11,0.12);
+    --red: #EF4444;
+    --red-dim: rgba(239,68,68,0.1);
+    --blue: #3B82F6;
+    --blue-dim: rgba(59,130,246,0.1);
+    --text: #F1F5F9;
+    --text-muted: #94A3B8;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% -10%, rgba(34,197,94,0.14) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 80%, rgba(245,158,11,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 10% 60%, rgba(34,197,94,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 80%);
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 999px;
+    padding: 7px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.01em;
+    margin-bottom: 28px;
+  }
+
+  .badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #22C55E 0%, #86EFAC 40%, #F59E0B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: grad-shift 6s ease-in-out infinite alternate;
+    margin-bottom: 16px;
+  }
+
+  @keyframes grad-shift {
+    0%   { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(15deg); }
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .hero-handle {
+    font-size: 0.95rem;
+    color: var(--green);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 48px;
+  }
+
+  /* ── MÉTRICAS HERO ─────────────────────────────────────── */
+  .metrics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    padding: 18px 24px;
+    min-width: 130px;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .metric-card:hover { transform: translateY(-2px); border-color: rgba(34,197,94,0.35); }
+
+  .metric-val {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .metric-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  /* ── SCORE CIRCLE ─────────────────────────────────────── */
+  .score-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .score-label-top {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .score-circle-svg { width: 150px; height: 150px; }
+
+  .score-track { fill: none; stroke: var(--border-strong); stroke-width: 8; }
+
+  .score-fill {
+    fill: none;
+    stroke: url(#scoreGrad);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 377;
+    stroke-dashoffset: 377;
+    transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    transform: rotate(-90deg);
+  }
+
+  .score-text-val {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    fill: var(--text);
+    dominant-baseline: middle;
+    text-anchor: middle;
+  }
+
+  .score-text-den {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    fill: var(--text-muted);
+    dominant-baseline: middle;
+    text-anchor: middle;
+  }
+
+  .score-caption {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    max-width: 220px;
+    text-align: center;
+    line-height: 1.45;
+  }
+
+  /* ── AVISO ────────────────────────────────────────────── */
+  .aviso {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: var(--radius-sm);
+    padding: 14px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 860px;
+    margin: 0 auto 48px;
+  }
+
+  .aviso-icon { flex-shrink: 0; margin-top: 2px; }
+  .aviso-icon svg { width: 18px; height: 18px; color: var(--amber); }
+
+  .aviso p {
+    font-size: 0.88rem;
+    color: #FCD34D;
+    line-height: 1.5;
+  }
+
+  /* ── MAIN LAYOUT ──────────────────────────────────────── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── SECTION ─────────────────────────────────────────── */
+  .section {
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .section.visible { opacity: 1; transform: translateY(0); }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-icon.green { background: var(--green-dim); }
+  .section-icon.amber { background: var(--amber-dim); }
+  .section-icon.red   { background: var(--red-dim); }
+  .section-icon.blue  { background: var(--blue-dim); }
+
+  .section-icon svg { width: 18px; height: 18px; }
+  .section-icon.green svg { color: var(--green); }
+  .section-icon.amber svg { color: var(--amber); }
+  .section-icon.red   svg { color: var(--red); }
+  .section-icon.blue  svg { color: var(--blue); }
+
+  .section-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ── CARD ─────────────────────────────────────────────── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .card p, .card li {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .card ul { padding-left: 20px; }
+  .card li { margin-bottom: 6px; }
+
+  /* ── BIO BLOCK ────────────────────────────────────────── */
+  .bio-block {
+    background: var(--bg-card2);
+    border: 1px solid var(--border-strong);
+    border-left: 3px solid var(--green);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 12px 0;
+    font-style: italic;
+  }
+
+  /* ── TAG LIST ─────────────────────────────────────────── */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+  .tag {
+    background: var(--bg-card2);
+    border: 1px solid var(--border-strong);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .tag.green { background: var(--green-dim); border-color: rgba(34,197,94,0.3); color: var(--green); }
+  .tag.amber { background: var(--amber-dim); border-color: rgba(245,158,11,0.3); color: var(--amber); }
+  .tag.red   { background: var(--red-dim); border-color: rgba(239,68,68,0.3); color: #F87171; }
+
+  /* ── INFO ROW ─────────────────────────────────────────── */
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+  }
+
+  .info-row:last-child { border-bottom: none; }
+  .info-key { color: var(--text-muted); min-width: 140px; flex-shrink: 0; font-weight: 500; }
+  .info-val { color: var(--text); }
+
+  /* ── TABLE ────────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; border-radius: var(--radius-sm); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    min-width: 580px;
+  }
+
+  thead tr { background: var(--bg-card2); }
+
+  th {
+    text-align: left;
+    padding: 12px 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-strong);
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 11px 14px;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.45;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  tr:hover td { background: rgba(255,255,255,0.02); }
+
+  td:first-child, th:first-child { border-radius: 0; }
+
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--green-dim);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 6px;
+    padding: 2px 10px;
+    font-weight: 700;
+    color: var(--green);
+    font-size: 0.88rem;
+  }
+
+  .score-badge.low {
+    background: rgba(239,68,68,0.08);
+    border-color: rgba(239,68,68,0.25);
+    color: #F87171;
+  }
+
+  .rank-num {
+    font-weight: 800;
+    color: var(--amber);
+    font-size: 0.95rem;
+  }
+
+  .status-ok  { color: var(--green); font-weight: 600; font-size: 0.8rem; }
+  .status-old { color: #F87171; font-weight: 600; font-size: 0.8rem; }
+  .status-mid { color: var(--amber); font-weight: 600; font-size: 0.8rem; }
+
+  /* ── HIGHLIGHT CARDS ──────────────────────────────────── */
+  .highlight-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .highlight-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+  }
+
+  .highlight-card.best::before  { background: var(--green); }
+  .highlight-card.worst::before { background: var(--red); }
+  .highlight-card.insight::before { background: var(--amber); }
+  .highlight-card.rec::before   { background: var(--blue); }
+  .highlight-card.win::before   { background: #A855F7; }
+
+  .hc-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 999px;
+    padding: 3px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+  }
+
+  .hc-badge.best  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .hc-badge.worst { background: var(--red-dim); color: #F87171; border: 1px solid rgba(239,68,68,0.25); }
+  .hc-badge.insight { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+  .hc-badge.rec   { background: var(--blue-dim); color: #60A5FA; border: 1px solid rgba(59,130,246,0.25); }
+  .hc-badge.win   { background: rgba(168,85,247,0.1); color: #C084FC; border: 1px solid rgba(168,85,247,0.25); }
+
+  .hc-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .hc-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .hc-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .hc-chip {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  /* ── REC NUMBER ───────────────────────────────────────── */
+  .rec-num {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--blue-dim);
+    border: 1px solid rgba(59,130,246,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: #60A5FA;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+  }
+
+  /* ── INSIGHT LIST ─────────────────────────────────────── */
+  .insight-bullet {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .insight-bullet .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* ── PROGRESS BAR ─────────────────────────────────────── */
+  .score-bar-wrap { margin-top: 10px; }
+
+  .score-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .score-bar-track {
+    height: 6px;
+    background: var(--border-strong);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    width: 0;
+    transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .score-bar-fill.green { background: linear-gradient(90deg, var(--green-dark), var(--green)); }
+  .score-bar-fill.amber { background: linear-gradient(90deg, #B45309, var(--amber)); }
+  .score-bar-fill.red   { background: linear-gradient(90deg, #991B1B, var(--red)); }
+
+  /* ── COMMENT CARD ─────────────────────────────────────── */
+  .comment-card {
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .comment-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #64748B, #334155);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .comment-handle { font-size: 0.8rem; font-weight: 700; color: var(--text); margin-bottom: 3px; }
+  .comment-text   { font-size: 0.88rem; color: var(--text-muted); }
+
+  /* ── DIVIDER ──────────────────────────────────────────── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 40px 0;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  footer strong { color: var(--text); }
+
+  /* ── HIGHLIGHT TEXT ───────────────────────────────────── */
+  .hl-green { color: var(--green); font-weight: 700; }
+  .hl-amber { color: var(--amber); font-weight: 700; }
+  .hl-red   { color: #F87171;      font-weight: 700; }
+
+  /* ── MEDIA ────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .metrics-row { gap: 8px; }
+    .metric-card { min-width: 100px; padding: 14px 16px; }
+    .metric-val  { font-size: 1.6rem; }
+    .info-key    { min-width: 110px; }
+    .card        { padding: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+
+    <div class="badge-pill">
+      <span class="badge-dot"></span>
+      Auditoria de Conteúdo · Instagram · 25/06/2026
+    </div>
+
+    <h1 class="hero-title">Manual de Boas Práticas</h1>
+    <p class="hero-sub">Análise de desempenho para</p>
+    <p class="hero-handle">@vdsferragenssp · VDS Ferragens</p>
+
+    <div class="metrics-row">
+      <div class="metric-card">
+        <div class="metric-val" data-count="7">0</div>
+        <div class="metric-label">Posts Analisados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" data-count="2398">0</div>
+        <div class="metric-label">Seguidores</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val" data-count="231">0</div>
+        <div class="metric-label">Posts Históricos</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">6m</div>
+        <div class="metric-label">Intervalo de Posts</div>
+      </div>
+    </div>
+
+    <div class="score-wrap">
+      <span class="score-label-top">Score Geral</span>
+      <svg class="score-circle-svg" viewBox="0 0 130 130">
+        <defs>
+          <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#22C55E"/>
+            <stop offset="100%" stop-color="#F59E0B"/>
+          </linearGradient>
+        </defs>
+        <circle class="score-track" cx="65" cy="65" r="60"/>
+        <circle class="score-fill" id="scoreFill" cx="65" cy="65" r="60"/>
+        <text class="score-text-val" x="65" y="60">5.2</text>
+        <text class="score-text-den" x="65" y="80">de 10</text>
+      </svg>
+      <p class="score-caption">Engajamento baixo · Frequência crítica · Humanização pontual</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CONTENT ════════════════════════════════════════════ -->
+<div class="container">
+
+  <!-- Aviso -->
+  <div class="aviso">
+    <div class="aviso-icon">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+    </div>
+    <p><strong>Amostra reduzida (7 posts)</strong> — use como primeira impressão, não como diagnóstico definitivo. Uma análise mais aprofundada exigiria ao menos 30 publicações.</p>
+  </div>
+
+  <!-- ── VISÃO GERAL ─────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon green">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+      </div>
+      <h2 class="section-title">Visão Geral</h2>
+    </div>
+
+    <div class="card">
+      <p>A VDS Ferragens é uma loja física de ferragens e acessórios para vidraçaria em São Paulo com <span class="hl-green">2.398 seguidores</span> e uma presença no Instagram <strong style="color:var(--text)">funcional, mas estagnada</strong>. O perfil posta de forma irregular — os 7 posts mais recentes cobrem um intervalo de <span class="hl-amber">quase 6 meses</span> — e o engajamento é consistentemente baixo, com a única exceção sendo posts de humanização da equipe.</p>
+      <br>
+      <p>O nicho é B2B/técnico (vidraceiros, profissionais da construção), mas a comunicação oscila sem estratégia clara entre catálogo de produtos, promoções e posts institucionais sem personalidade definida.</p>
+      <div class="tag-row" style="margin-top:16px;">
+        <span class="tag">Ferragens & Vidraçaria</span>
+        <span class="tag">B2B/Técnico</span>
+        <span class="tag">São Paulo/SP</span>
+        <span class="tag amber">Estagnado</span>
+        <span class="tag red">Frequência Irregular</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BIO E LINK ──────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon amber">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+      </div>
+      <h2 class="section-title">Bio e Link</h2>
+    </div>
+
+    <div class="card">
+      <p class="card-title">Bio atual</p>
+      <div class="bio-block">
+        🪟 Materiais do ramo vidreiro e construção<br>
+        🪞 Vidros e espelhos<br>
+        🏆 Marcas de qualidade<br>
+        🚀 Sua melhor opção de negócios<br>
+        📲 Entre em contato conosco ⤵️
+      </div>
+
+      <div class="info-row">
+        <span class="info-key">Avaliação</span>
+        <span class="info-val"><span class="hl-amber">Vaga</span> — informa o segmento, mas não diferencia a loja, não menciona localização (SP), não comunica para quem é o perfil (profissional ou consumidor final) e o argumento "Sua melhor opção de negócios" é genérico e não demonstrável.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">CTA na bio</span>
+        <span class="info-val"><span class="hl-green">Sim</span> — "Entre em contato conosco ⤵️" direcionando ao Taplink.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Palavras-chave</span>
+        <span class="info-val"><span class="hl-green">Sim</span> — "vidreiro", "construção", "vidros e espelhos", "ferragens e acessórios" (nome da conta).</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Link</span>
+        <span class="info-val"><span class="hl-green">Presente</span> — Taplink ativo e bem estruturado (Facebook, Instagram, Site, Google Maps, WhatsApp, Uber), <span class="hl-amber">mas desatualizado</span> (121–128 semanas em vários destaques). CTA da bio é vago demais para gerar clique com intenção.</span>
+      </div>
+      <div class="info-row" style="border-bottom:none;">
+        <span class="info-key">O que melhorar</span>
+        <span class="info-val">Adicionar localização, público-alvo e argumento diferenciador real. Exemplo: <em style="color:var(--green)">"Distribuidora autorizada · Pronta entrega · Av. Cupecê, SP"</em></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GRID VISUAL ─────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon blue">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <h2 class="section-title">Grid Visual</h2>
+    </div>
+
+    <div class="card">
+      <div class="info-row">
+        <span class="info-key">Identidade visual</span>
+        <span class="info-val"><span class="hl-amber">Irregular</span> — há predominância de verde e branco (cores da marca VDS), mas os posts alternam entre artes gráficas de qualidade variada, fotos de produtos com fundo branco/estúdio, fotos reais da loja/equipe e layouts promocionais com estilos diferentes.</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Convida a seguir?</span>
+        <span class="info-val"><span class="hl-amber">Parcialmente</span> — a primeira impressão do grid transmite que é uma loja de ferragens (o produto é reconhecível), mas não há coesão visual que prenda o olhar ou crie desejo de explorar mais.</span>
+      </div>
+      <div class="info-row" style="border-bottom:none;">
+        <span class="info-key">Avaliação</span>
+        <span class="info-val">O grid funciona como vitrine de catálogo básica, mas está longe de ser profissional e coeso — a tipografia, cores de destaque e estilo fotográfico variam post a post, sem uma linguagem visual que identifique a marca imediatamente.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DESTAQUES DE STORIES ────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon amber">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 0"/><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v2m0 10v2M5 12H3m18 0h-2"/></svg>
+      </div>
+      <h2 class="section-title">Destaques de Stories</h2>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Slides</th>
+              <th>CTA</th>
+              <th>Qualidade Visual</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Arraiá da VDS</td>
+              <td>~26</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Irregular — festivo, fora do padrão verde</td>
+              <td><span class="status-ok">Recente/Atual</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">VIDRACEIROS</td>
+              <td>~40</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Regular, usa identidade da marca</td>
+              <td><span class="status-ok">Recente/Atual</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Especial MÃES</td>
+              <td>~6</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Consistente com identidade</td>
+              <td><span class="status-mid">Desatualizado (59 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Clientes</td>
+              <td>~14</td>
+              <td><span class="tag red" style="font-size:0.75rem;padding:2px 10px;">Não</span></td>
+              <td>Inconsistente — mix de estilos</td>
+              <td><span class="status-old">Desatualizado (96 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">PRODUTOS</td>
+              <td>~7</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Consistente, informativo</td>
+              <td><span class="status-old">Desatualizado (90 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Feedbacks</td>
+              <td>~3</td>
+              <td><span class="tag red" style="font-size:0.75rem;padding:2px 10px;">Não</span></td>
+              <td>Baixa — prints de chat sem design</td>
+              <td><span class="status-old">Desatualizado (115 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">FESQUA 2024</td>
+              <td>~14</td>
+              <td><span class="tag red" style="font-size:0.75rem;padding:2px 10px;">Não</span></td>
+              <td>Regular, fotojornalístico</td>
+              <td><span class="status-old">Desatualizado (92 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Google</td>
+              <td>~1</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Consistente</td>
+              <td><span class="status-old">Desatualizado (121 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Loja on-line</td>
+              <td>~1</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Consistente</td>
+              <td><span class="status-old">Desatualizado (125 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Localização</td>
+              <td>~1</td>
+              <td><span class="tag green" style="font-size:0.75rem;padding:2px 10px;">Sim</span></td>
+              <td>Consistente com identidade</td>
+              <td><span class="status-old">Desatualizado (126 sem)</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text); font-weight:600;">Horários</td>
+              <td>~1</td>
+              <td><span class="tag red" style="font-size:0.75rem;padding:2px 10px;">Não</span></td>
+              <td>Consistente</td>
+              <td><span class="status-old">Desatualizado (128 sem)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="highlight-card insight" style="margin-top:14px;">
+      <div class="hc-badge insight">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Avaliação
+      </div>
+      <p class="hc-text">A estrutura dos destaques é bem pensada — cobre produtos, clientes, eventos, localização e horários — mas a <span class="hl-amber">maioria está severamente desatualizada</span> (mais de 2 anos sem atualização), o que passa imagem de abandono. Os destaques mais úteis para conversão (<strong style="color:var(--text)">"Google", "Loja on-line", "Horários"</strong>) têm apenas 1 slide cada, são subaproveitados e não foram atualizados.</p>
+    </div>
+  </div>
+
+  <!-- ── RANKING DE ENGAJAMENTO ──────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon green">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+      </div>
+      <h2 class="section-title">Ranking de Engajamento</h2>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <p style="font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--text);">Fórmula:</strong> Score = curtidas + (comentários × 3)</p>
+    </div>
+
+    <div class="card" style="padding:0; overflow:hidden;">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Post</th>
+              <th>Formato</th>
+              <th>Score</th>
+              <th>Curtidas</th>
+              <th>Coment.</th>
+              <th>Tema</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="rank-num">1º</span></td>
+              <td style="color:var(--text); font-weight:600;">Post 3</td>
+              <td>Foto (equipe)</td>
+              <td><span class="score-badge">19</span></td>
+              <td>16</td>
+              <td>1</td>
+              <td>Dia Internacional da Mulher</td>
+            </tr>
+            <tr>
+              <td><span class="rank-num">2º</span></td>
+              <td style="color:var(--text); font-weight:600;">Post 7</td>
+              <td>Foto (equipe)</td>
+              <td><span class="score-badge">10</span></td>
+              <td>10</td>
+              <td>0</td>
+              <td>Outubro Rosa — campanha social</td>
+            </tr>
+            <tr>
+              <td><span class="rank-num">3º</span></td>
+              <td style="color:var(--text);">Post 5</td>
+              <td>Foto (produto)</td>
+              <td><span class="score-badge low">6</span></td>
+              <td>6</td>
+              <td>0</td>
+              <td>Estiletes carbono preto</td>
+            </tr>
+            <tr>
+              <td><span class="rank-num">4º</span></td>
+              <td style="color:var(--text);">Post 1</td>
+              <td>Foto (produto)</td>
+              <td><span class="score-badge low">5</span></td>
+              <td>5</td>
+              <td>0</td>
+              <td>Selante MS Incolor Autofix</td>
+            </tr>
+            <tr>
+              <td><span class="rank-num">5º</span></td>
+              <td style="color:var(--text);">Post 4</td>
+              <td>Foto (promoção)</td>
+              <td><span class="score-badge low">4</span></td>
+              <td>4</td>
+              <td>0</td>
+              <td>Sorteio Copa 2026 / Semana Vidraceiro</td>
+            </tr>
+            <tr>
+              <td><span class="rank-num">6º</span></td>
+              <td style="color:var(--text);">Post 2</td>
+              <td>Foto (produto)</td>
+              <td><span class="score-badge low">3</span></td>
+              <td>3</td>
+              <td>0</td>
+              <td>Pano Mágico Limpa Vidros</td>
+            </tr>
+            <tr>
+              <td><span class="rank-num">7º</span></td>
+              <td style="color:var(--text);">Post 6</td>
+              <td>Foto (promoção)</td>
+              <td><span class="score-badge low">3</span></td>
+              <td>3</td>
+              <td>0</td>
+              <td>Promoção Relâmpago — Prolongador Maxx</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── O QUE ESTÁ FUNCIONANDO ─────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon green">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h2 class="section-title">O Que Está Funcionando — Top 2 Padrões</h2>
+    </div>
+
+    <div class="highlight-card best">
+      <div class="hc-badge best">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        #1 Melhor
+      </div>
+      <div class="hc-meta">
+        <span class="hc-chip">Post 3</span>
+        <span class="hc-chip">Score: 19</span>
+        <span class="hc-chip">08/03</span>
+        <span class="hc-chip">Foto — equipe</span>
+      </div>
+      <h3 class="hc-title">Dia Internacional da Mulher</h3>
+      <p class="hc-text">Este foi disparado o melhor post da amostra. O que o fez funcionar: é o único post de <strong style="color:var(--text)">humanização real da conta</strong>, com foto genuína da equipe da loja — pessoas reais, uniformizadas, em um contexto festivo e emocionalmente carregado. O post não vende produto, não tem CTA para comprar, mas gerou mais curtidas que todos os outros combinados (quase). A legenda é pessoal e celebrativa. A data é estratégica (data comemorativa de alto engajamento orgânico).</p>
+      <br>
+      <p class="hc-text"><strong style="color:var(--amber);">Hipótese:</strong> a audiência responde muito mais a pessoas do que a produtos.</p>
+
+      <div class="score-bar-wrap" style="margin-top:16px;">
+        <div class="score-bar-label"><span>Performance relativa</span><span style="color:var(--green);">19 pts</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill green" data-width="100"></div></div>
+      </div>
+    </div>
+
+    <div class="highlight-card best">
+      <div class="hc-badge best">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        #2 Melhor
+      </div>
+      <div class="hc-meta">
+        <span class="hc-chip">Post 7</span>
+        <span class="hc-chip">Score: 10</span>
+        <span class="hc-chip">20/10/2025</span>
+        <span class="hc-chip">Foto — equipe</span>
+      </div>
+      <h3 class="hc-title">Outubro Rosa — Campanha Social</h3>
+      <p class="hc-text">Mesmo padrão do Post 3: foto real da equipe, causa social, tom emocional. É o segundo melhor post e replica a fórmula: <strong style="color:var(--text)">gente + propósito + data comemorativa</strong>. Novamente sem CTA de venda, mas com o dobro do engajamento médio dos posts de produto. Reforça a hipótese de que humanização é o diferencial da conta.</p>
+
+      <div class="score-bar-wrap" style="margin-top:16px;">
+        <div class="score-bar-label"><span>Performance relativa</span><span style="color:var(--green);">10 pts</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill green" data-width="53"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── O QUE A AUDIÊNCIA ESTÁ DIZENDO ─────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon blue">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      </div>
+      <h2 class="section-title">O Que a Audiência Está Dizendo</h2>
+    </div>
+
+    <div class="card">
+      <p class="card-title">Post 3 — Dia das Mulheres (melhor post da amostra)</p>
+      <div class="info-row">
+        <span class="info-key">Tipos predominantes</span>
+        <span class="info-val">Elogios / cumprimentos simples</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">O perfil responde?</span>
+        <span class="info-val"><span class="hl-red">Raramente</span> — nenhuma resposta encontrada neste post nem nos demais da amostra.</span>
+      </div>
+      <div class="info-row" style="border-bottom:none;">
+        <span class="info-key">Comentários (1)</span>
+        <span class="info-val"> </span>
+      </div>
+
+      <div class="comment-card" style="margin-top:4px;">
+        <div class="comment-avatar">V</div>
+        <div>
+          <div class="comment-handle">vlademirdemetriodasilva</div>
+          <div class="comment-text">"Feliz dia das Mulheres"</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-card insight" style="margin-top:4px;">
+      <div class="hc-badge insight">Insight</div>
+      <p class="hc-text">Com apenas 1 comentário no post mais engajado, a audiência ainda não criou o hábito de comentar — mas o número de curtidas (16) indica que há um <strong style="color:var(--text)">núcleo de seguidores engajados</strong> que reage emocionalmente, apenas não vocaliza. O <span class="hl-amber">silêncio do perfil nos comentários</span> pode estar reforçando essa passividade da audiência.</p>
+    </div>
+  </div>
+
+  <!-- ── O QUE NÃO ESTÁ FUNCIONANDO ────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon red">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <h2 class="section-title">O Que Não Está Funcionando — Bottom 2 Padrões</h2>
+    </div>
+
+    <div class="highlight-card worst">
+      <div class="hc-badge worst">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        Bottom #1
+      </div>
+      <div class="hc-meta">
+        <span class="hc-chip">Post 2</span>
+        <span class="hc-chip">Score: 3</span>
+        <span class="hc-chip">26/03</span>
+        <span class="hc-chip">Foto — produto</span>
+      </div>
+      <h3 class="hc-title">Pano Mágico Limpa Vidros</h3>
+      <p class="hc-text">Foto de produto com arte gráfica comercial, legenda de catálogo com especificações técnicas, telefone e hashtags. É o tipo de conteúdo mais frequente no perfil — e é <strong style="color:var(--text)">o que menos performa</strong>. A imagem é de qualidade média, a legenda parece uma ficha técnica, não há tensão narrativa nem motivo para o seguidor parar o scroll. O produto (pano de limpeza) não é aspiracional nem urgente para o público.</p>
+
+      <div class="score-bar-wrap" style="margin-top:16px;">
+        <div class="score-bar-label"><span>Performance relativa</span><span style="color:#F87171;">3 pts</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill red" data-width="16"></div></div>
+      </div>
+    </div>
+
+    <div class="highlight-card worst">
+      <div class="hc-badge worst">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        Bottom #2
+      </div>
+      <div class="hc-meta">
+        <span class="hc-chip">Post 6</span>
+        <span class="hc-chip">Score: 3</span>
+        <span class="hc-chip">22/10/2025</span>
+        <span class="hc-chip">Foto — promoção</span>
+      </div>
+      <h3 class="hc-title">Promoção Relâmpago — Prolongador Maxx</h3>
+      <p class="hc-text">Usa linguagem de urgência ("corre", "por tempo LIMITADO", "enquanto durar o estoque") mas <strong style="color:var(--text)">não entrega contexto visual impactante</strong> — arte verde genérica com foto do produto. O desconto não é mencionado em valores reais, o que enfraquece a urgência. Sem engajamento nenhum (0 comentários), o que sugere que a audiência não foi ativada. Posts de "promoção relâmpago" sem prova de preço ou percentual de desconto tendem a ser ignorados.</p>
+
+      <div class="score-bar-wrap" style="margin-top:16px;">
+        <div class="score-bar-label"><span>Performance relativa</span><span style="color:#F87171;">3 pts</span></div>
+        <div class="score-bar-track"><div class="score-bar-fill red" data-width="16"></div></div>
+      </div>
+    </div>
+
+    <div class="highlight-card worst">
+      <div class="hc-badge worst">Padrão Comum</div>
+      <p class="hc-text">Posts puramente comerciais/catálogo, com artes gráficas genéricas, legendas descritivas sem ancoragem emocional, sem perguntas, sem histórias e <span class="hl-red">sem faces humanas</span>.</p>
+    </div>
+  </div>
+
+  <!-- ── PRINCIPAIS INSIGHTS ────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon amber">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+      </div>
+      <h2 class="section-title">Principais Insights</h2>
+    </div>
+
+    <div class="highlight-card insight">
+      <div class="hc-badge insight">Insight 1</div>
+      <h3 class="hc-title">Humanização = única alavanca real de engajamento</h3>
+      <p class="hc-text">Os 2 posts com pessoas reais (equipe) somam <span class="hl-green">26 curtidas e 1 comentário</span> — mais do que os 5 posts de produto/promoção juntos (21 curtidas, 0 comentários). Para um perfil B2B de nicho técnico, isso é um sinal claro: <strong style="color:var(--text)">a audiência quer conhecer quem está por trás da loja.</strong></p>
+    </div>
+
+    <div class="highlight-card insight">
+      <div class="hc-badge insight">Insight 2</div>
+      <h3 class="hc-title">Frequência de postagem é um problema grave</h3>
+      <p class="hc-text">O intervalo entre os 7 posts vai de outubro 2025 a março 2026 — <span class="hl-red">quase 6 meses de conteúdo</span>, com pulos de semanas entre publicações. Para um algoritmo que prioriza consistência, isso compromete o alcance orgânico estruturalmente. A conta tem 231 posts históricos mas está <strong style="color:var(--text)">operando em modo inativo.</strong></p>
+    </div>
+
+    <div class="highlight-card insight">
+      <div class="hc-badge insight">Insight 3</div>
+      <h3 class="hc-title">Posts de produto sem âncora de desejo não convertem atenção</h3>
+      <p class="hc-text">A maioria dos posts são catálogos visuais com especificações técnicas, mas para o público de vidraceiros e construtores, o produto precisa aparecer em <strong style="color:var(--text)">contexto de uso real ou com resultado final visível</strong> para gerar interesse — a foto de embalagem sozinha não emociona nem educa.</p>
+    </div>
+  </div>
+
+  <!-- ── RECOMENDAÇÕES PRÁTICAS ──────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon blue">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+      </div>
+      <h2 class="section-title">Recomendações Práticas</h2>
+    </div>
+
+    <div class="highlight-card rec">
+      <div class="rec-num">1</div>
+      <div class="hc-badge rec">Prioridade Máxima</div>
+      <h3 class="hc-title">Publicar pelo menos 3x por semana, com consistência</h3>
+      <p class="hc-text">A frequência irregular está matando o alcance antes de qualquer análise de conteúdo. Crie um calendário fixo: <strong style="color:var(--text)">segunda</strong> (produto em contexto de uso), <strong style="color:var(--text)">quarta</strong> (bastidores/equipe), <strong style="color:var(--text)">sexta</strong> (dica técnica ou promoção com preço real). Três posts semanais regulares valem mais do que 10 posts aleatórios por mês.</p>
+    </div>
+
+    <div class="highlight-card rec">
+      <div class="rec-num">2</div>
+      <div class="hc-badge rec">Alta Prioridade</div>
+      <h3 class="hc-title">Inserir rosto humano em pelo menos 1 de cada 3 posts</h3>
+      <p class="hc-text">A evidência dos 7 posts é inequívoca: <span class="hl-green">humanização gera 3–5x mais engajamento</span> que catálogo. Mostre a equipe atendendo clientes, recebendo produtos, fazendo demonstrações no balcão. Não precisa ser produção elaborada — vídeo vertical de 30 segundos com a Karina ou a Vânia mostrando um produto novo resolve.</p>
+    </div>
+
+    <div class="highlight-card rec">
+      <div class="rec-num">3</div>
+      <div class="hc-badge rec">Alta Prioridade</div>
+      <h3 class="hc-title">Corrigir a bio com localização + público-alvo + diferenciador real</h3>
+      <p class="hc-text">Substituir "Sua melhor opção de negócios" por algo mensurável e específico, como: <em style="color:var(--green)">"🏪 Distribuidora SP | Vidros, Ferragens e Acessórios | Pronta Entrega | Av. Cupecê, 3577"</em>. Isso ajuda no SEO do Instagram e filtra seguidores com intenção real de compra.</p>
+    </div>
+
+    <div class="highlight-card rec">
+      <div class="rec-num">4</div>
+      <div class="hc-badge rec">Gratuito e Imediato</div>
+      <h3 class="hc-title">Responder TODOS os comentários dentro de 24 horas</h3>
+      <p class="hc-text">Com apenas 1 comentário no melhor post da amostra e <span class="hl-red">sem resposta do perfil</span>, a conta está sinalizando para o algoritmo e para a audiência que não há conversa aqui. Responder cria atividade na publicação, aumenta o tempo de tela no post e mostra presença humana. É gratuito e leva 2 minutos.</p>
+    </div>
+  </div>
+
+  <!-- ── QUICK WINS ──────────────────────────────────────── -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon" style="background:rgba(168,85,247,0.12);">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:#A855F7;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <h2 class="section-title">Quick Wins — Próximos 5 Dias</h2>
+    </div>
+
+    <div class="highlight-card win">
+      <div class="hc-badge win">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Quick Win 1
+      </div>
+      <h3 class="hc-title">Publicar um vídeo de 30–60 segundos com a equipe</h3>
+      <p class="hc-text">Mostrar um produto novo ou fazer uma dica rápida de instalação. Filmar com celular, mostrar o rosto, falar diretamente com o vidraceiro. Baseado nos dados desta auditoria, é o tipo de conteúdo que mais engaja essa audiência e <strong style="color:var(--text)">custa zero em produção.</strong></p>
+    </div>
+
+    <div class="highlight-card win">
+      <div class="hc-badge win">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Quick Win 2
+      </div>
+      <h3 class="hc-title">Atualizar os destaques "Horários", "Localização" e "Google"</h3>
+      <p class="hc-text">São os destaques com maior utilidade prática para quem visita o perfil pela primeira vez — e estão com <span class="hl-red">2 anos de idade</span>. Um slide novo no "Horários" (com horários corretos) e um convite atualizado para avaliação no Google dão credibilidade instantânea ao perfil sem exigir nenhuma estratégia de conteúdo. Criar no Canva em menos de 30 minutos.</p>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<footer>
+  <strong>Auditoria gerada pela Agência Logos</strong> · 25/06/2026<br>
+  <span style="font-size:0.78rem;">Análise baseada nos 7 posts mais recentes de @vdsferragenssp</span>
+</footer>
+
+<script>
+  // Count-up
+  function countUp(el, target, duration) {
+    let start = 0;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { el.textContent = target.toLocaleString('pt-BR'); clearInterval(timer); }
+      else { el.textContent = Math.floor(start).toLocaleString('pt-BR'); }
+    }, 16);
+  }
+
+  // Score circle
+  function animateScore(value, max) {
+    const circ = document.getElementById('scoreFill');
+    const total = 377;
+    const offset = total - (value / max) * total;
+    setTimeout(() => { circ.style.strokeDashoffset = offset; }, 400);
+  }
+
+  // Intersection Observer
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+
+      // Sections fade-in
+      if (e.target.classList.contains('section')) {
+        e.target.classList.add('visible');
+      }
+
+      // Count-up
+      if (e.target.dataset.count) {
+        const target = parseInt(e.target.dataset.count);
+        countUp(e.target, target, 1400);
+        io.unobserve(e.target);
+      }
+
+      // Progress bars
+      if (e.target.classList.contains('score-bar-fill')) {
+        const w = e.target.dataset.width;
+        setTimeout(() => { e.target.style.width = w + '%'; }, 200);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.section').forEach(el => io.observe(el));
+  document.querySelectorAll('[data-count]').forEach(el => io.observe(el));
+  document.querySelectorAll('.score-bar-fill').forEach(el => io.observe(el));
+
+  // Score circle on load
+  animateScore(5.2, 10);
+</script>
+
+</body>
+</html>

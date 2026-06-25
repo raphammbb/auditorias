@@ -175,6 +175,77 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:40px 24p
 
 /* SVG icons inline */
 .ico{width:16px;height:16px;display:block}
+/* ── RESPONSIVE EXTRAS ── */
+
+/* Nav: hide scrollbar visually, keep functionality */
+.nav{-ms-overflow-style:none;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:12px 10px;font-size:10px}
+
+/* Hero: reduce padding on mobile */
+@media(max-width:600px){
+  .hero{padding:60px 16px 48px}
+  .blob-1{width:280px;height:280px}
+  .blob-2{width:220px;height:220px}
+  .blob-3{width:180px;height:180px}
+  .badge-date{font-size:11px;padding:6px 14px;gap:7px;text-align:center;flex-wrap:wrap;justify-content:center}
+  .hero-sub{font-size:.95rem;margin-bottom:32px}
+  .profile-wrap{width:110px;height:110px;margin-bottom:20px}
+  #profile-photo{width:100px;height:100px}
+}
+
+/* Metrics: 1 col on very small screens */
+@media(max-width:420px){
+  .metrics-grid{grid-template-columns:1fr}
+}
+
+/* Main: less horizontal padding on mobile */
+@media(max-width:480px){
+  main{padding:0 14px 60px}
+  .section{padding-top:52px}
+  .section-header{gap:12px}
+  .section-num{width:34px;height:34px;font-size:11px;border-radius:8px}
+}
+
+/* Bio card: prevent inline-block overflow */
+@media(max-width:600px){
+  .metric-card[style*="inline-block"]{display:block!important}
+}
+
+/* Alert badge: wrap text on mobile */
+.alert-badge{flex-wrap:wrap}
+
+/* Rec header: stack on mobile */
+@media(max-width:520px){
+  .rec-header{flex-direction:column;gap:8px}
+  .impact-badge{align-self:flex-start}
+  .rec-title{font-size:14px}
+}
+
+/* Pattern score: don't float on very small screens */
+@media(max-width:400px){
+  .pattern-score{float:none;font-size:1.5rem;margin-bottom:4px}
+}
+
+/* Quick wins: full width on small screens handled already; reduce padding */
+@media(max-width:480px){
+  .qw-card{padding:16px}
+  .rec-card{padding:16px}
+  .pattern-card{padding:16px}
+  .insight-card{padding:16px 18px}
+}
+
+/* Tables: min font size preserved, horizontal scroll ok */
+@media(max-width:480px){
+  th,td{padding:9px 10px;font-size:12px}
+}
+
+/* Footer */
+@media(max-width:480px){
+  footer{padding:28px 16px}
+  .footer-note{font-size:12px}
+}
+
 </style>
 </head>
 <body>

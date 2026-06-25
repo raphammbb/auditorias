@@ -91,6 +91,24 @@
     color: var(--green);
     letter-spacing: 0.01em;
     margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .badge-pill::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%   { left: -100%; }
+    60%  { left: 150%; }
+    100% { left: 150%; }
   }
 
   .badge-dot {
@@ -175,13 +193,83 @@
     letter-spacing: 0.07em;
   }
 
+  /* ── BLOB FLUTUANTE ──────────────────────────────────── */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.18;
+    pointer-events: none;
+    animation: float-blob 10s ease-in-out infinite alternate;
+  }
+
+  .blob-1 { width: 320px; height: 320px; background: #22C55E; top: 10%; left: 5%; animation-delay: 0s; }
+  .blob-2 { width: 240px; height: 240px; background: #F59E0B; bottom: 15%; right: 8%; animation-delay: -4s; }
+  .blob-3 { width: 180px; height: 180px; background: #22C55E; top: 55%; left: 35%; animation-delay: -7s; }
+
+  @keyframes float-blob {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(30px, -20px) scale(1.06); }
+    100% { transform: translate(-15px, 15px) scale(0.96); }
+  }
+
+  /* ── FOTO DE PERFIL ───────────────────────────────────── */
+  .profile-wrap {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    flex-shrink: 0;
+  }
+
+  .profile-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(34,197,94,0.5);
+    box-shadow: 0 0 0 6px rgba(34,197,94,0.12), 0 0 32px rgba(34,197,94,0.25);
+    animation: float-photo 5s ease-in-out infinite;
+  }
+
+  @keyframes float-photo {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-7px); }
+  }
+
+  .orbit-ring {
+    position: absolute;
+    inset: -10px;
+    border-radius: 50%;
+    border: 1.5px dashed rgba(34,197,94,0.3);
+    animation: spin-ring 8s linear infinite;
+  }
+
+  .orbit-dot {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    top: -5px;
+    left: calc(50% - 5px);
+    box-shadow: 0 0 8px var(--green);
+    animation: spin-ring 8s linear infinite;
+    transform-origin: 50% calc(80px);
+  }
+
+  @keyframes spin-ring {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
   /* ── SCORE CIRCLE ─────────────────────────────────────── */
   .score-wrap {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 32px;
     margin-top: 8px;
+    flex-wrap: wrap;
   }
 
   .score-label-top {
@@ -206,6 +294,13 @@
     transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
     transform: rotate(-90deg);
+    filter: drop-shadow(0 0 8px rgba(34,197,94,0.6));
+    animation: glow-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(34,197,94,0.5)); }
+    50%       { filter: drop-shadow(0 0 16px rgba(34,197,94,0.9)); }
   }
 
   .score-text-val {
@@ -653,6 +748,9 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
   <div class="hero-content">
 
     <div class="badge-pill">
@@ -660,7 +758,7 @@
       Auditoria de Conteúdo · Instagram · 25/06/2026
     </div>
 
-    <h1 class="hero-title">Manual de Boas Práticas</h1>
+    <h1 class="hero-title">LOGOS48</h1>
     <p class="hero-sub">Análise de desempenho para</p>
     <p class="hero-handle">@vdsferragenssp · VDS Ferragens</p>
 
@@ -684,8 +782,15 @@
     </div>
 
     <div class="score-wrap">
-      <span class="score-label-top">Score Geral</span>
-      <svg class="score-circle-svg" viewBox="0 0 130 130">
+      <div class="profile-wrap">
+        <div class="orbit-ring"></div>
+        <div class="orbit-dot"></div>
+        <img class="profile-img" src="data:image/jpeg;base64,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" alt="VDS Ferragens" />
+      </div>
+
+      <div>
+        <span class="score-label-top">Score Geral</span>
+        <svg class="score-circle-svg" viewBox="0 0 130 130">
         <defs>
           <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stop-color="#22C55E"/>
@@ -698,9 +803,10 @@
         <text class="score-text-den" x="65" y="80">de 10</text>
       </svg>
       <p class="score-caption">Engajamento baixo · Frequência crítica · Humanização pontual</p>
-    </div>
+    </div><!-- /score inner -->
+    </div><!-- /score-wrap -->
 
-  </div>
+  </div><!-- /hero-content -->
 </section>
 
 <!-- ══ CONTENT ════════════════════════════════════════════ -->

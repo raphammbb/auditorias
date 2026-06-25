@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Postagem · Julho 2026 · @fernandobrisolabatista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:        #050810;
+    --bg2:       #0a0f1e;
+    --card:      #0d1117;
+    --card2:     #111827;
+    --border:    rgba(99,179,237,0.12);
+    --border-h:  rgba(99,179,237,0.3);
+    --grad:      linear-gradient(135deg,#0ea5e9,#6366f1,#8b5cf6);
+    --blue:      #0ea5e9;
+    --indigo:    #6366f1;
+    --violet:    #8b5cf6;
+    --green:     #10b981;
+    --red:       #ef4444;
+    --yellow:    #f59e0b;
+    --text:      #f0f4ff;
+    --muted:     #64748b;
+    --muted2:    #94a3b8;
+    --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono:      'JetBrains Mono', monospace;
+
+    /* pillar colors */
+    --provocacao:        #6366f1;
+    --provocacao-bg:     rgba(99,102,241,0.12);
+    --provocacao-border: rgba(99,102,241,0.3);
+    --pratica:           #10b981;
+    --pratica-bg:        rgba(16,185,129,0.12);
+    --pratica-border:    rgba(16,185,129,0.3);
+    --autoridade:        #f59e0b;
+    --autoridade-bg:     rgba(245,158,11,0.12);
+    --autoridade-border: rgba(245,158,11,0.3);
+    --conversao:         #ef4444;
+    --conversao-bg:      rgba(239,68,68,0.12);
+    --conversao-border:  rgba(239,68,68,0.3);
+    --humanizacao:       #94a3b8;
+    --humanizacao-bg:    rgba(148,163,184,0.1);
+    --humanizacao-border:rgba(148,163,184,0.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    /* grid lines */
+    background-image:
+      linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-attachment: fixed;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(99,102,241,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .header-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .header-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .header-title .handle {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .header-stat { display: flex; flex-direction: column; gap: 3px; }
+  .header-stat-num {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-stat-label { font-size: 12px; color: var(--muted); }
+  .header-divider { width: 1px; height: 36px; background: var(--border); align-self: center; }
+
+  /* SECTION WRAPPER */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 2rem 0;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  /* PILLARS */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 700px) { .pillars { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 420px) { .pillars { grid-template-columns: repeat(2, 1fr); } }
+
+  .pillar-card {
+    background: var(--card);
+    border-radius: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+  .pillar-card:hover { border-color: var(--border-h); }
+  .pillar-dot { width: 8px; height: 8px; border-radius: 50%; margin-bottom: 8px; }
+  .pillar-name { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .pillar-desc { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+
+  /* ALERT BOX */
+  .alert-box {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-left: 3px solid var(--yellow);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--muted2);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  .alert-box strong {
+    color: var(--yellow);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .alert-items { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .alert-item {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.15);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 12px;
+    color: rgba(245,158,11,0.85);
+  }
+
+  /* WEEKS */
+  .weeks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 700px) { .weeks { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .weeks { grid-template-columns: 1fr; } }
+
+  .week-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color 0.2s;
+  }
+  .week-card:hover { border-color: var(--border-h); }
+  .week-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+    font-family: var(--mono);
+  }
+  .week-theme { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .week-desc { font-size: 11px; color: var(--muted2); line-height: 1.5; }
+
+  /* CALENDAR */
+  .calendar-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    min-width: 420px;
+  }
+  .cal-header {
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    padding: 4px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--mono);
+  }
+  .cal-day {
+    border-radius: 8px;
+    padding: 7px 6px;
+    min-height: 62px;
+    background: rgba(99,179,237,0.03);
+  }
+  .cal-day.empty { background: transparent; min-height: 62px; }
+  .cal-day.has-post {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .cal-day.has-post:hover {
+    border-color: var(--border-h);
+    transform: translateY(-1px);
+  }
+  .cal-day.has-post.active {
+    border-color: var(--blue);
+    border-width: 1.5px;
+  }
+  .cal-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    margin-bottom: 5px;
+    font-family: var(--mono);
+  }
+  .cal-day.has-post .cal-num { color: var(--text); }
+  .cal-badge {
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 4px;
+    display: inline-block;
+    line-height: 1.4;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .cal-format {
+    font-size: 9px;
+    color: var(--muted);
+    margin-top: 3px;
+    font-weight: 500;
+    font-family: var(--mono);
+  }
+
+  /* DETAIL PANEL */
+  .detail-panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    display: none;
+  }
+  .detail-panel.visible { display: block; }
+  .detail-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+  }
+  .detail-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  .detail-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 5px;
+  }
+  .detail-title {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    color: var(--text);
+  }
+  .detail-body { padding: 1.75rem 2rem; }
+  .hook-line {
+    font-size: 1rem;
+    font-weight: 600;
+    font-style: italic;
+    color: var(--muted2);
+    line-height: 1.55;
+    border-left: 3px solid var(--blue);
+    padding-left: 16px;
+    margin-bottom: 1.5rem;
+  }
+  .detail-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    .detail-cols { grid-template-columns: 1fr; }
+    .detail-header { padding: 1.25rem; }
+    .detail-body { padding: 1.25rem; }
+  }
+  .detail-block-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .detail-block-text { font-size: 13.5px; color: var(--muted2); line-height: 1.65; }
+  .hashtags {
+    font-size: 12px;
+    color: var(--blue);
+    line-height: 1.7;
+    margin-top: 10px;
+    font-family: var(--mono);
+    opacity: 0.7;
+  }
+  .cta-box {
+    background: rgba(14,165,233,0.08);
+    border: 1px solid rgba(14,165,233,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    margin-top: 8px;
+    color: var(--text);
+    font-style: italic;
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 14px;
+    padding: 2.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  /* FOOTER */
+  .page-footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 3rem;
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+    margin-top: 1rem;
+  }
+  .footer-logo {
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+
+  /* RESPONSIVIDADE */
+  @media (max-width: 480px) {
+    .page-header { padding: 2rem 1rem 1.5rem; }
+    .section { padding: 1.5rem 1rem 0; }
+    .calendar-wrap { padding: 1rem; }
+    .header-meta { gap: 1rem; }
+    .header-stat-num { font-size: 1.2rem; }
+    .page-footer { padding: 1.5rem 1rem 2.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="header-inner">
+    <p class="header-eyebrow">Agência Logos · Plano de Conteúdo</p>
+    <h1 class="header-title">Julho 2026 <span class="handle">@fernandobrisolabatista</span></h1>
+    <div class="header-meta">
+      <div class="header-stat">
+        <span class="header-stat-num">13</span>
+        <span class="header-stat-label">posts</span>
+      </div>
+      <div class="header-divider"></div>
+      <div class="header-stat">
+        <span class="header-stat-num">11</span>
+        <span class="header-stat-label">reels</span>
+      </div>
+      <div class="header-divider"></div>
+      <div class="header-stat">
+        <span class="header-stat-num">2</span>
+        <span class="header-stat-label">carrosséis</span>
+      </div>
+      <div class="header-divider"></div>
+      <div class="header-stat">
+        <span class="header-stat-num">5</span>
+        <span class="header-stat-label">pilares</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="section">
+
+    <!-- PILARES -->
+    <p class="section-title" style="margin-top:2rem">Pilares de conteúdo</p>
+    <div class="pillars">
+      <div class="pillar-card">
+        <div class="pillar-dot" style="background:var(--provocacao)"></div>
+        <div class="pillar-name">Provocação</div>
+        <div class="pillar-desc">Tensão emocional, medo de obsolescência, afirmações contraintuitivas</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-dot" style="background:var(--pratica)"></div>
+        <div class="pillar-name">Prática</div>
+        <div class="pillar-desc">Tutorial leve, automação real, ferramentas aplicadas</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-dot" style="background:var(--autoridade)"></div>
+        <div class="pillar-name">Autoridade</div>
+        <div class="pillar-desc">Bastidores de palestra, case real, opinião fundamentada</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-dot" style="background:var(--conversao)"></div>
+        <div class="pillar-name">Conversão</div>
+        <div class="pillar-desc">CTA de mentoria, carrossel com lead magnet, post de oferta</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-dot" style="background:var(--humanizacao)"></div>
+        <div class="pillar-name">Humanização</div>
+        <div class="pillar-desc">Bastidor pessoal, fé, família — conectado ao nicho</div>
+      </div>
+    </div>
+
+    <!-- AÇÕES PARALELAS -->
+    <div class="alert-box">
+      <strong>Ações paralelas ao calendário — executar na semana 1</strong>
+      <div class="alert-items">
+        <span class="alert-item">Adicionar link na bio (Linktree ou página própria)</span>
+        <span class="alert-item">Deletar os 3 destaques de 2019</span>
+        <span class="alert-item">Criar destaques: IA na Prática · Cases · Mentoria · Quem sou</span>
+        <span class="alert-item">Responder todo comentário com intenção ou pergunta</span>
+        <span class="alert-item">Usar 5–8 hashtags em todo post, sem exceção</span>
+      </div>
+    </div>
+
+    <!-- SEMANAS -->
+    <p class="section-title">Estratégia por semana</p>
+    <div class="weeks">
+      <div class="week-card">
+        <div class="week-label">Sem 1 · 1–6 jul</div>
+        <div class="week-theme">Reentrada forte</div>
+        <div class="week-desc">Gancho de urgência + tutorial prático para capturar o alcance gerado em junho</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Sem 2 · 7–13 jul</div>
+        <div class="week-theme">Construção de autoridade</div>
+        <div class="week-desc">Bastidores reais + carrossel de posicionamento + provocação de opinião</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Sem 3 · 14–20 jul</div>
+        <div class="week-theme">Aprofundamento</div>
+        <div class="week-desc">Educação prática + opinião polêmica + conexão humana</div>
+      </div>
+      <div class="week-card">
+        <div class="week-label">Sem 4 · 21–31 jul</div>
+        <div class="week-theme">Conversão e fechamento</div>
+        <div class="week-desc">CTA direto de mentoria + impacto emocional + balanço do mês</div>
+      </div>
+    </div>
+
+    <!-- CALENDÁRIO -->
+    <p class="section-title">Calendário — clique num post para ver o briefing</p>
+    <div class="calendar-wrap">
+      <div class="cal-grid" id="calGrid">
+        <div class="cal-header">Seg</div>
+        <div class="cal-header">Ter</div>
+        <div class="cal-header">Qua</div>
+        <div class="cal-header">Qui</div>
+        <div class="cal-header">Sex</div>
+        <div class="cal-header">Sáb</div>
+        <div class="cal-header">Dom</div>
+      </div>
+    </div>
+
+    <!-- DETALHE -->
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-header" id="detailHeader"></div>
+      <div class="detail-body" id="detailBody"></div>
+    </div>
+    <div class="empty-state" id="emptyState">Selecione um dia no calendário para ver o briefing completo do post</div>
+
+  </div>
+</main>
+
+<footer class="page-footer">
+  <span class="footer-logo">Agência Logos</span>
+  <span>Baseado na auditoria LOGOS48 · @fernandobrisolabatista · 25/06/2026</span>
+</footer>
+
+<script>
+const PILLARS = {
+  provocacao:  { label:'Provocação',  color:'#6366f1', bg:'rgba(99,102,241,0.15)',  border:'rgba(99,102,241,0.35)'  },
+  pratica:     { label:'Prática',     color:'#10b981', bg:'rgba(16,185,129,0.15)',  border:'rgba(16,185,129,0.35)'  },
+  autoridade:  { label:'Autoridade',  color:'#f59e0b', bg:'rgba(245,158,11,0.15)',  border:'rgba(245,158,11,0.35)'  },
+  conversao:   { label:'Conversão',   color:'#ef4444', bg:'rgba(239,68,68,0.15)',   border:'rgba(239,68,68,0.35)'   },
+  humanizacao: { label:'Humanização', color:'#94a3b8', bg:'rgba(148,163,184,0.12)', border:'rgba(148,163,184,0.3)'  },
+};
+
+const POSTS = {
+  2:  { pillar:'provocacao', format:'Reel', title:'A IA não vai esperar você estar pronto', hook:'Você não precisa dominar IA. Mas você precisa parar de achar que dá pra esperar.', execucao:'Reel de câmera direta, ambiente informal. Tom urgente mas sem catastrofismo. Falar dos 3 sinais de que alguém ainda está no modo "vou estudar depois". Duração ideal: 45–60 seg.', cta:'"Você ainda está no modo espera?" — faz essa pergunta e pede resposta nos comentários.', hashtags:'#IA #InteligenciaArtificial #Automacao #CTO #TransformacaoDigital #Tecnologia #Inovacao' },
+  4:  { pillar:'pratica',    format:'Reel', title:'Como montei um agente de IA em 20 minutos', hook:'Sem saber programar. Com uma ferramenta que você provavelmente já tem acesso.', execucao:'Screencast rápido ou reel mostrando o processo real de criação de um agente simples. Mostrar a tela + narrar. Foco em acessibilidade — qualquer gestor consegue seguir.', cta:'"Salva esse post pra implementar depois."', hashtags:'#Agentes #AutomacaoIA #IA #Gemini #ChatGPT #ProdutividadeIA #CTO' },
+  7:  { pillar:'autoridade', format:'Reel', title:'Bastidores: o que acontece antes de eu entrar num palco', hook:'Não é glamour. É processo.', execucao:'Reel de bastidores real — preparação, anotações, revisão de slides ou conversa com organizador. Mostrar o lado humano e profissional. Finaliza com reflexão sobre o que IA mudou na preparação de palestras.', cta:'"Qual evento você gostaria de me ver falando? Comenta aqui."', hashtags:'#Palestra #IA #Lideranca #CTO #InteligenciaArtificial #Speaker #Tecnologia' },
+  9:  { pillar:'provocacao', format:'Reel', title:'"Minha empresa já usa IA." — Será?', hook:'Ter o ChatGPT instalado não é usar IA. É ter IA instalada. São coisas diferentes.', execucao:'Reel rápido, câmera direta. Distinguir uso superficial de uso estratégico de IA. Dar 2 perguntas de diagnóstico que qualquer gestor pode fazer internamente agora.', cta:'"Se você respondeu não pras duas perguntas — me chama."', hashtags:'#IA #Empresas #Automacao #GestaoDeIA #CTO #TransformacaoDigital #AgentesIA' },
+  11: { pillar:'conversao',  format:'Carrossel', title:'5 perguntas para saber se sua empresa está pronta para IA', hook:'Slide 1: visual do Fernando + headline. Slides 2–6: uma pergunta por slide com resposta curta. Slide 7: CTA de mentoria.', execucao:'Carrossel com Fernando na capa — não texto puro. As perguntas são de autodiagnóstico e criam identificação antes do CTA. Capa tem foto, não fundo de cor.', cta:'"Comenta MENTORIA se você quer saber como aplicar isso na sua empresa."', hashtags:'#Mentoria #IA #Empresas #Automacao #CTO #AgentesIA #TransformacaoDigital' },
+  14: { pillar:'pratica',    format:'Reel', title:'O erro mais caro que vi empresas cometendo com IA', hook:'Elas compram ferramenta antes de mapear o problema.', execucao:'Reel de opinião com base em case real anonimizado. Mostrar o fluxo certo: problema → processo → ferramenta. Tom de quem já viu esse padrão muitas vezes.', cta:'"Você já viu esse erro acontecer? Comenta abaixo."', hashtags:'#IA #Automacao #Erros #CTO #Empresas #GestaoDeIA #Tecnologia' },
+  16: { pillar:'humanizacao',format:'Reel', title:'O que a fé me ensinou sobre liderar em tempos de IA', hook:'Tecnologia muda tudo. Mas alguns princípios não mudam.', execucao:'Reel mais pessoal, sem roteiro rígido. Falar sobre a tensão entre velocidade da IA e a calma de quem está ancorado. Conecta fé e liderança sem pregar — é reflexão, não sermão.', cta:'"Curte se isso ressoou com você."', hashtags:'#Lideranca #Fe #IA #CTO #Inovacao #Proposito #Tecnologia' },
+  18: { pillar:'autoridade', format:'Reel', title:'Case: como um time de 3 pessoas fez o trabalho de 12 com IA', hook:'Não é ficção. Aconteceu com um cliente meu nos últimos 60 dias.', execucao:'Narrar o case real anonimizado em formato de história: contexto → problema → solução IA → resultado. Mostrar números reais se possível. Tom de quem estava no processo.', cta:'"Quer aplicar isso no seu time? Comenta MENTORIA."', hashtags:'#CaseDeIA #Automacao #Agentes #CTO #Resultados #IA #MentoriaIA' },
+  21: { pillar:'provocacao', format:'Reel', title:'A maioria das empresas vai implementar IA errado', hook:'E vão culpar a tecnologia.', execucao:'Reel opinativo e direto. Listar os 3 motivos pelos quais implementações de IA falham: cultura, processo, ferramenta na ordem errada. Tom de CTO que já viu os padrões se repetirem.', cta:'"Salva esse post. Você vai querer lembrar disso quando chegar a hora."', hashtags:'#IA #Automacao #Implementacao #CTO #Empresas #TransformacaoDigital #AgentesIA' },
+  23: { pillar:'conversao',  format:'Reel', title:'Estou abrindo vagas para mentoria em julho — veja se é pra você', hook:'Não é curso. Não é consultoria. É acompanhamento real de quem quer aplicar IA no negócio.', execucao:'Reel de câmera direta, tom direto e sem enrolação. Explicar o que é a mentoria, para quem é (gestor, CTO, empreendedor), e como funciona. Terminar com CTA claro para o link da bio.', cta:'"Acesse o link da bio pra saber mais ou me manda uma mensagem direta."', hashtags:'#MentoriaIA #IA #CTO #Automacao #Agentes #InteligenciaArtificial #Lideranca' },
+  25: { pillar:'pratica',    format:'Reel', title:'Qual ferramenta de IA eu usaria se tivesse começando do zero hoje', hook:'Essa pergunta me fazem toda semana. Aqui está minha resposta honesta.', execucao:'Reel de opinião fundamentada — não é ranking genérico. Dar contexto de uso: para gestores, para devs, para operação. Mostrar por que o fluxo de uso importa mais que a ferramenta em si.', cta:'"Comenta qual ferramenta você usa hoje e o que achou."', hashtags:'#IA #Ferramentas #ChatGPT #Gemini #Claude #CTO #Automacao' },
+  28: { pillar:'autoridade', format:'Carrossel', title:'O que aprendi em 6 meses construindo IA no mundo real', hook:'Nenhum livro me preparou pra isso. Só a prática.', execucao:'Carrossel com Fernando na capa. Um aprendizado por slide, com contexto real de projeto. Último slide: reflexão sobre onde a área está indo. Tom de quem tem cicatriz de execução.', cta:'"Comenta qual aprendizado mais te surpreendeu."', hashtags:'#IA #AgentesIA #Automacao #CTO #AprendizadosIA #TransformacaoDigital #Speaker' },
+  30: { pillar:'humanizacao',format:'Reel', title:'Um mês de volta. O que mudou e o que ficou igual.', hook:'Em maio voltei a postar depois de quase um ano. Aqui está o que aprendi sobre presença digital.', execucao:'Reel mais reflexivo — balanço honesto do mês. O que funcionou, o que não funcionou, o que pretende continuar. Convida a audiência para a jornada do próximo mês.', cta:'"Me conta: você está acompanhando IA de perto ou de longe?"', hashtags:'#Reflexao #Presenca #IA #CTO #Crescimento #Consistencia #Lideranca' },
+};
+
+const grid = document.getElementById('calGrid');
+const panel = document.getElementById('detailPanel');
+const emptyState = document.getElementById('emptyState');
+let activeEl = null;
+
+// July 2026 starts on Wednesday; in Mon-first grid = offset 2
+const startOffset = 2;
+for (let i = 0; i < startOffset; i++) {
+  const e = document.createElement('div');
+  e.className = 'cal-day empty';
+  grid.appendChild(e);
+}
+
+for (let d = 1; d <= 31; d++) {
+  const post = POSTS[d];
+  const div = document.createElement('div');
+  div.className = post ? 'cal-day has-post' : 'cal-day';
+
+  const numEl = document.createElement('div');
+  numEl.className = 'cal-num';
+  numEl.textContent = d;
+  div.appendChild(numEl);
+
+  if (post) {
+    const p = PILLARS[post.pillar];
+    const badge = document.createElement('div');
+    badge.className = 'cal-badge';
+    badge.textContent = p.label;
+    badge.style.background = p.bg;
+    badge.style.color = p.color;
+    badge.style.border = '1px solid ' + p.border;
+    div.appendChild(badge);
+
+    const fmt = document.createElement('div');
+    fmt.className = 'cal-format';
+    fmt.textContent = post.format;
+    div.appendChild(fmt);
+
+    div.addEventListener('click', () => showDetail(d, div));
+  }
+  grid.appendChild(div);
+}
+
+function showDetail(d, el) {
+  if (activeEl) activeEl.classList.remove('active');
+  activeEl = el;
+  el.classList.add('active');
+
+  const post = POSTS[d];
+  const p = PILLARS[post.pillar];
+
+  document.getElementById('detailHeader').innerHTML = `
+    <div class="detail-tags">
+      <span class="detail-tag" style="background:${p.bg};color:${p.color};border:1px solid ${p.border}">${p.label}</span>
+      <span class="detail-tag" style="background:rgba(99,179,237,0.08);color:#94a3b8;border:1px solid rgba(99,179,237,0.15)">${d} de julho · ${post.format}</span>
+    </div>
+    <div class="detail-title">${post.title}</div>
+  `;
+
+  document.getElementById('detailBody').innerHTML = `
+    <div class="hook-line">"${post.hook}"</div>
+    <div class="detail-cols">
+      <div>
+        <div class="detail-block-label">Ideia de execução</div>
+        <div class="detail-block-text">${post.execucao}</div>
+      </div>
+      <div>
+        <div class="detail-block-label">CTA</div>
+        <div class="cta-box">${post.cta}</div>
+        <div class="detail-block-label" style="margin-top:1rem">Hashtags</div>
+        <div class="hashtags">${post.hashtags}</div>
+      </div>
+    </div>
+  `;
+
+  panel.classList.add('visible');
+  emptyState.style.display = 'none';
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+</body>
+</html>

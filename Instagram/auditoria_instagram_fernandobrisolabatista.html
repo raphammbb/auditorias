@@ -753,9 +753,17 @@
       transform: translateY(0);
     }
 
+    /* ── GRID 2 COLUNAS RESPONSIVO ── */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
     /* ── RESPONSIVIDADE ── */
     @media (max-width: 768px) {
       .bio-grid { grid-template-columns: 1fr; }
+      .grid-2col { grid-template-columns: 1fr; }
       .section-header { gap: 10px; }
       .section-num { width: 32px; height: 32px; font-size: 12px; }
       .rec-card { flex-direction: column; gap: 8px; }
@@ -768,6 +776,8 @@
       .toc a { padding: 11px 10px; font-size: 10px; }
       .toc-inner { gap: 0; }
       td, th { padding: 10px 12px; font-size: 13px; }
+      .insight-card { padding: 14px 16px; }
+      .warning-box { flex-direction: column; gap: 8px; }
     }
 
     @media (max-width: 480px) {
@@ -777,9 +787,13 @@
       .cover h1 { letter-spacing: -0.03em; }
       .metric-value { font-size: 1.5rem; }
       .metric-card { padding: 16px 12px; }
-      .card { padding: 18px 16px; }
+      .card { padding: 16px 14px; }
       .post-card { padding: 16px; }
       .rec-card { padding: 16px; }
+      .qw-card { padding: 16px; }
+      .bio-block { padding: 14px; }
+      .tag-row { gap: 6px; }
+      .section { padding-top: 56px; }
     }
 
     /* ── FOOTER ── */
@@ -964,7 +978,7 @@
     </div>
     <div class="divider"></div>
 
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+    <div class="grid-2col">
       <div class="card">
         <div class="bio-label" style="margin-bottom:10px;">Identidade Visual</div>
         <p class="overview-text" style="font-size:14px;">

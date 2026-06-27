@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revisão de QA — develop.mydnadigital.com</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    background: #030617;
+    color: #ffffff;
+    line-height: 1.6;
+    font-size: 15px;
+  }
+
+  a { color: #818cf8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #0d1426;
+    border-bottom: 2px solid #533fb4;
+    padding: 28px 0;
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .logo-area {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo-box {
+    width: 44px;
+    height: 44px;
+    background: #533fb4;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: -0.5px;
+    flex-shrink: 0;
+  }
+  .logo-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .logo-sub {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 1px;
+  }
+  .header-meta {
+    text-align: right;
+  }
+  .header-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #c4b5fd;
+  }
+  .header-date {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 3px;
+  }
+
+  /* ── Section wrapper ── */
+  .section {
+    padding: 32px 0;
+    border-bottom: 1px solid #1e293b;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+
+  /* ── Executive summary ── */
+  .exec-card {
+    background: linear-gradient(135deg, #1a0f3c 0%, #0f1a3c 100%);
+    border: 1px solid #533fb4;
+    border-radius: 14px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .exec-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #533fb4, #818cf8, #533fb4);
+  }
+  .exec-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #e2e8f0;
+  }
+  .exec-body {
+    color: #cbd5e1;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .exec-body strong { color: #fbbf24; }
+  .exec-highlight {
+    display: inline-block;
+    background: rgba(239,68,68,0.15);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 6px;
+    padding: 2px 8px;
+    color: #fca5a5;
+    font-weight: 600;
+  }
+
+  /* ── Status geral ── */
+  .status-card {
+    background: #0d1426;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .status-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 99px;
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .status-badge.blocked {
+    background: rgba(239,68,68,0.15);
+    border: 2px solid #ef4444;
+    color: #fca5a5;
+  }
+  .status-badge.ok {
+    background: rgba(74,222,128,0.12);
+    border: 2px solid #4ade80;
+    color: #86efac;
+  }
+  .status-badge.warning {
+    background: rgba(250,204,21,0.12);
+    border: 2px solid #facc15;
+    color: #fde68a;
+  }
+  .status-desc {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.6;
+    flex: 1;
+  }
+  .status-stats {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #111827;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+  .stat-pill .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-red { background: #ef4444; }
+  .dot-yellow { background: #facc15; }
+  .dot-green { background: #4ade80; }
+  .dot-gray { background: #6b7280; }
+
+  /* ── Tables ── */
+  .table-wrap {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid #1e293b;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+  }
+  thead {
+    background: #0d1426;
+  }
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #64748b;
+    border-bottom: 1px solid #1e293b;
+  }
+  td {
+    padding: 13px 16px;
+    font-size: 13.5px;
+    color: #cbd5e1;
+    border-bottom: 1px solid #0f172a;
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: rgba(15,23,42,0.5); }
+  tr:hover td { background: rgba(83,63,180,0.07); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge-ok    { background: rgba(74,222,128,0.15); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .badge-err   { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-warn  { background: rgba(250,204,21,0.15); color: #facc15; border: 1px solid rgba(250,204,21,0.3); }
+
+  /* ── Two-column cards ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  .feature-card {
+    background: #0d1426;
+    border: 1px solid #1e293b;
+    border-radius: 12px;
+    padding: 22px 24px;
+  }
+  .feature-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .feature-card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #e2e8f0;
+  }
+  .feature-card-url {
+    font-size: 12px;
+    color: #475569;
+    margin-top: 2px;
+  }
+  .step-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .step-list li {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    color: #94a3b8;
+    line-height: 1.5;
+  }
+  .step-num {
+    min-width: 20px;
+    height: 20px;
+    background: #1e2a45;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #818cf8;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .result-line {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .result-ok   { background: rgba(74,222,128,0.1);  color: #86efac; border-left: 3px solid #4ade80; }
+  .result-err  { background: rgba(239,68,68,0.1);   color: #fca5a5; border-left: 3px solid #ef4444; }
+
+  /* ── Bugs / Accordion ── */
+  details {
+    background: #0d1426;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  details[open] {
+    border-color: #533fb4;
+  }
+  summary {
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '▾';
+    margin-left: auto;
+    color: #475569;
+    font-size: 16px;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    transform: rotate(180deg);
+  }
+
+  .bug-sev {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 12px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+  .sev-critical { background: rgba(239,68,68,0.15);  color: #ef4444; border: 1px solid rgba(239,68,68,0.4); }
+  .sev-medium   { background: rgba(250,204,21,0.15); color: #facc15; border: 1px solid rgba(250,204,21,0.4); }
+  .sev-low      { background: rgba(107,114,128,0.2); color: #9ca3af; border: 1px solid rgba(107,114,128,0.4); }
+  .sev-note     { background: rgba(129,140,248,0.15); color: #a5b4fc; border: 1px solid rgba(129,140,248,0.4); }
+
+  .bug-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e2e8f0;
+    flex: 1;
+  }
+  .bug-body {
+    padding: 0 20px 20px;
+    border-top: 1px solid #1e293b;
+  }
+  .bug-meta {
+    display: flex;
+    gap: 20px;
+    padding: 12px 0;
+    flex-wrap: wrap;
+  }
+  .bug-meta-item {
+    font-size: 12px;
+    color: #475569;
+  }
+  .bug-meta-item span {
+    color: #94a3b8;
+  }
+  .bug-desc {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.7;
+    padding-top: 4px;
+  }
+  .bug-desc strong { color: #e2e8f0; }
+  .error-msg {
+    display: inline-block;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: #fca5a5;
+    font-family: monospace;
+    font-size: 13px;
+  }
+
+  /* ── Pages table colors ── */
+  .url-code {
+    font-family: monospace;
+    font-size: 12px;
+    color: #818cf8;
+    background: rgba(129,140,248,0.08);
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+
+  /* ── Fixes list ── */
+  .fixes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .fix-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #0d1426;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #cbd5e1;
+  }
+  .fix-num {
+    font-weight: 700;
+    color: #533fb4;
+    min-width: 20px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    background: #0d1426;
+    border-top: 1px solid #1e293b;
+    padding: 24px 0;
+    margin-top: 8px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-meta {
+    font-size: 13px;
+    color: #475569;
+  }
+  .footer-meta strong { color: #64748b; }
+
+  /* ── Responsive tweaks ── */
+  @media (max-width: 640px) {
+    .header-inner { gap: 12px; }
+    .header-meta { text-align: left; }
+    .exec-card { padding: 20px; }
+    .status-card { flex-direction: column; align-items: flex-start; }
+    th, td { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="header">
+  <div class="container">
+    <div class="header-inner">
+      <div class="logo-area">
+        <div class="logo-box">My</div>
+        <div>
+          <div class="logo-name">MyDNA Digital</div>
+          <div class="logo-sub">develop.mydnadigital.com</div>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="header-title">Revisão de QA — Ambiente Develop</div>
+        <div class="header-date">26 de junho de 2026 &nbsp;·&nbsp; Revisado por Rapha</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<main>
+<div class="container">
+
+  <!-- ── Resposta ao Fernando ── -->
+  <div class="section" style="padding-bottom: 24px;">
+    <div class="section-title">Resposta às perguntas do Fernando</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+
+      <div style="background:#0d1426; border:1px solid #1e293b; border-left:4px solid #ef4444; border-radius:8px; padding:14px 18px; display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:20px; line-height:1;">🚫</span>
+        <div>
+          <div style="font-weight:700; color:#fca5a5; margin-bottom:4px;">Formulários — NÃO estão funcionando</div>
+          <div style="color:#94a3b8; font-size:13px;">Os formulários de <strong style="color:#e2e8f0;">/contact/</strong> e <strong style="color:#e2e8f0;">/demo/</strong> retornam erro ao enviar: <em>"El campo phone es obligatorio"</em> — mas o campo de telefone não aparece na tela. Impossível enviar. O formulário de <strong style="color:#e2e8f0;">homepage (#demo)</strong> funciona normalmente.</div>
+        </div>
+      </div>
+
+      <div style="background:#0d1426; border:1px solid #1e293b; border-left:4px solid #ef4444; border-radius:8px; padding:14px 18px; display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:20px; line-height:1;">🚫</span>
+        <div>
+          <div style="font-weight:700; color:#fca5a5; margin-bottom:4px;">Demo de Salário — NÃO consegue entrar</div>
+          <div style="color:#94a3b8; font-size:13px;">O formulário de acesso em <strong style="color:#e2e8f0;">/products/market-salary/</strong> retorna erro de servidor ao tentar enviar, mesmo com todos os campos preenchidos. Bloqueio total para quem tentar solicitar a demo.</div>
+        </div>
+      </div>
+
+      <div style="background:#0d1426; border:1px solid #1e293b; border-left:4px solid #4ade80; border-radius:8px; padding:14px 18px; display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:20px; line-height:1;">✅</span>
+        <div>
+          <div style="font-weight:700; color:#86efac; margin-bottom:4px;">Avaliação de Maturidade — funciona e envia e-mail</div>
+          <div style="color:#94a3b8; font-size:13px;">Passei pelas 40 perguntas (5 dimensões), preenchi o formulário final e recebi a confirmação. O fluxo completo funciona sem erros.</div>
+        </div>
+      </div>
+
+      <div style="background:#1a0f3c; border:1px solid #533fb4; border-radius:8px; padding:14px 18px; display:flex; gap:14px; align-items:flex-start;">
+        <span style="font-size:20px; line-height:1;">⛔</span>
+        <div>
+          <div style="font-weight:700; color:#c4b5fd; margin-bottom:4px;">Veredito: não sobe pra produção ainda</div>
+          <div style="color:#94a3b8; font-size:13px;">2 bloqueadores críticos impedem o go-live. Detalhes completos abaixo.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Resumo Executivo ── -->
+  <div class="section">
+    <div class="section-title">Resumo executivo</div>
+    <div class="exec-card">
+      <div class="exec-title">Diagnóstico geral do site</div>
+      <div class="exec-body">
+        O site carregou corretamente em todas as páginas testadas (<strong>18+ páginas verificadas</strong>). No entanto, <span class="exec-highlight">não está pronto para go-live</span> por conta de dois bloqueadores críticos: o formulário de Contato (<code>/contact/</code>) e o formulário de Demo Personalizada (<code>/demo/</code>) são completamente inutilizáveis — ambos exibem o erro <em>"El campo phone es obligatorio"</em> após o envio, mas <strong>nenhum campo de telefone está visível na interface</strong>. Adicionalmente, o formulário de Market Salary retorna um erro genérico de servidor ao tentar enviar. O formulário principal da homepage (Agendar Demo) funciona corretamente, e o fluxo de Avaliação de Maturidade (HR Maturity Assessment) funciona end-to-end sem erros.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Status Geral ── -->
+  <div class="section">
+    <div class="section-title">Status geral</div>
+    <div class="status-card">
+      <div>
+        <div class="status-badge blocked">🚫 Bloqueado — corrigir antes de publicar</div>
+        <div class="status-stats">
+          <div class="stat-pill"><span class="dot dot-red"></span> 2 bugs críticos</div>
+          <div class="stat-pill"><span class="dot dot-yellow"></span> 3 bugs médios</div>
+          <div class="stat-pill"><span class="dot dot-gray"></span> 0 bugs baixos</div>
+          <div class="stat-pill"><span class="dot dot-green"></span> 18 páginas OK</div>
+        </div>
+      </div>
+      <div class="status-desc">
+        3 de 5 formulários críticos bloqueados. Os formulários <code>/contact/</code> e <code>/demo/</code> são inacessíveis para os usuários. O formulário de Market Salary falha por erro de servidor. O fluxo de HR Maturity Assessment e o formulário de demo da homepage funcionam corretamente.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Formulários ── -->
+  <div class="section">
+    <div class="section-title">Formulários testados</div>
+    <details open>
+      <summary>
+        <span class="bug-title">Ver tabela completa de formulários (5 testados)</span>
+      </summary>
+      <div style="padding: 0 4px 4px;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Formulário</th>
+                <th>Localização</th>
+                <th>Campos obrigatórios visíveis</th>
+                <th>Enviou</th>
+                <th>Confirmação</th>
+                <th>Observação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Agendar Demo Gratuita</td>
+                <td><span class="url-code">/ #demo</span></td>
+                <td>Sim (Nome *, Email *, Empresa *)</td>
+                <td><span class="badge badge-ok">✅ Sim</span></td>
+                <td>"¡Gracias, QA! Te contactaremos en menos de 24 horas…"</td>
+                <td>Página ficou em branco momentaneamente durante o envio antes de mostrar confirmação — comportamento a investigar</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Contato</td>
+                <td><span class="url-code">/contact/</span></td>
+                <td>Sim (Nome, Email, Empresa, Cargo, País, Mensagem + checkbox)</td>
+                <td><span class="badge badge-err">🚫 Erro</span></td>
+                <td>Nenhuma</td>
+                <td><strong style="color:#fca5a5">BUG CRÍTICO:</strong> "El campo phone es obligatorio." — campo de telefone inexistente no formulário visual. 100% inutilizável</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Solicitar acesso demo — Market Salary</td>
+                <td><span class="url-code">/products/market-salary/</span></td>
+                <td>Sim (Nome, Email, Empresa, Área, Cargo, País) + Telefone (não marcado como *)</td>
+                <td><span class="badge badge-err">🚫 Erro servidor</span></td>
+                <td>Nenhuma</td>
+                <td><strong style="color:#fca5a5">BUG:</strong> "No se pudo enviar la solicitud. Por favor intenta nuevamente." — falha de integração com CRM/webhook</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Solicitar minha demo</td>
+                <td><span class="url-code">/demo/</span></td>
+                <td>Sim (Nome, Email, Empresa, Cargo, País, Maior desafio + checkbox)</td>
+                <td><span class="badge badge-err">🚫 Erro</span></td>
+                <td>Nenhuma</td>
+                <td><strong style="color:#fca5a5">BUG CRÍTICO:</strong> Mesmo problema do /contact/ — "El campo phone es obligatorio." campo inexistente visualmente</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>HR Maturity Assessment — lead form</td>
+                <td><span class="url-code">/hr-maturity/lead/</span></td>
+                <td>Sim (Nome, Email, Telefone, Empresa, País, Cargo, Nº colaboradores, Indústria + checkbox)</td>
+                <td><span class="badge badge-ok">✅ Sim</span></td>
+                <td>"¡Gracias! Hemos enviado el informe ejecutivo de madurez RH al correo indicado." → redirecionou para /hr-maturity/thank-you/</td>
+                <td>Funcionou perfeitamente. Campo de telefone visível e funcional</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── Cards Demo Salário + Maturidade ── -->
+  <div class="section">
+    <div class="section-title">Fluxos principais</div>
+    <div class="two-col">
+
+      <!-- Card Market Salary -->
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <div>
+            <div class="feature-card-title">Demo de Salário — Market Salary</div>
+            <div class="feature-card-url">/products/market-salary/</div>
+          </div>
+          <span class="badge badge-err">🚫 Bloqueado</span>
+        </div>
+        <ul class="step-list">
+          <li><span class="step-num">1</span>Acessei a página via mega-menu → "Market Salary" — carregou corretamente</li>
+          <li><span class="step-num">2</span>Formulário de "Solicitar acesso demo gratuito" visível acima da dobra</li>
+          <li><span class="step-num">3</span>Preenchi todos os campos: Nome, Email, Empresa, Telefone (+56 9 1234 5678), Área, Cargo, País</li>
+          <li><span class="step-num">4</span>Clique em "Solicitar acceso demo →"</li>
+          <li><span class="step-num">5</span>Após ~3 segundos: erro em vermelho. Dados permanecem nos campos</li>
+          <li><span class="step-num">6</span>Nova tentativa produziu o mesmo resultado</li>
+        </ul>
+        <div class="result-line result-err">
+          Erro: "No se pudo enviar la solicitud. Por favor intenta nuevamente." — Possível falha de integração com webhook/CRM
+        </div>
+      </div>
+
+      <!-- Card HR Maturity -->
+      <div class="feature-card">
+        <div class="feature-card-header">
+          <div>
+            <div class="feature-card-title">Avaliação de Maturidade — HR Maturity</div>
+            <div class="feature-card-url">/hr-maturity/</div>
+          </div>
+          <span class="badge badge-ok">✅ Funciona</span>
+        </div>
+        <ul class="step-list">
+          <li><span class="step-num">1</span>Acesso via popup fixo "Diagnóstico gratuito de RH" → /hr-maturity/</li>
+          <li><span class="step-num">2</span>Clique em "Iniciar Diagnóstico Estratégico" → /hr-maturity/questionnaire/</li>
+          <li><span class="step-num">3</span>Dim. 1 — Estratégia e Governança (perg. 1–8) — Progresso: 20%</li>
+          <li><span class="step-num">4</span>Dim. 2 — Estrutura Organizacional (perg. 9–16) — Progresso: 40%</li>
+          <li><span class="step-num">5</span>Dim. 3 — Remuneração e Equidade (perg. 17–24) — Progresso: 60%</li>
+          <li><span class="step-num">6</span>Dim. 4 — Tecnologia e Dados (perg. 25–32) — Progresso: 80%</li>
+          <li><span class="step-num">7</span>Dim. 5 — Analítica Avançada e IA (perg. 33–40) — Progresso: 100%</li>
+          <li><span class="step-num">8</span>Formulário /hr-maturity/lead/ preenchido → "Enviando…" → redirecionou para thank-you</li>
+        </ul>
+        <div class="result-line result-ok">
+          "¡Gracias por completar su diagnóstico! Hemos enviado el informe ejecutivo de madurez RH al correo indicado." — Sem erros durante todo o fluxo.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Bugs ── -->
+  <div class="section">
+    <div class="section-title">Erros e bugs encontrados</div>
+
+    <!-- Bug 1 -->
+    <details open>
+      <summary>
+        <span class="bug-sev sev-critical">🚫 Crítico</span>
+        <span class="bug-title">Campo "phone" obrigatório invisível — formulários /contact/ e /demo/</span>
+      </summary>
+      <div class="bug-body">
+        <div class="bug-meta">
+          <div class="bug-meta-item">Localização: <span>/contact/ · /demo/</span></div>
+          <div class="bug-meta-item">Impacto: <span>Formulários 100% inutilizáveis</span></div>
+          <div class="bug-meta-item">Afeta: <span>Conversão em 2 páginas principais</span></div>
+        </div>
+        <div class="bug-desc">
+          O campo <strong>"phone"</strong> é obrigatório no backend, mas <strong>não existe visualmente</strong> no formulário. Ao clicar no botão de envio, o botão mostra "Enviando…" por alguns instantes e depois exibe o erro:<br><br>
+          <span class="error-msg">El campo phone es obligatorio.</span><br><br>
+          O usuário não tem como preencher o campo ausente. Os formulários de Contato e Demo Personalizada são <strong>completamente inutilizáveis</strong>.
+          <br><br>
+          <strong>Correção sugerida:</strong> Adicionar o campo de telefone visível nos formulários, ou remover a validação obrigatória do campo "phone" no backend desses formulários específicos.
+        </div>
+      </div>
+    </details>
+
+    <!-- Bug 2 -->
+    <details open>
+      <summary>
+        <span class="bug-sev sev-critical">🚫 Crítico</span>
+        <span class="bug-title">Erro de servidor ao enviar formulário de Market Salary</span>
+      </summary>
+      <div class="bug-body">
+        <div class="bug-meta">
+          <div class="bug-meta-item">Localização: <span>/products/market-salary/</span></div>
+          <div class="bug-meta-item">Impacto: <span>Principal CTA do produto bloqueado</span></div>
+          <div class="bug-meta-item">Afeta: <span>Leads de Market Salary</span></div>
+        </div>
+        <div class="bug-desc">
+          Ao tentar enviar o formulário de acesso demo com <strong>todos os campos preenchidos</strong> (incluindo telefone), o servidor retorna erro genérico:<br><br>
+          <span class="error-msg">No se pudo enviar la solicitud. Por favor intenta nuevamente.</span><br><br>
+          O formulário não foi enviado. O botão voltou ao estado normal e os dados permaneceram nos campos. Nova tentativa produziu o mesmo resultado. O campo Telefone está presente e visível nesta página (diferente de /contact/ e /demo/), portanto a falha parece ser de servidor — possível erro na integração com CRM/webhook.
+          <br><br>
+          <strong>Correção sugerida:</strong> Investigar o endpoint que processa o submit deste formulário; revisar logs do servidor e a integração com o CRM/webhook.
+        </div>
+      </div>
+    </details>
+
+    <!-- Bug 3 -->
+    <details>
+      <summary>
+        <span class="bug-sev sev-medium">⚠️ Médio</span>
+        <span class="bug-title">Tela em branco transitória na homepage durante scroll/envio</span>
+      </summary>
+      <div class="bug-body">
+        <div class="bug-meta">
+          <div class="bug-meta-item">Localização: <span>Homepage (/)</span></div>
+          <div class="bug-meta-item">Impacto: <span>Visual — pode assustar o usuário</span></div>
+          <div class="bug-meta-item">Afeta: <span>Usuários com configurações específicas de browser</span></div>
+        </div>
+        <div class="bug-desc">
+          Em dois momentos durante o teste, a página ficou <strong>completamente em branco</strong> após uma ação de scroll via JavaScript (<code>window.scrollTo</code>). O problema não se reproduz com scroll manual de mouse/teclado. Também ocorreu brevemente após o envio do formulário de demo da homepage antes de mostrar a confirmação.
+          <br><br>
+          Possivelmente relacionado com como o <strong>Next.js</strong> renderiza seções com animações/lazy loading quando o scroll é disparado programaticamente.
+          <br><br>
+          <strong>Correção sugerida:</strong> Revisar a lógica de lazy loading e transições de animação na homepage; garantir que o re-render não deixe o DOM vazio temporariamente.
+        </div>
+      </div>
+    </details>
+
+    <!-- Bug 4 -->
+    <details>
+      <summary>
+        <span class="bug-sev sev-medium">⚠️ Médio</span>
+        <span class="bug-title">Inconsistência no número de países entre páginas</span>
+      </summary>
+      <div class="bug-body">
+        <div class="bug-meta">
+          <div class="bug-meta-item">Localização: <span>Múltiplas páginas</span></div>
+          <div class="bug-meta-item">Impacto: <span>Credibilidade da marca</span></div>
+        </div>
+        <div class="bug-desc">
+          Quatro valores diferentes para o mesmo dado em páginas distintas:
+          <br><br>
+          <div class="table-wrap" style="margin-top:10px; border-radius:8px;">
+            <table>
+              <thead><tr><th>Página</th><th>Dado exibido</th></tr></thead>
+              <tbody>
+                <tr><td><span class="url-code">/</span> Homepage</td><td><strong style="color:#facc15">20 Países</strong></td></tr>
+                <tr><td><span class="url-code">/about/</span></td><td>10 países LATAM</td></tr>
+                <tr><td><span class="url-code">/demo/</span></td><td>10 países LATAM</td></tr>
+                <tr><td><span class="url-code">/candidate-portal/</span></td><td>10 países LATAM</td></tr>
+                <tr><td><span class="url-code">/products/compensation-benefits/</span></td><td>14 países da LATAM</td></tr>
+                <tr><td><span class="url-code">/products/market-salary/</span></td><td>20 países</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <br>
+          <strong>Correção sugerida:</strong> Definir um único valor oficial (10, 14 ou 20) e replicá-lo consistentemente em todo o site. Centralizar esse dado para facilitar atualizações futuras.
+        </div>
+      </div>
+    </details>
+
+    <!-- Observação HR Maturity -->
+    <details>
+      <summary>
+        <span class="bug-sev sev-note">📋 Observação</span>
+        <span class="bug-title">Botão "Ver el diagnóstico" redireciona para landing em vez de exibir resultados</span>
+      </summary>
+      <div class="bug-body">
+        <div class="bug-meta">
+          <div class="bug-meta-item">Localização: <span>/hr-maturity/thank-you/</span></div>
+          <div class="bug-meta-item">Impacto: <span>Experiência do usuário pós-diagnóstico</span></div>
+        </div>
+        <div class="bug-desc">
+          Após completar o diagnóstico e receber a confirmação de envio por e-mail, o botão <strong>"Ver el diagnóstico"</strong> redireciona de volta para a landing page <code>/hr-maturity/</code> em vez de mostrar um dashboard ou resultado personalizado.
+          <br><br>
+          Não está claro se este é o comportamento intencional (resultados apenas por e-mail) ou se falta uma página de resultados online.
+          <br><br>
+          <strong>Ação sugerida:</strong> Definir o comportamento esperado — se os resultados são apenas por e-mail, remover o botão "Ver el diagnóstico" ou alterar o texto para "Voltar ao início". Se houver um dashboard planejado, implementá-lo ou marcar como trabalho pendente.
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── Páginas verificadas ── -->
+  <div class="section">
+    <div class="section-title">Páginas verificadas</div>
+    <details>
+      <summary>
+        <span class="bug-title">Ver todas as páginas verificadas (20 páginas)</span>
+      </summary>
+      <div style="padding: 0 4px 4px;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Página</th>
+                <th>URL</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Homepage</td><td><span class="url-code">/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Employee Experience</td><td><span class="url-code">/employee-experience/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Talent Acquisition</td><td><span class="url-code">/talent-acquisition/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Market Salary</td><td><span class="url-code">/products/market-salary/</span></td><td><span class="badge badge-warn">✅ Carrega / ❌ Form</span></td></tr>
+              <tr><td>People Analytics</td><td><span class="url-code">/products/people-analytics/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Assessment Center</td><td><span class="url-code">/products/assessment-center/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Onboarding</td><td><span class="url-code">/products/onboarding/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Performance</td><td><span class="url-code">/products/performance/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Treinamento</td><td><span class="url-code">/products/training/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Clima Organizacional</td><td><span class="url-code">/products/workplace-climate/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Remuneração & Benefícios</td><td><span class="url-code">/products/compensation-benefits/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Outplacement</td><td><span class="url-code">/products/outplacement/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Portal de Candidatos</td><td><span class="url-code">/candidate-portal/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>HR Maturity Assessment</td><td><span class="url-code">/hr-maturity/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Ebooks</td><td><span class="url-code">/ebooks/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Contato</td><td><span class="url-code">/contact/</span></td><td><span class="badge badge-warn">✅ Carrega / ❌ Form</span></td></tr>
+              <tr><td>Demo Personalizada</td><td><span class="url-code">/demo/</span></td><td><span class="badge badge-warn">✅ Carrega / ❌ Form</span></td></tr>
+              <tr><td>Sobre Nós</td><td><span class="url-code">/about/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Política de Privacidade</td><td><span class="url-code">/privacy/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+              <tr><td>Termos de Uso</td><td><span class="url-code">/terms/</span></td><td><span class="badge badge-ok">✅ OK</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; padding: 0 4px;">
+          <div class="stat-pill"><span class="dot dot-green"></span> Sem imagens quebradas</div>
+          <div class="stat-pill"><span class="dot dot-green"></span> Sem texto Lorem ipsum</div>
+          <div class="stat-pill"><span class="dot dot-green"></span> Sem links 404</div>
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- ── Correcciones obligatorias ── -->
+  <div class="section">
+    <div class="section-title">Correções obrigatórias antes do go-live</div>
+    <div class="fixes-list">
+      <div class="fix-item">
+        <span class="fix-num">1</span>
+        <div>
+          <span class="bug-sev sev-critical" style="margin-bottom:6px; display:inline-flex;">🚫 Crítico</span><br>
+          Adicionar campo de telefone visível nos formulários <code>/contact/</code> e <code>/demo/</code> — ou remover a validação obrigatória do campo "phone" no backend desses formulários.
+        </div>
+      </div>
+      <div class="fix-item">
+        <span class="fix-num">2</span>
+        <div>
+          <span class="bug-sev sev-critical" style="margin-bottom:6px; display:inline-flex;">🚫 Crítico</span><br>
+          Investigar e corrigir a integração do formulário <code>/products/market-salary/</code> — verificar webhook/endpoint que processa o submit e retorna erro genérico de servidor.
+        </div>
+      </div>
+      <div class="fix-item">
+        <span class="fix-num">3</span>
+        <div>
+          <span class="bug-sev sev-medium" style="margin-bottom:6px; display:inline-flex;">⚠️ Médio</span><br>
+          Padronizar o número de países mencionado em todas as páginas (10, 14 ou 20 — escolher um valor e replicar em todo o site).
+        </div>
+      </div>
+      <div class="fix-item">
+        <span class="fix-num">4</span>
+        <div>
+          <span class="bug-sev sev-medium" style="margin-bottom:6px; display:inline-flex;">⚠️ Médio</span><br>
+          Definir e implementar o comportamento do botão "Ver el diagnóstico" no thank-you page do HR Maturity (redirecionar para dashboard ou remover o botão se os resultados são apenas por e-mail).
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-meta">
+        <strong>E-mail de testes:</strong> raphaelmmbb@gmail.com
+      </div>
+      <div class="footer-meta">
+        <strong>Data do teste:</strong> 26 de junho de 2026
+      </div>
+      <div class="footer-meta">
+        <strong>Ambiente:</strong> develop.mydnadigital.com
+      </div>
+      <div class="footer-meta" style="color:#1e293b">
+        MyDNA Digital QA Report · Rapha
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagnóstico Digital — Dream Menu · @andrews_tech</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c1: #00D4FF;
+      --c2: #7B3FE4;
+      --c3: #FF6B35;
+      --grad: linear-gradient(135deg, #00D4FF, #7B3FE4);
+      --bg: #07070F;
+      --bg2: #0D0D1A;
+      --bg3: #111122;
+      --card: #141428;
+      --border: rgba(255,255,255,0.06);
+      --border2: rgba(0,212,255,0.15);
+      --text: #E8E8FF;
+      --muted: #5A5A8A;
+      --green: #22C55E;
+      --red: #EF4444;
+      --yellow: #F59E0B;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.025) 2px, rgba(0,0,0,0.025) 4px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(0,212,255,0.07) 0%, rgba(123,63,228,0.05) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .cover-inner { position: relative; z-index: 1; }
+
+    .product-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,255,0.07);
+      border: 1px solid rgba(0,212,255,0.18);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--c1);
+      margin-bottom: 24px;
+    }
+
+    .cover h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .cover-sub {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .cover-sub span { font-weight: 600; color: var(--c1); }
+
+    .cover-date {
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 52px;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      max-width: 680px;
+      width: 100%;
+    }
+
+    .metric-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 14px;
+      transition: border-color 0.2s;
+    }
+
+    .metric-card:hover { border-color: var(--border2); cursor: default; }
+
+    .metric-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    /* ── NAV ── */
+    .toc {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7,7,15,0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+
+    .toc-inner {
+      display: flex;
+      max-width: 960px;
+      margin: 0 auto;
+      white-space: nowrap;
+    }
+
+    .toc a {
+      display: inline-block;
+      padding: 14px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      cursor: pointer;
+    }
+
+    .toc a:hover { color: var(--c1); border-bottom-color: var(--c1); }
+
+    /* ── MAIN ── */
+    main { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; position: relative; z-index: 1; }
+
+    .section { padding-top: 72px; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-num {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.15rem, 3.5vw, 1.6rem);
+      font-weight: 700;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 32px; }
+
+    .sub-h {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin: 32px 0 14px;
+    }
+
+    /* ── DIAGNOSIS GRID ── */
+    .diagnosis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    @media (max-width: 600px) { .diagnosis-grid { grid-template-columns: 1fr; } }
+
+    .diag-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .diag-item:hover { border-color: rgba(0,212,255,0.12); }
+
+    .diag-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .diag-icon.ok { background: rgba(34,197,94,0.12); color: var(--green); }
+    .diag-icon.warn { background: rgba(245,158,11,0.12); color: var(--yellow); }
+    .diag-icon.bad { background: rgba(239,68,68,0.12); color: var(--red); }
+
+    .diag-label { font-size: 10px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .diag-text { font-size: 13px; font-weight: 500; line-height: 1.45; }
+
+    /* ── TABLE ── */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead tr { background: var(--bg3); }
+
+    th {
+      padding: 11px 14px;
+      text-align: left;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      white-space: nowrap;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+      line-height: 1.45;
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.018); }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-ok { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.2); }
+    .badge-no { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+    .badge-warn { background: rgba(245,158,11,0.1); color: var(--yellow); border: 1px solid rgba(245,158,11,0.2); }
+    .badge-neutral { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+
+    /* ── GAP LIST ── */
+    .gap-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .gap-item {
+      background: rgba(239,68,68,0.04);
+      border: 1px solid rgba(239,68,68,0.1);
+      border-left: 3px solid var(--red);
+      border-radius: 0 10px 10px 0;
+      padding: 13px 16px;
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .gap-item strong { color: #FF7070; }
+
+    /* ── HIGHLIGHT CARD ── */
+    .highlight-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+
+    .h-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--c1);
+      margin-bottom: 10px;
+    }
+
+    .highlight-card p { font-size: 14px; line-height: 1.75; }
+
+    /* ── LP SECTIONS ── */
+    .lp-sections-grid { display: flex; flex-direction: column; gap: 8px; }
+
+    .lp-section-item {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      display: grid;
+      grid-template-columns: 160px 1fr auto;
+      gap: 14px;
+      align-items: start;
+      font-size: 13px;
+    }
+
+    @media (max-width: 620px) { .lp-section-item { grid-template-columns: 1fr; } }
+
+    .lp-section-name { font-weight: 700; color: var(--text); }
+    .lp-section-obs { color: var(--muted); line-height: 1.5; }
+
+    /* ── SEO PILLS ── */
+    .seo-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+    .seo-pill {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .seo-pill.ok { border-color: rgba(34,197,94,0.2); color: var(--green); background: rgba(34,197,94,0.05); }
+    .seo-pill.bad { border-color: rgba(239,68,68,0.2); color: var(--red); background: rgba(239,68,68,0.05); }
+
+    /* ── BIG GAP GRID ── */
+    .big-gap-grid { display: flex; flex-direction: column; gap: 12px; }
+
+    .big-gap-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+
+    .big-gap-item:hover { border-color: rgba(239,68,68,0.18); }
+
+    .big-gap-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--muted);
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      white-space: nowrap;
+    }
+
+    .big-gap-title { font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 6px; }
+    .big-gap-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── PRIORITY CARDS ── */
+    .priority-grid { display: flex; flex-direction: column; gap: 14px; }
+
+    .priority-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .priority-card:hover { border-color: var(--border2); }
+
+    .priority-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      flex-shrink: 0;
+      padding-top: 4px;
+    }
+
+    .priority-content h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .priority-content p { font-size: 14px; line-height: 1.65; color: var(--muted); }
+
+    @media (max-width: 480px) {
+      .priority-card { flex-direction: column; gap: 10px; }
+      .priority-num { font-size: 1.8rem; }
+    }
+
+    /* ── PROFILE CARD ── */
+    .profile-card {
+      background: linear-gradient(135deg, rgba(0,212,255,0.04), rgba(123,63,228,0.04));
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 26px;
+      margin-bottom: 32px;
+    }
+
+    .profile-card p { font-size: 14px; line-height: 1.8; }
+
+    /* ── APPROACH CARD ── */
+    .approach-card {
+      background: var(--bg3);
+      border: 1px solid rgba(255,107,53,0.18);
+      border-left: 3px solid var(--c3);
+      border-radius: 0 14px 14px 0;
+      padding: 24px;
+    }
+
+    .approach-card p { font-size: 14px; line-height: 1.7; }
+
+    /* ── POTENTIAL CARD ── */
+    .potential-card {
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(123,63,228,0.05));
+      border: 1px solid rgba(0,212,255,0.12);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-top: 32px;
+    }
+
+    .potential-card .h-label { color: var(--c1); margin-bottom: 10px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+    .potential-card p { font-size: 14px; line-height: 1.75; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer strong { color: var(--c1); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<section class="cover">
+  <div class="cover-inner">
+    <div class="product-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      LOGOS48 · Diagnóstico de Presença Digital
+    </div>
+
+    <h1><span class="grad-text">Dream Menu</span></h1>
+    <p class="cover-sub">@andrews_tech · <span>Gametracks</span></p>
+    <p class="cover-date">// 29.jun.2026 · Instagram + Landing Page 1 + Landing Page 2</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Seguidores</div>
+        <div class="metric-value grad-text">717</div>
+        <div class="metric-sub">@andrews_tech</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Posts</div>
+        <div class="metric-value" style="color:var(--c1)">79</div>
+        <div class="metric-sub">no perfil</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Canais</div>
+        <div class="metric-value" style="color:var(--c2)">3</div>
+        <div class="metric-sub">auditados</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Produto</div>
+        <div class="metric-value" style="color:var(--c3);font-size:0.9rem;padding-top:4px;font-family:'Exo 2',sans-serif;font-weight:800;">Frontend<br/>Premium</div>
+        <div class="metric-sub">Sega Dreamcast</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav class="toc" aria-label="Seções da auditoria">
+  <div class="toc-inner">
+    <a href="#instagram">Instagram</a>
+    <a href="#lp1">LP Dream Menu</a>
+    <a href="#lp2">Gametracks.com.br</a>
+    <a href="#diagnostico">Diagnóstico</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#abordagem">Abordagem</a>
+  </div>
+</nav>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main>
+
+  <!-- 01 INSTAGRAM -->
+  <article class="section" id="instagram">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">01</div>
+      <div>
+        <h2 class="section-title">Instagram — @andrews_tech</h2>
+        <p class="section-desc">717 seguidores · 79 posts · perfil pessoal / técnico</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="sub-h">Diagnóstico rápido</div>
+    <div class="diagnosis-grid" style="margin-bottom:32px">
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Clareza da bio</div>
+          <div class="diag-text">Bio fala de técnico/mentor de videogames — zero menção ao Dream Menu ou à Gametracks</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon ok" aria-label="OK">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">CTA na bio</div>
+          <div class="diag-text">Link bit.ly ativo apontando para múltiplos destinos via Linktree</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon warn" aria-label="Atenção">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Destaque Dreamcast</div>
+          <div class="diag-text">Existe mas está enterrado entre destaques de eventos, podcasts e vida pessoal</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Identidade visual</div>
+          <div class="diag-text">Grid irregular — selfies, eletrônicos, gameplay e eventos sem paleta ou linha editorial definida</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Menção ao produto</div>
+          <div class="diag-text">Zero posts sobre o Dream Menu nos últimos 7 registros — o produto não existe no Instagram</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon warn" aria-label="Atenção">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Frequência real</div>
+          <div class="diag-text">3 dos 7 posts são marcações de terceiros — a produção própria é menor do que parece</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-h">Últimos 7 posts</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Formato</th>
+            <th>Tema</th>
+            <th>CTA</th>
+            <th>Origem</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">01</span></td>
+            <td>Reel</td>
+            <td>Expositor no Canal 3 Expo (retrogaming)</td>
+            <td><span class="badge badge-ok">Sim</span></td>
+            <td><span class="badge badge-neutral">Próprio</span></td>
+          </tr>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">02</span></td>
+            <td>Reel</td>
+            <td>Recado genérico de pausa — fixado desde out/2022</td>
+            <td><span class="badge badge-no">Não</span></td>
+            <td><span class="badge badge-neutral">Próprio</span></td>
+          </tr>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">03</span></td>
+            <td>Foto</td>
+            <td>Co-host no podcast teovoxcast</td>
+            <td><span class="badge badge-warn">Terceiro</span></td>
+            <td><span class="badge badge-warn">Marcação</span></td>
+          </tr>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">04</span></td>
+            <td>Foto</td>
+            <td>Participação em live com outros criadores</td>
+            <td><span class="badge badge-no">Não</span></td>
+            <td><span class="badge badge-warn">Marcação</span></td>
+          </tr>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">05</span></td>
+            <td>Card</td>
+            <td>Live YouTube sobre empreendedorismo e tech (Emprevista)</td>
+            <td><span class="badge badge-warn">Terceiro</span></td>
+            <td><span class="badge badge-warn">Marcação</span></td>
+          </tr>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">06</span></td>
+            <td>Reel</td>
+            <td>Visita ao Canal 3 — máquina de pinball Stranger Things</td>
+            <td><span class="badge badge-no">Não</span></td>
+            <td><span class="badge badge-neutral">Próprio</span></td>
+          </tr>
+          <tr>
+            <td><span style="font-family:'Fira Code',monospace;font-size:12px;color:var(--muted)">07</span></td>
+            <td>Reel</td>
+            <td>Gameplay OutRun + bateria / Dia do Baterista</td>
+            <td><span class="badge badge-no">Não</span></td>
+            <td><span class="badge badge-neutral">Próprio</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-card">
+      <div class="h-label">Análise</div>
+      <p>O perfil é pessoal e difuso — Andrews usa o @andrews_tech como extensão da sua identidade de técnico/creator de retrogaming, não como canal de um produto específico. Ele tem capital social real no nicho: circula em eventos, aparece em podcasts, tem reconhecimento na cena. Mas esse capital não está sendo convertido em audiência qualificada para o Dream Menu. Quem visita o perfil não tem como saber que existe um software em pré-lançamento.</p>
+    </div>
+
+    <div class="sub-h">Gaps identificados</div>
+    <ul class="gap-list">
+      <li class="gap-item"><strong>Produto invisível:</strong> Zero menção ao Dream Menu nos últimos 7 posts — apesar de uma landing page de lista de espera ativa, o Instagram age como se o produto não existisse.</li>
+      <li class="gap-item"><strong>Bio completamente desconectada:</strong> Quem visita o @andrews_tech não recebe nenhum sinal de que existe um software premium em pré-lançamento.</li>
+      <li class="gap-item"><strong>Sem linha editorial:</strong> Grid mistura selfies, eletrônicos e eventos sem construir antecipação ou qualificar seguidores para o produto.</li>
+    </ul>
+  </article>
+
+  <!-- 02 LP DREAM MENU -->
+  <article class="section" id="lp1">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">02</div>
+      <div>
+        <h2 class="section-title">Landing Page 1</h2>
+        <p class="section-desc">dreamenu.gametracks.com.br · lista de espera VIP</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="sub-h">Diagnóstico rápido</div>
+    <div class="diagnosis-grid" style="margin-bottom:32px">
+      <div class="diag-item">
+        <div class="diag-icon ok" aria-label="OK">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Demo interativo</div>
+          <div class="diag-text">Coverflow animado embutido na hero — o maior ponto forte de toda a presença digital do produto</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon ok" aria-label="OK">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Proposta de valor</div>
+          <div class="diag-text">Clara para o público que já conhece Dreamcast/GDEMU — headline forte e bem escrita</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon ok" aria-label="OK">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Mobile / técnico</div>
+          <div class="diag-text">Página responsiva, sem erros técnicos, imagens carregando corretamente</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Prova social</div>
+          <div class="diag-text">Zero — sem contador de inscritos, depoimentos, avaliações ou qualquer dado de validação</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Preço / modelo</div>
+          <div class="diag-text">Invisível — visitante não sabe se é gratuito, pago, por assinatura ou licença única</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Canal de contato</div>
+          <div class="diag-text">Nenhum — sem WhatsApp, Discord, e-mail de suporte ou comunidade acessível</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-h">Estrutura da página</div>
+    <div class="lp-sections-grid" style="margin-bottom:24px">
+      <div class="lp-section-item">
+        <div class="lp-section-name">Hero</div>
+        <div class="lp-section-obs">Headline + subtítulo + demo interativo do coverflow com jogos reais. Demo animado é impactante — funciona como prova de conceito imediata que converte curiosidade em interesse.</div>
+        <div><span class="badge badge-ok">CTA</span></div>
+      </div>
+      <div class="lp-section-item">
+        <div class="lp-section-name">Recursos de Ponta</div>
+        <div class="lp-section-obs">6 cards com features: Coverflow, Controle de Velocidade, Sidebar, Multi-idioma, Neo Geo CD, Categorias Inteligentes. Comunicação técnica e bem escrita.</div>
+        <div><span class="badge badge-no">Sem CTA</span></div>
+      </div>
+      <div class="lp-section-item">
+        <div class="lp-section-name">Lista de Espera VIP</div>
+        <div class="lp-section-obs">Formulário de nome + e-mail. Texto anti-spam em inglês numa página em português — pequena inconsistência. Única conversão disponível em toda a página.</div>
+        <div><span class="badge badge-ok">CTA</span></div>
+      </div>
+    </div>
+
+    <div class="sub-h">SEO básico</div>
+    <div class="seo-row">
+      <div class="seo-pill ok">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        URL limpa
+      </div>
+      <div class="seo-pill ok">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Mobile-friendly
+      </div>
+      <div class="seo-pill">Title: "Dream Menu — Premium Sega Dreamcast Loader"</div>
+    </div>
+
+    <div class="highlight-card">
+      <div class="h-label">Análise</div>
+      <p>A LP1 é visualmente a peça mais forte de toda a presença digital do Dream Menu — o demo interativo na hero section é uma decisão inteligente que converte curiosidade em interesse real em segundos. O problema não é a qualidade da página: é o que ela propõe como conversão. A única ação possível é entrar numa lista de espera sem preço, sem data, sem número de inscritos e sem nenhuma prova social. A página comunica produto premium mas não entrega nenhum elemento que reduza a fricção de comprometimento. O funil para aqui.</p>
+    </div>
+
+    <div class="sub-h">Gaps identificados</div>
+    <ul class="gap-list">
+      <li class="gap-item"><strong>Zero prova social:</strong> Sem contador de inscritos, depoimentos de beta testers ou avaliações — a lista de espera pede comprometimento de um desconhecido sem oferecer nenhuma validação.</li>
+      <li class="gap-item"><strong>Modelo de negócio invisível:</strong> Preço, formato (assinatura? compra única?) — nada definido publicamente, gerando ambiguidade num nicho com alternativas open-source.</li>
+      <li class="gap-item"><strong>Nenhum canal de contato direto:</strong> Para um produto técnico de nicho, a ausência de WhatsApp, Discord ou e-mail de suporte é um gap crítico de confiança.</li>
+    </ul>
+  </article>
+
+  <!-- 03 LP GAMETRACKS -->
+  <article class="section" id="lp2">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">03</div>
+      <div>
+        <h2 class="section-title">Landing Page 2</h2>
+        <p class="section-desc">gametracks.com.br · site institucional da empresa</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="sub-h">Diagnóstico rápido</div>
+    <div class="diagnosis-grid" style="margin-bottom:32px">
+      <div class="diag-item">
+        <div class="diag-icon warn" aria-label="Atenção">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Proposta de valor</div>
+          <div class="diag-text">Headline institucional B2B ("Inovação em Software & Hardware") — sem conexão com retrogaming</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon ok" aria-label="OK">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Histórico técnico</div>
+          <div class="diag-text">Credibilidade genuína — 4 produtos de hardware desde 2015, fotos reais de placas comprovam expertise</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon ok" aria-label="OK">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">WhatsApp flutuante</div>
+          <div class="diag-text">Único canal de contato direto disponível em toda a presença digital do Dream Menu</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Link para LP1</div>
+          <div class="diag-text">Inexistente — o card do Dream Menu no site institucional não tem CTA nem link para a landing page</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">Posicionamento</div>
+          <div class="diag-text">Dream Menu listado ao lado de apps B2B de gestão de fretes e assistências — quebra total de contexto</div>
+        </div>
+      </div>
+      <div class="diag-item">
+        <div class="diag-icon bad" aria-label="Problema">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        </div>
+        <div>
+          <div class="diag-label">CTA final</div>
+          <div class="diag-text">"Pronto para inovar o seu negócio?" — linguagem B2B que não faz sentido para entusiastas de Dreamcast</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-card">
+      <div class="h-label">Análise</div>
+      <p>Esta é uma página diferente — o site institucional da Gametracks, não uma variação da LP do Dream Menu. Ele posiciona a empresa como fornecedora B2B de software de gestão e hardware, com o Dream Menu aparecendo como um de quatro produtos ao lado de apps de logística e assistência técnica. A credibilidade do histórico em hardware é genuína e poderia funcionar como prova social poderosa para o Dream Menu — mas essa conexão não é feita em nenhum lugar da LP1. O WhatsApp flutuante é o único canal de contato direto disponível em toda a presença digital do produto.</p>
+    </div>
+
+    <div class="sub-h">Gaps identificados</div>
+    <ul class="gap-list">
+      <li class="gap-item"><strong>Dead end para o produto:</strong> O card do Dream Menu no site institucional não tem link para a LP1 — o visitante que chega pela Gametracks não tem nenhum caminho de conversão.</li>
+      <li class="gap-item"><strong>Mistura de audiências incompatíveis:</strong> B2B de logística + produto de retrogaming na mesma página dilui posicionamento e pode gerar desconfiança em ambas as audiências.</li>
+      <li class="gap-item"><strong>Oportunidade perdida:</strong> O histórico técnico impressionante da Gametracks poderia ser prova social poderosa para o Dream Menu — a conexão não é estabelecida em nenhum lugar.</li>
+    </ul>
+  </article>
+
+  <!-- 04 DIAGNÓSTICO GERAL -->
+  <article class="section" id="diagnostico">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">04</div>
+      <div>
+        <h2 class="section-title">Diagnóstico Geral</h2>
+        <p class="section-desc">Os 6 problemas estruturais que travam o lançamento</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="big-gap-grid">
+      <div class="big-gap-item">
+        <div class="big-gap-num">G01</div>
+        <div>
+          <div class="big-gap-title">Funil aberto no topo, fechado no meio</div>
+          <div class="big-gap-desc">Há uma landing page funcional e 717 seguidores no Instagram, mas nenhum dos dois canais está trabalhando para levar o visitante ao próximo passo. A LP não tem prova social nem preço; o Instagram não menciona o produto. O visitante que encontra o Dream Menu não tem razão clara para entrar na lista de espera.</div>
+        </div>
+      </div>
+      <div class="big-gap-item">
+        <div class="big-gap-num">G02</div>
+        <div>
+          <div class="big-gap-title">O produto não existe no Instagram</div>
+          <div class="big-gap-desc">O único canal social disponível é um perfil pessoal de técnico de videogames. Dos 7 posts analisados, nenhum menciona o Dream Menu. O demo interativo da LP — o melhor argumento de venda existente — nunca foi transformado em conteúdo social.</div>
+        </div>
+      </div>
+      <div class="big-gap-item">
+        <div class="big-gap-num">G03</div>
+        <div>
+          <div class="big-gap-title">Zero prova social em toda a presença digital</div>
+          <div class="big-gap-desc">Nenhuma avaliação, número de inscritos na lista, depoimento de beta tester ou post de usuário usando o produto. Para um público técnico e cético como entusiastas de Dreamcast, essa é a maior barreira de conversão existente.</div>
+        </div>
+      </div>
+      <div class="big-gap-item">
+        <div class="big-gap-num">G04</div>
+        <div>
+          <div class="big-gap-title">Modelo de negócio invisível</div>
+          <div class="big-gap-desc">O visitante da LP não sabe se o Dream Menu é gratuito, pago, por assinatura ou licença única. Num nicho onde existem alternativas open-source, essa ambiguidade prejudica a percepção de valor antes mesmo do lançamento formal.</div>
+        </div>
+      </div>
+      <div class="big-gap-item">
+        <div class="big-gap-num">G05</div>
+        <div>
+          <div class="big-gap-title">Fragmentação de marca</div>
+          <div class="big-gap-desc">O produto se chama Dream Menu, é desenvolvido pela Gametracks, mas o único canal social é o perfil pessoal do fundador (@andrews_tech). Não existe Instagram, YouTube, Discord ou comunidade dedicada ao produto. Quem busca "Dream Menu" nas redes não encontra nada específico.</div>
+        </div>
+      </div>
+      <div class="big-gap-item">
+        <div class="big-gap-num">G06</div>
+        <div>
+          <div class="big-gap-title">Ausência total de comunidade</div>
+          <div class="big-gap-desc">Para um produto com suporte multi-idioma (PT, EN, FR, ES, DE) e pretensão internacional, não há Discord, subreddit, grupo no Telegram ou qualquer ponto de agregação de audiência. A comunidade de Dreamcast é ativa online — o produto simplesmente não está nesse ecossistema.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="potential-card">
+      <div class="h-label">Potencial de mercado</div>
+      <p>O produto tem tração técnica clara — o demo funciona, a Gametracks tem histórico comprovado com hardware Dreamcast e reconhecimento mundial, e o suporte multi-idioma indica que o criador entende que o público é global. O que falta é evidência de demanda validada publicamente. O negócio está no momento mais crítico e mais frágil de qualquer lançamento — produto pronto, audiência inexistente — e o que acontecer nos próximos 30 a 60 dias vai definir se o Dream Menu é um marco no universo Dreamcast ou mais um projeto técnico que passa despercebido.</p>
+    </div>
+  </article>
+
+  <!-- 05 SERVIÇOS -->
+  <article class="section" id="servicos">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">05</div>
+      <div>
+        <h2 class="section-title">Serviços Recomendados</h2>
+        <p class="section-desc">Prioridades ordenadas para o pré-lançamento</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="sub-h">Perfil do cliente</div>
+    <div class="profile-card">
+      <p>André Pereira é um desenvolvedor técnico com autoridade real no universo de hardware e software para Dreamcast — o histórico da Gametracks (Dream IDE Reborn, Dream Bios Reborn, Dream Sata Reborn, Dream GD Reborn) indica alguém que sabe construir produtos complexos com reconhecimento na comunidade. Ele circula em eventos, aparece em podcasts, tem relacionamento com criadores do nicho. O que claramente não está no radar dele é a distinção entre <em>"criar um produto"</em> e <em>"lançar um produto"</em>: a landing page existe, o produto funciona, o demo é impressionante — mas a estratégia de comunicação, a construção de antecipação e a captura de interesse são inexistentes ou acidentais. <strong style="color:var(--c1)">Ele é um maker que ainda não se tornou um marketer — e provavelmente não percebe que esse gap existe.</strong></p>
+    </div>
+
+    <div class="sub-h">Ordem de prioridade</div>
+    <div class="priority-grid">
+      <div class="priority-card">
+        <div class="priority-num">P1</div>
+        <div class="priority-content">
+          <h3>Estratégia de Conteúdo</h3>
+          <p>O problema mais urgente e mais barato de resolver: o produto não tem voz nas redes. Antes de qualquer tráfego pago ou redesenho de site, é preciso um plano editorial que transforme o demo interativo, as features e o histórico técnico da Gametracks em conteúdo que construa antecipação e qualifique seguidores. Andrews tem a matéria-prima — backstory forte, produto visualmente impactante, nicho apaixonado — mas nenhum plano para usar isso.</p>
+        </div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-num">P2</div>
+        <div class="priority-content">
+          <h3>Gestão de Instagram</h3>
+          <p>Com a estratégia definida, o @andrews_tech precisa de uma linha editorial que separe a persona pessoal do produto — ou o cliente precisa criar um perfil dedicado ao Dream Menu. De qualquer forma, a execução mensal de conteúdo (reels do demo, bastidores de desenvolvimento, conteúdo educativo sobre Dreamcast/GDEMU) é o que vai construir a lista de espera organicamente antes do lançamento.</p>
+        </div>
+      </div>
+      <div class="priority-card">
+        <div class="priority-num">P3</div>
+        <div class="priority-content">
+          <h3>Consultoria de Posicionamento</h3>
+          <p>Antes do lançamento formal, o cliente precisa resolver questões fundamentais que a presença digital atual deixa em aberto: qual é o preço? É assinatura ou compra única? O produto compete com alternativas open-source ou serve um público diferente? Como a Gametracks (empresa B2B) se relaciona com o Dream Menu (produto de consumidor final) na comunicação? Essas respostas precisam estar claras antes de qualquer investimento em tráfego pago.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- 06 ABORDAGEM -->
+  <article class="section" id="abordagem">
+    <div class="section-header">
+      <div class="section-num" aria-hidden="true">06</div>
+      <div>
+        <h2 class="section-title">Abordagem Recomendada</h2>
+        <p class="section-desc">Como iniciar a conversa com o Andrews</p>
+      </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="approach-card">
+      <p>A conversa deve começar validando o que ele construiu — o produto é genuinamente impressionante para o nicho e o demo da LP é o melhor argumento de venda que ele tem. O ângulo de entrada mais natural é a pergunta:</p>
+      <br/>
+      <p style="font-size:1.05rem;font-style:italic;color:var(--c1);font-weight:600;">"Você tem a landing page pronta, o produto quase no ar, mas quem está sabendo disso?"</p>
+      <br/>
+      <p>Isso abre a conversa para o gap de conteúdo sem soar como crítica ao produto. O serviço de entrada mais adequado não é o Diagnóstico (já realizado), mas uma <strong>Estratégia de Conteúdo focada no pré-lançamento</strong> — com prazo definido, entregável concreto e resultado visível em 30 dias.</p>
+      <br/>
+      <p>A Gestão de Instagram e a Consultoria de Posicionamento entram como continuidade depois que a confiança estiver estabelecida. <strong>Tráfego pago só faz sentido depois que a lista de espera estiver aquecida e o modelo de negócio estiver definido</strong> — não recomende isso agora.</p>
+    </div>
+  </article>
+
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <p>Diagnóstico realizado por <strong>Agência Logos</strong> · LOGOS48 · 29.jun.2026</p>
+</footer>
+
+</body>
+</html>

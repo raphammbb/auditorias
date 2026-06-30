@@ -310,9 +310,10 @@
 
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 16px;
     }
+    @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } }
 
     .card-label {
       font-size: 10px;
@@ -351,6 +352,7 @@
       border-radius: 100px;
       font-size: 12px;
       font-weight: 600;
+      white-space: nowrap;
     }
     .pill-green { background: rgba(0,255,154,0.1); color: var(--green); border: 1px solid rgba(0,255,154,0.2); }
     .pill-red   { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
@@ -421,7 +423,7 @@
     .score-low { color: var(--red); }
 
     /* ── RANKING BARS ── */
-    .rank-bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .rank-bar-wrap { display: flex; align-items: center; width: 80px; }
     .rank-bar {
       height: 6px;
       border-radius: 100px;
@@ -959,7 +961,7 @@
           <td><span class="td-score score-top">164</span></td>
           <td><strong style="color:var(--green)">137</strong></td>
           <td>9</td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar" style="width:100%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar" style="width:80px"></div></div></td>
         </tr>
         <tr>
           <td class="td-rank">P6</td>
@@ -968,7 +970,7 @@
           <td><span class="td-score score-top">104</span></td>
           <td>68</td>
           <td><strong style="color:var(--green)">12</strong></td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar" style="width:63%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar" style="width:51px"></div></div></td>
         </tr>
         <tr>
           <td class="td-rank">P5</td>
@@ -977,7 +979,7 @@
           <td><span class="td-score score-mid">84</span></td>
           <td>60</td>
           <td>8</td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:51%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:41px"></div></div></td>
         </tr>
         <tr>
           <td class="td-rank">P1</td>
@@ -986,7 +988,7 @@
           <td><span class="td-score score-mid">53</span></td>
           <td>35</td>
           <td>6</td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:32%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:26px"></div></div></td>
         </tr>
         <tr>
           <td class="td-rank">P2</td>
@@ -995,7 +997,7 @@
           <td><span class="td-score score-mid">47</span></td>
           <td>35</td>
           <td>4</td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:29%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:23px"></div></div></td>
         </tr>
         <tr>
           <td class="td-rank">P3</td>
@@ -1004,7 +1006,7 @@
           <td><span class="td-score score-low">17</span></td>
           <td>14</td>
           <td>1</td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar red" style="width:10%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar red" style="width:8px"></div></div></td>
         </tr>
         <tr>
           <td class="td-rank">P4</td>
@@ -1013,7 +1015,7 @@
           <td><span class="td-score score-low">11</span></td>
           <td>5</td>
           <td>2</td>
-          <td><div class="rank-bar-wrap"><div class="rank-bar red" style="width:7%;max-width:120px"></div></div></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar red" style="width:6px"></div></div></td>
         </tr>
       </tbody>
     </table>

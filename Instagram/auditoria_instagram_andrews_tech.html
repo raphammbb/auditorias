@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria Instagram — @andrews_tech · Assistência Técnica em Videogames</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00FF9A;
+      --green-dim: #00CC7A;
+      --green-pale: rgba(0,255,154,0.12);
+      --amber: #F59E0B;
+      --amber-pale: rgba(245,158,11,0.12);
+      --cyan: #00BFFF;
+      --cyan-pale: rgba(0,191,255,0.1);
+      --red: #EF4444;
+      --red-pale: rgba(239,68,68,0.12);
+      --yellow: #FACC15;
+      --bg: #080810;
+      --bg2: #0D0D1A;
+      --bg3: #121220;
+      --card: #141428;
+      --card2: #1A1A35;
+      --border: rgba(0,255,154,0.15);
+      --border2: rgba(255,255,255,0.06);
+      --text: #E8E8FF;
+      --muted: #6A6A9A;
+      --grad: linear-gradient(135deg, #00FF9A, #00BFFF);
+      --grad-amber: linear-gradient(135deg, #F59E0B, #FF6B35);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── GRAD TEXT ── */
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes gradShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .grad-anim {
+      background: linear-gradient(270deg, #00FF9A, #00BFFF, #00FF9A);
+      background-size: 300% 300%;
+      animation: gradShift 5s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,255,154,0.1) 0%, rgba(0,191,255,0.05) 50%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* grid lines background */
+    .cover-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,154,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,154,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    @keyframes blobFloat1 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-20px) scale(1.05)} 66%{transform:translate(-15px,25px) scale(0.97)} }
+    @keyframes blobFloat2 { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(-25px,15px) scale(1.04)} 66%{transform:translate(20px,-18px) scale(0.98)} }
+    .blob-1 { width:500px;height:500px;background:#00FF9A;top:-80px;left:-80px;animation:blobFloat1 15s ease-in-out infinite; }
+    .blob-2 { width:380px;height:380px;background:#00BFFF;bottom:-60px;right:-60px;animation:blobFloat2 18s ease-in-out infinite; }
+
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      background: rgba(0,255,154,0.06);
+    }
+    .cover-badge::before { content:''; width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green); }
+
+    .cover-handle {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(36px, 7vw, 80px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cover-subtitle {
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--muted);
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+    .cover-subtitle strong { color: var(--text); font-weight: 600; }
+
+    .cover-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--green);
+      display: block;
+      text-shadow: 0 0 20px rgba(0,255,154,0.4);
+    }
+    .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+    .cover-meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .cover-meta span { display: flex; align-items: center; gap: 6px; }
+
+    .warning-banner {
+      margin-top: 32px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: rgba(245,158,11,0.08);
+      border: 1px solid rgba(245,158,11,0.25);
+      font-size: 13px;
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 520px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8,8,16,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border2);
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-inner {
+      display: flex;
+      gap: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      min-width: max-content;
+    }
+    .nav-link {
+      font-family: 'Orbitron', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 16px 18px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-link:hover { color: var(--green); border-bottom-color: var(--green); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .section-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 72px;
+      font-weight: 900;
+      color: rgba(0,255,154,0.08);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .section-desc {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--green) 0%, rgba(0,255,154,0.08) 60%, transparent 100%);
+      margin-bottom: 40px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .card:hover { border-color: var(--border); }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 8px;
+    }
+    .card-value {
+      font-family: 'Orbitron', monospace;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── BIO BLOCK ── */
+    .bio-quote {
+      background: var(--card2);
+      border-left: 3px solid var(--green);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text);
+      margin: 24px 0;
+      font-style: italic;
+    }
+
+    /* ── PILL BADGES ── */
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .pill-green { background: rgba(0,255,154,0.1); color: var(--green); border: 1px solid rgba(0,255,154,0.2); }
+    .pill-red   { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.2); }
+    .pill-amber { background: rgba(245,158,11,0.1); color: var(--amber); border: 1px solid rgba(245,158,11,0.2); }
+    .pill-cyan  { background: rgba(0,191,255,0.1); color: var(--cyan); border: 1px solid rgba(0,191,255,0.2); }
+
+    /* ── CHECK LIST ── */
+    .check-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .check-item::before {
+      content: '✓';
+      width: 20px; height: 20px;
+      min-width: 20px;
+      border-radius: 50%;
+      background: rgba(0,255,154,0.12);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .check-item.cross::before { content:'✕'; background: rgba(239,68,68,0.12); color: var(--red); }
+    .check-item.warn::before  { content:'!'; background: rgba(245,158,11,0.12); color: var(--amber); }
+
+    /* ── TWO COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── TABLE ── */
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border2); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead { background: var(--bg3); }
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-family: 'Orbitron', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      white-space: nowrap;
+    }
+    td { padding: 14px 16px; border-top: 1px solid var(--border2); color: var(--text); vertical-align: top; }
+    tr:hover td { background: rgba(0,255,154,0.02); }
+    .td-rank {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--green);
+      white-space: nowrap;
+    }
+    .td-score {
+      font-family: 'Orbitron', monospace;
+      font-weight: 700;
+      font-size: 16px;
+    }
+    .score-top { color: var(--green); text-shadow: 0 0 16px rgba(0,255,154,0.5); }
+    .score-mid { color: var(--amber); }
+    .score-low { color: var(--red); }
+
+    /* ── RANKING BARS ── */
+    .rank-bar-wrap { display: flex; align-items: center; gap: 10px; }
+    .rank-bar {
+      height: 6px;
+      border-radius: 100px;
+      background: var(--grad);
+      box-shadow: 0 0 8px rgba(0,255,154,0.3);
+    }
+    .rank-bar.amber { background: var(--grad-amber); box-shadow: 0 0 8px rgba(245,158,11,0.3); }
+    .rank-bar.red   { background: linear-gradient(135deg,#EF4444,#FF6B35); box-shadow: none; }
+
+    /* ── INSIGHT CARDS ── */
+    .insight-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .insight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--grad);
+    }
+    .insight-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 48px;
+      font-weight: 900;
+      color: rgba(0,255,154,0.06);
+      position: absolute;
+      top: 16px; right: 20px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .insight-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .insight-body { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+    /* ── WHAT WORKS / DOESNT ── */
+    .post-analysis {
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border2);
+    }
+    .post-analysis-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .post-score-badge {
+      font-family: 'Orbitron', monospace;
+      font-size: 22px;
+      font-weight: 900;
+      padding: 8px 16px;
+      border-radius: 8px;
+      line-height: 1;
+    }
+    .badge-top { background: rgba(0,255,154,0.1); color: var(--green); border: 1px solid rgba(0,255,154,0.25); }
+    .badge-low { background: rgba(239,68,68,0.1); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+    .post-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+    .post-meta { font-size: 12px; color: var(--muted); }
+    .post-analysis-body { padding: 20px 24px; font-size: 14px; line-height: 1.7; color: var(--text); }
+
+    /* ── RECOMMENDATIONS ── */
+    .rec-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 28px;
+      display: flex;
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .rec-card:hover { border-color: var(--border); transform: translateY(-2px); }
+    .rec-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,255,154,0.03) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .rec-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--green);
+      opacity: 0.3;
+      line-height: 1;
+      flex-shrink: 0;
+      width: 44px;
+    }
+    .rec-content { flex: 1; }
+    .rec-title { font-weight: 700; font-size: 16px; color: var(--text); margin-bottom: 6px; }
+    .rec-impact {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 12px;
+    }
+    .impact-high { background: rgba(0,255,154,0.1); color: var(--green); }
+    .impact-med  { background: rgba(245,158,11,0.1); color: var(--amber); }
+    .rec-body { font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+    /* ── QUICK WINS ── */
+    .qw-card {
+      background: var(--card2);
+      border: 1px solid rgba(0,255,154,0.2);
+      border-radius: 12px;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .qw-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(0,255,154,0.5);
+    }
+    .qw-label {
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .qw-label::after { content:''; flex:1; height:1px; background: rgba(0,255,154,0.2); }
+    .qw-title { font-weight: 700; font-size: 17px; margin-bottom: 10px; }
+    .qw-body { font-size: 14px; line-height: 1.7; color: var(--muted); }
+
+    /* ── HIGHLIGHTS TABLE ── */
+    .hl-table { display: flex; flex-direction: column; gap: 2px; }
+    .hl-row {
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      gap: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      align-items: center;
+    }
+    .hl-row:nth-child(even) { background: rgba(255,255,255,0.02); }
+    .hl-name { font-weight: 600; font-size: 14px; }
+    .hl-theme { font-size: 13px; color: var(--muted); }
+    .hl-status { font-size: 11px; padding: 4px 10px; border-radius: 100px; white-space: nowrap; font-weight: 600; }
+    .hl-updated { background: rgba(0,255,154,0.1); color: var(--green); }
+    .hl-old     { background: rgba(245,158,11,0.1); color: var(--amber); }
+    .hl-dead    { background: rgba(239,68,68,0.1); color: var(--red); }
+    @media (max-width: 600px) {
+      .hl-row { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+    /* ── AUDIENCE CARD ── */
+    .audience-card {
+      background: var(--card);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .audience-card + .audience-card { margin-top: 16px; }
+    .aud-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .aud-body { font-size: 14px; line-height: 1.7; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border2);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    footer strong { color: var(--green); }
+    .footer-logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* ── SECTION SEPARATOR ── */
+    .sep {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border2) 30%, var(--border2) 70%, transparent);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .cover-stats { gap: 20px; }
+      .stat-num { font-size: 22px; }
+      .section { padding: 60px 16px; }
+      .section-num { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- COVER -->
+<section class="cover">
+  <div class="cover-grid"></div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div style="position:relative;z-index:1">
+    <div class="cover-badge">Auditoria Instagram · 30/06/2026</div>
+
+    <h1 class="cover-handle">
+      <span class="grad-anim">@andrews_tech</span>
+    </h1>
+
+    <p class="cover-subtitle">
+      <strong>Assistência Técnica em Videogames</strong> · Retrogaming · Canal 3
+    </p>
+
+    <div class="cover-stats">
+      <div class="stat-item">
+        <span class="stat-num">718</span>
+        <span class="stat-label">Seguidores</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">79</span>
+        <span class="stat-label">Posts</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">7</span>
+        <span class="stat-label">Posts analisados</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">164</span>
+        <span class="stat-label">Score máximo</span>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      <span>⚙️ Assistência Técnica</span>
+      <span>🎮 Retrogaming</span>
+      <span>📍 São Paulo</span>
+    </div>
+
+    <div class="warning-banner">
+      ⚠️ Amostra reduzida — use como primeira impressão, não como diagnóstico definitivo.
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-link" href="#visao-geral">Visão Geral</a>
+    <a class="nav-link" href="#bio">Bio & Link</a>
+    <a class="nav-link" href="#grid">Grid Visual</a>
+    <a class="nav-link" href="#destaques">Destaques</a>
+    <a class="nav-link" href="#ranking">Ranking</a>
+    <a class="nav-link" href="#funciona">Funciona</a>
+    <a class="nav-link" href="#audiencia">Audiência</a>
+    <a class="nav-link" href="#nao-funciona">Não funciona</a>
+    <a class="nav-link" href="#insights">Insights</a>
+    <a class="nav-link" href="#recomendacoes">Recomendações</a>
+    <a class="nav-link" href="#quickwins">Quick Wins</a>
+  </div>
+</nav>
+
+<!-- 01 VISÃO GERAL -->
+<section class="section" id="visao-geral">
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div>
+      <div class="section-tag">Overview</div>
+      <h2 class="section-title">Visão Geral</h2>
+      <p class="section-desc">Perfil, posicionamento e principal gargalo identificado</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="card" style="padding:32px;margin-bottom:24px">
+    <p style="font-size:16px;line-height:1.8;color:var(--text)">
+      O <strong style="color:var(--green)">@andrews_tech</strong> é um perfil de nicho sólido — assistência técnica e restauração de videogames retrô — com uma voz autêntica e uma comunidade engajada em torno do universo Canal 3/retrogaming. O pico de engajamento (<strong>137 curtidas num único post</strong>) revela que a audiência responde fortemente a conteúdo de bastidores e lançamentos de novos projetos, mas a inconsistência de postagem e a mistura de formatos sem uma estética unificada deixam o perfil bem abaixo do potencial para quem tem esse nível de expertise. <strong style="color:var(--amber)">O principal gargalo não é autoridade — é estratégia de conteúdo.</strong>
+    </p>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-label">Nicho</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:8px">Assistência Técnica · Retrogaming</div>
+      <p style="font-size:13px;color:var(--muted)">Sega, Nintendo, Atari — restauração e reparo de consoles retrô</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Autoridade</div>
+      <div style="font-size:15px;font-weight:600;color:var(--green);margin-bottom:8px">Alta no nicho</div>
+      <p style="font-size:13px;color:var(--muted)">Presença em eventos (Canal 3 Expo), podcasts, reconhecimento na cena retrogaming</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Principal gargalo</div>
+      <div style="font-size:15px;font-weight:600;color:var(--amber);margin-bottom:8px">Estratégia de conteúdo</div>
+      <p style="font-size:13px;color:var(--muted)">Inconsistência de postagem + mistura de formatos sem estética unificada</p>
+    </div>
+    <div class="card">
+      <div class="card-label">Tipo de audiência</div>
+      <div style="font-size:15px;font-weight:600;margin-bottom:8px">Comunidade de aliados</div>
+      <p style="font-size:13px;color:var(--muted)">Colegas criadores, amigos de evento — mais celebração do que geração de leads</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 02 BIO E LINK -->
+<section class="section" id="bio">
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div>
+      <div class="section-tag">Perfil</div>
+      <h2 class="section-title">Bio & Link</h2>
+      <p class="section-desc">Avaliação da bio, palavras-chave e link de conversão</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="bio-quote">
+    ⚙️ Assistência Técnica em Videogames<br>
+    🎮 Te ensino não somente a consertar videogames, mas restaurar sonhos.<br>
+    Agenda p/ reparo, produtos e mentoria: 👇🏽<br>
+    bit.ly/m/andrewstech
+  </div>
+
+  <div class="two-col" style="margin-bottom:24px">
+    <div class="card">
+      <div class="card-label">Avaliação</div>
+      <p style="font-size:14px;line-height:1.7">Clara e estratégica — comunica o que faz, para quem, e entrega um CTA direto com seta, funcionando bem dentro do espaço disponível.</p>
+    </div>
+    <div class="card">
+      <div class="card-label">O que melhorar</div>
+      <p style="font-size:14px;line-height:1.7">A frase <em>"restaurar sonhos"</em> é bonita mas genérica. Substituir por algo mais específico como <strong style="color:var(--cyan)">"📍 São Paulo | Sega, Nintendo, Atari"</strong> aumentaria a relevância local e de nicho.</p>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <span class="pill pill-green">✓ CTA na bio</span>
+      <span style="font-size:13px;color:var(--muted)">Seta + link Bitly direto</span>
+    </div>
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <span class="pill pill-green">✓ Palavras-chave</span>
+      <span style="font-size:13px;color:var(--muted)">Assistência, videogames, mentoria</span>
+    </div>
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <span class="pill pill-green">✓ Link agregador</span>
+      <span style="font-size:13px;color:var(--muted)">Agendamento, curso, livro, YouTube</span>
+    </div>
+    <div class="card" style="display:flex;align-items:center;gap:12px">
+      <span class="pill pill-amber">⚠ Localização</span>
+      <span style="font-size:13px;color:var(--muted)">Sem mencionar São Paulo</span>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 03 GRID VISUAL -->
+<section class="section" id="grid">
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div>
+      <div class="section-tag">Estética</div>
+      <h2 class="section-title">Grid Visual</h2>
+      <p class="section-desc">Identidade visual, coerência estética e primeira impressão</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="card" style="padding:32px;margin-bottom:24px">
+    <p style="font-size:15px;line-height:1.8">
+      <strong>Identidade visual irregular</strong> — não há paleta de cores, tipografia ou moldura reconhecível. Os posts misturam prints de memes, selfies, fotos de evento e reels sem unidade estética. O grid parece um álbum pessoal mesclado com conteúdo profissional, sem uma identidade visual que sinalize "especialista" desde o primeiro scroll.
+    </p>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h4 style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">O que funciona</h4>
+      <ul class="check-list">
+        <li class="check-item">Universo retrogaming reconhecível para quem já conhece o André</li>
+        <li class="check-item">Presença em eventos reforça autoridade no nicho</li>
+        <li class="check-item">Voz autêntica e pessoal se traduz no visual</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px">O que falta</h4>
+      <ul class="check-list">
+        <li class="check-item cross">Paleta de cores consistente</li>
+        <li class="check-item cross">Tipografia ou moldura reconhecível</li>
+        <li class="check-item cross">Padrão visual que sinalize "especialista" ao visitante novo</li>
+        <li class="check-item cross">Grid que convide a seguir sem conhecimento prévio do André</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 04 DESTAQUES -->
+<section class="section" id="destaques">
+  <div class="section-header">
+    <div class="section-num">04</div>
+    <div>
+      <div class="section-tag">Stories</div>
+      <h2 class="section-title">Destaques de Stories</h2>
+      <p class="section-desc">5 destaques analisados — maioria abandonada há anos</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="table-wrap" style="margin-bottom:24px">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Tema</th>
+          <th>CTA</th>
+          <th>Qualidade visual</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Canal 3 2025</strong></td>
+          <td style="color:var(--muted)">Cobertura Canal 3 Expo (set/2025) — ~12 slides</td>
+          <td><span class="pill pill-red">Não</span></td>
+          <td style="color:var(--muted)">Irregular — mistura stories próprios e reposts</td>
+          <td><span class="hl-status hl-updated">41 semanas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nintendo Switch</strong></td>
+          <td style="color:var(--muted)">Reparos e tutoriais de Nintendo Switch</td>
+          <td><span class="pill pill-red">Não</span></td>
+          <td style="color:var(--muted)">Sem identidade visual clara</td>
+          <td><span class="hl-status hl-old">131 semanas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Dreamcast</strong></td>
+          <td style="color:var(--muted)">Reparos de Dreamcast (case translúcido)</td>
+          <td><span class="pill pill-red">Não</span></td>
+          <td style="color:var(--muted)">Foto técnica com texto</td>
+          <td><span class="hl-status hl-old">131 semanas</span></td>
+        </tr>
+        <tr>
+          <td><strong>evento canal 3</strong></td>
+          <td style="color:var(--muted)">André como speaker na Canal 3 Expo SP 2022</td>
+          <td><span class="pill pill-red">Não</span></td>
+          <td style="color:var(--muted)">Card gráfico da organização</td>
+          <td><span class="hl-status hl-dead">201 semanas</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pergunte!</strong></td>
+          <td style="color:var(--muted)">Caixa de perguntas sobre eletrônica/videogames</td>
+          <td><span class="pill pill-green">Sim</span></td>
+          <td style="color:var(--muted)">Fundo gradiente genérico</td>
+          <td><span class="hl-status hl-dead">244 semanas</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2)">
+    <p style="font-size:14px;line-height:1.7;color:var(--text)">
+      <strong style="color:var(--red)">⚠ Alerta:</strong> 4 dos 5 destaques estão abandonados há anos. O perfil praticamente não usa Stories como canal ativo, desperdiçando um dos recursos mais importantes para conversão e proximidade com a audiência. <strong>"Pergunte!"</strong> com 244 semanas e <strong>"evento canal 3"</strong> com 201 semanas são ruídos no perfil.
+    </p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 05 RANKING -->
+<section class="section" id="ranking">
+  <div class="section-header">
+    <div class="section-num">05</div>
+    <div>
+      <div class="section-tag">Performance</div>
+      <h2 class="section-title">Ranking de Engajamento</h2>
+      <p class="section-desc">Score = curtidas + (comentários × 3) · 7 posts analisados</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Post</th>
+          <th>Formato</th>
+          <th>Score</th>
+          <th>❤ Curtidas</th>
+          <th>💬 Coments</th>
+          <th>Barra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-rank">P7</td>
+          <td><strong>Teovox Podcast + Canal 3</strong></td>
+          <td><span class="pill pill-cyan">Reel bastidores</span></td>
+          <td><span class="td-score score-top">164</span></td>
+          <td><strong style="color:var(--green)">137</strong></td>
+          <td>9</td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar" style="width:100%;max-width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-rank">P6</td>
+          <td><strong>Meme "Se eu resolver isso..."</strong></td>
+          <td><span class="pill pill-cyan">Reel meme</span></td>
+          <td><span class="td-score score-top">104</span></td>
+          <td>68</td>
+          <td><strong style="color:var(--green)">12</strong></td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar" style="width:63%;max-width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-rank">P5</td>
+          <td><strong>Relato emocional Canal 3 Expo</strong></td>
+          <td><span class="pill pill-amber">Carrossel foto</span></td>
+          <td><span class="td-score score-mid">84</span></td>
+          <td>60</td>
+          <td>8</td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:51%;max-width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-rank">P1</td>
+          <td><strong>Convite para curso Canal 3</strong></td>
+          <td><span class="pill pill-cyan">Reel pinado</span></td>
+          <td><span class="td-score score-mid">53</span></td>
+          <td>35</td>
+          <td>6</td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:32%;max-width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-rank">P2</td>
+          <td><strong>Bastidores Canal 3</strong></td>
+          <td><span class="pill pill-cyan">Reel evento</span></td>
+          <td><span class="td-score score-mid">47</span></td>
+          <td>35</td>
+          <td>4</td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar amber" style="width:29%;max-width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-rank">P3</td>
+          <td><strong>Dia do Baterista / OutRun</strong></td>
+          <td><span class="pill pill-cyan">Reel data comemorativa</span></td>
+          <td><span class="td-score score-low">17</span></td>
+          <td>14</td>
+          <td>1</td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar red" style="width:10%;max-width:120px"></div></div></td>
+        </tr>
+        <tr>
+          <td class="td-rank">P4</td>
+          <td><strong>Meme "Minha voz após o Canal 3"</strong></td>
+          <td><span class="pill pill-cyan">Reel humor</span></td>
+          <td><span class="td-score score-low">11</span></td>
+          <td>5</td>
+          <td>2</td>
+          <td><div class="rank-bar-wrap"><div class="rank-bar red" style="width:7%;max-width:120px"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 06 O QUE FUNCIONA -->
+<section class="section" id="funciona">
+  <div class="section-header">
+    <div class="section-num">06</div>
+    <div>
+      <div class="section-tag">Análise</div>
+      <h2 class="section-title">O que está funcionando</h2>
+      <p class="section-desc">Top 2 padrões de alto engajamento</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="post-analysis">
+      <div class="post-analysis-header">
+        <div class="post-score-badge badge-top">164</div>
+        <div>
+          <div class="post-title">Post 7 — Teovox Podcast</div>
+          <div class="post-meta">Reel bastidores/lançamento · 137 curtidas · 9 comentários</div>
+        </div>
+      </div>
+      <div class="post-analysis-body">
+        O post disparou por uma combinação rara nesse perfil: <strong>anúncio de novidade genuína + legenda longa e pessoal</strong> que contextualiza o projeto com emoção e história. O André nomeia pessoas reais (Ricardo Wilmers, Bruno Maimoni), explica o significado do movimento Canal 3 para o retrogaming brasileiro e termina com gratidão. Isso ativa elogios de amigos próximos, colegas de comunidade e seguidores que se identificam com a causa. É o único post dos 7 com CTA explícito além do link da bio.
+      </div>
+    </div>
+
+    <div class="post-analysis">
+      <div class="post-analysis-header">
+        <div class="post-score-badge badge-top">104</div>
+        <div>
+          <div class="post-title">Post 6 — Meme "Se eu resolver isso..."</div>
+          <div class="post-meta">Reel meme · 68 curtidas · 12 comentários (maior volume)</div>
+        </div>
+      </div>
+      <div class="post-analysis-body">
+        O segundo melhor post não tem técnica, não tem legenda longa, não tem CTA — tem <strong>humor direto e identificação imediata</strong>. Um meme de mulher cantando na praia com o contexto de conserto de videogame funcionou porque o público entendeu a piada sem precisar de explicação. Os 12 comentários (o maior volume dos 7 posts) confirmam que o humor dispara conversas, não apenas curtidas passivas. <strong style="color:var(--green)">Esse formato é facilmente replicável</strong> — meme de terceiro com legenda de uma linha.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 07 AUDIÊNCIA -->
+<section class="section" id="audiencia">
+  <div class="section-header">
+    <div class="section-num">07</div>
+    <div>
+      <div class="section-tag">Comunidade</div>
+      <h2 class="section-title">O que a audiência está dizendo</h2>
+      <p class="section-desc">Análise de comentários do melhor post (Post 7)</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="audience-card">
+    <div class="aud-label">Tipos predominantes</div>
+    <div class="aud-body">Elogios entusiastas ("Demais!!!", "Uau🙌🔥🔥", "👏👏👏") e resposta de co-participante do projeto (teofernandesoficial confirmando o lançamento do episódio).</div>
+  </div>
+  <div class="audience-card">
+    <div class="aud-label">Perguntas da audiência</div>
+    <div class="aud-body">Nenhuma pergunta explícita — os comentários são celebrações, não curiosidade. Isso sugere que a audiência já conhece o universo mas não foi estimulada a perguntar sobre o projeto.</div>
+  </div>
+  <div class="audience-card">
+    <div class="aud-label">O perfil responde?</div>
+    <div class="aud-body"><strong style="color:var(--red)">Raramente</strong> — não há respostas visíveis do @andrews_tech nos comentários desse post nem nos demais analisados.</div>
+  </div>
+  <div class="audience-card" style="background:rgba(0,191,255,0.05);border-color:rgba(0,191,255,0.2)">
+    <div class="aud-label" style="color:var(--cyan)">Insight principal</div>
+    <div class="aud-body">Os comentários revelam uma <strong>comunidade de aliados</strong> (colegas criadores, amigos de evento) mais do que uma base de clientes buscando serviço — o que explica curtidas altas com baixíssima geração de leads visível.</div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 08 O QUE NÃO FUNCIONA -->
+<section class="section" id="nao-funciona">
+  <div class="section-header">
+    <div class="section-num">08</div>
+    <div>
+      <div class="section-tag">Análise</div>
+      <h2 class="section-title">O que não está funcionando</h2>
+      <p class="section-desc">Bottom 2 padrões de baixo engajamento</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="post-analysis">
+      <div class="post-analysis-header">
+        <div class="post-score-badge badge-low">11</div>
+        <div>
+          <div class="post-title">Post 4 — Meme "Minha voz após o Canal 3"</div>
+          <div class="post-meta">Reel humor · 5 curtidas · 2 comentários</div>
+        </div>
+      </div>
+      <div class="post-analysis-body">
+        O problema aqui é <strong>contexto</strong>. O meme da mulher loira só faz sentido para quem assistiu ao Canal 3 Expo naquele fim de semana — sem explicação na legenda, quem não estava no evento não entende a graça. É o oposto do Post 6: aquele meme tinha piada universal sobre conserto, este dependia de <em>insider knowledge</em>.
+      </div>
+    </div>
+
+    <div class="post-analysis">
+      <div class="post-analysis-header">
+        <div class="post-score-badge badge-low">17</div>
+        <div>
+          <div class="post-title">Post 3 — Dia do Baterista / OutRun</div>
+          <div class="post-meta">Reel data comemorativa · 14 curtidas · 1 comentário</div>
+        </div>
+      </div>
+      <div class="post-analysis-body">
+        Post de data comemorativa <strong>desconectado do nicho</strong>. "Feliz Dia do Baterista" não conversa com "Assistência Técnica em Videogames". O André é músico e isso aparece em posts anteriores, mas para quem o segue pelos videogames, o conteúdo parece fora do lugar. Hashtags (#OutRun #Sega #canal3) tentam conectar os pontos, mas o thumbnail não deixa claro o que esperar. Provavelmente afasta engajamento por <strong style="color:var(--red)">ambiguidade de posicionamento</strong>.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 09 INSIGHTS -->
+<section class="section" id="insights">
+  <div class="section-header">
+    <div class="section-num">09</div>
+    <div>
+      <div class="section-tag">Conclusões</div>
+      <h2 class="section-title">Principais Insights</h2>
+      <p class="section-desc">3 padrões identificados nos 7 posts analisados</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="insight-card">
+      <div class="insight-num">1</div>
+      <div class="insight-title">Comunidade &gt; Produto</div>
+      <div class="insight-body">Os posts de maior engajamento (Posts 7, 6 e 5) não vendem serviço — celebram pertencimento à comunidade retrogamer. O conteúdo que performa é o que fala sobre o universo compartilhado (Canal 3, amizades, projetos), não sobre reparos técnicos em si. Isso pode ser força para nutrição de comunidade, mas é uma hipótese que precisa de mais dados para confirmar como estratégia de conversão.</div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num">2</div>
+      <div class="insight-title">Legenda longa e pessoal supera reel rápido e genérico</div>
+      <div class="insight-body">O carrossel com relato emocional do Canal 3 (Post 5, 60 curtidas) superou reels curtos de bastidores e memes sem contexto (Posts 3 e 4). Dentro dos 7 posts, toda vez que o André escreve com profundidade e emoção, o engajamento sobe. <strong style="color:var(--green)">Padrão consistente nos 3 posts acima da média.</strong></div>
+    </div>
+
+    <div class="insight-card">
+      <div class="insight-num">3</div>
+      <div class="insight-title">O perfil não responde comentários</div>
+      <div class="insight-body">Em nenhum dos 7 posts há respostas visíveis do @andrews_tech para os seguidores. Com uma audiência pequena (718 seguidores), isso é uma <strong style="color:var(--amber)">oportunidade perdida enorme</strong> — responder comentários aumenta engajamento orgânico e sinaliza comunidade ativa para o algoritmo.</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 10 RECOMENDAÇÕES -->
+<section class="section" id="recomendacoes">
+  <div class="section-header">
+    <div class="section-num">10</div>
+    <div>
+      <div class="section-tag">Estratégia</div>
+      <h2 class="section-title">Recomendações Práticas</h2>
+      <p class="section-desc">4 ações priorizadas por impacto</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="rec-card">
+      <div class="rec-num">1</div>
+      <div class="rec-content">
+        <div class="rec-title">Série de Reels semanais de repair com formato fixo</div>
+        <span class="rec-impact impact-high">⚡ Impacto alto</span>
+        <div class="rec-body">Os 7 posts analisados não têm nenhum conteúdo técnico de tutorial — o core do negócio (assistência técnica) praticamente não aparece no feed. Um formato simples "Conserto de [console] em 60 segundos" ou "O erro mais comum no [console]" usaria a autoridade real do André de forma consistente, educaria o algoritmo sobre o nicho e atrairia novos seguidores que querem aprender.</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">2</div>
+      <div class="rec-content">
+        <div class="rec-title">Responder todos os comentários dos próximos posts</div>
+        <span class="rec-impact impact-high">⚡ Impacto alto</span>
+        <div class="rec-body">Com 718 seguidores e posts que recebem entre 1 e 12 comentários, responder cada comentário levaria menos de 5 minutos por post e dobraria o volume de interações — o que o Instagram usa para decidir distribuição orgânica. Mesmo uma resposta de emoji já conta.</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">3</div>
+      <div class="rec-content">
+        <div class="rec-title">1 Reel de meme por semana — com contexto nativo</div>
+        <span class="rec-impact impact-med">◆ Impacto médio</span>
+        <div class="rec-body">O Post 6 provou que meme funciona para esse público. A regra: o meme precisa ser compreensível para qualquer pessoa que conserta ou joga videogame — não apenas para quem estava no último evento. Manter o formato de "legenda de uma linha + meme visual".</div>
+      </div>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num">4</div>
+      <div class="rec-content">
+        <div class="rec-title">Atualizar os destaques de Stories com 3 categorias ativas</div>
+        <span class="rec-impact impact-med">◆ Impacto médio</span>
+        <div class="rec-body">"Pergunte!" com 244 semanas e "evento canal 3" com 201 semanas são ruídos no perfil. Substituir por: <strong>Serviços</strong> (o que você repara, como agendar), <strong>Antes/Depois</strong> (consertos realizados) e <strong>Depoimentos</strong>. Esses três cobrem as três necessidades do visitante novo: entender, confiar e contratar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- 11 QUICK WINS -->
+<section class="section" id="quickwins">
+  <div class="section-header">
+    <div class="section-num">11</div>
+    <div>
+      <div class="section-tag">Ação imediata</div>
+      <h2 class="section-title">Quick Wins</h2>
+      <p class="section-desc">2 ações para os próximos 5 dias — sem custo, impacto imediato</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="two-col">
+    <div class="qw-card">
+      <div class="qw-label">Amanhã</div>
+      <div class="qw-title">Responda os comentários antigos</div>
+      <div class="qw-body">Volte nos 7 posts coletados nessa auditoria e responda cada comentário que ainda não tem resposta. Isso gera notificações nos seguidores, reabre engajamento em posts antigos e custa zero.</div>
+    </div>
+
+    <div class="qw-card">
+      <div class="qw-label">Até dia 5</div>
+      <div class="qw-title">Grave um Reel de conserto real</div>
+      <div class="qw-body">30-60 segundos mostrando um conserto real — câmera parada numa bancada. Legenda curta e pessoal explicando qual era o problema e como resolveu. Sem hashtags de volume, sem meme, sem evento. Só o André trabalhando. Teste o que o conteúdo técnico puro faz com o engajamento.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">@andrews_tech · Auditoria Instagram</span>
+  <p>Auditoria realizada com base nos <strong>7 posts próprios mais recentes</strong> do perfil,<br>
+  excluindo um post fixado de outubro de 2022 por não representar a produção atual.</p>
+  <p style="margin-top:8px">Dados coletados diretamente do Instagram em <strong>30/06/2026</strong>.<br>
+  Produzido por <strong>Agência Logos</strong></p>
+</footer>
+
+</body>
+</html>

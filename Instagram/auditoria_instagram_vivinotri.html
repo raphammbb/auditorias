@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria Instagram — @vivinotri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --c1: #06B6D4;   /* swim / cyan */
+      --c2: #22D3EE;   /* water light */
+      --c3: #F97316;   /* run / energy orange */
+      --c4: #FACC15;   /* medal gold */
+      --grad: linear-gradient(120deg, #06B6D4 0%, #22D3EE 35%, #F97316 100%);
+      --grad-warm: linear-gradient(120deg, #FACC15, #F97316);
+      --bg: #080b12;
+      --bg2: #0c1019;
+      --bg3: #121826;
+      --card: #141b2b;
+      --border: rgba(255,255,255,0.08);
+      --text: #eef2f9;
+      --muted: #8a97b0;
+      --gold: #FACC15;
+      --silver: #b7c1d1;
+      --bronze: #d08a4e;
+      --green: #34d399;
+      --red: #f87171;
+      --yellow: #fbbf24;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .display, .metric-value, .rank-score {
+      font-family: 'Barlow Semi Condensed', sans-serif;
+    }
+
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-size: 200% 200%;
+      animation: gradShift 8s ease infinite;
+    }
+
+    @keyframes gradShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* ── COVER ── */
+    .cover {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 20%, rgba(6,182,212,0.16) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 60% at 85% 80%, rgba(249,115,22,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* faixas diagonais de "prova" no fundo */
+    .cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(115deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 26px);
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.5;
+      z-index: 0;
+    }
+    .blob-1 { width: 420px; height: 420px; background: rgba(6,182,212,0.35); top: -80px; left: -60px; animation: float1 12s ease-in-out infinite; }
+    .blob-2 { width: 360px; height: 360px; background: rgba(249,115,22,0.3); bottom: -80px; right: -40px; animation: float2 14s ease-in-out infinite; }
+
+    @keyframes float1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(40px,30px); } }
+    @keyframes float2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-30px,-40px); } }
+
+    .cover > * { position: relative; z-index: 2; }
+
+    .ig-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(20,27,43,0.7);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--muted);
+      margin-bottom: 30px;
+      backdrop-filter: blur(6px);
+    }
+
+    .ig-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--c3);
+      box-shadow: 0 0 0 0 rgba(249,115,22,0.6);
+      animation: ping 2.2s ease-out infinite;
+    }
+    @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(249,115,22,0.5);} 70%,100% { box-shadow: 0 0 0 10px rgba(249,115,22,0);} }
+
+    .cover h1 {
+      font-size: clamp(2.6rem, 8vw, 5rem);
+      font-weight: 800;
+      line-height: 0.98;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .cover-handle {
+      font-size: clamp(1.05rem, 3vw, 1.45rem);
+      font-weight: 300;
+      color: var(--muted);
+      margin-bottom: 44px;
+      max-width: 620px;
+    }
+    .cover-handle span { font-weight: 700; color: var(--text); }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+      max-width: 720px;
+      width: 100%;
+    }
+
+    .metric-card {
+      background: rgba(20,27,43,0.6);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 16px;
+      transition: transform 0.25s, border-color 0.25s;
+      backdrop-filter: blur(6px);
+    }
+    .metric-card:hover { transform: translateY(-4px); border-color: rgba(6,182,212,0.5); }
+
+    .metric-value {
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1;
+      background: var(--grad-warm);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .metric-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.09em; color: var(--muted); margin-top: 10px;
+    }
+    .metric-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+    .scroll-hint {
+      margin-top: 50px;
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .scroll-hint svg { animation: bob 1.8s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0);} 50% { transform: translateY(6px);} }
+
+    /* ── NAV ── */
+    .toc {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(8,11,18,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .toc-inner { display: flex; gap: 0; max-width: 940px; margin: 0 auto; white-space: nowrap; }
+    .toc a {
+      display: inline-block; padding: 15px 15px; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted);
+      text-decoration: none; border-bottom: 2px solid transparent; transition: 0.2s; cursor: pointer;
+    }
+    .toc a:hover { color: var(--text); border-bottom-color: var(--c1); }
+
+    /* ── MAIN ── */
+    main { max-width: 940px; margin: 0 auto; padding: 0 24px 90px; }
+
+    .section { padding-top: 76px; }
+    .section.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .section.reveal.in { opacity: 1; transform: none; }
+
+    .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+    .section-num {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Semi Condensed', sans-serif;
+      font-size: 18px; font-weight: 800; color: #041018; flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(6,182,212,0.25);
+    }
+    .section-title { font-size: clamp(1.5rem, 4.5vw, 2.1rem); font-weight: 700; letter-spacing: -0.01em; text-transform: uppercase; }
+    .section-desc { color: var(--muted); font-size: 14px; margin-top: 2px; }
+
+    .divider { height: 1px; background: var(--border); margin: 0 0 30px; }
+
+    .prose p { margin-bottom: 16px; color: #d3dbe8; }
+    .prose strong { color: var(--text); font-weight: 700; }
+    .prose em { color: var(--c2); font-style: normal; font-weight: 600; }
+
+    /* callout / lead */
+    .lead {
+      background: var(--bg3);
+      border-left: 3px solid var(--c1);
+      border-radius: 0 14px 14px 0;
+      padding: 22px 26px;
+      font-size: 1.05rem;
+      color: #dbe3f0;
+    }
+    .lead strong { color: #fff; }
+
+    /* diagnosis grid */
+    .diagnosis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 8px; }
+    @media (max-width: 620px) { .diagnosis-grid { grid-template-columns: 1fr; } }
+    .diag-item {
+      background: var(--bg3); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px;
+    }
+    .diag-icon {
+      width: 38px; height: 38px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0; font-weight: 800; font-size: 18px;
+    }
+    .diag-icon.ok { background: rgba(52,211,153,0.15); color: var(--green); }
+    .diag-icon.warn { background: rgba(251,191,36,0.15); color: var(--yellow); }
+    .diag-icon.bad { background: rgba(248,113,113,0.15); color: var(--red); }
+    .diag-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 3px; }
+    .diag-text { font-size: 14px; font-weight: 500; color: #dbe3f0; }
+
+    /* bio box */
+    .bio-quote {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px 26px; font-size: 1.02rem; color: #dbe3f0; margin-bottom: 22px; position: relative;
+    }
+    .bio-quote::before { content: '“'; font-family: Georgia, serif; font-size: 3rem; color: var(--c1); position: absolute; top: 4px; left: 14px; opacity: 0.4; }
+    .bio-quote .q { padding-left: 30px; display: block; }
+
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .tag { background: rgba(6,182,212,0.12); border: 1px solid rgba(6,182,212,0.3); color: var(--c2); font-size: 12px; font-weight: 600; padding: 5px 12px; border-radius: 100px; }
+
+    /* tables */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 16px; }
+    table { width: 100%; border-collapse: collapse; min-width: 560px; }
+    thead th {
+      background: var(--bg3); text-align: left; padding: 14px 16px;
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody td { padding: 14px 16px; font-size: 14px; border-bottom: 1px solid var(--border); color: #d3dbe8; vertical-align: top; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+    .rank-score { font-weight: 800; font-size: 1.35rem; }
+    .fmt-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .fmt-foto { background: rgba(250,204,21,0.15); color: var(--gold); }
+    .fmt-carrossel { background: rgba(6,182,212,0.15); color: var(--c2); }
+    .fmt-reel { background: rgba(248,113,113,0.15); color: var(--red); }
+
+    .medal { font-weight: 800; }
+    .medal.g { color: var(--gold); }
+    .medal.s { color: var(--silver); }
+    .medal.b { color: var(--bronze); }
+
+    /* winner / loser cards */
+    .pattern-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 22px 24px; margin-bottom: 16px; border-top: 3px solid transparent;
+    }
+    .pattern-card.win { border-top-color: var(--green); }
+    .pattern-card.lose { border-top-color: var(--red); }
+    .pattern-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+    .pattern-badge { font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .pattern-badge.win { background: rgba(52,211,153,0.15); color: var(--green); }
+    .pattern-badge.lose { background: rgba(248,113,113,0.15); color: var(--red); }
+    .pattern-title { font-weight: 700; font-size: 1.08rem; color: #fff; }
+    .pattern-card p { color: #d3dbe8; font-size: 0.98rem; }
+    .pattern-card em { color: var(--c2); font-weight: 600; font-style: normal; }
+
+    /* audience */
+    .aud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 620px) { .aud-grid { grid-template-columns: 1fr; } }
+    .aud-card { background: var(--bg3); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .aud-card h4 { font-family: 'Inter', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin-bottom: 10px; font-weight: 700; }
+    .aud-card p { font-size: 0.95rem; color: #d3dbe8; }
+    .comment-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .chip { background: rgba(250,204,21,0.1); border: 1px solid rgba(250,204,21,0.25); color: var(--gold); font-size: 12px; padding: 5px 12px; border-radius: 100px; font-weight: 500; }
+
+    /* insights */
+    .insight-list { display: flex; flex-direction: column; gap: 14px; }
+    .insight-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; display: flex; gap: 16px; align-items: flex-start; }
+    .insight-ico { font-size: 1.6rem; flex-shrink: 0; line-height: 1; }
+    .insight-item p { font-size: 0.98rem; color: #d3dbe8; }
+    .insight-item strong { color: #fff; }
+
+    /* recommendations */
+    .rec-list { display: flex; flex-direction: column; gap: 14px; counter-reset: rec; }
+    .rec-item {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 22px 24px 22px 66px; position: relative;
+    }
+    .rec-item::before {
+      counter-increment: rec; content: counter(rec);
+      position: absolute; left: 20px; top: 22px;
+      width: 34px; height: 34px; border-radius: 10px;
+      background: var(--grad); color: #041018;
+      font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 17px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .rec-item h4 { font-family: 'Inter', sans-serif; font-size: 1.02rem; color: #fff; margin-bottom: 6px; font-weight: 700; }
+    .rec-item p { font-size: 0.95rem; color: #d3dbe8; }
+    .rec-tag { display: inline-block; margin-top: 10px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 100px; background: rgba(52,211,153,0.15); color: var(--green); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    /* quick wins */
+    .qw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 620px) { .qw-grid { grid-template-columns: 1fr; } }
+    .qw-card {
+      background: linear-gradient(160deg, var(--bg3), var(--bg2));
+      border: 1px solid rgba(249,115,22,0.3); border-radius: 18px; padding: 24px;
+    }
+    .qw-card .qw-ico { font-size: 1.8rem; margin-bottom: 10px; }
+    .qw-card h4 { font-family: 'Inter', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--c3); margin-bottom: 10px; font-weight: 800; }
+    .qw-card p { font-size: 0.96rem; color: #dbe3f0; }
+
+    /* calibration note */
+    .calib {
+      margin-top: 40px; background: var(--bg3); border: 1px dashed rgba(255,255,255,0.15);
+      border-radius: 16px; padding: 22px 26px; font-size: 0.95rem; color: var(--muted);
+    }
+    .calib strong { color: var(--text); }
+
+    /* footer */
+    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; color: var(--muted); font-size: 13px; }
+    footer .logo { font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: 0.02em; color: var(--text); margin-bottom: 8px; text-transform: uppercase; }
+
+    @media (max-width: 480px) {
+      .section-num { width: 40px; height: 40px; font-size: 15px; }
+      .metric-value { font-size: 2.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ COVER ══ -->
+  <header class="cover">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="ig-badge"><span class="ig-dot"></span>Auditoria de Conteúdo · Instagram · 07/07/2026</div>
+
+    <h1 class="grad-text">Manual de<br>Boas Práticas</h1>
+
+    <p class="cover-handle">Análise de desempenho para <span>@vivinotri</span> · Atleta amadora · Triatleta rumo ao 70.3</p>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-value" data-count="8">0</div>
+        <div class="metric-label">Posts Analisados</div>
+        <div class="metric-sub">8 mais recentes</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" data-count="521">0</div>
+        <div class="metric-label">Seguidores</div>
+        <div class="metric-sub">Engajamento alto p/ o tamanho</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" data-count="285">0</div>
+        <div class="metric-label">Melhor Score</div>
+        <div class="metric-sub">Estreia no triathlon</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value" data-count="0" data-suffix="" data-text="Foto">Foto</div>
+        <div class="metric-label">Formato Campeão</div>
+        <div class="metric-sub">Foto & carrossel lideram</div>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      Role para a análise
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+    </div>
+  </header>
+
+  <!-- ══ NAV ══ -->
+  <nav class="toc">
+    <div class="toc-inner">
+      <a href="#visao">Visão Geral</a>
+      <a href="#bio">Bio & Link</a>
+      <a href="#grid">Grid</a>
+      <a href="#destaques">Destaques</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#funciona">O Que Funciona</a>
+      <a href="#audiencia">Audiência</a>
+      <a href="#nao-funciona">O Que Não Funciona</a>
+      <a href="#insights">Insights</a>
+      <a href="#recomendacoes">Recomendações</a>
+      <a href="#quickwins">Quick Wins</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- 1 VISÃO GERAL -->
+    <section class="section reveal" id="visao">
+      <div class="section-header">
+        <div class="section-num">01</div>
+        <div>
+          <div class="section-title">Visão Geral</div>
+          <div class="section-desc">O panorama do perfil em uma leitura</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="lead">
+        Perfil de atleta amadora (triatleta) genuíno, visualmente forte e emocionalmente autêntico — a jornada <strong>"rumo ao 70.3"</strong> é uma narrativa cativante que a audiência claramente ama. Porém, a conta opera como <strong>diário pessoal, não como perfil estratégico</strong>: legendas ultracurtas, zero CTA, quase nenhuma hashtag, sem link na bio e uma audiência que aplaude mas não é convidada a fazer mais nada. Há potencial evidente sendo desperdiçado pela falta de intenção.
+      </div>
+    </section>
+
+    <!-- 2 BIO E LINK -->
+    <section class="section reveal" id="bio">
+      <div class="section-header">
+        <div class="section-num">02</div>
+        <div>
+          <div class="section-title">Bio & Link</div>
+          <div class="section-desc">A porta de entrada do perfil</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="bio-quote">
+        <span class="q">Nada, pedala, corre e repete 🔁 | 📲 Treinos, rotina e lifestyle | 🏃‍♀️ Meia maratonista | 🎯 Rumo ao meu primeiro 70.3 | 📍 SP</span>
+      </div>
+
+      <div class="prose">
+        <p><strong>Avaliação:</strong> clara e estratégica — comunica com precisão quem é (triatleta), o que compartilha (treinos, rotina, lifestyle) e cria um objetivo-narrativa forte (<em>"rumo ao 70.3"</em>) que dá razão para seguir.</p>
+      </div>
+
+      <div class="diagnosis-grid">
+        <div class="diag-item">
+          <div class="diag-icon bad">✕</div>
+          <div><div class="diag-label">CTA na bio</div><div class="diag-text">Não — falta um chamado à ação</div></div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon ok">✓</div>
+          <div><div class="diag-label">Palavras-chave</div><div class="diag-text">Sim — triatleta, meia maratonista, treinos, lifestyle, 70.3, SP</div></div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon bad">✕</div>
+          <div><div class="diag-label">Link</div><div class="diag-text">Ausente · Tipo: — · Destino coerente: n/a</div></div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon warn">!</div>
+          <div><div class="diag-label">O que melhorar</div><div class="diag-text">Falta um CTA e um link — mesmo sem monetizar, um link (Strava, canal de treinos, ou agregador) daria destino à atenção que ela já capta.</div></div>
+        </div>
+      </div>
+
+      <div class="tag-row">
+        <span class="tag">triatleta</span>
+        <span class="tag">meia maratonista</span>
+        <span class="tag">treinos</span>
+        <span class="tag">lifestyle</span>
+        <span class="tag">70.3</span>
+        <span class="tag">SP</span>
+      </div>
+    </section>
+
+    <!-- 3 GRID VISUAL -->
+    <section class="section reveal" id="grid">
+      <div class="section-header">
+        <div class="section-num">03</div>
+        <div>
+          <div class="section-title">Grid Visual</div>
+          <div class="section-desc">A primeira impressão de quem chega</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="diagnosis-grid" style="margin-bottom:20px;">
+        <div class="diag-item">
+          <div class="diag-icon ok">✓</div>
+          <div><div class="diag-label">Identidade visual</div><div class="diag-text">Coesa</div></div>
+        </div>
+        <div class="diag-item">
+          <div class="diag-icon ok">✓</div>
+          <div><div class="diag-label">Convida a seguir</div><div class="diag-text">Sim</div></div>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p><strong>Avaliação:</strong> grid esportivo, colorido e vibrante, com forte presença de imagens de prova (largadas, pódios, medalhas) que transmitem imediatamente <em>energia atlética e progressão</em> — reconhecível à primeira vista.</p>
+      </div>
+    </section>
+
+    <!-- 4 DESTAQUES -->
+    <section class="section reveal" id="destaques">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div>
+          <div class="section-title">Destaques de Stories</div>
+          <div class="section-desc">Os capítulos fixos do perfil</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th><th>Slides</th><th>Tema</th><th>Tipos de conteúdo</th><th>CTA</th><th>Qualidade visual</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Outfit ✨🤍</strong></td><td>~6</td><td>Look/estilo pessoal</td><td>Foto, texto</td><td><span class="medal b">Não</span></td><td>Consistente</td><td>Desatualizado (17 sem)</td>
+            </tr>
+            <tr>
+              <td><strong>TB 2025</strong></td><td>~8</td><td>Bastidores de fim de semana de prova (Santos-SP)</td><td>Foto, vídeo, texto</td><td><span class="medal b">Não</span></td><td>Consistente</td><td>Desatualizado (29 sem)</td>
+            </tr>
+            <tr>
+              <td><strong>SC 2025</strong></td><td>~12+</td><td>Prova/evento com toque pessoal e humor</td><td>Foto, vídeo, texto</td><td><span class="medal b">Não</span></td><td>Irregular (mistura selfie pessoal + prova)</td><td>Desatualizado (38 sem)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="lead" style="margin-top:20px;">
+        <strong>Avaliação rápida:</strong> os destaques reforçam a identidade atlética e pessoal, mas <strong>todos estão desatualizados</strong> (17 a 38 semanas) e nenhum tem CTA. Falta visivelmente um destaque <strong>"Comece aqui" / "Minha jornada 70.3"</strong> que sintetize a narrativa central da bio e oriente novos seguidores.
+      </div>
+    </section>
+
+    <!-- 5 RANKING -->
+    <section class="section reveal" id="ranking">
+      <div class="section-header">
+        <div class="section-num">05</div>
+        <div>
+          <div class="section-title">Ranking de Engajamento</div>
+          <div class="section-desc">Os 8 posts, do mais forte ao mais fraco</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Formato</th><th>Score</th><th>Curtidas</th><th>Comentários</th><th>Tema (inferido)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><span class="medal g">1</span></td><td><span class="fmt-pill fmt-foto">Foto</span></td><td><span class="rank-score" style="color:var(--gold)">285</span></td><td>147</td><td>46</td><td>Estreia no triathlon com pódio (4º lugar)</td></tr>
+            <tr><td><span class="medal s">2</span></td><td><span class="fmt-pill fmt-carrossel">Carrossel</span></td><td><span class="rank-score" style="color:var(--silver)">164</span></td><td>149</td><td>5</td><td>"Arquibancadas" / lado torcedora no Morumbi</td></tr>
+            <tr><td><span class="medal b">3</span></td><td><span class="fmt-pill fmt-carrossel">Carrossel</span></td><td><span class="rank-score" style="color:var(--bronze)">141</span></td><td>99</td><td>14</td><td>Campeã da categoria 🥇</td></tr>
+            <tr><td>4</td><td><span class="fmt-pill fmt-carrossel">Carrossel</span></td><td class="rank-score">119</td><td>101</td><td>6</td><td>Meia maratona no Rio</td></tr>
+            <tr><td>5</td><td><span class="fmt-pill fmt-reel">Reel</span></td><td class="rank-score">89</td><td>71</td><td>6</td><td>"Grandona" no festival de corrida</td></tr>
+            <tr><td>6</td><td><span class="fmt-pill fmt-carrossel">Carrossel</span></td><td class="rank-score">71</td><td>62</td><td>3</td><td>"A escolha que virou sonho" (pré-prova)</td></tr>
+            <tr><td>7</td><td><span class="fmt-pill fmt-reel">Reel</span></td><td class="rank-score">68</td><td>59</td><td>3</td><td>Expectativas para os próximos dias</td></tr>
+            <tr><td>8</td><td><span class="fmt-pill fmt-reel">Reel</span></td><td class="rank-score">67</td><td>52</td><td>5</td><td>"Obsessão é a palavra"</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6 O QUE FUNCIONA -->
+    <section class="section reveal" id="funciona">
+      <div class="section-header">
+        <div class="section-num">06</div>
+        <div>
+          <div class="section-title">O Que Está Funcionando</div>
+          <div class="section-desc">Top 2 padrões que levantam o perfil</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="pattern-card win">
+        <div class="pattern-head">
+          <span class="pattern-badge win">Score 285</span>
+          <span class="pattern-title">Post #1 — Estreia no triathlon com pódio</span>
+        </div>
+        <p>Disparou porque uniu três ingredientes: uma <strong>conquista concreta e narrável</strong> (4º lugar na estreia), uma legenda com arco emocional real ("Nem nos meus melhores sonhos... Mentira — eu era obcecada e treinei todos os dias com propósito") e o momento certo. Os 46 comentários mostram que a audiência responde ao <em>marco</em>, não à imagem bonita — <strong>vitória + vulnerabilidade + contexto</strong> é a fórmula vencedora dela.</p>
+      </div>
+
+      <div class="pattern-card win">
+        <div class="pattern-head">
+          <span class="pattern-badge win">Score 164</span>
+          <span class="pattern-title">Post #2 — "Arquibancadas" / Morumbi</span>
+        </div>
+        <p>Funcionou pela legenda mais reflexiva e humana do conjunto ("existe uma versão minha que sempre vai estar nas arquibancadas"), mostrando um lado fora da prova. Reforça uma hipótese: a audiência dela se conecta com a <em>pessoa</em>, não só com a atleta. As curtidas foram altíssimas (149), embora com poucos comentários — sinaliza conteúdo <strong>"curtível/relacionável"</strong> mais do que conversacional.</p>
+      </div>
+    </section>
+
+    <!-- 7 AUDIÊNCIA -->
+    <section class="section reveal" id="audiencia">
+      <div class="section-header">
+        <div class="section-num">07</div>
+        <div>
+          <div class="section-title">O Que a Audiência Está Dizendo</div>
+          <div class="section-desc">Comentários do melhor post</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="aud-grid">
+        <div class="aud-card">
+          <h4>Tipos predominantes</h4>
+          <p>Elogios e parabéns — esmagadora maioria.</p>
+          <div class="comment-chips">
+            <span class="chip">"Parabéns lindona"</span>
+            <span class="chip">"Orgulho"</span>
+            <span class="chip">"Super merecido"</span>
+            <span class="chip">"Inspiração e determinação"</span>
+          </div>
+        </div>
+        <div class="aud-card">
+          <h4>Perguntas da audiência</h4>
+          <p>Praticamente nenhuma — os comentários são celebratórios, não interrogativos. Não há dúvidas sobre treino, prova ou processo sendo feitas.</p>
+        </div>
+        <div class="aud-card">
+          <h4>O perfil responde?</h4>
+          <p><strong style="color:var(--red)">Nunca</strong> (nesta amostra) — não há uma única resposta de @vivinotri aos 46 comentários deste post, nem nos demais.</p>
+        </div>
+        <div class="aud-card">
+          <h4>Insight</h4>
+          <p>A audiência a trata como <em style="color:var(--c2);font-weight:600">inspiração</em> e torce por ela, mas a conversa é de mão única — há uma comunidade calorosa e engajada sendo <strong>subaproveitada</strong> por falta de interação e de perguntas provocadas.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 O QUE NÃO FUNCIONA -->
+    <section class="section reveal" id="nao-funciona">
+      <div class="section-header">
+        <div class="section-num">08</div>
+        <div>
+          <div class="section-title">O Que Não Está Funcionando</div>
+          <div class="section-desc">Bottom 2 padrões que puxam para baixo</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="pattern-card lose">
+        <div class="pattern-head">
+          <span class="pattern-badge lose">Score 67</span>
+          <span class="pattern-title">Post #8 — "Obsessão é a palavra" (reel)</span>
+        </div>
+        <p>O mais fraco. Legenda vaga e sem contexto ("Vai ser morno para lá!") que não conta o que está acontecendo nem por quê. Sem conquista concreta, sem narrativa e sem CTA — a audiência dela responde a <em>marcos claros</em>, e este não entrega nenhum.</p>
+      </div>
+
+      <div class="pattern-card lose">
+        <div class="pattern-head">
+          <span class="pattern-badge lose">Score 68</span>
+          <span class="pattern-title">Post #7 — "Expectativas para os próximos dias" (reel)</span>
+        </div>
+        <p>Mesmo problema — é um post de "antecipação" genérico e sem gancho concreto. Comparado aos vencedores, falta o <em>acontecimento</em>: não há resultado, número, local ou história definida para a audiência se ancorar.</p>
+      </div>
+
+      <div class="lead" style="border-left-color:var(--red);">
+        <strong>Em comum:</strong> ambos são reels de teor abstrato/pré-evento, com legenda curta e sem informação concreta. O padrão é razoavelmente claro nesta amostra — posts <strong>sobre</strong> uma conquista batem posts sobre <strong>expectativa</strong> de algo indefinido.
+      </div>
+    </section>
+
+    <!-- 9 INSIGHTS -->
+    <section class="section reveal" id="insights">
+      <div class="section-header">
+        <div class="section-num">09</div>
+        <div>
+          <div class="section-title">Principais Insights</div>
+          <div class="section-desc">As conclusões que orientam a estratégia</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="insight-list">
+        <div class="insight-item">
+          <div class="insight-ico">🏅</div>
+          <p><strong>Conquistas concretas dominam.</strong> Os dois maiores scores (285 e 141 em comentários/curtidas) e o alto engajamento vieram de posts com resultado tangível (pódio, campeã, meia concluída). Posts abstratos de "antecipação" ficam no fundo do ranking.</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-ico">🖼️</div>
+          <p><strong>Carrossel e foto superam os reels nesta amostra.</strong> Os 4 primeiros do ranking são fotos/carrosséis; os 3 reels ficaram entre os mais baixos. É uma <em style="color:var(--c2);font-weight:600">hipótese</em> com n pequeno — não uma regra — mas consistente o suficiente para testar.</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-ico">💬</div>
+          <p><strong>Engajamento é alto para o tamanho da conta (521 seguidores), porém passivo.</strong> Curtidas fortes e comentários calorosos, mas zero perguntas da audiência, zero CTAs nas legendas e zero respostas do perfil — o relacionamento existe mas não é cultivado nem direcionado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 RECOMENDAÇÕES -->
+    <section class="section reveal" id="recomendacoes">
+      <div class="section-header">
+        <div class="section-num">10</div>
+        <div>
+          <div class="section-title">Recomendações Práticas</div>
+          <div class="section-desc">O que fazer, em ordem de impacto</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="rec-list">
+        <div class="rec-item">
+          <h4>Adicione perguntas e CTA nas legendas dos posts de conquista</h4>
+          <p>(que já performam melhor). No próximo pódio/prova, feche com algo como "qual foi seu maior desafio no último treino?" — a audiência já quer interagir, só não é convidada.</p>
+          <span class="rec-tag">Alto impacto · custo zero</span>
+        </div>
+        <div class="rec-item">
+          <h4>Responda aos comentários dos próximos 3 posts</h4>
+          <p>Há dezenas de mensagens de apoio sem resposta; interagir converte torcedores passivos em comunidade ativa e aumenta o alcance do próprio post.</p>
+          <span class="rec-tag">Impacto imediato sobre ativo existente</span>
+        </div>
+        <div class="rec-item">
+          <h4>Transforme antecipação em narrativa concreta</h4>
+          <p>Em vez de reels vagos ("expectativas para os próximos dias"), diga <em style="color:var(--c2);font-weight:600">o quê, onde e por que importa</em> (ex.: "Faltam 3 dias para minha primeira meia — meta: sub-2h"). Os posts vagos foram justamente os piores da amostra.</p>
+        </div>
+        <div class="rec-item">
+          <h4>Crie um destaque "Minha jornada 70.3" e adicione um link na bio</h4>
+          <p>A bio promete essa narrativa mas não há onde aprofundá-la; um destaque fixo + link (Strava/agregador) dá destino à atenção captada e orienta quem chega novo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 QUICK WINS -->
+    <section class="section reveal" id="quickwins">
+      <div class="section-header">
+        <div class="section-num">11</div>
+        <div>
+          <div class="section-title">Quick Wins</div>
+          <div class="section-desc">Ações rápidas com retorno imediato</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="qw-grid">
+        <div class="qw-card">
+          <div class="qw-ico">⚡</div>
+          <h4>Nos próximos 5 dias</h4>
+          <p>Responda pessoalmente a todos os comentários dos 2 posts mais recentes e adicione uma pergunta simples na legenda do próximo post — duas ações de custo zero que ativam a comunidade calorosa que já existe.</p>
+        </div>
+        <div class="qw-card">
+          <div class="qw-ico">🎯</div>
+          <h4>Publique um carrossel "conquista + bastidor"</h4>
+          <p>Resultado concreto + a história do treino por trás — o formato/tema que comprovadamente mais engaja neste perfil, fechando com um CTA de comentário.</p>
+        </div>
+      </div>
+
+      <div class="calib">
+        <strong>Observação de calibração:</strong> a amostra é de apenas 8 posts, então tratamos "carrossel/foto > reel" como <strong>hipótese a testar</strong>, não como regra. Os padrões mais sólidos aqui são a <strong>força das conquistas concretas</strong> e o <strong>engajamento passivo</strong> (sem CTA/resposta) — esses aparecem de forma consistente em toda a amostra.
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="logo">Agência Logos</div>
+    <p>Auditoria de Conteúdo · Instagram · @vivinotri · 07/07/2026</p>
+    <p style="margin-top:6px;opacity:0.7;">Baseado nos 8 posts mais recentes.</p>
+  </footer>
+
+  <script>
+    // Count-up nos números do hero
+    function animateCount(el) {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      if (!target || target === 0) return;
+      const dur = 1400, start = performance.now();
+      function step(now) {
+        const p = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased).toLocaleString('pt-BR');
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.metric-value[data-count]').forEach(animateCount);
+    });
+
+    // Reveal das seções ao rolar
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.section.reveal').forEach(s => io.observe(s));
+  </script>
+</body>
+</html>

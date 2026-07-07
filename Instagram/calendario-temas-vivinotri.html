@@ -138,6 +138,42 @@
     .calib { margin-top: 26px; background: var(--bg3); border: 1px dashed rgba(255,255,255,0.15); border-radius: 16px; padding: 22px 26px; font-size: 0.96rem; color: var(--muted); }
     .calib strong { color: var(--text); }
 
+    /* amostra de serviço */
+    .sample-intro { background: linear-gradient(160deg, rgba(6,182,212,0.09), rgba(249,115,22,0.06)); border: 1px solid var(--border); border-radius: 16px; padding: 22px 24px; margin-bottom: 22px; }
+    .sample-intro .tagline { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c3); margin-bottom: 10px; }
+    .sample-intro p { font-size: 0.98rem; color: #d3dbe8; }
+    .sample-intro strong { color: #fff; }
+
+    .carousel-strip { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 16px; -webkit-overflow-scrolling: touch; }
+    .slide-card { min-width: 248px; width: 248px; aspect-ratio: 4/5; scroll-snap-align: center; flex-shrink: 0; border-radius: 18px; border: 1px solid var(--border); background: linear-gradient(165deg, var(--bg3), #0a0e18); padding: 22px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+    .slide-card::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(125deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 16px); pointer-events: none; }
+    .slide-card.cover { background: linear-gradient(160deg, #0b3b46, #3a1c08); border-color: rgba(249,115,22,0.4); }
+    .slide-card.cta { border-color: rgba(52,211,153,0.4); }
+    .slide-badge { font-size: 10px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); position: relative; z-index: 1; }
+    .slide-content { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 7px; position: relative; z-index: 1; }
+    .slide-eyebrow { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c2); }
+    .slide-card.cover .slide-eyebrow, .slide-card.cta .slide-eyebrow { color: var(--c3); }
+    .slide-big { font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 4.2rem; line-height: 0.85; color: #fff; }
+    .slide-text { font-size: 1rem; color: #eef2f9; font-weight: 500; line-height: 1.4; }
+    .slide-text.lg { font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 700; font-size: 1.7rem; line-height: 1.1; }
+    .slide-sub { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
+    .slide-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .slide-list li { font-family: 'Barlow Semi Condensed', sans-serif; font-size: 1.35rem; font-weight: 700; color: #fff; }
+    .slide-list li span { color: var(--c2); }
+    .slide-foot { margin-top: 12px; font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); position: relative; z-index: 1; }
+    .strip-note { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+    .strip-note b { color: var(--c2); font-weight: 600; }
+
+    .caption-box { margin-top: 22px; background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
+    .caption-box h4 { font-family: 'Inter', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 700; margin-bottom: 14px; }
+    .caption-box .cap { white-space: pre-line; font-size: 0.98rem; color: #dbe3f0; line-height: 1.75; }
+    .caption-box .hashtags { margin-top: 14px; color: var(--c2); font-weight: 500; font-size: 0.9rem; word-spacing: 2px; }
+
+    .sample-cta { margin-top: 22px; text-align: center; background: linear-gradient(120deg, rgba(6,182,212,0.1), rgba(249,115,22,0.1)); border: 1px solid rgba(249,115,22,0.3); border-radius: 16px; padding: 26px 24px; }
+    .sample-cta p { font-size: 1.05rem; color: #fff; font-weight: 600; }
+    .sample-cta p span { color: var(--c3); font-weight: 800; }
+    .sample-cta .small { font-size: 0.9rem; color: var(--muted); font-weight: 400; margin-top: 6px; }
+
     footer { border-top: 1px solid var(--border); padding: 40px 22px 120px; text-align: center; color: var(--muted); font-size: 13px; }
     footer .logo { font-family: 'Barlow Semi Condensed', sans-serif; font-weight: 800; font-size: 1.3rem; letter-spacing: 0.02em; color: var(--text); margin-bottom: 8px; text-transform: uppercase; }
 
@@ -189,6 +225,7 @@
     <a href="#pilares">Pilares</a>
     <a href="#temas">Temas do Mês</a>
     <a href="#distribuicao">Distribuição</a>
+    <a href="#amostra">Amostra Logos</a>
   </div></nav>
 
   <main>
@@ -346,6 +383,126 @@
 
       <div class="calib">
         <strong>Nenhum formato se repete em dias consecutivos</strong>, e o pilar de conversão aparece 4x no mês, sempre espaçado (<strong>dias 5, 13, 20, 28</strong>) — sem soar promocional demais para um perfil pessoal.
+      </div>
+    </section>
+
+    <!-- 4 AMOSTRA DE SERVIÇO -->
+    <section class="section reveal" id="amostra">
+      <div class="section-header">
+        <div class="section-num">04</div>
+        <div><div class="section-title">Amostra de Serviço · Agência Logos</div><div class="section-desc">O Dia 1 já produzido, do gancho à legenda</div></div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="sample-intro">
+        <span class="tagline"><span class="ig-dot"></span>Exemplo do conteúdo pronto</span>
+        <p>Este é o <strong>Dia 1 do calendário</strong> — carrossel de contagem regressiva pro 70.3 — produzido inteiro pela Agência Logos: gancho, roteiro slide a slide e legenda com CTA, já aplicando o que o diagnóstico revelou (marco concreto, número real, chamado à interação e hashtags que faltavam).</p>
+      </div>
+
+      <div class="carousel-strip">
+        <article class="slide-card cover">
+          <span class="slide-badge">01 / 08 · Capa</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">Rumo ao meu primeiro 70.3</span>
+            <span class="slide-big">[XX]</span>
+            <span class="slide-text">dias — e eu tô contando cada um deles</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card">
+          <span class="slide-badge">02 / 08</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">O que é um 70.3?</span>
+            <ul class="slide-list">
+              <li><span>1,9 km</span> nadando</li>
+              <li><span>90 km</span> de bike</li>
+              <li><span>21 km</span> correndo</li>
+            </ul>
+            <span class="slide-text">Tudo de uma vez, sem parar.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card">
+          <span class="slide-badge">03 / 08</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">Minha meta</span>
+            <span class="slide-text lg">Cruzar a linha em [Xh].</span>
+            <span class="slide-text">Não importa como — importa que eu vou chegar.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card">
+          <span class="slide-badge">04 / 08</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">Onde eu tô agora</span>
+            <ul class="slide-list">
+              <li><span>[X]</span> treinos por semana</li>
+              <li><span>[Y] km</span> acumulados</li>
+            </ul>
+            <span class="slide-text">Corpo cansado, cabeça firme.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card">
+          <span class="slide-badge">05 / 08</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">A verdade</span>
+            <span class="slide-text lg">Teve treino que doeu mais do que eu esperava. Teve dia que eu quis parar.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card">
+          <span class="slide-badge">06 / 08</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">Mas</span>
+            <span class="slide-text lg">Eu escolhi essa loucura. E escolho de novo toda manhã.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card">
+          <span class="slide-badge">07 / 08</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">Quer acompanhar?</span>
+            <span class="slide-text">Todo o processo tá no meu <strong>Strava</strong> (link na bio) e no destaque <strong>Jornada 70.3</strong>.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+
+        <article class="slide-card cta">
+          <span class="slide-badge">08 / 08 · CTA</span>
+          <div class="slide-content">
+            <span class="slide-eyebrow">Sua vez</span>
+            <span class="slide-text lg">Qual foi o maior desafio que VOCÊ se propôs a vencer?</span>
+            <span class="slide-sub">Comenta aqui embaixo — eu respondo cada um.</span>
+          </div>
+          <span class="slide-foot">Agência Logos</span>
+        </article>
+      </div>
+      <p class="strip-note">Arraste para o lado para ver os 8 slides. Os campos entre <b>[colchetes]</b> são os números reais da Vivian — é só preencher.</p>
+
+      <div class="caption-box">
+        <h4>Legenda pronta para postar</h4>
+        <div class="cap">Faltam [XX] dias pro meu primeiro 70.3.
+
+1,9 km nadando. 90 km de bike. 21 km correndo. Tudo de uma vez.
+
+Faz [tempo] que eu decidi encarar isso — e desde então não teve um dia sem propósito. Teve treino que doeu, teve dia que eu quis parar. Mas eu escolhi essa loucura, e escolho de novo toda manhã.
+
+Minha meta é cruzar a linha em [Xh]. O caminho todo tá no meu Strava (link na bio) e no destaque Jornada 70.3.
+
+Agora me conta: qual foi o maior desafio que VOCÊ se propôs a vencer? Comenta aqui embaixo que eu quero saber — respondo cada um.</div>
+        <div class="hashtags">#triatlo #70ponto3 #ironman703 #corrida #ciclismo #natacao #triathlonbrasil #rumoao703 #atletaamadora</div>
+      </div>
+
+      <div class="sample-cta">
+        <p>Quer os <span>30 dias produzidos assim</span>, prontos pra postar?</p>
+        <p class="small">Fale com a Agência Logos e a gente cuida do conteúdo enquanto você foca no treino.</p>
       </div>
     </section>
 

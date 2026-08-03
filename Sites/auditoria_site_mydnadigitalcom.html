@@ -3,70 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auditoria de Site — MyDNA Digital</title>
+  <title>Auditoria de Site — MyDNA Digital | Agência Logos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
 
     :root {
       --purple: #5B3FF8;
       --purple-light: #7C5CFF;
-      --purple-dim: #3D2BA8;
+      --purple-dark: #3D2BA8;
       --blue: #3B82F6;
       --blue-light: #60A5FA;
-      --bg: #0F172A;
+      --blue-dark: #1E40AF;
+      --bg-dark: #0F172A;
+      --bg-darker: #07081a;
       --bg-card: #1E293B;
-      --bg-card-2: #334155;
+      --bg-light: #F8FAFC;
       --border: rgba(91, 63, 248, 0.2);
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --text: #F1F5F9;
+      --border-light: rgba(226, 232, 240, 0.3);
+      --text-dark: #020617;
+      --text-light: #F1F5F9;
       --text-muted: #94A3B8;
       --text-dim: #64748B;
       --red: #EF4444;
-      --red-bg: rgba(239, 68, 68, 0.12);
-      --red-border: rgba(239, 68, 68, 0.3);
+      --red-light: #FEE2E2;
+      --red-border: #FECACA;
       --green: #22C55E;
-      --green-bg: rgba(34, 197, 94, 0.1);
-      --green-border: rgba(34, 197, 94, 0.25);
+      --green-light: #DCFCE7;
+      --green-border: #86EFAC;
       --amber: #F59E0B;
-      --amber-bg: rgba(245, 158, 11, 0.12);
-      --amber-border: rgba(245, 158, 11, 0.3);
+      --amber-light: #FEF3C7;
+      --amber-border: #FCD34D;
+      --gradient-primary: linear-gradient(135deg, #5B3FF8 0%, #3B82F6 100%);
+      --gradient-text: linear-gradient(135deg, #7C5CFF 0%, #60A5FA 100%);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
-      background: linear-gradient(135deg, var(--bg) 0%, #1a2847 100%);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg-darker) 0%, #1a2847 100%);
+      color: var(--text-light);
+      line-height: 1.6;
       font-size: 16px;
-      line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
+      text-rendering: optimizeLegibility;
     }
 
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--purple-dim); border-radius: 3px; }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-    /* HERO */
+    ::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--purple) 0%, var(--blue) 100%);
+      border-radius: 4px;
+    }
+
+    /* ===== HERO ===== */
     .hero {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 80px 24px 60px;
+      padding: 120px 24px 80px;
       position: relative;
       overflow: hidden;
+      text-align: center;
     }
 
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(91, 63, 248, 0.15) 0%, transparent 70%);
+      background: radial-gradient(ellipse 120% 100% at 50% 0%, rgba(91, 63, 248, 0.2) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 80%);
       pointer-events: none;
+      z-index: 1;
     }
 
     .hero::after {
@@ -76,178 +107,267 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+      background: linear-gradient(90deg, transparent 0%, rgba(91, 63, 248, 0.5) 50%, transparent 100%);
+      z-index: 2;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      max-width: 900px;
     }
 
     .badge-pill {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(91, 63, 248, 0.1);
+      gap: 10px;
+      background: rgba(91, 63, 248, 0.15);
       border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 16px;
-      font-size: 12px;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 13px;
       font-weight: 600;
       letter-spacing: 0.05em;
       text-transform: uppercase;
       color: var(--purple-light);
-      margin-bottom: 36px;
+      margin-bottom: 32px;
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.8s ease-out;
     }
 
     .badge-dot {
-      width: 6px;
-      height: 6px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--purple-light);
       animation: pulse 2s ease-in-out infinite;
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.8); }
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.5;
+        transform: scale(0.9);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .hero-title {
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-size: clamp(2.8rem, 7vw, 4.8rem);
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--purple-light) 0%, var(--blue-light) 100%);
+      background: var(--gradient-text);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      animation: slideUp 0.8s ease-out 0.1s both;
     }
 
     .hero-subtitle {
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
       color: var(--text-muted);
       font-weight: 400;
-      letter-spacing: 0.02em;
       margin-bottom: 48px;
-      max-width: 620px;
+      line-height: 1.6;
+      animation: slideUp 0.8s ease-out 0.2s both;
     }
 
-    .hero-subtitle span {
-      color: var(--purple-light);
-      font-weight: 600;
+    .hero-subtitle strong {
+      color: var(--text-light);
+      font-weight: 700;
     }
 
-    .metric-grid {
+    /* ===== METRICS GRID ===== */
+    .metrics-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
       width: 100%;
-      max-width: 800px;
-      margin-bottom: 40px;
+      max-width: 1000px;
+      margin-bottom: 50px;
+      animation: slideUp 0.8s ease-out 0.3s both;
     }
 
     .metric-card {
-      background: rgba(30, 41, 59, 0.7);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 16px 12px;
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 16px;
       text-align: center;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple-light), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .metric-card:hover {
-      border-color: var(--border);
-      background: rgba(30, 41, 59, 0.9);
+      border-color: var(--purple-light);
+      background: rgba(30, 41, 59, 0.8);
+      transform: translateY(-4px);
     }
 
-    .metric-status {
-      font-size: 24px;
-      margin-bottom: 6px;
+    .metric-card:hover::before {
+      opacity: 1;
     }
 
     .metric-label {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-dim);
-      margin-bottom: 6px;
-    }
-
-    .metric-value {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-    }
-
-    .pages-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(91, 63, 248, 0.08);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 16px;
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 0.03em;
-    }
-
-    /* CONTAINER */
-    .container {
-      max-width: 920px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* SECTIONS */
-    section {
-      padding: 80px 0;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    section:first-of-type { border-top: none; }
-
-    .section-title {
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: var(--text);
-    }
-
-    .section-subtitle {
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--purple-light);
       margin-bottom: 8px;
     }
 
-    /* ALERT */
+    .metric-value {
+      font-size: 28px;
+      font-weight: 800;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+
+    .metric-status {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ===== INFO PILLS ===== */
+    .info-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 32px;
+      animation: slideUp 0.8s ease-out 0.4s both;
+    }
+
+    .info-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(91, 63, 248, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .info-pill:hover {
+      border-color: var(--purple-light);
+      background: rgba(91, 63, 248, 0.12);
+    }
+
+    .info-pill-icon {
+      font-size: 16px;
+    }
+
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    section:first-of-type {
+      border-top: none;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-light);
+    }
+
+    /* ===== ALERT ===== */
     .alert-critical {
-      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
-      border: 1px solid var(--red-border);
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 32px;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.04) 100%);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 48px;
+      backdrop-filter: blur(10px);
+      animation: slideUp 0.8s ease-out;
     }
 
     .alert-critical h3 {
-      color: var(--red);
       font-size: 18px;
+      font-weight: 700;
+      color: var(--red);
       margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .alert-critical p {
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.8;
+      font-size: 15px;
     }
 
-    /* TABLE */
+    /* ===== TABLE ===== */
     .table-wrapper {
       overflow-x: auto;
-      margin-bottom: 32px;
+      margin-bottom: 48px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
     }
 
     table {
@@ -256,138 +376,291 @@
       font-size: 14px;
     }
 
+    thead {
+      background: linear-gradient(135deg, rgba(91, 63, 248, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+    }
+
     th {
-      background: rgba(91, 63, 248, 0.08);
-      border-bottom: 2px solid var(--border);
-      padding: 12px 16px;
+      padding: 16px 20px;
       text-align: left;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--purple-light);
       letter-spacing: 0.03em;
+      border-bottom: 1px solid var(--border);
     }
 
     td {
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
       color: var(--text-muted);
     }
 
-    tr:hover { background: rgba(91, 63, 248, 0.04); }
+    tr:hover {
+      background: rgba(91, 63, 248, 0.05);
+    }
 
-    /* PROBLEM CARD */
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== PROBLEM CARDS ===== */
+    .problems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
     .problem-card {
-      background: rgba(30, 41, 59, 0.6);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      transition: all 0.3s ease;
+      background: rgba(30, 41, 59, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     .problem-card:hover {
-      background: rgba(30, 41, 59, 0.8);
-      border-color: var(--border);
+      border-color: var(--purple-light);
+      background: rgba(30, 41, 59, 0.7);
+      transform: translateY(-8px);
     }
 
-    .problem-card h4 {
-      font-size: 14px;
-      color: var(--text);
-      margin-bottom: 12px;
+    .problem-card:hover::before {
+      opacity: 1;
+    }
+
+    .problem-header {
       display: flex;
-      align-items: center;
-      gap: 8px;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
     }
 
-    .problem-badge {
-      display: inline-block;
-      font-size: 10px;
+    .problem-number {
+      font-size: 24px;
+      font-weight: 800;
+      background: var(--gradient-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      flex-shrink: 0;
+    }
+
+    .problem-title {
+      font-size: 16px;
       font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 4px;
+      color: var(--text-light);
+      line-height: 1.3;
+    }
+
+    .problem-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 6px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
 
     .badge-impact-high {
-      background: var(--red-bg);
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
       color: var(--red);
     }
 
     .badge-impact-medium {
-      background: var(--amber-bg);
+      background: rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.4);
       color: var(--amber);
     }
 
     .badge-impact-low {
-      background: var(--green-bg);
+      background: rgba(34, 197, 94, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.4);
       color: var(--green);
     }
 
     .problem-detail {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-muted);
       line-height: 1.6;
-      margin-top: 8px;
     }
 
-    /* TEXT */
-    p {
-      margin-bottom: 16px;
-      line-height: 1.8;
-      color: var(--text-muted);
-    }
-
-    strong {
-      color: var(--text);
+    .problem-detail strong {
+      color: var(--text-light);
       font-weight: 600;
     }
 
-    h3 {
-      font-size: 18px;
+    /* ===== TEXT ===== */
+    p {
+      margin-bottom: 20px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    strong {
+      color: var(--text-light);
       font-weight: 700;
-      color: var(--text);
-      margin: 24px 0 12px 0;
+    }
+
+    h2 {
+      color: var(--text-light);
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-light);
+      margin: 28px 0 16px 0;
     }
 
     h4 {
       font-size: 16px;
       font-weight: 600;
-      color: var(--text);
-      margin: 16px 0 8px 0;
+      color: var(--text-light);
+      margin: 16px 0 12px 0;
     }
 
     ul, ol {
-      margin-bottom: 16px;
-      margin-left: 20px;
+      margin-bottom: 20px;
+      margin-left: 24px;
     }
 
     li {
-      margin-bottom: 8px;
+      margin-bottom: 10px;
       color: var(--text-muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    /* FOOTER */
+    /* ===== CTA BUTTON ===== */
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient-primary);
+      color: var(--text-light);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      margin-top: 16px;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(91, 63, 248, 0.3);
+    }
+
+    .cta-button:active {
+      transform: translateY(0);
+    }
+
+    /* ===== FOOTER ===== */
     footer {
       background: rgba(15, 23, 42, 0.8);
-      border-top: 1px solid var(--border-subtle);
-      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      padding: 60px 0;
       text-align: center;
-      margin-top: 80px;
+      margin-top: 120px;
+      backdrop-filter: blur(10px);
     }
 
     footer p {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-dim);
-      margin: 0;
+      margin: 8px 0;
     }
 
-    /* RESPONSIVE */
+    footer strong {
+      color: var(--purple-light);
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
-      .hero { padding: 60px 20px 40px; }
-      .section-title { font-size: 1.6rem; }
-      th, td { padding: 10px 12px; font-size: 13px; }
-      .problem-card { padding: 16px; }
+      .hero {
+        padding: 80px 20px 60px;
+      }
+
+      .metrics-grid {
+        gap: 12px;
+      }
+
+      .problems-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
+
+      .alert-critical {
+        padding: 24px;
+      }
+
+      th, td {
+        padding: 12px 16px;
+        font-size: 13px;
+      }
+
+      .problem-card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .badge-pill {
+        font-size: 12px;
+        padding: 8px 16px;
+      }
+
+      .info-pills {
+        gap: 8px;
+      }
+
+      .info-pill {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 10px 12px;
+      }
     }
   </style>
 </head>
@@ -395,7 +668,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="container">
+  <div class="hero-content">
     <div class="badge-pill">
       <span class="badge-dot"></span>
       Auditoria de Site · 03/08/2026
@@ -404,59 +677,71 @@
     <h1 class="hero-title">Auditoria de Site</h1>
 
     <p class="hero-subtitle">
-      Análise completa para <span>mydnadigital.com</span> · MyDNA Digital SpA
+      Análise estratégica completa para <strong>mydnadigital.com</strong><br>
+      MyDNA Digital SpA — HR Tech LATAM
     </p>
 
-    <div class="metric-grid">
+    <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-status">7️⃣</div>
         <div class="metric-label">Identidade</div>
-        <div class="metric-value">7/10</div>
+        <div class="metric-value">7</div>
+        <div class="metric-status">Regular</div>
       </div>
       <div class="metric-card">
-        <div class="metric-status">7️⃣</div>
         <div class="metric-label">Conteúdo</div>
-        <div class="metric-value">7/10</div>
+        <div class="metric-value">7</div>
+        <div class="metric-status">Regular</div>
       </div>
       <div class="metric-card">
-        <div class="metric-status">6️⃣</div>
         <div class="metric-label">SEO</div>
-        <div class="metric-value">6/10</div>
+        <div class="metric-value">6</div>
+        <div class="metric-status">Regular</div>
       </div>
       <div class="metric-card">
-        <div class="metric-status">6️⃣</div>
         <div class="metric-label">UX</div>
-        <div class="metric-value">6/10</div>
+        <div class="metric-value">6</div>
+        <div class="metric-status">Regular</div>
       </div>
       <div class="metric-card">
-        <div class="metric-status">8️⃣</div>
         <div class="metric-label">Conversão</div>
-        <div class="metric-value">8/10</div>
+        <div class="metric-value">8</div>
+        <div class="metric-status">Forte</div>
       </div>
       <div class="metric-card">
-        <div class="metric-status">4️⃣</div>
         <div class="metric-label">Credibilidade</div>
-        <div class="metric-value">4/10</div>
+        <div class="metric-value">4</div>
+        <div class="metric-status">Crítico</div>
       </div>
       <div class="metric-card">
-        <div class="metric-status">8️⃣</div>
         <div class="metric-label">Performance</div>
-        <div class="metric-value">8/10</div>
+        <div class="metric-value">8</div>
+        <div class="metric-status">Forte</div>
       </div>
     </div>
 
-    <div class="pages-pill">
-      ✓ 10 páginas em profundidade + 15 páginas adicionais verificadas
+    <div class="info-pills">
+      <div class="info-pill">
+        <span class="info-pill-icon">✓</span>
+        10 páginas em profundidade analisadas
+      </div>
+      <div class="info-pill">
+        <span class="info-pill-icon">✓</span>
+        15 páginas adicionais verificadas
+      </div>
+      <div class="info-pill">
+        <span class="info-pill-icon">⚠</span>
+        3 achados críticos identificados
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ALERT -->
-<section style="padding-top: 40px;">
+<section>
   <div class="container">
     <div class="alert-critical">
       <h3>⚠️ Alerta de Segurança — Achado Crítico</h3>
-      <p>Encontrei no blog do site (blog.mydnadigital.com) uma publicação com padrão característico de spam de SEO sobre jogos de apostas online no topo do feed. Isso é uma <strong>bandeira vermelha de possível comprometimento do CMS do blog</strong> e deveria ser investigado imediatamente como prioridade técnica. Recomendo comunicar isso à empresa hoje.</p>
+      <p>Encontrei no blog do site (blog.mydnadigital.com) uma publicação com padrão característico de <strong>spam de SEO sobre jogos de apostas online</strong> no topo do feed. Isso é uma bandeira vermelha de possível comprometimento do CMS do blog e deveria ser investigado imediatamente como prioridade técnica. Esta é a descoberta mais grave de toda a auditoria.</p>
     </div>
   </div>
 </section>
@@ -464,61 +749,62 @@
 <!-- SCORECARD -->
 <section>
   <div class="container">
-    <div class="section-subtitle">Avaliação Geral</div>
-    <h2 class="section-title">Scorecard Geral</h2>
+    <div class="section-header">
+      <div class="section-label">Avaliação Geral</div>
+      <h2 class="section-title">Scorecard Geral</h2>
+    </div>
 
     <div class="table-wrapper">
       <table>
         <thead>
           <tr>
             <th>Dimensão</th>
-            <th>Nota</th>
-            <th>Status</th>
+            <th style="text-align: right;">Nota</th>
+            <th style="text-align: center;">Status</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Identidade e posicionamento</td>
-            <td><strong>7/10</strong></td>
-            <td>⚠️ Regular</td>
+            <td style="text-align: right; font-weight: 700; color: var(--text-light);">7/10</td>
+            <td style="text-align: center;">⚠️ Regular</td>
           </tr>
           <tr>
             <td>Qualidade do conteúdo</td>
-            <td><strong>7/10</strong></td>
-            <td>⚠️ Regular</td>
+            <td style="text-align: right; font-weight: 700; color: var(--text-light);">7/10</td>
+            <td style="text-align: center;">⚠️ Regular</td>
           </tr>
           <tr>
             <td>SEO on-page</td>
-            <td><strong>6/10</strong></td>
-            <td>⚠️ Regular</td>
+            <td style="text-align: right; font-weight: 700; color: var(--text-light);">6/10</td>
+            <td style="text-align: center;">⚠️ Regular</td>
           </tr>
           <tr>
             <td>Experiência do usuário</td>
-            <td><strong>6/10</strong></td>
-            <td>⚠️ Regular</td>
+            <td style="text-align: right; font-weight: 700; color: var(--text-light);">6/10</td>
+            <td style="text-align: center;">⚠️ Regular</td>
           </tr>
           <tr>
             <td>Conversão</td>
-            <td><strong>8/10</strong></td>
-            <td>✅ Forte</td>
+            <td style="text-align: right; font-weight: 700; color: var(--green);">8/10</td>
+            <td style="text-align: center;">✅ Forte</td>
           </tr>
           <tr>
             <td>Credibilidade e prova social</td>
-            <td><strong>4/10</strong></td>
-            <td>❌ Crítico</td>
+            <td style="text-align: right; font-weight: 700; color: var(--red);">4/10</td>
+            <td style="text-align: center;">❌ Crítico</td>
           </tr>
           <tr>
             <td>Performance percebida</td>
-            <td><strong>8/10</strong></td>
-            <td>✅ Forte</td>
-          </tr>
-          <tr style="font-weight: 700; background: rgba(91, 63, 248, 0.1); border-top: 2px solid var(--purple);">
-            <td>Nota Geral</td>
-            <td><strong>6,3/10</strong></td>
-            <td>⚠️ Regular, com falhas graves</td>
+            <td style="text-align: right; font-weight: 700; color: var(--green);">8/10</td>
+            <td style="text-align: center;">✅ Forte</td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="info-pill" style="margin-top: 24px; display: inline-flex; font-size: 16px; padding: 16px 24px;">
+      <strong style="font-size: 16px;">Nota Geral: 6,3/10</strong> — Regular, com falhas graves de confiabilidade
     </div>
   </div>
 </section>
@@ -526,16 +812,22 @@
 <!-- DIAGNÓSTICO -->
 <section>
   <div class="container">
-    <div class="section-subtitle">Análise Executiva</div>
-    <h2 class="section-title">Diagnóstico Executivo</h2>
+    <div class="section-header">
+      <div class="section-label">Análise Executiva</div>
+      <h2 class="section-title">Diagnóstico Executivo</h2>
+    </div>
 
-    <p>A MyDNA é um produto de HR Tech ambicioso e tecnicamente bem construído, com páginas de produto muito acima da média do mercado em profundidade e clareza — mas o site sofre de um problema de credibilidade que mina exatamente o argumento que tenta vender: confiança em dados.</p>
+    <p>A MyDNA é um produto de HR Tech ambicioso e tecnicamente bem construído, com páginas de produto muito acima da média do mercado em profundidade e clareza — mas o site sofre de um problema de credibilidade que mina exatamente o argumento que tenta vender: <strong>confiança em dados</strong>.</p>
 
     <p>Encontrei pelo menos quatro conjuntos diferentes de números institucionais que se contradizem entre a home, página Sobre Nós, página de Clientes e páginas de produto. A página de Clientes está praticamente vazia, sem logos reais de clientes. Os depoimentos usam iniciais em vez de fotos.</p>
 
-    <p>Encontrei também um bug de idioma recorrente (texto em português e inglês vazando dentro de páginas em espanhol) e uma página institucional (país Chile) completamente órfã, sem menu de navegação e com erros de acentuação.</p>
-
-    <p>Por outro lado, o funil de conversão é um dos pontos mais fortes que já avaliei: múltiplos CTAs, calculadora de ROI interativa, diagnóstico de maturidade como isca de 40 perguntas, biblioteca de 42 ebooks e formulários de demo em quase toda página.</p>
+    <h3>Achados Principais</h3>
+    <ul>
+      <li>Bug de idioma recorrente (texto em português e inglês vazando dentro de páginas em espanhol)</li>
+      <li>Página institucional (país Chile) completamente órfã, sem menu de navegação</li>
+      <li>Funil de conversão é um dos pontos mais fortes (múltiplos CTAs, calculadora de ROI, diagnóstico de 40 perguntas)</li>
+      <li>Biblioteca de 42 ebooks e formulários de demo em quase toda página</li>
+    </ul>
 
     <p><strong>Conclusão:</strong> O produto parece sólido; a apresentação dele precisa de disciplina editorial e QA antes de sustentar uma proposta de valor premium.</p>
   </div>
@@ -544,116 +836,130 @@
 <!-- PROBLEMAS CRÍTICOS -->
 <section>
   <div class="container">
-    <div class="section-subtitle">Top 10</div>
-    <h2 class="section-title">Problemas Críticos Identificados</h2>
-
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-high">Alto</span>
-        Possível comprometimento de SEO/spam no blog
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Técnico/Segurança<br>
-        <strong>Ação:</strong> Investigar imediatamente o CMS do blog, remover o conteúdo e revisar credenciais de acesso.
-      </div>
+    <div class="section-header">
+      <div class="section-label">Impacto e Ação</div>
+      <h2 class="section-title">Problemas Críticos — Top 10</h2>
     </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-high">Alto</span>
-        Números institucionais inconsistentes
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Conteúdo/Branding<br>
-        <strong>Ação:</strong> Definir uma única fonte oficial de métricas e atualizar todas as páginas.
+    <div class="problems-grid">
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">1</div>
+          <div class="problem-title">Possível comprometimento de SEO/spam no blog</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-high">Alto</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Técnico/Segurança</span>
+        </div>
+        <div class="problem-detail">Post com padrão de conteúdo de apostas online no topo do feed. <strong>Ação:</strong> Investigar imediatamente o CMS do blog.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-high">Alto</span>
-        Página de Clientes vazia/placeholder
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Conversão/Branding<br>
-        <strong>Ação:</strong> Popular com logos autorizados e casos reais, ou remover temporariamente do ar.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">2</div>
+          <div class="problem-title">Números institucionais inconsistentes</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-high">Alto</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Conteúdo/Branding</span>
+        </div>
+        <div class="problem-detail">500 vs. 100 vs. 300 empresas em páginas diferentes. <strong>Ação:</strong> Definir fonte única de métricas.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-medium">Médio</span>
-        Title tags duplicados ("MyDNA | MyDNA")
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> SEO<br>
-        <strong>Ação:</strong> Corrigir o template de metadados que concatena o nome da marca duas vezes.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">3</div>
+          <div class="problem-title">Página de Clientes vazia/placeholder</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-high">Alto</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Conversão/Branding</span>
+        </div>
+        <div class="problem-detail">Sem logos reais de clientes. <strong>Ação:</strong> Popular ou remover temporariamente.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-medium">Médio</span>
-        Vazamento de texto em inglês/português
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Conteúdo/Técnico<br>
-        <strong>Ação:</strong> Revisar arquivos de tradução (i18n) e adicionar QA multilíngue.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">4</div>
+          <div class="problem-title">Title tags duplicados ("MyDNA | MyDNA")</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-medium">Médio</div>
+          <span style="font-size: 11px; color: var(--text-dim);">SEO</span>
+        </div>
+        <div class="problem-detail">Bug sistêmico no template. <strong>Ação:</strong> Corrigir gerador de metadados.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-medium">Médio</span>
-        Páginas de país órfãs
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> UX/SEO/Conteúdo<br>
-        <strong>Ação:</strong> Finalizar os templates, adicionar navegação completa e corrigir ortografia.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">5</div>
+          <div class="problem-title">Vazamento de texto em inglês/português</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-medium">Médio</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Conteúdo/Técnico</span>
+        </div>
+        <div class="problem-detail">Texto em múltiplos idiomas dentro de uma página. <strong>Ação:</strong> Revisar arquivos i18n.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-high">Alto</span>
-        Ausência de logos de clientes
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Conversão/Credibilidade<br>
-        <strong>Ação:</strong> Negociar autorização de uso e exibir na home e página de clientes.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">6</div>
+          <div class="problem-title">Páginas de país órfãs</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-medium">Médio</div>
+          <span style="font-size: 11px; color: var(--text-dim);">UX/SEO/Conteúdo</span>
+        </div>
+        <div class="problem-detail">Chile, Colômbia, Brasil sem navegação. <strong>Ação:</strong> Finalizar templates e integrar.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-medium">Médio</span>
-        Depoimentos sem fotos reais
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Credibilidade<br>
-        <strong>Ação:</strong> Adicionar fotos reais (com autorização) e linkar o selo do G2.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">7</div>
+          <div class="problem-title">Ausência de logos de clientes</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-high">Alto</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Conversão/Credibilidade</span>
+        </div>
+        <div class="problem-detail">Nenhum logo visível. <strong>Ação:</strong> Negociar autorização e exibir.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-medium">Médio</span>
-        Página Sobre Nós rasa
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> Conteúdo/Branding<br>
-        <strong>Ação:</strong> Desenvolver uma narrativa institucional com rostos humanos.
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">8</div>
+          <div class="problem-title">Depoimentos sem fotos reais</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-medium">Médio</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Credibilidade</span>
+        </div>
+        <div class="problem-detail">Apenas iniciais dos nomes. <strong>Ação:</strong> Adicionar fotos com autorização.</div>
       </div>
-    </div>
 
-    <div class="problem-card">
-      <h4>
-        <span class="problem-badge badge-impact-low">Baixo</span>
-        Responsividade mobile não validada
-      </h4>
-      <div class="problem-detail">
-        <strong>Camada:</strong> UX/Técnico<br>
-        <strong>Ação:</strong> Realizar teste manual em dispositivos reais (iOS/Android).
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">9</div>
+          <div class="problem-title">Página Sobre Nós rasa</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-medium">Médio</div>
+          <span style="font-size: 11px; color: var(--text-dim);">Conteúdo/Branding</span>
+        </div>
+        <div class="problem-detail">Sem equipe, fundadores ou história. <strong>Ação:</strong> Desenvolver narrativa institucional.</div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-header">
+          <div class="problem-number">10</div>
+          <div class="problem-title">Responsividade mobile não validada</div>
+        </div>
+        <div class="problem-badges">
+          <div class="badge badge-impact-low">Baixo</div>
+          <span style="font-size: 11px; color: var(--text-dim);">UX/Técnico</span>
+        </div>
+        <div class="problem-detail">Não testado em dispositivos reais. <strong>Ação:</strong> Validar em iOS e Android.</div>
       </div>
     </div>
   </div>
@@ -662,30 +968,36 @@
 <!-- RECOMENDAÇÃO FINAL -->
 <section>
   <div class="container">
-    <div class="section-subtitle">Conclusão</div>
-    <h2 class="section-title">Recomendação Final</h2>
+    <div class="section-header">
+      <div class="section-label">Conclusão</div>
+      <h2 class="section-title">Recomendação Final</h2>
+    </div>
 
     <p>A MyDNA construiu um produto e uma arquitetura de conteúdo de produto acima da média do mercado de HR Tech regional. As páginas de Employee Experience, Talent Acquisition e People Analytics têm profundidade, estrutura lógica e ferramentas de conversão que colocam o site em um patamar competitivo sério.</p>
 
     <h3>O Diagnóstico Honesto</h3>
     <p>A camada de confiança do site está fraturada exatamente no ponto em que mais importa: uma empresa que vende "decisões com dados reais, não intuição" apresenta quatro versões diferentes de suas próprias métricas institucionais, tem uma página de clientes vazia, depoimentos sem fotos e um indício concreto de comprometimento de segurança no blog.</p>
 
-    <h3>Recomendação Clara</h3>
-    <p><strong>Não reconstruir, saneiar com urgência.</strong> Nenhum desses problemas exige redesenhar o site — todos são corrigíveis em semanas, não meses. Priorize hoje:</p>
+    <h3>Recomendação: Não Reconstruir, Saneiar com Urgência</h3>
+    <p>Nenhum desses problemas exige redesenhar o site — todos são corrigíveis em semanas, não meses. Cada dia em que permanecem no ar é um dia em que o visitante mais qualificado (um CHRO cético, exatamente o comprador ideal) tem motivo concreto para desconfiar.</p>
 
+    <h4>Prioridades:</h4>
     <ol>
-      <li>Investigação de segurança do blog</li>
-      <li>Unificação de métricas e reconstrução da prova social</li>
-      <li>Correção de SEO técnico (como parte do mesmo pacote)</li>
+      <li><strong>Hoje:</strong> Investigação de segurança do blog</li>
+      <li><strong>Semana 1:</strong> Unificação de métricas institucionais</li>
+      <li><strong>Semana 2:</strong> Reconstrução da prova social (logos, fotos, depoimentos)</li>
+      <li><strong>Semana 3-4:</strong> Correção de SEO técnico (title tags, páginas órfãs)</li>
     </ol>
 
-    <p>Feito isso, a MyDNA tem uma base sólida para competir de forma legítima pelo território que já reivindica: a plataforma de RH mais preparada para a realidade latino-americana.</p>
+    <p style="margin-top: 28px; font-size: 15px;">Feito isso, a MyDNA tem uma base sólida para competir de forma legítima pelo território que já reivindica: <strong>a plataforma de RH mais preparada para a realidade latino-americana.</strong></p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>Auditoria preparada por Agência Logos • 03/08/2026 • mydnadigital.com</p>
+  <p><strong>Auditoria de Site — MyDNA Digital SpA</strong></p>
+  <p>Preparada por Agência Logos • 03/08/2026 • mydnadigital.com</p>
+  <p style="margin-top: 16px; font-size: 12px;">Análise estratégica completa com 10 páginas em profundidade + 15 páginas adicionais</p>
 </footer>
 
 </body>

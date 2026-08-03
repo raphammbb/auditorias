@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auditoria de Site — MyDNA Digital</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --purple: #5B3FF8;
+      --purple-light: #7C5CFF;
+      --purple-dim: #3D2BA8;
+      --blue: #3B82F6;
+      --blue-light: #60A5FA;
+      --bg: #0F172A;
+      --bg-card: #1E293B;
+      --bg-card-2: #334155;
+      --border: rgba(91, 63, 248, 0.2);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+      --text-dim: #64748B;
+      --red: #EF4444;
+      --red-bg: rgba(239, 68, 68, 0.12);
+      --red-border: rgba(239, 68, 68, 0.3);
+      --green: #22C55E;
+      --green-bg: rgba(34, 197, 94, 0.1);
+      --green-border: rgba(34, 197, 94, 0.25);
+      --amber: #F59E0B;
+      --amber-bg: rgba(245, 158, 11, 0.12);
+      --amber-border: rgba(245, 158, 11, 0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: linear-gradient(135deg, var(--bg) 0%, #1a2847 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--purple-dim); border-radius: 3px; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(91, 63, 248, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--purple), transparent);
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(91, 63, 248, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--purple-light);
+      margin-bottom: 36px;
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--purple-light);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--purple-light) 0%, var(--blue-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: var(--text-muted);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin-bottom: 48px;
+      max-width: 620px;
+    }
+
+    .hero-subtitle span {
+      color: var(--purple-light);
+      font-weight: 600;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      width: 100%;
+      max-width: 800px;
+      margin-bottom: 40px;
+    }
+
+    .metric-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .metric-card:hover {
+      border-color: var(--border);
+      background: rgba(30, 41, 59, 0.9);
+    }
+
+    .metric-status {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .metric-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+    }
+
+    .metric-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .pages-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(91, 63, 248, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    section:first-of-type { border-top: none; }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--purple-light);
+      margin-bottom: 8px;
+    }
+
+    /* ALERT */
+    .alert-critical {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%);
+      border: 1px solid var(--red-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .alert-critical h3 {
+      color: var(--red);
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .alert-critical p {
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* TABLE */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 32px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th {
+      background: rgba(91, 63, 248, 0.08);
+      border-bottom: 2px solid var(--border);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--purple-light);
+      letter-spacing: 0.03em;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+    }
+
+    tr:hover { background: rgba(91, 63, 248, 0.04); }
+
+    /* PROBLEM CARD */
+    .problem-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .problem-card:hover {
+      background: rgba(30, 41, 59, 0.8);
+      border-color: var(--border);
+    }
+
+    .problem-card h4 {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .problem-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-impact-high {
+      background: var(--red-bg);
+      color: var(--red);
+    }
+
+    .badge-impact-medium {
+      background: var(--amber-bg);
+      color: var(--amber);
+    }
+
+    .badge-impact-low {
+      background: var(--green-bg);
+      color: var(--green);
+    }
+
+    .problem-detail {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    /* TEXT */
+    p {
+      margin-bottom: 16px;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+
+    strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 24px 0 12px 0;
+    }
+
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 16px 0 8px 0;
+    }
+
+    ul, ol {
+      margin-bottom: 16px;
+      margin-left: 20px;
+    }
+
+    li {
+      margin-bottom: 8px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(15, 23, 42, 0.8);
+      border-top: 1px solid var(--border-subtle);
+      padding: 40px 0;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { padding: 60px 20px 40px; }
+      .section-title { font-size: 1.6rem; }
+      th, td { padding: 10px 12px; font-size: 13px; }
+      .problem-card { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <div class="badge-pill">
+      <span class="badge-dot"></span>
+      Auditoria de Site · 03/08/2026
+    </div>
+
+    <h1 class="hero-title">Auditoria de Site</h1>
+
+    <p class="hero-subtitle">
+      Análise completa para <span>mydnadigital.com</span> · MyDNA Digital SpA
+    </p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-status">7️⃣</div>
+        <div class="metric-label">Identidade</div>
+        <div class="metric-value">7/10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">7️⃣</div>
+        <div class="metric-label">Conteúdo</div>
+        <div class="metric-value">7/10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">6️⃣</div>
+        <div class="metric-label">SEO</div>
+        <div class="metric-value">6/10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">6️⃣</div>
+        <div class="metric-label">UX</div>
+        <div class="metric-value">6/10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">8️⃣</div>
+        <div class="metric-label">Conversão</div>
+        <div class="metric-value">8/10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">4️⃣</div>
+        <div class="metric-label">Credibilidade</div>
+        <div class="metric-value">4/10</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-status">8️⃣</div>
+        <div class="metric-label">Performance</div>
+        <div class="metric-value">8/10</div>
+      </div>
+    </div>
+
+    <div class="pages-pill">
+      ✓ 10 páginas em profundidade + 15 páginas adicionais verificadas
+    </div>
+  </div>
+</div>
+
+<!-- ALERT -->
+<section style="padding-top: 40px;">
+  <div class="container">
+    <div class="alert-critical">
+      <h3>⚠️ Alerta de Segurança — Achado Crítico</h3>
+      <p>Encontrei no blog do site (blog.mydnadigital.com) uma publicação com padrão característico de spam de SEO sobre jogos de apostas online no topo do feed. Isso é uma <strong>bandeira vermelha de possível comprometimento do CMS do blog</strong> e deveria ser investigado imediatamente como prioridade técnica. Recomendo comunicar isso à empresa hoje.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCORECARD -->
+<section>
+  <div class="container">
+    <div class="section-subtitle">Avaliação Geral</div>
+    <h2 class="section-title">Scorecard Geral</h2>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Dimensão</th>
+            <th>Nota</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Identidade e posicionamento</td>
+            <td><strong>7/10</strong></td>
+            <td>⚠️ Regular</td>
+          </tr>
+          <tr>
+            <td>Qualidade do conteúdo</td>
+            <td><strong>7/10</strong></td>
+            <td>⚠️ Regular</td>
+          </tr>
+          <tr>
+            <td>SEO on-page</td>
+            <td><strong>6/10</strong></td>
+            <td>⚠️ Regular</td>
+          </tr>
+          <tr>
+            <td>Experiência do usuário</td>
+            <td><strong>6/10</strong></td>
+            <td>⚠️ Regular</td>
+          </tr>
+          <tr>
+            <td>Conversão</td>
+            <td><strong>8/10</strong></td>
+            <td>✅ Forte</td>
+          </tr>
+          <tr>
+            <td>Credibilidade e prova social</td>
+            <td><strong>4/10</strong></td>
+            <td>❌ Crítico</td>
+          </tr>
+          <tr>
+            <td>Performance percebida</td>
+            <td><strong>8/10</strong></td>
+            <td>✅ Forte</td>
+          </tr>
+          <tr style="font-weight: 700; background: rgba(91, 63, 248, 0.1); border-top: 2px solid var(--purple);">
+            <td>Nota Geral</td>
+            <td><strong>6,3/10</strong></td>
+            <td>⚠️ Regular, com falhas graves</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- DIAGNÓSTICO -->
+<section>
+  <div class="container">
+    <div class="section-subtitle">Análise Executiva</div>
+    <h2 class="section-title">Diagnóstico Executivo</h2>
+
+    <p>A MyDNA é um produto de HR Tech ambicioso e tecnicamente bem construído, com páginas de produto muito acima da média do mercado em profundidade e clareza — mas o site sofre de um problema de credibilidade que mina exatamente o argumento que tenta vender: confiança em dados.</p>
+
+    <p>Encontrei pelo menos quatro conjuntos diferentes de números institucionais que se contradizem entre a home, página Sobre Nós, página de Clientes e páginas de produto. A página de Clientes está praticamente vazia, sem logos reais de clientes. Os depoimentos usam iniciais em vez de fotos.</p>
+
+    <p>Encontrei também um bug de idioma recorrente (texto em português e inglês vazando dentro de páginas em espanhol) e uma página institucional (país Chile) completamente órfã, sem menu de navegação e com erros de acentuação.</p>
+
+    <p>Por outro lado, o funil de conversão é um dos pontos mais fortes que já avaliei: múltiplos CTAs, calculadora de ROI interativa, diagnóstico de maturidade como isca de 40 perguntas, biblioteca de 42 ebooks e formulários de demo em quase toda página.</p>
+
+    <p><strong>Conclusão:</strong> O produto parece sólido; a apresentação dele precisa de disciplina editorial e QA antes de sustentar uma proposta de valor premium.</p>
+  </div>
+</section>
+
+<!-- PROBLEMAS CRÍTICOS -->
+<section>
+  <div class="container">
+    <div class="section-subtitle">Top 10</div>
+    <h2 class="section-title">Problemas Críticos Identificados</h2>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-high">Alto</span>
+        Possível comprometimento de SEO/spam no blog
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Técnico/Segurança<br>
+        <strong>Ação:</strong> Investigar imediatamente o CMS do blog, remover o conteúdo e revisar credenciais de acesso.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-high">Alto</span>
+        Números institucionais inconsistentes
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Conteúdo/Branding<br>
+        <strong>Ação:</strong> Definir uma única fonte oficial de métricas e atualizar todas as páginas.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-high">Alto</span>
+        Página de Clientes vazia/placeholder
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Conversão/Branding<br>
+        <strong>Ação:</strong> Popular com logos autorizados e casos reais, ou remover temporariamente do ar.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-medium">Médio</span>
+        Title tags duplicados ("MyDNA | MyDNA")
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> SEO<br>
+        <strong>Ação:</strong> Corrigir o template de metadados que concatena o nome da marca duas vezes.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-medium">Médio</span>
+        Vazamento de texto em inglês/português
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Conteúdo/Técnico<br>
+        <strong>Ação:</strong> Revisar arquivos de tradução (i18n) e adicionar QA multilíngue.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-medium">Médio</span>
+        Páginas de país órfãs
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> UX/SEO/Conteúdo<br>
+        <strong>Ação:</strong> Finalizar os templates, adicionar navegação completa e corrigir ortografia.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-high">Alto</span>
+        Ausência de logos de clientes
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Conversão/Credibilidade<br>
+        <strong>Ação:</strong> Negociar autorização de uso e exibir na home e página de clientes.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-medium">Médio</span>
+        Depoimentos sem fotos reais
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Credibilidade<br>
+        <strong>Ação:</strong> Adicionar fotos reais (com autorização) e linkar o selo do G2.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-medium">Médio</span>
+        Página Sobre Nós rasa
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> Conteúdo/Branding<br>
+        <strong>Ação:</strong> Desenvolver uma narrativa institucional com rostos humanos.
+      </div>
+    </div>
+
+    <div class="problem-card">
+      <h4>
+        <span class="problem-badge badge-impact-low">Baixo</span>
+        Responsividade mobile não validada
+      </h4>
+      <div class="problem-detail">
+        <strong>Camada:</strong> UX/Técnico<br>
+        <strong>Ação:</strong> Realizar teste manual em dispositivos reais (iOS/Android).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMENDAÇÃO FINAL -->
+<section>
+  <div class="container">
+    <div class="section-subtitle">Conclusão</div>
+    <h2 class="section-title">Recomendação Final</h2>
+
+    <p>A MyDNA construiu um produto e uma arquitetura de conteúdo de produto acima da média do mercado de HR Tech regional. As páginas de Employee Experience, Talent Acquisition e People Analytics têm profundidade, estrutura lógica e ferramentas de conversão que colocam o site em um patamar competitivo sério.</p>
+
+    <h3>O Diagnóstico Honesto</h3>
+    <p>A camada de confiança do site está fraturada exatamente no ponto em que mais importa: uma empresa que vende "decisões com dados reais, não intuição" apresenta quatro versões diferentes de suas próprias métricas institucionais, tem uma página de clientes vazia, depoimentos sem fotos e um indício concreto de comprometimento de segurança no blog.</p>
+
+    <h3>Recomendação Clara</h3>
+    <p><strong>Não reconstruir, saneiar com urgência.</strong> Nenhum desses problemas exige redesenhar o site — todos são corrigíveis em semanas, não meses. Priorize hoje:</p>
+
+    <ol>
+      <li>Investigação de segurança do blog</li>
+      <li>Unificação de métricas e reconstrução da prova social</li>
+      <li>Correção de SEO técnico (como parte do mesmo pacote)</li>
+    </ol>
+
+    <p>Feito isso, a MyDNA tem uma base sólida para competir de forma legítima pelo território que já reivindica: a plataforma de RH mais preparada para a realidade latino-americana.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Auditoria preparada por Agência Logos • 03/08/2026 • mydnadigital.com</p>
+</footer>
+
+</body>
+</html>

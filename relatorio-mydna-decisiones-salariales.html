@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório — Estás tomando decisiones salariales con datos actualizados?</title>
+<style>
+  :root{
+    --bg:#0B0E14;
+    --bg-panel:#12151E;
+    --bg-panel-2:#181C28;
+    --border:#252938;
+    --text:#EDEFF5;
+    --text-dim:#9AA1B4;
+    --text-faint:#666C82;
+    --accent:#5B8CFF;
+    --accent-dim:#2A3B66;
+    --good:#3DD68C;
+    --warn:#F5A623;
+    --bad:#F0555A;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1040px;margin:0 auto;padding:48px 24px 96px;}
+  header{margin-bottom:40px;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-size:12px;
+    font-weight:600;
+    color:var(--accent);
+    margin-bottom:12px;
+  }
+  h1{font-size:28px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em;}
+  .subtitle{color:var(--text-dim);font-size:15px;margin:0;}
+  .meta{display:flex;gap:24px;flex-wrap:wrap;margin-top:20px;font-size:13px;color:var(--text-faint);}
+  .meta span b{color:var(--text-dim);font-weight:600;}
+
+  .alert{
+    background:linear-gradient(180deg, rgba(240,85,90,.10), rgba(240,85,90,.04));
+    border:1px solid rgba(240,85,90,.35);
+    border-radius:14px;
+    padding:20px 24px;
+    margin:0 0 40px;
+    display:flex;
+    gap:16px;
+  }
+  .alert .icon{
+    flex-shrink:0;
+    width:34px;height:34px;border-radius:10px;
+    background:rgba(240,85,90,.18);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--bad);font-size:18px;font-weight:700;
+  }
+  .alert h3{margin:0 0 6px;font-size:15px;color:var(--bad);}
+  .alert p{margin:0;font-size:14px;color:var(--text-dim);}
+  .alert p+p{margin-top:8px;}
+  .alert code{
+    background:rgba(255,255,255,.06);
+    padding:1px 6px;border-radius:4px;font-size:12.5px;
+    color:var(--text);
+  }
+
+  section{margin-bottom:44px;}
+  .section-title{
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--text-faint);
+    margin:0 0 16px;
+  }
+
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  .stat{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:20px;
+  }
+  .stat .label{font-size:12.5px;color:var(--text-faint);margin-bottom:10px;}
+  .stat .value{font-size:26px;font-weight:700;letter-spacing:-.01em;}
+  .stat .sub{font-size:12px;color:var(--text-dim);margin-top:6px;}
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    font-size:13.5px;
+  }
+  thead th{
+    text-align:left;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--text-faint);
+    font-weight:600;
+    padding:14px 16px;
+    background:var(--bg-panel-2);
+    border-bottom:1px solid var(--border);
+  }
+  tbody td{
+    padding:14px 16px;
+    border-bottom:1px solid var(--border);
+    color:var(--text-dim);
+  }
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td.name{color:var(--text);font-weight:600;}
+  tbody tr.total td{
+    background:var(--bg-panel-2);
+    color:var(--text);
+    font-weight:700;
+  }
+  .num{font-variant-numeric:tabular-nums;text-align:right;}
+  thead th.num{text-align:right;}
+
+  .pill{
+    display:inline-block;
+    padding:2px 8px;
+    border-radius:999px;
+    font-size:11.5px;
+    font-weight:600;
+  }
+  .pill.good{background:rgba(61,214,140,.14);color:var(--good);}
+  .pill.warn{background:rgba(245,166,35,.14);color:var(--warn);}
+
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .card{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px;
+  }
+  .card h4{margin:0 0 10px;font-size:14px;}
+  .card p{margin:0;font-size:13.5px;color:var(--text-dim);}
+  .card ul{margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--text-dim);}
+  .card li+li{margin-top:6px;}
+  .card.rec{border-color:rgba(91,140,255,.35);}
+  .card.rec h4{color:var(--accent);}
+  .card.risk{border-color:rgba(240,85,90,.30);}
+  .card.risk h4{color:var(--bad);}
+
+  .reading{
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:24px;
+    font-size:14.5px;
+    color:var(--text-dim);
+  }
+  .reading p{margin:0 0 12px;}
+  .reading p:last-child{margin-bottom:0;}
+  .reading strong{color:var(--text);}
+
+  footer{
+    margin-top:56px;
+    padding-top:20px;
+    border-top:1px solid var(--border);
+    font-size:12px;
+    color:var(--text-faint);
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+
+  @media (max-width:720px){
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .cards{grid-template-columns:1fr;}
+    table{font-size:12.5px;}
+    thead th, tbody td{padding:10px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">MyDNA · Monitor de Disparos Massivos</div>
+    <h1>"¿Estás tomando decisiones salariales con datos actualizados?"</h1>
+    <p class="subtitle">Relatório de envio — 3 ondas (Chile e LATAM) · 18–20 de agosto de 2026</p>
+    <div class="meta">
+      <span><b>Fonte dos números:</b> SendPortal (dados reais de envio)</span>
+      <span><b>Gerado em:</b> 21 de agosto de 2026</span>
+      <span><b>Responsável:</b> Felipe Silva</span>
+    </div>
+  </header>
+
+  <div class="alert">
+    <div class="icon">!</div>
+    <div>
+      <h3>Interpretação combinada (SendPortal + Gmail) bloqueada</h3>
+      <p>A aba <code>Principal</code> da planilha de monitoramento está travada em <strong>03/08/2026</strong> — um atraso de 18 dias na sincronização do lado Gmail (respostas humanas e automáticas). É por isso que os gatilhos automáticos diários vêm dando "Tempo limite atingido" desde 15/08: o script está tentando destravar um backlog acumulado e não consegue dentro dos 30 minutos disponíveis por execução.</p>
+      <p>Este relatório traz apenas os números confirmados de envio (SendPortal). A leitura do lado humano da caixa — quantas respostas reais e automáticas essa campanha gerou — ainda não está disponível.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-title">Números agregados das 3 ondas</div>
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Total enviados</div>
+        <div class="value">167.134</div>
+        <div class="sub">40.745 + 63.220 + 63.169</div>
+      </div>
+      <div class="stat">
+        <div class="label">Abertura única (média pond.)</div>
+        <div class="value">~16,0%</div>
+        <div class="sub">Chile lidera (19,2%)</div>
+      </div>
+      <div class="stat">
+        <div class="label">Clique (média pond.)</div>
+        <div class="value">~4,0%</div>
+        <div class="sub">Chile lidera (6,5%)</div>
+      </div>
+      <div class="stat">
+        <div class="label">Downloads (cliques únicos)</div>
+        <div class="value">6.807</div>
+        <div class="sub">pessoas que abriram a Guía Salarial</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title">Detalhamento por onda de envio</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Onda</th>
+          <th>Data</th>
+          <th class="num">Enviados</th>
+          <th class="num">Abertura única</th>
+          <th class="num">Clique</th>
+          <th class="num">Bounce</th>
+          <th class="num">Downloads</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">Chile 1 e 2</td>
+          <td>18/08</td>
+          <td class="num">40.745</td>
+          <td class="num">19,2%</td>
+          <td class="num">6,5%</td>
+          <td class="num"><span class="pill good">0,2%</span></td>
+          <td class="num">2.647</td>
+        </tr>
+        <tr>
+          <td class="name">Latam 1 e 2</td>
+          <td>19/08</td>
+          <td class="num">63.220</td>
+          <td class="num">13,2%</td>
+          <td class="num">3,1%</td>
+          <td class="num"><span class="pill good">0,2%</span></td>
+          <td class="num">1.987</td>
+        </tr>
+        <tr>
+          <td class="name">Latam 3 e 4</td>
+          <td>20/08</td>
+          <td class="num">63.169</td>
+          <td class="num">16,7%</td>
+          <td class="num">3,4%</td>
+          <td class="num"><span class="pill good">0,1%</span></td>
+          <td class="num">2.173</td>
+        </tr>
+        <tr class="total">
+          <td class="name">Total / média pond.</td>
+          <td>—</td>
+          <td class="num">167.134</td>
+          <td class="num">~16,0%</td>
+          <td class="num">~4,0%</td>
+          <td class="num">0,1–0,2%</td>
+          <td class="num">6.807</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="section-title">Leitura</div>
+    <div class="reading">
+      <p><strong>Chile performou melhor</strong> que as duas ondas Latam em abertura (19,2% vs. 13,2%/16,7%) e clique (6,5% vs. 3,1%/3,4%) — vale investigar se a diferença vem do horário de envio (Chile saiu por volta das 20h; Latam 3 e 4 saiu à tarde) ou da segmentação/qualidade da base. Bounce baixo nas 3 ondas indica entrega saudável, sem problema de higiene de lista.</p>
+      <p><strong>6.807 pessoas</strong> clicaram no link da Guía Salarial — interesse ativo e identificado que hoje não está sendo cruzado com quem de fato respondeu por escrito, porque o lado Gmail está desatualizado. Assim que o backlog da planilha for resolvido, essa base de cliques é o ponto de partida natural para um fluxo de follow-up.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="cards">
+      <div class="card rec">
+        <h4>Recomendação</h4>
+        <ul>
+          <li>Resolver o backlog de sincronização antes de tentar qualquer nova interpretação diária — sem isso, o problema se repete em toda campanha futura.</li>
+          <li>Depois de destravado, montar/acelerar um fluxo de follow-up para os 6.807 cliques únicos desta campanha — interesse já identificado e pronto pra ação.</li>
+        </ul>
+      </div>
+      <div class="card risk">
+        <h4>Risco / lacuna</h4>
+        <ul>
+          <li>O atraso é silencioso — "Tempo limite atingido" não gera alerta, só aparece no log de Execuções do Apps Script.</li>
+          <li>Toda interpretação feita nas últimas ~2-3 semanas pode ter rodado com o lado Gmail incompleto, sem isso ter sido sinalizado.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>MyDNA — Monitor de Disparos Massivos</span>
+    <span>Gerado automaticamente a partir do relatório de envio do SendPortal</span>
+  </footer>
+
+</div>
+</body>
+</html>

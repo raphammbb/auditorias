@@ -1,1569 +1,541 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auditoria Instagram — @rapha_mmbb</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual de Boas Práticas — @rapha_mmbb</title>
+<meta name="description" content="Auditoria histórica dos 78 posts do Instagram de Raphael Batista (@rapha_mmbb)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1E40AF;
+  --secondary:#3B82F6;
+  --accent:#F59E0B;
+  --bg:#F8FAFC;
+  --surface:#FFFFFF;
+  --surface-2:#EEF2FA;
+  --ink:#0F1B3D;
+  --ink-muted:#4C5A78;
+  --border:#DCE3F0;
+  --positive:#059669;
+  --positive-soft:#DCFBEA;
+  --negative:#DC2626;
+  --negative-soft:#FDE4E4;
+  --pin:#7C3AED;
+  --pin-soft:#EEE4FB;
+  --shadow:0 1px 2px rgba(15,27,61,.05), 0 10px 28px -14px rgba(15,27,61,.18);
+  --radius:14px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Fira Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  line-height:1.65;
+  font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Fira Sans",sans-serif;font-weight:800;letter-spacing:-.01em;color:var(--ink);}
+.mono{font-family:"Fira Code",monospace;}
+img{max-width:100%;}
+a{color:var(--primary);}
+.wrap{max-width:900px;margin:0 auto;padding:0 24px;}
 
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
-    }
+/* ===== COVER / HERO ===== */
+.cover{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:80px 24px 64px;
+  background:
+    radial-gradient(1100px 480px at 12% -10%, rgba(59,130,246,.14), transparent 60%),
+    radial-gradient(900px 460px at 100% 0%, rgba(245,158,11,.10), transparent 55%),
+    var(--bg);
+  overflow:hidden;
+}
+.cover-inner{max-width:900px;margin:0 auto;width:100%;position:relative;z-index:1;}
+.ig-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:7px 16px 7px 12px;
+  font-family:"Fira Code",monospace;
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--ink-muted);
+  box-shadow:var(--shadow);
+  letter-spacing:.02em;
+}
+.ig-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;}
+h1.title{
+  font-size:clamp(2.6rem,6vw,4.2rem);
+  line-height:1.02;
+  margin:26px 0 14px;
+}
+.grad-text{
+  background:linear-gradient(100deg,var(--primary) 0%,var(--secondary) 55%,var(--accent) 110%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.cover-handle{
+  font-size:1.15rem;
+  color:var(--ink-muted);
+  margin:0 0 36px;
+}
+.cover-handle span{
+  font-family:"Fira Code",monospace;
+  color:var(--primary);
+  font-weight:600;
+}
+.metrics-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+@media(max-width:760px){.metrics-grid{grid-template-columns:repeat(2,1fr);}}
+.metric-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:18px 18px 16px;
+  box-shadow:var(--shadow);
+}
+.metric-label{
+  font-family:"Fira Code",monospace;
+  font-size:.72rem;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  color:var(--ink-muted);
+  font-weight:600;
+  margin-bottom:8px;
+}
+.metric-value{
+  font-family:"Fira Code",monospace;
+  font-size:1.9rem;
+  font-weight:700;
+  color:var(--primary);
+  line-height:1;
+}
+.metric-sub{font-size:.8rem;color:var(--ink-muted);margin-top:4px;}
 
-    :root {
-      --bg:      #090910;
-      --bg2:     #0e0e1a;
-      --bg3:     #131325;
-      --card:    #141426;
-      --border:  rgba(91,63,248,0.18);
-      --border2: rgba(255,255,255,0.06);
-      --purple:  #5B3FF8;
-      --purple2: #7c5fff;
-      --cyan:    #00D4FF;
-      --gold:    #F5C842;
-      --green:   #22c55e;
-      --red:     #ef4444;
-      --yellow:  #f59e0b;
-      --text:    #f0f0f8;
-      --muted:   #7070a0;
-      --grad:    linear-gradient(135deg, #5B3FF8, #00D4FF, #5B3FF8);
-    }
+/* ===== NAV ===== */
+.toc{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:rgba(248,250,252,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.toc-inner{
+  max-width:900px;
+  margin:0 auto;
+  padding:12px 24px;
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.toc-inner::-webkit-scrollbar{display:none;}
+.toc-inner a{
+  white-space:nowrap;
+  font-size:.86rem;
+  font-weight:600;
+  color:var(--ink-muted);
+  text-decoration:none;
+  padding:6px 2px;
+  border-bottom:2px solid transparent;
+}
+.toc-inner a:hover{color:var(--primary);border-color:var(--secondary);}
 
-    html { scroll-behavior: smooth; }
+/* ===== SECTIONS ===== */
+main{padding:8px 0 40px;}
+section{padding:52px 0;border-bottom:1px solid var(--border);}
+section:last-child{border-bottom:none;}
+.eyebrow{
+  display:block;
+  font-family:"Fira Code",monospace;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:12.5px;
+  color:var(--primary);
+  font-weight:700;
+  margin-bottom:8px;
+}
+h2{font-size:1.6rem;margin:0 0 18px;}
+p{margin:0 0 14px;}
+.lede{font-size:1.05rem;color:var(--ink-muted);}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      font-size: 16px;
-      overflow-x: hidden;
-    }
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px 26px;box-shadow:var(--shadow);}
+.card + .card{margin-top:14px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+.field{margin-bottom:14px;}
+.field:last-child{margin-bottom:0;}
+.field .k{font-family:"Fira Code",monospace;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-muted);font-weight:600;margin-bottom:4px;}
+.field .v{font-size:.98rem;}
 
-    /* ── GRAD TEXT ── */
-    .grad-text {
-      background: linear-gradient(135deg, #5B3FF8, #00D4FF, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      background-size: 200% 200%;
-      animation: gradShift 4s ease infinite;
-    }
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.76rem;font-weight:700;font-family:"Fira Code",monospace;}
+.pill.good{background:var(--positive-soft);color:var(--positive);}
+.pill.bad{background:var(--negative-soft);color:var(--negative);}
+.pill.neutral{background:var(--surface-2);color:var(--ink-muted);}
+.pill.pin{background:var(--pin-soft);color:var(--pin);}
 
-    @keyframes gradShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface);box-shadow:var(--shadow);}
+table{border-collapse:collapse;width:100%;font-size:.87rem;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--border);white-space:nowrap;}
+th{background:var(--surface-2);font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-muted);font-weight:700;font-family:"Fira Code",monospace;}
+td.num,th.num{font-family:"Fira Code",monospace;font-variant-numeric:tabular-nums;text-align:right;}
+tr:last-child td{border-bottom:none;}
+td.wrap-cell,th.wrap-cell{white-space:normal;min-width:230px;}
+tbody tr:hover{background:var(--surface-2);}
 
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 24px 60px;
-      overflow: hidden;
-    }
+.callout{border-left:3px solid var(--secondary);background:#EEF4FE;border-radius:0 var(--radius) var(--radius) 0;padding:16px 20px;margin:20px 0 0;font-size:.95rem;}
+.callout.warn{border-color:var(--negative);background:var(--negative-soft);}
+.callout.strategic{border-color:var(--accent);background:#FEF6E7;}
+.callout b{color:var(--ink);}
 
-    .hero-noise {
-      position: absolute;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-      pointer-events: none;
-    }
+.blocks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:680px){.blocks{grid-template-columns:1fr;}}
+.block-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 20px;box-shadow:var(--shadow);}
+.block-card h3{font-family:"Fira Code",monospace;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em;margin:0 0 10px;color:var(--ink-muted);font-weight:700;}
+.block-card .score{font-size:2rem;font-weight:700;color:var(--primary);font-family:"Fira Code",monospace;}
+.block-card .sub{font-size:.8rem;color:var(--ink-muted);margin-top:3px;}
 
-    /* blobs */
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.18;
-      pointer-events: none;
-      animation: floatBlob 10s ease-in-out infinite;
-    }
-    .blob-1 { width: 500px; height: 500px; background: var(--purple); top: -100px; left: -100px; animation-delay: 0s; }
-    .blob-2 { width: 400px; height: 400px; background: var(--cyan);   bottom: -80px; right: -80px; animation-delay: -4s; }
-    .blob-3 { width: 300px; height: 300px; background: #a78bfa;       top: 40%; left: 60%; animation-delay: -7s; }
+ol.reco{padding-left:0;list-style:none;counter-reset:reco;margin:0;}
+ol.reco li{counter-increment:reco;position:relative;padding:12px 0 12px 38px;border-bottom:1px solid var(--border);font-size:.96rem;}
+ol.reco li:last-child{border-bottom:none;}
+ol.reco li::before{
+  content:counter(reco);
+  position:absolute;left:0;top:11px;
+  width:22px;height:22px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--surface-2);
+  border-radius:6px;
+  font-family:"Fira Code",monospace;font-weight:700;color:var(--primary);font-size:.76rem;
+}
 
-    @keyframes floatBlob {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33%  { transform: translate(30px, -30px) scale(1.05); }
-      66%  { transform: translate(-20px, 20px) scale(0.97); }
-    }
+.faq dt{font-weight:700;margin-top:20px;font-size:1.02rem;}
+.faq dt:first-child{margin-top:0;}
+.faq dd{margin:6px 0 0;color:var(--ink-muted);}
 
-    .hero-content { position: relative; z-index: 2; max-width: 820px; }
+.sub-label{font-family:"Fira Code",monospace;font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--primary);font-weight:700;margin-bottom:8px;display:block;}
 
-    /* badge pill */
-    .audit-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(91,63,248,0.12);
-      border: 1px solid rgba(91,63,248,0.35);
-      border-radius: 100px;
-      padding: 8px 18px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      color: #a78bfa;
-      margin-bottom: 28px;
-      text-transform: uppercase;
-    }
-    .audit-badge .dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--purple);
-      animation: pulse 2s ease-in-out infinite;
-    }
+.footer-note{
+  color:var(--ink-muted);
+  font-size:.82rem;
+  padding:32px 0 56px;
+}
+.footer-note .wrap{border-top:1px solid var(--border);padding-top:22px;}
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 0 rgba(91,63,248,0.6); }
-      50%       { opacity: 0.8; transform: scale(1.15); box-shadow: 0 0 0 6px rgba(91,63,248,0); }
-    }
-
-    .hero-title {
-      font-size: clamp(2.4rem, 6vw, 4.2rem);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
-
-    .hero-sub {
-      font-size: clamp(0.95rem, 2vw, 1.15rem);
-      color: var(--muted);
-      margin-bottom: 48px;
-      font-weight: 400;
-    }
-    .hero-sub span { color: #a78bfa; font-weight: 600; }
-
-    /* metric cards */
-    .hero-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
-      margin-bottom: 48px;
-    }
-    .metric-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 18px 24px;
-      min-width: 140px;
-      text-align: center;
-    }
-    .metric-card .metric-val {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--cyan);
-      line-height: 1;
-    }
-    .metric-card .metric-label {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-weight: 600;
-    }
-    .metric-card.gold .metric-val { color: var(--gold); }
-    .metric-card.purple .metric-val { color: var(--purple2); }
-
-    /* score circle */
-    .score-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-    .score-circle {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      background: conic-gradient(var(--purple) 0deg 230deg, rgba(91,63,248,0.12) 230deg 360deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      animation: scorePulse 3s ease-in-out infinite;
-      box-shadow: 0 0 40px rgba(91,63,248,0.35), 0 0 80px rgba(91,63,248,0.15);
-    }
-    .score-circle::before {
-      content: '';
-      position: absolute;
-      inset: 8px;
-      border-radius: 50%;
-      background: var(--bg);
-    }
-    .score-inner {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-    }
-    .score-num {
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--text);
-      line-height: 1;
-    }
-    .score-denom {
-      font-size: 0.75rem;
-      color: var(--muted);
-    }
-    .score-label {
-      font-size: 0.78rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-    }
-
-    @keyframes scorePulse {
-      0%, 100% { box-shadow: 0 0 40px rgba(91,63,248,0.35), 0 0 80px rgba(91,63,248,0.15); }
-      50%       { box-shadow: 0 0 60px rgba(91,63,248,0.55), 0 0 120px rgba(91,63,248,0.25); }
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(9,9,16,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border2);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-    .nav-brand {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--purple2);
-    }
-    .nav-links {
-      display: flex;
-      gap: 6px;
-      list-style: none;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-    .nav-links a {
-      font-size: 0.72rem;
-      color: var(--muted);
-      text-decoration: none;
-      padding: 5px 10px;
-      border-radius: 6px;
-      white-space: nowrap;
-      transition: all 0.2s;
-      font-weight: 500;
-    }
-    .nav-links a:hover { color: var(--text); background: rgba(91,63,248,0.12); }
-
-    /* ── MAIN ── */
-    main { max-width: 900px; margin: 0 auto; padding: 64px 24px; }
-
-    /* ── SECTION ── */
-    section { margin-bottom: 72px; opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    section.visible { opacity: 1; transform: translateY(0); }
-
-    .section-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--purple2);
-      margin-bottom: 10px;
-    }
-    .section-eyebrow::before {
-      content: '';
-      display: block;
-      width: 20px; height: 2px;
-      background: var(--purple);
-      border-radius: 2px;
-    }
-
-    h2 {
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin-bottom: 20px;
-    }
-
-    h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #c0c0d8;
-      margin-bottom: 14px;
-      font-size: 0.96rem;
-    }
-    p:last-child { margin-bottom: 0; }
-
-    /* ── CARDS ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 16px;
-      padding: 24px 28px;
-      margin-bottom: 16px;
-    }
-    .card:hover { border-color: var(--border); transition: border-color 0.2s; }
-
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    /* ── ALERT BOX ── */
-    .alert {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      background: rgba(91,63,248,0.07);
-      border: 1px solid rgba(91,63,248,0.25);
-      border-radius: 12px;
-      padding: 18px 20px;
-      margin: 16px 0;
-    }
-    .alert-icon {
-      width: 36px; height: 36px;
-      border-radius: 8px;
-      background: rgba(91,63,248,0.18);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .alert-icon svg { width: 18px; height: 18px; }
-    .alert.cyan { background: rgba(0,212,255,0.06); border-color: rgba(0,212,255,0.22); }
-    .alert.cyan .alert-icon { background: rgba(0,212,255,0.15); }
-    .alert.gold { background: rgba(245,200,66,0.06); border-color: rgba(245,200,66,0.22); }
-    .alert.gold .alert-icon { background: rgba(245,200,66,0.15); }
-    .alert.red { background: rgba(239,68,68,0.06); border-color: rgba(239,68,68,0.22); }
-    .alert.red .alert-icon { background: rgba(239,68,68,0.15); }
-    .alert p { margin: 0; font-size: 0.9rem; }
-    .alert strong { color: var(--text); }
-
-    /* ── TAG/PILL ── */
-    .tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 3px 10px;
-      border-radius: 100px;
-      margin: 2px;
-    }
-    .tag-green  { background: rgba(34,197,94,0.12);  color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
-    .tag-red    { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
-    .tag-yellow { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
-    .tag-purple { background: rgba(91,63,248,0.12);  color: #a78bfa; border: 1px solid rgba(91,63,248,0.25); }
-    .tag-cyan   { background: rgba(0,212,255,0.10);  color: #67e8f9; border: 1px solid rgba(0,212,255,0.25); }
-
-    /* ── TABLES ── */
-    .table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border2); margin: 20px 0; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
-    thead { background: rgba(91,63,248,0.12); }
-    thead th {
-      padding: 14px 16px;
-      text-align: left;
-      font-weight: 700;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--purple2);
-      white-space: nowrap;
-      border-bottom: 1px solid var(--border2);
-    }
-    tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody tr:hover { background: rgba(255,255,255,0.03); }
-    tbody td { padding: 13px 16px; color: #c0c0d8; vertical-align: middle; }
-    tbody td:first-child { color: var(--text); font-weight: 600; }
-
-    .rank-1 td:first-child { color: var(--gold); }
-    .rank-2 td:first-child { color: #94a3b8; }
-    .rank-3 td:first-child { color: #cd7c42; }
-
-    /* score badge in table */
-    .score-badge {
-      display: inline-block;
-      background: rgba(91,63,248,0.15);
-      color: var(--purple2);
-      border-radius: 6px;
-      padding: 2px 8px;
-      font-weight: 700;
-      font-size: 0.82rem;
-    }
-    .score-badge.high { background: rgba(34,197,94,0.12); color: #4ade80; }
-    .score-badge.med  { background: rgba(245,158,11,0.12); color: #fbbf24; }
-    .score-badge.low  { background: rgba(239,68,68,0.10);  color: #f87171; }
-
-    /* ── INSIGHT GRID ── */
-    .insight-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .insight-item {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 12px;
-      padding: 16px 18px;
-      cursor: default;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .insight-item:hover { border-color: rgba(91,63,248,0.3); transform: translateX(4px); }
-    .insight-num {
-      min-width: 32px; height: 32px;
-      border-radius: 8px;
-      background: rgba(91,63,248,0.14);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem; font-weight: 800; color: var(--purple2);
-      flex-shrink: 0;
-    }
-    .insight-item p { margin: 0; font-size: 0.9rem; }
-
-    /* ── RECOMMENDATION ── */
-    .rec-group { margin-bottom: 28px; }
-    .rec-group h3 {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--cyan);
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-    .rec-list { display: flex; flex-direction: column; gap: 10px; }
-    .rec-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px 16px;
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 10px;
-      font-size: 0.9rem;
-      color: #c0c0d8;
-    }
-    .rec-num {
-      min-width: 24px; height: 24px;
-      border-radius: 50%;
-      background: rgba(0,212,255,0.12);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem; font-weight: 800; color: var(--cyan);
-      flex-shrink: 0; margin-top: 1px;
-    }
-    .rec-item.short .rec-num { background: rgba(245,200,66,0.12); color: var(--gold); }
-
-    /* ── QUICK WINS ── */
-    .qw-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .qw-item {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 14px 18px;
-      background: rgba(245,200,66,0.05);
-      border: 1px solid rgba(245,200,66,0.2);
-      border-radius: 10px;
-      font-size: 0.9rem;
-      color: #c0c0d8;
-    }
-    .qw-icon {
-      min-width: 28px; height: 28px;
-      border-radius: 7px;
-      background: rgba(245,200,66,0.12);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .qw-icon svg { width: 15px; height: 15px; }
-
-    /* ── META NOTE ── */
-    .meta-note {
-      background: rgba(0,212,255,0.05);
-      border: 1px solid rgba(0,212,255,0.18);
-      border-radius: 12px;
-      padding: 20px 24px;
-    }
-    .meta-note h3 { color: var(--cyan); margin-bottom: 8px; font-size: 0.9rem; }
-    .meta-note p { font-size: 0.88rem; color: #a0a0c0; margin: 0; }
-
-    /* ── PROGRESS BAR ── */
-    .progress-row { margin: 10px 0; }
-    .progress-label {
-      display: flex; justify-content: space-between;
-      font-size: 0.82rem; color: #a0a0c0; margin-bottom: 5px;
-    }
-    .progress-track {
-      height: 6px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      border-radius: 10px;
-      background: linear-gradient(90deg, var(--purple), var(--cyan));
-      width: 0%;
-      transition: width 1s ease;
-    }
-
-    /* ── DIVIDER ── */
-    .divider { height: 1px; background: var(--border2); margin: 40px 0; }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 40px 24px;
-      border-top: 1px solid var(--border2);
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    footer strong { color: var(--purple2); }
-
-    /* ── TIMELINE BLOCKS ── */
-    .timeline { position: relative; padding-left: 32px; }
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 10px; top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(to bottom, var(--purple), transparent);
-    }
-    .tl-item {
-      position: relative;
-      margin-bottom: 20px;
-      padding: 16px 20px;
-      background: var(--card);
-      border: 1px solid var(--border2);
-      border-radius: 12px;
-    }
-    .tl-item::before {
-      content: '';
-      position: absolute;
-      left: -26px; top: 22px;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: var(--purple);
-      border: 2px solid var(--bg);
-      box-shadow: 0 0 8px rgba(91,63,248,0.6);
-    }
-    .tl-date { font-size: 0.72rem; color: var(--purple2); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-
-    /* responsive */
-    @media (max-width: 640px) {
-      .hero { padding: 100px 20px 60px; }
-      .hero-metrics { gap: 10px; }
-      .metric-card { min-width: 110px; padding: 14px 16px; }
-      .metric-card .metric-val { font-size: 1.4rem; }
-      nav { height: auto; padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
-      main { padding: 48px 16px; }
-    }
-  </style>
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}}
+</style>
 </head>
 <body>
 
-<!-- ─────── HERO ─────── -->
-<section class="hero" id="top">
-  <div class="hero-noise"></div>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
-
-  <div class="hero-content">
-    <div class="audit-badge">
-      <span class="dot"></span>
-      Auditoria de Conteúdo · Instagram · 22/06/2026
+<section class="cover">
+  <div class="cover-inner">
+    <div class="ig-badge">
+      <span class="ig-dot" aria-hidden="true"></span>
+      Auditoria de Conteúdo · Instagram · 28/08/2026
     </div>
-
-    <h1 class="hero-title grad-text">Manual de Boas Práticas</h1>
-
-    <p class="hero-sub">
-      Análise de desempenho para <span>@rapha_mmbb</span> · Raphael
-    </p>
-
-    <div class="hero-metrics">
-      <div class="metric-card">
-        <div class="metric-val" data-count="25">0</div>
+    <h1 class="title">
+      <span class="grad-text">Manual de Boas</span><br>
+      <span class="grad-text">Práticas</span>
+    </h1>
+    <p class="cover-handle">Análise de desempenho para <span>@rapha_mmbb</span> · Raphael Batista — Estrategista de Marketing Digital, Agência Logos</p>
+    <div class="metrics-grid" role="list" aria-label="Principais métricas">
+      <div class="metric-card" role="listitem">
         <div class="metric-label">Posts Analisados</div>
+        <div class="metric-value">78</div>
+        <div class="metric-sub">de 78 no perfil</div>
       </div>
-      <div class="metric-card purple">
-        <div class="metric-val">Mai/22</div>
-        <div class="metric-label">Início do período</div>
+      <div class="metric-card" role="listitem">
+        <div class="metric-label">Score Médio</div>
+        <div class="metric-value">94,8</div>
+        <div class="metric-sub">mediana 41,5</div>
       </div>
-      <div class="metric-card cyan">
-        <div class="metric-val">Jun/25</div>
-        <div class="metric-label">Fim do período</div>
+      <div class="metric-card" role="listitem">
+        <div class="metric-label">Reels no Mix</div>
+        <div class="metric-value">90%</div>
+        <div class="metric-sub">dos posts</div>
       </div>
-      <div class="metric-card gold">
-        <div class="metric-val">Marketing</div>
-        <div class="metric-label">Fase atual</div>
+      <div class="metric-card" role="listitem">
+        <div class="metric-label">Cadência (Pico)</div>
+        <div class="metric-value">~5,4</div>
+        <div class="metric-sub">posts / semana</div>
       </div>
-    </div>
-
-    <div class="score-wrap">
-      <div class="score-circle">
-        <div class="score-inner">
-          <div class="score-num" data-count="64">0</div>
-          <div class="score-denom">/100</div>
-        </div>
-      </div>
-      <div class="score-label">Score Geral da Conta</div>
     </div>
   </div>
 </section>
 
-<!-- ─────── NAV ─────── -->
-<nav aria-label="Navegação das seções">
-  <div class="nav-brand">@rapha_mmbb</div>
-  <ul class="nav-links">
-    <li><a href="#metodologia">Metodologia</a></li>
-    <li><a href="#visao-geral">Visão Geral</a></li>
-    <li><a href="#bio">Bio & Link</a></li>
-    <li><a href="#grid">Grid</a></li>
-    <li><a href="#destaques">Destaques</a></li>
-    <li><a href="#engajamento">Engajamento</a></li>
-    <li><a href="#ranking">Ranking</a></li>
-    <li><a href="#formatos">Formatos</a></li>
-    <li><a href="#tendencia">Tendência</a></li>
-    <li><a href="#editorial">Editorial</a></li>
-    <li><a href="#funciona">Funciona</a></li>
-    <li><a href="#audiencia">Audiência</a></li>
-    <li><a href="#nao-funciona">Não Funciona</a></li>
-    <li><a href="#insights">Insights</a></li>
-    <li><a href="#recomendacoes">Recomendações</a></li>
-    <li><a href="#quick-wins">Quick Wins</a></li>
-  </ul>
+<nav class="toc" aria-label="Seções do relatório">
+  <div class="toc-inner">
+    <a href="#visao-geral">Visão Geral</a>
+    <a href="#bio-link">Bio &amp; Link</a>
+    <a href="#grid-destaques">Grid &amp; Destaques</a>
+    <a href="#dados">Dados</a>
+    <a href="#funcionou">O que Funcionou</a>
+    <a href="#nao-funcionou">O que Falhou</a>
+    <a href="#insights">Insights</a>
+    <a href="#plano">Plano de Ação</a>
+    <a href="#faq">FAQ</a>
+  </div>
 </nav>
 
-<!-- ─────── MAIN ─────── -->
 <main>
+<div class="wrap">
 
-  <!-- NOTA METODOLÓGICA -->
-  <section id="metodologia">
-    <div class="section-eyebrow">Nota Metodológica</div>
-    <h2>Sobre esta coleta</h2>
-    <div class="meta-note">
-      <h3>Atenção: amostra real × estimativas</h3>
-      <p>O perfil tem <strong>25 posts</strong> (não 90). Auditado o conjunto completo disponível. Com uma amostra desse tamanho os padrões já são indicativos, mas menos estatisticamente blindados do que seriam com 90 posts. Parte do grid são <strong>reposts</strong> — vários itens que aparecem são posts de <strong>@aagencia.logos</strong> e de <strong>@sosowhitaker_</strong> (a namorada) recompartilhados. Todos foram coletados como aparecem no grid, mas isso é um <strong>achado estratégico em si</strong>.</p>
+<section id="visao-geral">
+  <span class="eyebrow">Visão geral</span>
+  <h2>Estado estratégico do perfil</h2>
+  <p class="lede">O perfil viveu duas vidas. Por quase quatro anos (2022–início de 2026) foi um mural pessoal esporádico — fé, relacionamento, poucos posts por ano. Em meados de maio de 2026 houve uma virada abrupta: Raphael relançou a conta como vitrine profissional de marketing digital e passou a publicar em ritmo de agência, chegando a mais de 5 reels por semana. Esse relançamento é recente demais para ter maturado — a linha editorial ainda oscila entre humor pessoal, educacional longo e CTA de venda, sem um vencedor claro consolidado. Os dados mostram algo contra-intuitivo: a legenda curta bate a longa, a pergunta no fim do texto reduz engajamento em vez de aumentar, e o CTA "comenta uma palavra-chave" só funcionou uma vez — puxado por um gancho de humor, não pela mecânica do CTA em si. O ranking histórico de engajamento é dominado por conteúdo pessoal e religioso antigo e por um post pago (impulsionado), o que distorce qualquer leitura ingênua de "o que funciona". Extraindo esse ruído, o padrão real é claro: humor relatable e vulnerabilidade batem forte; monólogo educacional com hashtag em cacho não converte atenção em curtida.</p>
+</section>
+
+<section id="bio-link">
+  <span class="eyebrow">Fase 0A</span>
+  <h2>Bio e link</h2>
+  <div class="card">
+    <div class="field">
+      <div class="k">Bio completa</div>
+      <div class="v">"Ajudo donos de negócios a construírem presença digital 🎯<br>Estrategista de Marketing Digital<br>Comece por aqui ⬇️"</div>
     </div>
-  </section>
-
-  <!-- VISÃO GERAL ESTRATÉGICA -->
-  <section id="visao-geral">
-    <div class="section-eyebrow">Visão Geral</div>
-    <h2>Estratégia do perfil</h2>
-
-    <div class="alert">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-      </div>
-      <p>O <strong>@rapha_mmbb</strong> é uma conta em plena reinvenção. Até 2024 era um perfil pessoal de fé, música e relacionamento, com pouquíssima frequência (1 post por ano em 2022, 2023 e 2024). A partir de meados de maio de 2025 houve uma virada radical: o Raphael transformou o perfil em uma vitrine de marca pessoal sobre marketing digital, automação e empreendedorismo, postando de forma intensa (21 posts em ~5 semanas).</p>
+    <div class="grid2">
+      <div class="field"><div class="k">Avaliação</div><div class="v"><span class="pill good">clara e estratégica</span> — comunica o que faz e sugere a quem, mas não nomeia o segmento (que tipo de negócio?) nem um resultado concreto.</div></div>
+      <div class="field"><div class="k">CTA na bio</div><div class="v">Sim — "Comece por aqui ⬇️" aponta direto pro link.</div></div>
+      <div class="field"><div class="k">Palavras-chave</div><div class="v">Sim — "presença digital", "Estrategista de Marketing Digital".</div></div>
+      <div class="field"><div class="k">Emoji/formatação</div><div class="v">Sim — 🎯 e ⬇️, quebras de linha organizadas.</div></div>
     </div>
-
-    <div class="card-grid">
-      <div class="card">
-        <div class="section-eyebrow" style="margin-bottom:8px;">Estratégia</div>
-        <h3>Marca pessoal alimentando agência</h3>
-        <p>Posicionamento claro de marca pessoal com link-in-bio próprio e bem construído, convertendo para WhatsApp e auditoria gratuita via <strong>@aagencia.logos</strong>.</p>
-      </div>
-      <div class="card">
-        <div class="section-eyebrow" style="margin-bottom:8px;">Engajamento atual</div>
-        <h3>Sustentado pelo círculo próximo</h3>
-        <p>Média de ~50–90 de score nos posts de marketing, ainda fortemente sustentado por namorada, família e amigos — <strong>não</strong> por audiência fria conquistada pelo conteúdo.</p>
-      </div>
+    <hr style="border:none;border-top:1px solid var(--border);margin:18px 0;">
+    <div class="grid2">
+      <div class="field"><div class="k">Link</div><div class="v">Presente e <span class="pill good">ativo</span> — testado, carrega normalmente.</div></div>
+      <div class="field"><div class="k">Tipo</div><div class="v">Próprio (landing page em raphammbb.github.io) — não é linktree/agregador.</div></div>
     </div>
+    <div class="field"><div class="k">Estrutura da página</div><div class="v">2 CTAs primários em destaque ("Quero automatizar meu marketing" → WhatsApp; "Diagnóstico do seu Instagram em 48h" → oferta de auditoria) + 3 blocos secundários (o que é a auditoria, exemplo de auditoria, link para @aagencia.logos). É o elemento mais bem construído de todo o funil do perfil.</div></div>
+    <div class="field"><div class="k">Coerência com a estratégia</div><div class="v">Total. A oferta "diagnóstico em 48h" no link é literalmente o mesmo CTA que aparece repetido em dezenas de legendas ("comenta LOGOS48") — o funil bio → link → comentário está desenhado de ponta a ponta.</div></div>
+    <div class="callout"><b>O que melhorar:</b> a bio não diz para quem é ("donos de negócio" é genérico demais — que porte, que nicho?) nem prova nada (sem número, sem case). Trocar a segunda linha por uma prova social curta ("+X perfis auditados" ou similar) e nomear o público (ex.: "para PMEs que querem parar de ser o segredo do seu ramo" — frase que ele já usa em posts) fecharia esse gap sem precisar reescrever o link, que já funciona bem.</div>
+  </div>
+</section>
 
-    <div class="alert gold">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
-      <p>O perfil tem <strong>fundamentos estratégicos acima da média</strong> — posicionamento, funil e identidade — mas ainda não provou tração com público novo.</p>
+<section id="grid-destaques">
+  <span class="eyebrow">Fase 0B</span>
+  <h2>Grid visual</h2>
+  <div class="card">
+    <div class="grid2">
+      <div class="field"><div class="k">Identidade visual</div><div class="v"><span class="pill neutral">irregular mas reconhecível</span></div></div>
+      <div class="field"><div class="k">Convida a seguir</div><div class="v">Parcialmente</div></div>
+      <div class="field"><div class="k">Comunica o nicho à 1ª vista</div><div class="v">Parcialmente</div></div>
+      <div class="field"><div class="k">Padrão de layout intencional</div><div class="v">Não — sem paleta, moldura ou sequência de cor planejada</div></div>
     </div>
-  </section>
+    <p style="margin-top:6px;">O padrão dominante é reconhecível — vídeo de rosto na câmera com legenda em texto branco/amarelo bold sobreposta — mas não é um sistema de grid desenhado, é a consequência de usar o mesmo template de texto no CapCut em quase todo reel. A quebra mais grave: o post fixado nº1 é uma foto de casal, então quem chega no perfil pela primeira vez vê primeiro um conteúdo pessoal antes de qualquer prova de trabalho.</p>
+    <div class="field"><div class="k">Evolução visual histórica</div><div class="v"><span class="pill good">melhorou gradualmente</span> — os posts mais antigos (2022–2024) são fotos estáticas com citação religiosa, sem tratamento gráfico. Os recentes usam hook textual trabalhado, cores de destaque e thumbnails pensados para parar o scroll. A curva de aprendizado de edição é visível.</div></div>
+    <div class="callout warn"><b>Ponto de atenção:</b> mesmo no grid atual, posts pessoais e religiosos continuam intercalados com conteúdo de marketing (achados nos blocos B e C) — a falta de curadoria entre "perfil pessoal" e "perfil profissional" é o problema estrutural nº1 identificado nesta auditoria, e aparece de novo nos destaques.</div>
+  </div>
 
-  <!-- BIO E LINK -->
-  <section id="bio">
-    <div class="section-eyebrow">Bio & Link</div>
-    <h2>Perfil e funil de conversão</h2>
+  <span class="eyebrow" style="margin-top:38px;">Fase 0C</span>
+  <h2>Destaques de stories</h2>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th>Nome</th><th class="num">Slides</th><th class="wrap-cell">Tema</th><th>Tipo de conteúdo</th><th>CTA</th><th>Capa própria</th><th>Conteúdo</th><th>Status</th></tr></thead>
+  <tbody>
+  <tr><td>🩵</td><td class="num">5+</td><td class="wrap-cell">Relacionamento (namorada)</td><td>Foto/vídeo, repost</td><td>Não</td><td>Não</td><td>Datado</td><td><span class="pill bad">abandonado</span></td></tr>
+  <tr><td>🔥✝️</td><td class="num">4+</td><td class="wrap-cell">Fé / igreja</td><td>Vídeo, repost, áudio</td><td>Não</td><td>Não</td><td>Datado</td><td><span class="pill bad">abandonado</span></td></tr>
+  <tr><td>Resultados</td><td class="num">3</td><td class="wrap-cell">Prova social / depoimentos de clientes</td><td>Depoimento, print de comentário, WhatsApp</td><td>Sim (implícito)</td><td>Sim</td><td>Misto</td><td><span class="pill good">ativo</span></td></tr>
+  </tbody>
+  </table>
+  </div>
+  <div class="callout"><b>Diagnóstico estratégico:</b> dos 3 destaques, só 1 serve ao visitante que chega para avaliar um prestador de serviço — e esse único destaque relevante ("Resultados") está por último na fileira, atrás de dois destaques 100% pessoais que ocupam a posição de maior visibilidade logo abaixo da bio. Não existe destaque de "quem sou", "serviços/o que eu faço" ou "como funciona a auditoria" — exatamente a pergunta que a landing page do link tenta responder ("O que é a auditoria?", "Veja um exemplo de auditoria"). Essa é uma lacuna clara e fácil de fechar: o conteúdo já existe (está na landing page e em dezenas de legendas), só falta virar destaque. Os destaques pessoais/religiosos não têm curadoria de capa nem atualização há 8-15 meses — parecem acumulados, não estrategicamente montados. O destaque "Resultados" é o único com evidência de manutenção ativa (mistura conteúdo de 4 e de 19 semanas atrás).</div>
+</section>
 
-    <div class="card" style="margin-bottom:20px;">
-      <h3 style="margin-bottom:12px;">Bio atual</h3>
-      <p style="font-family:monospace; background:rgba(91,63,248,0.08); border:1px solid rgba(91,63,248,0.2); border-radius:8px; padding:14px; font-size:0.88rem; color:#c0c0d8;">
-        "Automação &amp; Marketing Digital / Fundador @aagencia.logos / 📩 Projetos e parcerias 👇 / raphammbb.github.io"
-      </p>
-      <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:6px;">
-        <span class="tag tag-green">CTA presente</span>
-        <span class="tag tag-green">Palavras-chave relevantes</span>
-        <span class="tag tag-green">Link ativo</span>
-        <span class="tag tag-green">Link próprio (github.io)</span>
-        <span class="tag tag-green">Destino coerente</span>
-        <span class="tag tag-green">Alto alinhamento estratégico</span>
-      </div>
-    </div>
+<section id="dados">
+  <span class="eyebrow">Fase 2</span>
+  <h2>Evolução do engajamento — blocos temporais</h2>
+  <p>Com 78 posts (não 90), os blocos foram ajustados: <b>Bloco A</b> = posts 1–30 (mais recentes), <b>Bloco B</b> = 31–60, <b>Bloco C</b> = 61–78 (18 posts, os mais antigos).</p>
+  <div class="blocks">
+    <div class="block-card"><h3>Bloco A · recentes</h3><span class="score">107</span><div class="sub">score médio · mediana 27,5</div><div class="sub">96% reels · ~4,8 posts/semana</div></div>
+    <div class="block-card"><h3>Bloco B · intermediário</h3><span class="score">74</span><div class="sub">score médio · mediana 40,0</div><div class="sub">100% reels · ~7,5 posts/semana</div></div>
+    <div class="block-card"><h3>Bloco C · antigos</h3><span class="score">109</span><div class="sub">score médio · mediana 82,5</div><div class="sub">78% reels · cadência irregular</div></div>
+  </div>
+  <p style="margin-top:20px;">A média do Bloco C engana: ela é inflada por 3 posts isolados (dois deles de 2022–2024, puramente religiosos, e um post pago/impulsionado de @aagencia.logos). Olhando a <b>mediana</b> — mais resistente a outlier — o quadro se inverte: o post típico do Bloco C (82,5) engaja mais que o post típico recente do Bloco A (27,5). Ou seja: apesar do salto de frequência e da profissionalização visual, o post "do meio da fila" está performando pior hoje do que performava no passado esporádico. A média do Bloco A só parece boa porque um único vídeo (post nº3, o "como eu explico que trabalho com marketing") sozinho vale mais que os outros 29 do bloco somados.</p>
 
-    <div class="card" style="margin-bottom:20px;">
-      <h3>Avaliação: clara e estratégica</h3>
-      <p>Comunica nicho (marketing/automação), prova de autoridade (fundador de agência) e direciona à ação em três linhas enxutas. CTA "Projetos e parcerias 👇" aponta diretamente para o link.</p>
-    </div>
+  <h2 style="margin-top:44px;">Ranking de engajamento — Top 10 histórico</h2>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th class="num">#</th><th class="num">Post</th><th>Formato</th><th class="num">Score</th><th class="num">Curtidas</th><th class="num">Coment.</th><th class="wrap-cell">Tema</th><th>Bloco</th></tr></thead>
+  <tbody>
+  <tr><td class="num">1</td><td class="num">3</td><td>Reel</td><td class="num">1.647</td><td class="num">1.500</td><td class="num">49</td><td class="wrap-cell">Humor — "como eu explico que trabalho com marketing"</td><td>A</td></tr>
+  <tr><td class="num">2</td><td class="num">44</td><td>Reel</td><td class="num">582</td><td class="num">156</td><td class="num">142</td><td class="wrap-cell">Humor — meme "comentário de família/vozinha"</td><td>B</td></tr>
+  <tr><td class="num">3</td><td class="num">1</td><td>Foto <span class="pill pin">fixado/repost</span></td><td class="num">349</td><td class="num">256</td><td class="num">31</td><td class="wrap-cell">Pessoal — declaração para a namorada</td><td>A*</td></tr>
+  <tr><td class="num">4</td><td class="num">74</td><td>Reel <span class="pill pin">impulsionado</span></td><td class="num">334</td><td class="num">214</td><td class="num">40</td><td class="wrap-cell">Repost @aagencia.logos, CTA seguir (post pago)</td><td>C</td></tr>
+  <tr><td class="num">5</td><td class="num">77</td><td>Foto</td><td class="num">219</td><td class="num">195</td><td class="num">8</td><td class="wrap-cell">Letra de louvor (2023)</td><td>C</td></tr>
+  <tr><td class="num">6</td><td class="num">76</td><td>Foto/carrossel</td><td class="num">185</td><td class="num">164</td><td class="num">7</td><td class="wrap-cell">Reflexão religiosa (2024)</td><td>C</td></tr>
+  <tr><td class="num">7</td><td class="num">39</td><td>Reel</td><td class="num">174</td><td class="num">150</td><td class="num">8</td><td class="wrap-cell">Sátira sobre posts feitos com IA</td><td>B</td></tr>
+  <tr><td class="num">8</td><td class="num">73</td><td>Reel</td><td class="num">166</td><td class="num">94</td><td class="num">24</td><td class="wrap-cell">Frase de efeito — "imperfeito publicado"</td><td>C</td></tr>
+  <tr><td class="num">9</td><td class="num">7</td><td>Reel</td><td class="num">165</td><td class="num">162</td><td class="num">1</td><td class="wrap-cell">"Vai vendo" (sem contexto/gancho de curiosidade)</td><td>A</td></tr>
+  <tr><td class="num">10</td><td class="num">67</td><td>Reel</td><td class="num">159</td><td class="num">81</td><td class="num">26</td><td class="wrap-cell">Educacional — tecnologia + marketing</td><td>C</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <div class="callout warn"><b>Leia com cuidado:</b> 4 dos 10 primeiros colocados não são conteúdo de marketing publicado organicamente: nº3 é repost pessoal, nº4 foi pago para impulsionar, nº5 e nº6 são de 2023/2024, de antes do pivô de carreira. Retirando esse ruído, os verdadeiros vencedores <b>orgânicos e sobre o negócio</b> são nº1 (humor), nº2 (humor/meme), nº7 (sátira/humor) e nº10 (educacional bem-feito) — três dos quatro são humor.</div>
 
-    <div class="card" style="margin-bottom:20px;">
-      <h3>Links no agregador (5 botões principais)</h3>
-      <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-        <li class="qw-item" style="border-color:rgba(91,63,248,0.2);">
-          <div class="qw-icon"><svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
-          <span>"Quero automatizar meu marketing" → WhatsApp</span>
-        </li>
-        <li class="qw-item" style="border-color:rgba(91,63,248,0.2);">
-          <div class="qw-icon"><svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg></div>
-          <span>"Auditoria gratuita do seu Instagram"</span>
-        </li>
-        <li class="qw-item" style="border-color:rgba(91,63,248,0.2);">
-          <div class="qw-icon"><svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
-          <span>"O que é a auditoria?"</span>
-        </li>
-        <li class="qw-item" style="border-color:rgba(91,63,248,0.2);">
-          <div class="qw-icon"><svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg></div>
-          <span>"Veja um exemplo de auditoria"</span>
-        </li>
-        <li class="qw-item" style="border-color:rgba(91,63,248,0.2);">
-          <div class="qw-icon"><svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg></div>
-          <span>"Agência Logos (agencialogos.com.br)"</span>
-        </li>
-      </ul>
-      <p style="margin-top:12px; font-size:0.85rem;">Todos relevantes, organizados, com hierarquia clara e visual profissional alinhado à marca. Alinhamento com estratégia do canal: <strong>alto</strong>.</p>
-    </div>
+  <h2 style="margin-top:44px;">Mix de formatos — histórico completo</h2>
+  <div class="tbl-wrap">
+  <table>
+  <thead><tr><th>Formato</th><th class="num">Qtd</th><th class="num">% do total</th><th class="num">Score médio</th></tr></thead>
+  <tbody>
+  <tr><td>Reel</td><td class="num">70</td><td class="num">89,7%</td><td class="num">91,7</td></tr>
+  <tr><td>Carrossel</td><td class="num">6</td><td class="num">7,7%</td><td class="num">83,7</td></tr>
+  <tr><td>Foto única</td><td class="num">2</td><td class="num">2,6%</td><td class="num">238,0*</td></tr>
+  </tbody>
+  </table>
+  </div>
+  <p style="margin-top:10px;font-size:.85rem;color:var(--ink-muted);">*Amostra de apenas 2 fotos, ambas antigas e religiosas — não é uma leitura confiável de "foto funciona melhor", é apenas onde os outliers do ranking histórico caem.</p>
+</section>
 
-    <div class="alert red">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#f87171" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-      </div>
-      <div>
-        <p><strong>O que melhorar:</strong></p>
-        <p>A bio comunica "o que" ele faz, mas não "para quem" — falta especificar o público-alvo (ex: "ajudo donos de pequenos negócios a vender pelo Instagram"). A primeira oferta deveria ser a <strong>auditoria gratuita</strong> (captura de baixa fricção), não o WhatsApp direto (alto comprometimento). Vale também adicionar prova social ou número ("+X negócios atendidos") para reforçar autoridade logo na bio.</p>
-      </div>
-    </div>
-  </section>
+<section id="tendencia">
+  <span class="eyebrow">Fase 3</span>
+  <h2>Tendência e sazonalidade</h2>
+  <p>Os 3 posts de maior engajamento histórico (nº3, nº44, nº1) não têm nada em comum em formato ou tema — têm em comum o <b>gancho</b>: um problema universal e engraçado ("ninguém entende o que eu faço"), um formato-meme reconhecível (comentários de família), e um momento pessoal genuíno. Nenhum dos três vendeu ativamente nada na legenda.</p>
+  <p>A cadência de publicação conta uma história à parte: entre 2022 e abril de 2026 o perfil publicou de forma esporádica — meses, às vezes mais de um ano, entre posts. A partir de meados de maio de 2026 (~14 semanas antes desta auditoria) a frequência disparou para uma média de 5 a 7 reels por semana, ritmo que se sustentou por mais de 3 meses até hoje. Esse é o sinal de virada estratégica mais nítido de toda a auditoria: um relançamento de perfil, não uma evolução gradual.</p>
 
-  <!-- GRID VISUAL -->
-  <section id="grid">
-    <div class="section-eyebrow">Grid Visual</div>
-    <h2>Identidade visual do feed</h2>
+  <h2 style="margin-top:36px;">Evolução editorial</h2>
+  <p>Sim, e de forma abrupta. Antes de maio de 2026, a conta era um diário pessoal de fé e relacionamento (posts 75 a 78, e os dois destaques mais antigos). A partir da virada, o conteúdo passou a girar em torno de marketing digital, mas sem uma linha única: convivem no mesmo feed (1) humor/relatable sobre a rotina de quem trabalha com marketing, (2) monólogos educacionais longos com storytelling tipo "carta", quase sempre com hashtag em cacho, e (3) CTA de venda direto ("comenta LOGOS48"). Postagens pessoais (viagens, a namorada, versículos) continuam aparecendo intercaladas mesmo depois do pivô — sinal de que o relançamento ainda não separou claramente "perfil de resultado" de "perfil pessoal".</p>
+</section>
 
-    <div class="card-grid">
-      <div class="card">
-        <h3>Identidade visual</h3>
-        <span class="tag tag-yellow">Irregular mas reconhecível</span>
-      </div>
-      <div class="card">
-        <h3>Convida a seguir?</h3>
-        <span class="tag tag-yellow">Parcialmente</span>
-      </div>
-      <div class="card">
-        <h3>Comunica nicho à 1ª vista?</h3>
-        <span class="tag tag-yellow">Parcialmente</span>
-      </div>
-      <div class="card">
-        <h3>Layout intencional?</h3>
-        <span class="tag tag-red">Não</span>
-      </div>
-    </div>
-
-    <div class="card" style="margin-bottom:16px;">
-      <h3>Evolução visual histórica</h3>
-      <p><strong>Melhorou significativamente.</strong> Os 3 posts antigos (2022–2024) são fotos estáticas de fé/música/relacionamento. Os recentes são Reels com capas de texto, thumbnails legendados ("zero desculpas", "10 coisas que você precisa fazer", "Story Matic") e estética de criador de conteúdo de marketing.</p>
-    </div>
-
+<section id="funcionou">
+  <span class="eyebrow">Padrões</span>
+  <h2>O que está funcionando</h2>
+  <div class="grid2">
     <div class="card">
-      <h3>Avaliação completa</h3>
-      <p>A virada visual acompanha a virada estratégica e revela maturidade crescente — o Raphael passou de "registro pessoal" para "produção de conteúdo intencional" em poucas semanas. Porém, ainda falta um <strong>sistema de capas consistente</strong>: as thumbnails dos Reels variam em tipografia, cor e estilo, e isso enfraquece o reconhecimento da marca no grid.</p>
-      <p>Os reposts de <strong>@aagencia.logos</strong> e da namorada quebram a coerência visual e diluem a percepção de que este é um perfil de autoridade em marketing.</p>
-      <div class="alert" style="margin-top:14px;">
-        <div class="alert-icon">
-          <svg fill="none" stroke="#a78bfa" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <p><strong>Maior impacto visual possível:</strong> Definir um template de capa (mesma fonte, paleta e posicionamento de texto) para todos os Reels.</p>
-      </div>
+      <div class="field"><div class="k">Legenda curta vence</div><div class="v">Score médio 119,6 (curta) vs 41,6 (média) vs 66,9 (longa) — o padrão é consistente nos 3 blocos.</div></div>
+      <div class="field"><div class="k">Humor/relatable é o tema mais forte</div><div class="v">Score médio 81-238 conforme o corte, sempre acima da média geral, mesmo sem contar o maior outlier.</div></div>
+      <div class="field"><div class="k">CTA de seguir é neutro a positivo</div><div class="v">Score médio 95,4 — não atrapalha, mas também não é o que gera o pico.</div></div>
     </div>
-  </section>
-
-  <!-- DESTAQUES DE STORIES -->
-  <section id="destaques">
-    <div class="section-eyebrow">Destaques de Stories</div>
-    <h2>Análise dos highlights</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Slides</th>
-            <th>Tema</th>
-            <th>CTA</th>
-            <th>Capas</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>2026</td>
-            <td>~30</td>
-            <td>Vida pessoal/passeios (parque, casal)</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-yellow">Desatualizado (24 sem)</span></td>
-          </tr>
-          <tr>
-            <td>2025</td>
-            <td>~30</td>
-            <td>Viagens/intercâmbio/família</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-yellow">Desatualizado (76 sem)</span></td>
-          </tr>
-          <tr>
-            <td>2024</td>
-            <td>~30</td>
-            <td>Eventos/comunidade cristã</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Desatualizado (128 sem)</span></td>
-          </tr>
-          <tr>
-            <td>2023</td>
-            <td>~30</td>
-            <td>Eventos/shows/vida</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Abandonado (180 sem)</span></td>
-          </tr>
-          <tr>
-            <td>2022</td>
-            <td>~30</td>
-            <td>Eventos/vida pessoal</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Abandonado (233 sem)</span></td>
-          </tr>
-          <tr>
-            <td>2021</td>
-            <td>~30</td>
-            <td>Vida pessoal</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Abandonado (276 sem)</span></td>
-          </tr>
-          <tr>
-            <td>2020</td>
-            <td>~30</td>
-            <td>Vida pessoal</td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Não</span></td>
-            <td><span class="tag tag-red">Abandonado (mais antigo)</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="alert red">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#f87171" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-      </div>
-      <div>
-        <p><strong>Diagnóstico estratégico:</strong> Os destaques foram acumulados sem curadoria estratégica, não construídos. São arquivos pessoais organizados por ano (2020 a 2026), repletos de vida pessoal, viagens, fé e eventos — <strong>zero alinhamento com a nova linha editorial de marketing</strong>.</p>
-        <p style="margin-top:8px;">Não cobrem nenhuma etapa da jornada de um cliente potencial: não há "Quem sou", "Serviços", "Resultados/Cases", "Depoimentos", "FAQ" ou "Auditoria". Há uma lacuna gritante: o tema dominante dos posts recentes (marketing/autoridade/auditoria) <strong>não tem nenhum destaque dedicado</strong>.</p>
-      </div>
-    </div>
-
-    <div class="alert cyan">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#00D4FF" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-      </div>
-      <p><strong>Recomendação:</strong> Arquivar ou reunir os destaques por ano em um único "Memórias", e criar destaques estratégicos novos com capas padronizadas: <strong>"Comece aqui", "A Auditoria", "Resultados", "Depoimentos"</strong> e <strong>"Bastidores"</strong>.</p>
-    </div>
-  </section>
-
-  <!-- EVOLUÇÃO DO ENGAJAMENTO -->
-  <section id="engajamento">
-    <div class="section-eyebrow">Evolução do Engajamento</div>
-    <h2>Blocos temporais</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Bloco</th>
-            <th>Período</th>
-            <th>Posts</th>
-            <th>Score médio</th>
-            <th>Formato</th>
-            <th>Posts/semana</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>A — Recentes</td>
-            <td>3–17/jun/2025</td>
-            <td>9 (posts 1–9)</td>
-            <td><span class="score-badge low">~62</span></td>
-            <td>Reel (100%)</td>
-            <td>~4,5</td>
-          </tr>
-          <tr>
-            <td>B — Intermediários</td>
-            <td>27/mai–3/jun/2025</td>
-            <td>8 (posts 10–17)</td>
-            <td><span class="score-badge med">~120</span></td>
-            <td>Reel (88%)</td>
-            <td>~7</td>
-          </tr>
-          <tr>
-            <td>C — Mais antigos</td>
-            <td>2022–26/mai/2025</td>
-            <td>8 (posts 18–25)</td>
-            <td><span class="score-badge high">~168</span></td>
-            <td>Misto</td>
-            <td>~0,1 (irregular)</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
     <div class="card">
-      <h3>Interpretação dos dados</h3>
-      <p>O score médio <strong>caiu do bloco B/C para o A recente</strong> — mas isso exige leitura cuidadosa. O bloco C é "inflado" por quatro outliers de natureza diferente: os posts de fé de 2022–2024 e o post inicial de lançamento da fase marketing (post 21, 15/mai, 327 de score).</p>
-      <p>Já o bloco A reflete o <strong>"novo normal"</strong> do conteúdo de marketing puro, sem o impulso da novidade — mostrando que, passada a euforia do lançamento, o engajamento assentou em um patamar mais baixo e realista (~30–130 de score).</p>
-      <div class="alert gold" style="margin-top:16px;">
-        <div class="alert-icon">
-          <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-        </div>
-        <p><strong>Sinal de alerta real:</strong> O crescimento de seguidores ainda não está se traduzindo em engajamento crescente nos posts mais recentes. Não é queda de qualidade — é acomodação após o pico inicial.</p>
-      </div>
+      <div class="field"><div class="k">Vulnerabilidade autêntica engaja</div><div class="v">O post sobre "50 curtidas não é muito, mas é prova que o caminho existe" (nº53, score 73) performou acima da média do bloco em que está.</div></div>
+      <div class="field"><div class="k">Crossover com outros criadores</div><div class="v">Posts que mencionam/marcam outra conta (@vozinha1, @cazetv) puxam engajamento (nº57, score 67; nº50, score 95).</div></div>
+      <div class="field"><div class="k">Prova social funciona no destaque</div><div class="v">O único destaque ativo e com CTA é justamente o de depoimentos — reforça que esse gancho tem tração quando bem embalado.</div></div>
     </div>
+  </div>
+</section>
 
-    <div style="margin-top:24px;">
-      <h3 style="margin-bottom:16px; font-size:0.85rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;">Score médio por bloco</h3>
-      <div class="progress-row">
-        <div class="progress-label"><span>Bloco A (Recentes)</span><span style="color:var(--purple2);">~62</span></div>
-        <div class="progress-track"><div class="progress-fill" data-width="37"></div></div>
-      </div>
-      <div class="progress-row">
-        <div class="progress-label"><span>Bloco B (Intermediários)</span><span style="color:var(--cyan);">~120</span></div>
-        <div class="progress-track"><div class="progress-fill" data-width="71"></div></div>
-      </div>
-      <div class="progress-row">
-        <div class="progress-label"><span>Bloco C (Antigos)</span><span style="color:var(--gold);">~168</span></div>
-        <div class="progress-track"><div class="progress-fill" data-width="100"></div></div>
-      </div>
-    </div>
-  </section>
+<section id="comentarios">
+  <span class="eyebrow">Voz da audiência</span>
+  <h2>O que a audiência está dizendo — comentários dos Top 5</h2>
+  <div class="card">
+    <div class="field"><div class="k">Tipos predominantes</div><div class="v">Nos 3 posts com mais comentários do Top 5 (nº3, nº44, nº1), o padrão é humor/opinião e marcação de amigos — não são perguntas de negócio. No nº3, a audiência responde com a própria versão engraçada de "como explico meu trabalho" (efeito manada de humor). No nº44, os comentários são cosplay do meme (pessoas escrevendo "como se fossem parentes"). No nº1, são mensagens de carinho de amigos e família.</div></div>
+    <div class="field"><div class="k">Perguntas recorrentes da audiência</div><div class="v">Praticamente nenhuma pergunta de negócio aparece nos posts de maior score — o que já é, em si, um dado: os posts que mais viralizam não são os que geram lead. Perguntas de negócio genuínas aparecem em posts de score médio-baixo, como comentários pedindo indicação de fornecedor ou perguntando "como faço pra aplicar isso" — sinal de que a audiência interessada em contratar está nos posts educacionais, não nos virais de humor.</div></div>
+    <div class="field"><div class="k">O perfil responde aos comentários?</div><div class="v"><span class="pill neutral">raramente</span> — na amostra revisada, rapha_mmbb quase não aparece respondendo comentários de terceiros (aparece comentando os próprios posts, não em thread de resposta).</div></div>
+    <div class="field"><div class="k">Evolução dos comentários</div><div class="v">Nos posts mais antigos (Bloco C), os comentários são quase só reações de fé ("amém", "🔥✝️") vindas de uma comunidade de igreja. Nos posts recentes, aparecem nomes recorrentes de colegas de marketing e clientes (@aagencia.logos, @celia.marques.984, @givisconti) — a audiência mudou de uma comunidade pessoal/religiosa para uma rede de pares e clientes de marketing, ainda pequena mas presente.</div></div>
+  </div>
+  <div class="callout strategic"><b>Insight estratégico:</b> os posts que mais curtem e comentam não são os que mais vendem — são os que mais fazem rir ou emocionam. Isso não é um problema a corrigir eliminando humor (ele constrói alcance e simpatia, que faltam hoje), mas sim um sinal de que o perfil precisa de uma segunda camada de conversão: usar o alcance do humor para empurrar tráfego para o conteúdo educacional/CTA, em vez de esperar que o próprio post engraçado converta.</div>
+</section>
 
-  <!-- RANKING TOP 10 -->
-  <section id="ranking">
-    <div class="section-eyebrow">Ranking Histórico</div>
-    <h2>Top 10 em engajamento</h2>
+<section id="nao-funcionou">
+  <span class="eyebrow">Padrões</span>
+  <h2>O que não está funcionando</h2>
+  <p>Os 10 posts de menor score (ex.: nº5 "pessoas não se conectam com conteúdo perfeito", nº16, nº18, nº20, nº31, nº17) têm um perfil quase idêntico: legenda longa ou média, tom de "carta motivacional para empreendedores", hashtags em bloco de 10 a 16 tags (muitas sem acentuação, o que quebra o link automático do Instagram — ex. "#TráfegoPago" não vira clicável), sem humor, sem vulnerabilidade, sem gancho visual forte no primeiro segundo. Comparado ao Top 10, falta especificamente: um problema relatable no gancho, um formato reconhecível (meme, piada, confissão) e um motivo emocional para parar de rolar o feed. O conteúdo não está errado no conteúdo — está errado na embalagem.</p>
+</section>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Post</th>
-            <th>Formato</th>
-            <th>Score</th>
-            <th>Curtidas</th>
-            <th>Comentários</th>
-            <th>Tema</th>
-            <th>Bloco</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="rank-1">
-            <td>1°</td>
-            <td>25</td>
-            <td><span class="tag tag-cyan">Carrossel</span></td>
-            <td><span class="score-badge high">347</span></td>
-            <td>254</td>
-            <td>31</td>
-            <td>Relacionamento (repost namorada)</td>
-            <td>C</td>
-          </tr>
-          <tr class="rank-2">
-            <td>2°</td>
-            <td>21</td>
-            <td><span class="tag tag-purple">Reel</span></td>
-            <td><span class="score-badge high">327</span></td>
-            <td>213</td>
-            <td>38</td>
-            <td>Lançamento "siga p/ conteúdo"</td>
-            <td>C</td>
-          </tr>
-          <tr class="rank-3">
-            <td>3°</td>
-            <td>14</td>
-            <td><span class="tag tag-purple">Reel</span></td>
-            <td><span class="score-badge high">263</span></td>
-            <td>137</td>
-            <td>42</td>
-            <td>Anúncio/marca pessoal ("segue @logos")</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>4°</td>
-            <td>23</td>
-            <td><span class="tag tag-yellow">Foto</span></td>
-            <td><span class="score-badge high">221</span></td>
-            <td>197</td>
-            <td>8</td>
-            <td>Fé/louvor (2023)</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>5°</td>
-            <td>22</td>
-            <td><span class="tag tag-yellow">Foto</span></td>
-            <td><span class="score-badge med">186</span></td>
-            <td>165</td>
-            <td>7</td>
-            <td>Fé/transcendência (2024)</td>
-            <td>C</td>
-          </tr>
-          <tr>
-            <td>6°</td>
-            <td>20</td>
-            <td><span class="tag tag-purple">Reel</span></td>
-            <td><span class="score-badge med">166</span></td>
-            <td>94</td>
-            <td>24</td>
-            <td>"Imperfeito publicado vale mais"</td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <td>7°</td>
-            <td>12</td>
-            <td><span class="tag tag-purple">Reel</span></td>
-            <td><span class="score-badge med">159</span></td>
-            <td>81</td>
-            <td>26</td>
-            <td>Tecnologia + marketing juntos</td>
-            <td>B</td>
-          </tr>
-          <tr>
-            <td>8°</td>
-            <td>11</td>
-            <td><span class="tag tag-purple">Reel</span></td>
-            <td><span class="score-badge med">157</span></td>
-            <td>127</td>
-            <td>10</td>
-            <td>"Por que tem medo de aparecer online"</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>9°</td>
-            <td>8</td>
-            <td><span class="tag tag-purple">Reel</span></td>
-            <td><span class="score-badge low">130</span></td>
-            <td>88</td>
-            <td>14</td>
-            <td>"Segue para conteúdo de marketing"</td>
-            <td>A</td>
-          </tr>
-          <tr>
-            <td>10°</td>
-            <td>24</td>
-            <td><span class="tag tag-yellow">Foto</span></td>
-            <td><span class="score-badge low">128</span></td>
-            <td>110</td>
-            <td>6</td>
-            <td>Fé/música (2022)</td>
-            <td>C</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+<section id="insights">
+  <span class="eyebrow">Síntese</span>
+  <h2>Principais insights estratégicos</h2>
+  <div class="card">
+  <ol class="reco">
+    <li>O perfil é jovem na versão atual: 73 dos 78 posts (94%) foram publicados nas últimas ~14 semanas — qualquer "padrão" ainda está se formando, não consolidado.</li>
+    <li>Legenda curta bate legenda longa de forma consistente nos 3 blocos temporais — é um padrão estrutural, não coincidência de amostra.</li>
+    <li>Fazer pergunta no fim da legenda reduziu o score médio (64,7) em vez de aumentar, contrariando a prática comum — o formato de pergunta aqui soa mais a "aula" do que a convite genuíno.</li>
+    <li>O CTA "comenta uma palavra-chave" só funcionou uma vez, e nesse caso o motor foi o humor do vídeo, não o CTA — replicar só o CTA sem o gancho tende a repetir os scores baixos de 14-26 vistos nos outros 5 posts com o mesmo mecanismo.</li>
+    <li>Hashtags em cacho (10-16 por post) aparecem quase exclusivamente nos posts educacionais de pior desempenho — não há evidência nos dados de que estejam ajudando o alcance desse formato.</li>
+    <li>O ranking histórico bruto é enganoso: 4 dos 10 melhores posts são pessoais, religiosos ou pagos — sem esse filtro, qualquer decisão de conteúdo baseada só no "top 10" vai na direção errada.</li>
+    <li>Conteúdo pessoal e religioso (namoro, fé) continua sendo publicado no feed profissional mesmo após o pivô de maio de 2026 — e tende a performar bem, o que cria a tentação de manter a mistura, às custas da clareza de posicionamento.</li>
+    <li>A cadência de publicação (5-7 posts/semana no pico) é mais alta que a de praticamente qualquer estúdio de conteúdo solo sustentável — não há sinal nos dados de fadiga de audiência ainda, mas o ritmo é um risco de burnout editorial de médio prazo.</li>
+    <li>Os destaques de stories não refletem a linha editorial dos 90 posts: 2 de 3 são pessoais/religiosos, nenhum cobre "quem sou" ou "como funciona a auditoria", que é a oferta central do link na bio.</li>
+    <li>A rede de comentaristas mudou de uma comunidade pessoal/religiosa (posts antigos) para colegas e clientes de marketing (posts recentes) — a audiência certa já está chegando, só ainda é pequena e pouco correspondida (perfil raramente responde).</li>
+  </ol>
+  </div>
+</section>
 
-  <!-- MIX DE FORMATOS -->
-  <section id="formatos">
-    <div class="section-eyebrow">Mix de Formatos</div>
-    <h2>Histórico completo de formatos</h2>
+<section id="plano">
+  <span class="eyebrow">Ação</span>
+  <h2>Recomendações estratégicas</h2>
+  <div class="card">
+    <span class="sub-label">Curto prazo — próximas 4 semanas</span>
+    <ol class="reco">
+      <li>Trocar o post fixado nº1 (foto de casal) por um dos 3 melhores posts orgânicos de marketing (nº3, nº39 ou nº67) — a primeira impressão do perfil precisa vender competência, não vida pessoal.</li>
+      <li>Criar um destaque "Sobre mim / O que eu faço" e um "Como funciona a auditoria" usando o conteúdo que já existe na landing page — zero produção nova necessária.</li>
+      <li>Reordenar os destaques colocando "Resultados" em primeiro lugar, à frente dos pessoais.</li>
+      <li>Cortar hashtags de cacho nos próximos posts educacionais e testar 0-3 hashtags específicas de nicho — os dados não sustentam o uso atual.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <span class="sub-label">Médio prazo — próximos 3 meses</span>
+    <ol class="reco">
+      <li>Separar deliberadamente conteúdo pessoal/de fé (que claramente ele quer continuar publicando) de conteúdo de marca — seja criando uma conta pessoal separada, seja reservando um dia fixo da semana para esse tipo de post, para não competir por atenção com o posicionamento profissional.</li>
+      <li>Construir uma segunda camada de CTA: usar os vídeos de humor de alto alcance para direcionar (via comentário fixado ou story de acompanhamento) para o conteúdo educacional ou para a oferta de diagnóstico, em vez de esperar que o vídeo engraçado converta sozinho.</li>
+      <li>Padronizar um formato visual de thumbnail/hook (cor, fonte, posição do texto) para o grid ganhar identidade real, não só recorrência de estilo de gravação.</li>
+      <li>Implementar rotina de resposta a comentários — a rede de pares/clientes que já comenta merece retorno ativo para virar relacionamento e não só métrica de vaidade.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <span class="sub-label">Experimentos a testar</span>
+    <ol class="reco">
+      <li>Testar um formato "confissão vulnerável de números pequenos" (como o post nº53, que performou acima da média do bloco) como série recorrente — parece o meio-termo entre autenticidade pessoal e conteúdo de negócio, algo ainda pouco explorado no histórico.</li>
+      <li>Testar carrossel educacional curto (3-5 slides, 1 ideia por slide) como substituto do reel-monólogo longo — o carrossel teve score médio melhor que a média dos reels educacionais longos, mas a amostra (6 carrosséis) é pequena demais para confirmar; vale um teste deliberado de 4-6 semanas.</li>
+    </ol>
+  </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Formato</th>
-            <th>Quantidade</th>
-            <th>% do total</th>
-            <th>Score médio</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Reel</td>
-            <td>19</td>
-            <td>76%</td>
-            <td><span class="score-badge med">~96</span></td>
-          </tr>
-          <tr>
-            <td>Foto</td>
-            <td>4</td>
-            <td>16%</td>
-            <td><span class="score-badge high">~138</span></td>
-          </tr>
-          <tr>
-            <td>Carrossel</td>
-            <td>1</td>
-            <td>4%</td>
-            <td><span class="score-badge high">347</span></td>
-          </tr>
-          <tr>
-            <td>Texto</td>
-            <td>0</td>
-            <td>0%</td>
-            <td>—</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h2 style="margin-top:44px;">Quick wins — resultados em 30 dias</h2>
+  <div class="card">
+    <ol class="reco">
+      <li>Trocar o post fixado pessoal por um dos vencedores orgânicos de marketing (ação de 5 minutos, impacto imediato na primeira impressão).</li>
+      <li>Criar os 2 destaques que faltam (Sobre mim / Como funciona a auditoria) reaproveitando texto e print da própria landing page.</li>
+      <li>Reordenar os destaques colocando Resultados em primeiro.</li>
+      <li>Cortar as hashtags em cacho dos próximos 4 posts educacionais e comparar o score com a média histórica dessa categoria (47,6).</li>
+      <li>Responder ativamente aos comentários dos próximos 10 posts — custo zero, sinal de relacionamento imediato para a audiência de pares/clientes que já está comentando.</li>
+    </ol>
+  </div>
+</section>
 
-    <div style="margin-top:20px;">
-      <div class="progress-row">
-        <div class="progress-label"><span>Reel (76%)</span><span style="color:var(--purple2);">19 posts</span></div>
-        <div class="progress-track"><div class="progress-fill" data-width="76"></div></div>
-      </div>
-      <div class="progress-row">
-        <div class="progress-label"><span>Foto (16%)</span><span style="color:var(--cyan);">4 posts</span></div>
-        <div class="progress-track"><div class="progress-fill" data-width="16"></div></div>
-      </div>
-      <div class="progress-row">
-        <div class="progress-label"><span>Carrossel (4%)</span><span style="color:var(--gold);">1 post</span></div>
-        <div class="progress-track"><div class="progress-fill" data-width="4"></div></div>
-      </div>
-    </div>
+<section id="faq">
+  <span class="eyebrow">Perguntas frequentes</span>
+  <h2>Sobre este relatório</h2>
+  <div class="card">
+  <dl class="faq">
+    <dt>O que é este relatório e por que eu recebi?</dt>
+    <dd>É uma auditoria histórica do perfil do Instagram @rapha_mmbb, feita pela Agência Logos. Foram analisados os 78 posts existentes (o perfil ainda não tem 90) — o equivalente a cerca de 4 anos de histórico, embora 94% do volume tenha sido publicado nos últimos 3 meses e meio.</dd>
+    <dt>Os dados são precisos?</dt>
+    <dd>Curtidas e comentários foram coletados diretamente do perfil público. Métricas de alcance, impressões e salvos não ficam visíveis publicamente — só o dono da conta vê isso pelo Instagram Insights.</dd>
+    <dt>O que posso fazer com um relatório tão completo?</dt>
+    <dd>Use como base para decisões de médio prazo: o que manter, o que cortar (hashtags em cacho, mistura de conteúdo pessoal) e onde investir (humor com gancho de conversão, prova social nos destaques).</dd>
+    <dt>Por onde devo começar?</dt>
+    <dd>Pelos Quick Wins — são mudanças de baixo custo com padrão já comprovado nos próprios 78 posts. Os itens de médio prazo (separar pessoal de profissional, criar camada de conversão) exigem mais planejamento.</dd>
+    <dt>Por que o post mais curtido de todos não é sobre marketing?</dt>
+    <dd>Porque o ranking bruto de curtidas mistura tudo: humor, conteúdo pessoal antigo e até um post pago. Isso não significa que o perfil deva virar conta de humor — significa que o gancho emocional (rir, se identificar, se emocionar) é o que hoje falta nos posts educacionais, que têm a informação certa mas a embalagem errada.</dd>
+    <dt>Vale a pena manter postando 5-7 vezes por semana?</dt>
+    <dd>Os dados não mostram sinal de fadiga da audiência ainda, mas também não mostram que o ritmo alto sozinho esteja gerando crescimento de engajamento — a mediana do bloco mais recente é, na verdade, menor que a dos blocos anteriores. Vale considerar publicar um pouco menos e investir mais em gancho e edição por post, em vez de otimizar só por volume.</dd>
+  </dl>
+  </div>
+</section>
 
-    <div class="alert gold" style="margin-top:20px;">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
-      <p><strong>Observação:</strong> As fotos têm score médio mais alto, mas são quase todas posts antigos de fé com público diferente — não é comparação justa com os Reels de marketing. Dentro da fase marketing (maio–junho/25), o Reel é o único formato em uso e o <strong>carrossel/foto educativo está praticamente inexplorado</strong>.</p>
-    </div>
-  </section>
-
-  <!-- TENDÊNCIA E SAZONALIDADE -->
-  <section id="tendencia">
-    <div class="section-eyebrow">Tendência e Sazonalidade</div>
-    <h2>O que está por trás dos picos</h2>
-
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-date">Pico #1 — Score 347</div>
-        <h3>Carrossel de relacionamento (repost da namorada)</h3>
-        <p>Não é conteúdo de marketing. O pico veio de fatores sociais e afetivos — não da força editorial do canal.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-date">Pico #2 — Score 327 (15/mai/2025)</div>
-        <h3>Reel de lançamento da fase marketing</h3>
-        <p>Pegou o impulso de novidade e curiosidade do círculo próximo. O efeito "estreia" inflou o número — difícil de replicar.</p>
-      </div>
-      <div class="tl-item">
-        <div class="tl-date">Pico #3 — Score 263 (29/mai/2025)</div>
-        <h3>Reel-anúncio de marca pessoal</h3>
-        <p>Comentários são quase todos felicitações pessoais: "parabéns primo", "filho, você é muito verdadeiro", "você é uma benção". O engajamento veio da rede, não do conteúdo.</p>
-      </div>
-    </div>
-
-    <div class="alert red" style="margin-top:24px;">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#f87171" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-      </div>
-      <p><strong>Alerta importante:</strong> Os picos <strong>não vêm (ainda) da força do conteúdo educativo</strong>. O que os tornou excepcionais foram fatores sociais e de novidade: relacionamento, lançamento e apoio de rede pessoal.</p>
-    </div>
-
-    <div class="card" style="margin-top:16px;">
-      <h3>Períodos de silêncio</h3>
-      <p>Enorme. Entre 2022 e maio de 2025 o perfil postou pouquíssimo (praticamente 1 post/ano). A explosão de atividade começa em 15/maio/2025. Houve, portanto, <strong>~3 anos de quase inatividade</strong> seguidos de um arranque intenso.</p>
-      <h3 style="margin-top:14px;">Consistência atual</h3>
-      <p>Os Reels educativos de marketing entregam engajamento estável, mas modesto. Nenhum formato "estoura" de forma consistente no conteúdo de marketing — os melhores resultados ainda dependem de fatores sociais.</p>
-    </div>
-  </section>
-
-  <!-- EVOLUÇÃO EDITORIAL -->
-  <section id="editorial">
-    <div class="section-eyebrow">Evolução Editorial</div>
-    <h2>A virada de 15 de maio de 2025</h2>
-
-    <div class="card-grid">
-      <div class="card" style="border-color:rgba(245,158,11,0.2);">
-        <div class="section-eyebrow" style="margin-bottom:8px; color:#fbbf24;">Antes de mai/2025</div>
-        <h3>Voz contemplativa e espiritual</h3>
-        <p>Fé, louvor, relacionamento, música. Frequência extremamente baixa (1 post/ano em 2022, 2023 e 2024).</p>
-      </div>
-      <div class="card" style="border-color:rgba(91,63,248,0.3);">
-        <div class="section-eyebrow" style="margin-bottom:8px;">A partir de 15/mai/2025</div>
-        <h3>Voz empreendedora/educativa</h3>
-        <p>Marketing digital, autoridade, consistência e automação. Sempre com CTA para seguir, comentar ou falar no WhatsApp/agência. 21 posts em ~5 semanas.</p>
-      </div>
-    </div>
-
-    <div class="alert cyan" style="margin-top:4px;">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#00D4FF" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
-      <p>É uma das <strong>viradas de posicionamento mais limpas e completas</strong> que se vê — bio, link, formato e tom mudaram juntos. O ponto fraco é que a transição foi abrupta e a audiência herdada (fé/pessoal) não é necessariamente a audiência-alvo do novo conteúdo.</p>
-    </div>
-  </section>
-
-  <!-- O QUE ESTÁ FUNCIONANDO -->
-  <section id="funciona">
-    <div class="section-eyebrow">O que está funcionando</div>
-    <h2>Padrões consistentes</h2>
-    <p style="font-size:0.82rem; color:var(--muted); margin-bottom:20px;">Baseado em amostra de 25 posts — padrões indicativos, ainda precisam de volume para serem estruturais.</p>
-
-    <div class="insight-list">
-      <div class="insight-item">
-        <div class="insight-num">1</div>
-        <p><strong>Reels são a aposta certa de formato</strong> — concentram 76% dos posts e toda a produção atual.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">2</div>
-        <p><strong>Legendas longas e educativas com pergunta no final</strong> (posts 9, 11, 12, 18, 20) puxam mais comentários do que legendas só com "siga @perfil".</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">3</div>
-        <p>O tema <strong>"medo de aparecer / coragem de se posicionar"</strong> (posts 11 e 17) ressoa especialmente bem — é o ponto de maior conexão emocional.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">4</div>
-        <p>Posts que pedem <strong>ação explícita no texto</strong> ("comenta qual dos três", "o que você escolhe?") geram interação acima da média.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">5</div>
-        <p>O tom de <strong>autoridade combinado com vulnerabilidade</strong> ("você não precisa ser perfeito pra começar") é o que mais conecta.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- O QUE A AUDIÊNCIA DIZ -->
-  <section id="audiencia">
-    <div class="section-eyebrow">O que a audiência diz</div>
-    <h2>Análise dos comentários — Top 5</h2>
-
-    <div class="card-grid">
-      <div class="card">
-        <h3>Tipo predominante</h3>
-        <p>Elogios e apoio emocional (esmagadora maioria): "🔥", "top", "parabéns", "você é uma benção", seguidos de marcações e pouquíssimas perguntas reais.</p>
-      </div>
-      <div class="card">
-        <h3>O perfil responde?</h3>
-        <p>Às vezes — o Raphael e a @aagencia.logos respondem com emojis em vários posts, mas raramente desenvolvem conversa ou aproveitam comentários para gerar pauta.</p>
-      </div>
-    </div>
-
-    <div class="alert red">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#f87171" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-      </div>
-      <p><strong>Perguntas recorrentes:</strong> praticamente inexistentes. A audiência quase não faz perguntas de conteúdo — sinal de que o público atual <strong>consome como torcida, não como prospecto</strong> buscando solução.</p>
-    </div>
-
-    <div class="card" style="border-color:rgba(245,200,66,0.2);">
-      <h3>Falas reveladoras de dor (ouro para pauta)</h3>
-      <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-        <li style="padding:10px 14px; background:rgba(245,200,66,0.06); border:1px solid rgba(245,200,66,0.18); border-radius:8px; font-size:0.9rem; color:#c0c0d8;">
-          "preciso ter constância e ideias de vídeos" (post 21)
-        </li>
-        <li style="padding:10px 14px; background:rgba(245,200,66,0.06); border:1px solid rgba(245,200,66,0.18); border-radius:8px; font-size:0.9rem; color:#c0c0d8;">
-          "preciso de mais dicas!" (post 21)
-        </li>
-      </ul>
-    </div>
-
-    <div class="card" style="margin-top:16px;">
-      <h3>Evolução dos comentários</h3>
-      <p>Mudou de tema, não de natureza. Nos posts antigos (2022–2024): fé ("glória a Deus", "❤️‍🔥"). Nos recentes: marketing ("apenas verdades", "reflexão importante"). Mas em ambos os períodos dominam o mesmo núcleo de pessoas próximas — <strong>a base de comentaristas não se renovou para um público frio</strong>.</p>
-    </div>
-
-    <div class="alert cyan" style="margin-top:16px;">
-      <div class="alert-icon">
-        <svg fill="none" stroke="#00D4FF" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-      </div>
-      <p><strong>Insight estratégico:</strong> A audiência atual demonstra um desejo latente claro — "constância" e "ideias do que postar". Isso aponta para uma oportunidade de pauta enorme: conteúdo prático e acionável sobre o que/quando postar. E para a necessidade urgente de fazer o conteúdo <strong>escapar da bolha de amigos</strong> via ganchos mais fortes, colaborações e conteúdo salvável.</p>
-    </div>
-  </section>
-
-  <!-- O QUE NÃO ESTÁ FUNCIONANDO -->
-  <section id="nao-funciona">
-    <div class="section-eyebrow">O que não está funcionando</div>
-    <h2>Padrões de baixo desempenho</h2>
-
-    <div class="card" style="border-color:rgba(239,68,68,0.2);">
-      <h3>Posts mais fracos identificados</h3>
-      <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:10px;">
-        <li style="padding:10px 14px; background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.15); border-radius:8px; font-size:0.9rem; color:#c0c0d8;">
-          Post 6 — "PG" / Score 23 — legenda vazia, sem gancho
-        </li>
-        <li style="padding:10px 14px; background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.15); border-radius:8px; font-size:0.9rem; color:#c0c0d8;">
-          Post 5 — "Rolê with my girl" / Score 32 — conteúdo pessoal sem valor para público de marketing
-        </li>
-        <li style="padding:10px 14px; background:rgba(239,68,68,0.05); border:1px solid rgba(239,68,68,0.15); border-radius:8px; font-size:0.9rem; color:#c0c0d8;">
-          Post 6 — "Viagem Praia Grande" — viagem misturada ao feed de marca, confunde posicionamento
-        </li>
-      </ul>
-    </div>
-
-    <div class="insight-list" style="margin-top:16px;">
-      <div class="insight-item" style="border-color:rgba(239,68,68,0.2);">
-        <div class="insight-num" style="background:rgba(239,68,68,0.12); color:#f87171;">1</div>
-        <p><strong>Conteúdo pessoal sem gancho</strong> misturado ao feed de marketing confunde o posicionamento e dilui o alcance.</p>
-      </div>
-      <div class="insight-item" style="border-color:rgba(239,68,68,0.2);">
-        <div class="insight-num" style="background:rgba(239,68,68,0.12); color:#f87171;">2</div>
-        <p><strong>Legendas vazias</strong> ("PG", "🔥") não dão motivo para parar, salvar ou comentar.</p>
-      </div>
-      <div class="insight-item" style="border-color:rgba(239,68,68,0.2);">
-        <div class="insight-num" style="background:rgba(239,68,68,0.12); color:#f87171;">3</div>
-        <p><strong>Reposts</strong> da agência e da namorada rendem menos quando o tema não é do interesse do público de marketing.</p>
-      </div>
-      <div class="insight-item" style="border-color:rgba(239,68,68,0.2);">
-        <div class="insight-num" style="background:rgba(239,68,68,0.12); color:#f87171;">4</div>
-        <p>Em resumo: falta <strong>clareza de para quem o post é</strong>, gancho nos primeiros segundos e CTA específico — exatamente o oposto dos melhores posts educativos.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRINCIPAIS INSIGHTS ESTRATÉGICOS -->
-  <section id="insights">
-    <div class="section-eyebrow">Insights Estratégicos</div>
-    <h2>10 principais achados</h2>
-
-    <div class="insight-list">
-      <div class="insight-item">
-        <div class="insight-num">1</div>
-        <p>O perfil fez uma <strong>virada de posicionamento completa em 15/mai/2025</strong> (de fé/pessoal para marketing) — clara, mas recente e ainda não consolidada.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">2</div>
-        <p>O engajamento atual é majoritariamente <strong>"social"</strong> (família, namorada, amigos), não de audiência qualificada conquistada pelo conteúdo.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">3</div>
-        <p>Os <strong>3 maiores picos vieram de fatores não-replicáveis</strong> (relacionamento, lançamento, felicitações) — não da força do conteúdo educativo.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">4</div>
-        <p>Reels educativos com <strong>pergunta no final</strong> são o formato/estrutura mais confiável dentro da nova fase.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">5</div>
-        <p>O tema <strong>"coragem de aparecer / se posicionar"</strong> é o que mais ressoa e merece ser explorado como pilar editorial.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">6</div>
-        <p>O <strong>link-in-bio é um ponto forte raro</strong>: próprio, profissional e com funil definido (WhatsApp + auditoria gratuita).</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">7</div>
-        <p>Os <strong>destaques estão totalmente desalinhados</strong> com a estratégia — são arquivos pessoais por ano, sem nenhuma função de conversão.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">8</div>
-        <p>O grid <strong>mistura conteúdo pessoal e reposts</strong> com conteúdo de marketing, enfraquecendo a percepção de autoridade.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">9</div>
-        <p>Não há <strong>nenhum carrossel educativo nem post de prova social/case</strong> — formatos que costumam gerar salvamentos e confiança.</p>
-      </div>
-      <div class="insight-item">
-        <div class="insight-num">10</div>
-        <p>A <strong>frequência atual é alta</strong> (~4–7 posts/semana), mas insustentável a longo prazo sem sistema — e ainda sem retorno proporcional em alcance novo.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- RECOMENDAÇÕES ESTRATÉGICAS -->
-  <section id="recomendacoes">
-    <div class="section-eyebrow">Recomendações Estratégicas</div>
-    <h2>Plano de ação</h2>
-
-    <div class="rec-group">
-      <h3>Curto prazo — próximas 4 semanas</h3>
-      <div class="rec-list">
-        <div class="rec-item short">
-          <div class="rec-num">1</div>
-          <div>Padronizar as capas dos Reels (mesma fonte, paleta e posição do texto) para criar reconhecimento imediato de marca no grid.</div>
-        </div>
-        <div class="rec-item short">
-          <div class="rec-num">2</div>
-          <div>Encerrar a mistura: parar de publicar conteúdo pessoal (viagens, relacionamento) no feed de marca e deslocá-lo para stories/close friends.</div>
-        </div>
-        <div class="rec-item short">
-          <div class="rec-num">3</div>
-          <div>Transformar a dor já revelada nos comentários ("preciso de ideias do que postar", "constância") em uma série de Reels práticos e salváveis.</div>
-        </div>
-        <div class="rec-item short">
-          <div class="rec-num">4</div>
-          <div>Em todo post educativo, fechar com uma pergunta específica e responder ativamente os comentários para gerar conversa (e novas pautas).</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-group">
-      <h3 style="color:var(--purple2);">Médio prazo — próximos 3 meses</h3>
-      <div class="rec-list">
-        <div class="rec-item">
-          <div class="rec-num" style="background:rgba(91,63,248,0.12); color:var(--purple2);">5</div>
-          <div>Reconstruir os destaques como funil: "Comece aqui", "A Auditoria gratuita", "Resultados/Cases", "Depoimentos" e "Bastidores", com capas padronizadas.</div>
-        </div>
-        <div class="rec-item">
-          <div class="rec-num" style="background:rgba(91,63,248,0.12); color:var(--purple2);">6</div>
-          <div>Buscar alcance fora da bolha: colaborações/Reels com outros perfis de empreendedorismo e participação em conteúdos de terceiros.</div>
-        </div>
-        <div class="rec-item">
-          <div class="rec-num" style="background:rgba(91,63,248,0.12); color:var(--purple2);">7</div>
-          <div>Criar uma esteira de prova social — depoimentos de clientes da Agência Logos e mini-cases — para sustentar a autoridade que a bio promete.</div>
-        </div>
-        <div class="rec-item">
-          <div class="rec-num" style="background:rgba(91,63,248,0.12); color:var(--purple2);">8</div>
-          <div>Refinar a bio para liderar com a <strong>auditoria gratuita</strong> (captura de baixa fricção) antes do WhatsApp (alto comprometimento), e adicionar prova social/número.</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="rec-group">
-      <h3 style="color:var(--cyan);">Experimentos a testar</h3>
-      <div class="rec-list">
-        <div class="rec-item">
-          <div class="rec-num" style="background:rgba(0,212,255,0.10); color:var(--cyan);">9</div>
-          <div>Testar <strong>carrosséis educativos</strong> (formato ainda inexplorado na fase marketing) — tendem a gerar mais salvamentos e tempo de tela, sinais que o algoritmo valoriza.</div>
-        </div>
-        <div class="rec-item">
-          <div class="rec-num" style="background:rgba(0,212,255,0.10); color:var(--cyan);">10</div>
-          <div>Testar o pilar <strong>"coragem de aparecer / medo de se expor"</strong> como série recorrente — foi o tema que mais ressoou (posts 11 e 17) e tem forte apelo emocional para o público-alvo.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- QUICK WINS -->
-  <section id="quick-wins">
-    <div class="section-eyebrow">Quick Wins</div>
-    <h2>Ações de impacto imediato</h2>
-
-    <div class="qw-list">
-      <div class="qw-item">
-        <div class="qw-icon">
-          <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-        </div>
-        <div>Trocar os <strong>destaques pessoais por destaques estratégicos</strong> (mesmo que reaproveitando conteúdo já postado) — impacto imediato na conversão de quem visita o perfil.</div>
-      </div>
-      <div class="qw-item">
-        <div class="qw-icon">
-          <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3l14 9-14 9V3z"/></svg>
-        </div>
-        <div>Fixar no topo do grid os <strong>2–3 melhores Reels educativos</strong> (posts 11, 12 e 8), em vez de conteúdo pessoal, para causar a primeira impressão certa.</div>
-      </div>
-      <div class="qw-item">
-        <div class="qw-icon">
-          <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        </div>
-        <div><strong>Padronizar as capas dos próximos Reels</strong> — ganho de profissionalismo sem custo de produção.</div>
-      </div>
-      <div class="qw-item">
-        <div class="qw-icon">
-          <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-        </div>
-        <div>Adicionar <strong>"para quem"</strong> na bio: ex: "ajudo donos de pequenos negócios a aparecer e vender no Instagram".</div>
-      </div>
-      <div class="qw-item">
-        <div class="qw-icon">
-          <svg fill="none" stroke="#F5C842" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-        </div>
-        <div>Responder com <strong>texto (não só emoji)</strong> os comentários que demonstram dor/interesse, transformando-os em ganchos para os próximos posts.</div>
-      </div>
-    </div>
-  </section>
-
+</div>
 </main>
 
-<!-- ─────── FOOTER ─────── -->
-<footer>
-  <p>Auditoria gerada em <strong>22 de junho de 2026</strong></p>
-  <p style="margin-top:6px; font-size:0.75rem;">@rapha_mmbb · Análise histórica de 25 posts · Mai/2022–Jun/2025 · <strong>Agência Logos</strong></p>
-</footer>
+<div class="footer-note">
+  <div class="wrap">
+    Metodologia: score = curtidas + (comentários × 3). Posts com curtidas ocultas seriam excluídos do score (nenhum caso encontrado nesta amostra). Datas de publicação são aproximadas, calculadas a partir do indicador "há X semanas" do Instagram no momento da coleta (28/08/2026). Perfil auditado tem 78 posts — os blocos temporais foram redimensionados de 30/30/30 para 30/30/18 para refletir o total real.
+  </div>
+</div>
 
-<script>
-  // Count-up animation
-  function countUp(el, target, duration = 1200) {
-    const start = performance.now();
-    const update = (now) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(eased * target);
-      if (progress < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
-
-  // IntersectionObserver for fade-in and count-up
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-
-        // count-up on data-count elements
-        entry.target.querySelectorAll('[data-count]').forEach(el => {
-          countUp(el, parseInt(el.dataset.count));
-        });
-
-        // progress bars
-        entry.target.querySelectorAll('.progress-fill[data-width]').forEach(el => {
-          setTimeout(() => { el.style.width = el.dataset.width + '%'; }, 200);
-        });
-
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12 });
-
-  document.querySelectorAll('section').forEach(s => io.observe(s));
-
-  // Also trigger count-up in hero on load
-  window.addEventListener('load', () => {
-    document.querySelectorAll('.hero [data-count]').forEach(el => {
-      countUp(el, parseInt(el.dataset.count));
-    });
-    // hero score special
-    const scoreEl = document.querySelector('.score-num[data-count]');
-    if (scoreEl) countUp(scoreEl, parseInt(scoreEl.dataset.count));
-  });
-</script>
 </body>
 </html>
